@@ -1,30 +1,35 @@
 {
   "name": "abacus",
+  "version": "0.0.1",
   "author": "Automattic Inc.",
   "description": "Automattic's Experimentation Platform UI",
-  "version": "0.0.1",
   "license": "GPL-2.0-or-later",
   "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/Automattic/abacus.git"
   },
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "type-check": "tsc"
-  },
   "dependencies": {
-    "isomorphic-unfetch": "3.0.0",
-    "next": "^9.3.4",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.3.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@types/node": "^12.12.21",
-    "@types/react": "^16.9.16",
-    "@types/react-dom": "^16.9.4",
-    "typescript": "3.7.3"
+    "@types/node": "^13.13.1",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "start": "next start",
+    "type-check": "tsc"
   }
 }
