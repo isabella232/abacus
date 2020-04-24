@@ -57,3 +57,17 @@ npm run lint:js:fix
 ### Pre-Commit Hooks
 
 Pre-commit hooks have been put in place via `husky` which will run the `precommit` NPM script. This script runs `lint-staged` but could be used to run different or more commands. The `lint-staged` command will run commands on only the staged files of the commit according to the configuration. The `lint-staged` configuration is in `package.json`.
+
+### Testing
+
+**test:unit**
+
+Runs the unit tests with Jest.
+
+The unit tests are found throughout the project excluding tests in the `__tests__` and `e2e` directory. (Tests in those directories are for integration and end-to-end tests.)
+
+```sh
+npm run test:unit
+npm run test:unit -- --coverage
+npm run test:unit -- --watch
+```
