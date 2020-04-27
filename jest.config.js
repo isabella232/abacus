@@ -1,4 +1,13 @@
 module.exports = {
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
+
   globals: {
     // Must specify a custom tsconfig for tests because we need the TypeScript
     // transform to transform JSX into js rather than leaving it as JSX which the
@@ -9,9 +18,7 @@ module.exports = {
   },
   preset: 'ts-jest',
   // Adds special extended assertions to Jest, thus simplifying the tests.
-  setupFilesAfterEnv: [
-    '@testing-library/jest-dom/extend-expect',
-  ],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
