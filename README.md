@@ -10,6 +10,14 @@ Run `npm install` to install dependencies, then run one of the following command
 - `npm run build`: Builds the app for production.
 - `npm start`: Runs the built app in production mode.
 
+### Update System Host File
+
+In order for our OAuth authorization to work, it needs to be given a redirect URI that has been declared as acceptable. In order to aid with using the site locally, add the following DNS mapping to your system's host file.
+
+```
+127.0.0.1 a8c-abacus-local
+```
+
 ## Scripts
 
 All the scripts for this project are initiated via npm scripts. Please see the `"scripts"` section in `package.json`.
@@ -114,6 +122,21 @@ npm run test:e2e
 # Run just the E2E smoke tests (intended to be used in development for quick iterations)
 npm run test:e2e:smoke
 ```
+
+For debugging, you'll likely want to run with a full visual browser. To do that:
+
+1. Create a `.env` file at the project's root if it does not already exist. You can copy the `.env.example` file as an initial template.
+2. Add `PUPPETEER_HEADLESS=false`
+
+This will cause the E2E tests to run in a browser that can be visually seen.
+
+See https://developers.google.com/web/tools/puppeteer/debugging for more debugging tips.
+
+## Testing Auth Flow
+
+Besides the automated unit tests and E2E tests, there is sometimes a need for manual intervention due to factors not acceptable in during automation, e.g., waiting for an access token to naturally expire to ensure the user is re-prompted to authenticate and authorize.
+
+Once a user is authenticated and they authorize Abacus to have access, we save the authorization info in local storage under the key `abacus_auth_info`. To simulate using Abacus on a new browser or the access token expiring, you can remove this item from local storage using the Chrome devtools > Application tab.
 
 ### Verification
 

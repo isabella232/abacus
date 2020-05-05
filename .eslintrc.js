@@ -46,7 +46,9 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint'],
   rules: {
-    camelcase: ['error', { allow: ['_unused$'] }],
+    // Off because favoring @typescript-eslint/naming-convention instead.
+    camelcase: 'off',
+
     'comma-dangle': [
       'error',
       {
@@ -67,7 +69,49 @@ module.exports = {
     // Off because we are using TypeScript which expects us to declare the props.
     'react/prop-types': 'off',
 
+    // Off because it is deprecated and favoring @typescript-eslint/naming-convention
+    // instead.
+    '@typescript-eslint/camelcase': 'off',
+
     '@typescript-eslint/explicit-function-return-type': 'off',
+
+    // The Experiment API uses snake_case, so we decided to disable enforcing
+    // camelcase.
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'default',
+        format: ['strictCamelCase'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'function',
+        format: ['strictCamelCase', 'StrictPascalCase'],
+      },
+      {
+        selector: 'parameter',
+        format: ['strictCamelCase'],
+      },
+      {
+        selector: 'property',
+        format: ['snake_case', 'strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
+      },
+      {
+        selector: 'variable',
+        format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
+      },
+      {
+        selector: 'memberLike',
+        modifiers: ['private'],
+        format: ['strictCamelCase'],
+        leadingUnderscore: 'require',
+      },
+      {
+        selector: 'typeLike',
+        format: ['StrictPascalCase'],
+      },
+    ],
 
     '@typescript-eslint/no-unused-vars': 'error',
   },
