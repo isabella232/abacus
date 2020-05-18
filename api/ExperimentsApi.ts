@@ -21,16 +21,19 @@ function resolveApiUrlRoot() {
 async function findAll(): Promise<ExperimentBare[]> {
   const apiUrlRoot = resolveApiUrlRoot()
 
-  const accessToken = getExperimentsAuthInfo()?.accessToken
-  if (!accessToken) {
-    throw new UnauthorizedError()
+  let headers
+  if (apiUrlRoot === PRODUCTION_API_URL_ROOT) {
+    const accessToken = getExperimentsAuthInfo()?.accessToken
+    if (!accessToken) {
+      throw new UnauthorizedError()
+    }
+    headers = new Headers({ Authorization: `Bearer ${accessToken}` })
   }
 
   const fetchUrl = `${apiUrlRoot}/experiments`
   return fetch(fetchUrl, {
     method: 'GET',
-    headers:
-      apiUrlRoot === PRODUCTION_API_URL_ROOT ? new Headers({ Authorization: `Bearer ${accessToken}` }) : undefined,
+    headers: headers,
   })
     .then((response) => response.json())
     .then((result) => result.experiments.map((apiData: ApiData) => new ExperimentBare(apiData)))
