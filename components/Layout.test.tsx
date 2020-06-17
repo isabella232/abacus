@@ -20,7 +20,7 @@ test('renders layout with declared title and children', () => {
   // new links, are being tested.
   expect(headerElmt).toMatchInlineSnapshot(`
     <header
-      class="MuiPaper-root MuiAppBar-root MuiAppBar-positionRelative MuiAppBar-colorInherit MuiPaper-elevation4"
+      class="MuiPaper-root MuiAppBar-root MuiAppBar-positionRelative MuiAppBar-colorPrimary MuiPaper-elevation4"
     >
       <div
         class="top"
@@ -110,5 +110,5 @@ test('renders an error when it is passed in', () => {
     </Layout>,
   )
 
-  expect(container.querySelector('.error-box')).toHaveTextContent('An error occurred')
+  expect(container.querySelector('.error-box_js')).toHaveTextContent('An error occurred')
 })
