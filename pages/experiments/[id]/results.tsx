@@ -11,6 +11,7 @@ import ExperimentResults from '@/components/experiment-results/ExperimentResults
 import ExperimentTabs from '@/components/ExperimentTabs'
 import Layout from '@/components/Layout'
 import { Analysis, ExperimentFull, MetricBare } from '@/models'
+import { useDataLoadingError } from '@/utils/data-loading'
 
 const debug = debugFactory('abacus:pages/experiments/[id]/results.tsx')
 
@@ -42,8 +43,10 @@ export default function ResultsPage() {
       .finally(() => setIsLoading(false))
   }, [experimentId])
 
+  useDataLoadingError(error)
+
   return (
-    <Layout title={`Experiment: ${experiment?.name || ''}`} error={error}>
+    <Layout title={`Experiment: ${experiment?.name || ''}`}>
       {isLoading ? (
         <LinearProgress />
       ) : (
