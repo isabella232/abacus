@@ -474,6 +474,7 @@ describe('models/ExperimentFull.ts module', () => {
     it('should return a new experiment', () => {
       expect(createNewExperiment()).toEqual({
         metricAssignments: [],
+        platform: 'wpcom',
         segmentAssignments: [],
         variations: [],
       })

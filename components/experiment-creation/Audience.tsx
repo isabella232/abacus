@@ -86,7 +86,7 @@ const SegmentsAutocomplete = (props: AutocompleteProps<Segment, true, false, fal
     },
     [setFieldValue, name],
   )
-  const value = (outerValue as SegmentAssignmentNew[]).map(segmentAssignmentToSegment)
+  const value = outerValue && (outerValue as SegmentAssignmentNew[]).map(segmentAssignmentToSegment)
 
   return (
     <Autocomplete
@@ -151,7 +151,7 @@ const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
       </div>
       <div className={classes.row}>
         <FormControl component='fieldset'>
-          <FormLabel>Segmentation</FormLabel>
+          <FormLabel htmlFor='segments-select'>Segmentation</FormLabel>
           <FormHelperText className={classes.segmentationHelperText}>
             Optionally, add segmentation to your experiment
           </FormHelperText>
@@ -164,6 +164,7 @@ const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
             renderInput={(params: AutocompleteRenderInputParams) => (
               <TextField {...params} variant='outlined' placeholder='Segments' />
             )}
+            id='segments-select'
           />
         </FormControl>
       </div>
