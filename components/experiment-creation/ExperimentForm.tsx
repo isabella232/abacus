@@ -8,6 +8,7 @@ import React from 'react'
 
 import { ExperimentFull, MetricBare, Segment } from '@/models'
 
+import Audience from './Audience'
 import BasicInfo from './BasicInfo'
 import Beginning from './Beginning'
 
@@ -37,13 +38,16 @@ const ExperimentForm = ({
   return (
     <div className={classes.root}>
       <Formik initialValues={{ experiment: initialExperiment }} onSubmit={(v) => alert(JSON.stringify(v, null, 2))}>
-        {({ handleSubmit }) => (
+        {({ handleSubmit, isSubmitting }) => (
           <form onSubmit={handleSubmit}>
             <Paper className={classes.formPart}>
               <Beginning />
             </Paper>
             <Paper className={classes.formPart}>
               <BasicInfo />
+            </Paper>
+            <Paper className={classes.formPart}>
+              <Audience isSubmitting={isSubmitting} />
             </Paper>
             <Button type='submit' variant='contained'>
               Submit

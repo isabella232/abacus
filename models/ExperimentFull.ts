@@ -253,6 +253,7 @@ export class ExperimentFull implements ApiDataSource {
 
 export function createNewExperiment(): Partial<ExperimentFull> {
   return ({
+    platform: Platform.Wpcom,
     metricAssignments: [],
     segmentAssignments: [],
     variations: [],
