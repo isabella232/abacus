@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
     segmentationHelperText: {
       marginBottom: theme.spacing(2),
     },
+    segmentationFieldSet: {
+      width: '100%',
+    },
   }),
 )
 
@@ -150,7 +153,7 @@ const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
         </FormControl>
       </div>
       <div className={classes.row}>
-        <FormControl component='fieldset'>
+        <FormControl component='fieldset' className={classes.segmentationFieldSet}>
           <FormLabel htmlFor='segments-select'>Segmentation</FormLabel>
           <FormHelperText className={classes.segmentationHelperText}>
             Optionally, add segmentation to your experiment
@@ -164,6 +167,7 @@ const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
             renderInput={(params: AutocompleteRenderInputParams) => (
               <TextField {...params} variant='outlined' placeholder='Segments' />
             )}
+            fullWidth
             id='segments-select'
           />
         </FormControl>
