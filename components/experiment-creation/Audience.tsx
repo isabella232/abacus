@@ -9,12 +9,13 @@ import {
   Typography,
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import { Field } from 'formik'
 import { RadioGroup, Select } from 'formik-material-ui'
-import { Autocomplete, AutocompleteRenderInputParams } from 'formik-material-ui-lab'
+import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
 import React from 'react'
 
-import { Platform, Segment, SegmentType } from '@/models'
+import { Platform, SegmentAssignment, SegmentType } from '@/models'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,13 +46,58 @@ const SegmentTypeToHuman: Record<SegmentType, string> = {
   [SegmentType.Locale]: 'Locale',
 }
 
+// TODO: Fix this reference after Schema
+type Segment = {
+  segmentId: number
+  name: string
+  type: SegmentType
+}
+type SegmentAssignmentNew = Pick<SegmentAssignment, 'segmentId' | 'isExcluded'>
+
 // TODO: Populate these properly
-const segments = [
-  { segmentId: 1, name: 'us', type: SegmentType.Country },
-  { segmentId: 2, name: 'au', type: SegmentType.Country },
-  { segmentId: 3, name: 'en-US', type: SegmentType.Locale },
-  { segmentId: 4, name: 'en-AU', type: SegmentType.Locale },
-]
+const segments: Record<number, Segment> = {
+  1: { segmentId: 1, name: 'us', type: SegmentType.Country },
+  2: { segmentId: 2, name: 'au', type: SegmentType.Country },
+  3: { segmentId: 3, name: 'en-US', type: SegmentType.Locale },
+  4: { segmentId: 4, name: 'en-AU', type: SegmentType.Locale },
+}
+
+const SegmentsAutocomplete = (props: AutocompleteProps<Segment, true, false, false>) => {
+  const {
+    form: { setFieldValue },
+    field: { name, value: outerValue },
+  } = props
+
+  // Here we translate SegmentAssignment (outside) <-> Segment (inside)
+  const segmentAssignmentToSegment = (segmentAssignment: SegmentAssignmentNew) => {
+    const segment = segments[segmentAssignment.segmentId]
+    if (!segment) {
+      throw new Error('Could not find segment with specified segmentId.')
+    }
+    return segment
+  }
+  const segmentToSegmentAssignment = (segment: Segment): SegmentAssignmentNew => ({
+    segmentId: segment.segmentId,
+    isExcluded: false,
+  })
+  const onChange = React.useCallback(
+    (_event, value: Segment[]) => {
+      setFieldValue(name, value.map(segmentToSegmentAssignment))
+    },
+    [setFieldValue, name],
+  )
+  const value = (outerValue as SegmentAssignmentNew[]).map(segmentAssignmentToSegment)
+
+  return (
+    <Autocomplete
+      {...fieldToAutocomplete(props)}
+      multiple={true}
+      onChange={onChange}
+      value={value}
+      getOptionLabel={({ name, type }: Pick<Segment, 'name' | 'type'>) => `${SegmentTypeToHuman[type]}: ${name}`}
+    />
+  )
+}
 
 const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
   const classes = useStyles()
@@ -110,12 +156,10 @@ const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
             Optionally, add segmentation to your experiment
           </FormHelperText>
           <Field
-            name='experiment.segments'
-            component={Autocomplete}
-            multiple
-            options={segments}
+            name='experiment.segmentAssignments'
+            component={SegmentsAutocomplete}
+            options={Object.values(segments)}
             // Fix these types after Schema
-            getOptionLabel={({ name, type }: Pick<Segment, 'name' | 'type'>) => `${SegmentTypeToHuman[type]}: ${name}`}
             // TODO: Error state, see https://stackworx.github.io/formik-material-ui/docs/api/material-ui-lab
             renderInput={(params: AutocompleteRenderInputParams) => (
               <TextField {...params} variant='outlined' placeholder='Segments' />
