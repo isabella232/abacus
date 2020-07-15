@@ -1,7 +1,7 @@
 import Fixtures from '@/helpers/fixtures'
 import { AnalysisStrategy, AttributionWindowSeconds, Platform, Status, Variation } from '@/models'
 
-import { createNewExperiment, ExperimentFull } from './ExperimentFull'
+import { createNewExperiment, DefaultVariationKey, ExperimentFull } from './ExperimentFull'
 
 describe('models/ExperimentFull.ts module', () => {
   describe('ExperimentFull', () => {
@@ -476,7 +476,10 @@ describe('models/ExperimentFull.ts module', () => {
         metricAssignments: [],
         platform: 'wpcom',
         segmentAssignments: [],
-        variations: [],
+        variations: [
+          { name: 'control', isDefault: true, allocatedPercentage: 50, key: DefaultVariationKey.Control },
+          { name: 'treatment', isDefault: false, allocatedPercentage: 50, key: DefaultVariationKey.Treatment },
+        ],
       })
     })
   })

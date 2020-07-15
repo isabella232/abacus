@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders as expected 1`] = `
-<body>
+<div>
   <div
     class="makeStyles-root-1"
   >
@@ -95,19 +95,19 @@ exports[`renders as expected 1`] = `
           >
             <span
               aria-disabled="false"
-              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
             >
               <span
                 class="MuiIconButton-label"
               >
                 <input
-                  class="PrivateSwitchBase-input-7"
+                  class="PrivateSwitchBase-input-9"
                   name="experiment.existingUsersAllowed"
                   type="radio"
                   value="false"
                 />
                 <div
-                  class="PrivateRadioButtonIcon-root-8"
+                  class="PrivateRadioButtonIcon-root-10"
                 >
                   <svg
                     aria-hidden="true"
@@ -121,7 +121,7 @@ exports[`renders as expected 1`] = `
                   </svg>
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-9"
+                    class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-11"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
@@ -146,19 +146,19 @@ exports[`renders as expected 1`] = `
           >
             <span
               aria-disabled="false"
-              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
             >
               <span
                 class="MuiIconButton-label"
               >
                 <input
-                  class="PrivateSwitchBase-input-7"
+                  class="PrivateSwitchBase-input-9"
                   name="experiment.existingUsersAllowed"
                   type="radio"
                   value="true"
                 />
                 <div
-                  class="PrivateRadioButtonIcon-root-8"
+                  class="PrivateRadioButtonIcon-root-10"
                 >
                   <svg
                     aria-hidden="true"
@@ -172,7 +172,7 @@ exports[`renders as expected 1`] = `
                   </svg>
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-9"
+                    class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-11"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
@@ -199,7 +199,7 @@ exports[`renders as expected 1`] = `
       class="makeStyles-row-2"
     >
       <fieldset
-        class="MuiFormControl-root"
+        class="MuiFormControl-root makeStyles-segmentationFieldSet-4"
       >
         <label
           class="MuiFormLabel-root"
@@ -214,7 +214,7 @@ exports[`renders as expected 1`] = `
         </p>
         <div
           aria-expanded="false"
-          class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+          class="MuiAutocomplete-root MuiAutocomplete-fullWidth MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
           name="experiment.segmentAssignments"
           role="combobox"
         >
@@ -292,11 +292,11 @@ exports[`renders as expected 1`] = `
               </div>
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-11 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-13 MuiOutlinedInput-notchedOutline"
                 style="padding-left: 8px;"
               >
                 <legend
-                  class="PrivateNotchedOutline-legend-12"
+                  class="PrivateNotchedOutline-legend-14"
                   style="width: 0.01px;"
                 >
                   <span>
@@ -309,6 +309,58 @@ exports[`renders as expected 1`] = `
         </div>
       </fieldset>
     </div>
+    <div
+      class="makeStyles-row-2"
+    >
+      <fieldset
+        class="MuiFormControl-root makeStyles-segmentationFieldSet-4"
+      >
+        <label
+          class="MuiFormLabel-root"
+          for="variations-select"
+        >
+          Variations
+        </label>
+        <p
+          class="MuiFormHelperText-root makeStyles-segmentationHelperText-3"
+        >
+          Define the percentages to include in the experiment.
+          <br />
+          Use “control” for the default (fallback) experience.
+        </p>
+        <div
+          class="MuiTableContainer-root"
+        >
+          <table
+            class="MuiTable-root"
+          >
+            <thead
+              class="MuiTableHead-root"
+            >
+              <tr
+                class="MuiTableRow-root MuiTableRow-head"
+              >
+                <th
+                  class="MuiTableCell-root MuiTableCell-head"
+                  scope="col"
+                >
+                   Name 
+                </th>
+                <th
+                  class="MuiTableCell-root MuiTableCell-head"
+                  scope="col"
+                >
+                   Allocated Percentage 
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="MuiTableBody-root"
+            />
+          </table>
+        </div>
+      </fieldset>
+    </div>
   </div>
-</body>
+</div>
 `;

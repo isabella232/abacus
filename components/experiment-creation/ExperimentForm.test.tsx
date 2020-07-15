@@ -457,19 +457,19 @@ test('renders as expected', () => {
                     >
                       <span
                         aria-disabled="false"
-                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                       >
                         <span
                           class="MuiIconButton-label"
                         >
                           <input
-                            class="PrivateSwitchBase-input-22"
+                            class="PrivateSwitchBase-input-24"
                             name="experiment.existingUsersAllowed"
                             type="radio"
                             value="false"
                           />
                           <div
-                            class="PrivateRadioButtonIcon-root-23"
+                            class="PrivateRadioButtonIcon-root-25"
                           >
                             <svg
                               aria-hidden="true"
@@ -483,7 +483,7 @@ test('renders as expected', () => {
                             </svg>
                             <svg
                               aria-hidden="true"
-                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-24"
+                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
                               focusable="false"
                               viewBox="0 0 24 24"
                             >
@@ -508,19 +508,19 @@ test('renders as expected', () => {
                     >
                       <span
                         aria-disabled="false"
-                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                       >
                         <span
                           class="MuiIconButton-label"
                         >
                           <input
-                            class="PrivateSwitchBase-input-22"
+                            class="PrivateSwitchBase-input-24"
                             name="experiment.existingUsersAllowed"
                             type="radio"
                             value="true"
                           />
                           <div
-                            class="PrivateRadioButtonIcon-root-23"
+                            class="PrivateRadioButtonIcon-root-25"
                           >
                             <svg
                               aria-hidden="true"
@@ -534,7 +534,7 @@ test('renders as expected', () => {
                             </svg>
                             <svg
                               aria-hidden="true"
-                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-24"
+                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
                               focusable="false"
                               viewBox="0 0 24 24"
                             >
@@ -561,7 +561,7 @@ test('renders as expected', () => {
                 class="makeStyles-row-17"
               >
                 <fieldset
-                  class="MuiFormControl-root"
+                  class="MuiFormControl-root makeStyles-segmentationFieldSet-19"
                 >
                   <label
                     class="MuiFormLabel-root"
@@ -576,7 +576,7 @@ test('renders as expected', () => {
                   </p>
                   <div
                     aria-expanded="false"
-                    class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+                    class="MuiAutocomplete-root MuiAutocomplete-fullWidth MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
                     name="experiment.segmentAssignments"
                     role="combobox"
                   >
@@ -668,6 +668,58 @@ test('renders as expected', () => {
                         </fieldset>
                       </div>
                     </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div
+                class="makeStyles-row-17"
+              >
+                <fieldset
+                  class="MuiFormControl-root makeStyles-segmentationFieldSet-19"
+                >
+                  <label
+                    class="MuiFormLabel-root"
+                    for="variations-select"
+                  >
+                    Variations
+                  </label>
+                  <p
+                    class="MuiFormHelperText-root makeStyles-segmentationHelperText-18"
+                  >
+                    Define the percentages to include in the experiment.
+                    <br />
+                    Use “control” for the default (fallback) experience.
+                  </p>
+                  <div
+                    class="MuiTableContainer-root"
+                  >
+                    <table
+                      class="MuiTable-root"
+                    >
+                      <thead
+                        class="MuiTableHead-root"
+                      >
+                        <tr
+                          class="MuiTableRow-root MuiTableRow-head"
+                        >
+                          <th
+                            class="MuiTableCell-root MuiTableCell-head"
+                            scope="col"
+                          >
+                             Name 
+                          </th>
+                          <th
+                            class="MuiTableCell-root MuiTableCell-head"
+                            scope="col"
+                          >
+                             Allocated Percentage 
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody
+                        class="MuiTableBody-root"
+                      />
+                    </table>
                   </div>
                 </fieldset>
               </div>

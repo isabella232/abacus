@@ -1,7 +1,9 @@
 /* eslint-disable no-irregular-whitespace */
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { Formik } from 'formik'
+import { Formik, FormikProps } from 'formik'
 import React from 'react'
+
+import { ExperimentFull } from '@/models'
 
 import Audience from './Audience'
 
@@ -14,7 +16,7 @@ test('renders as expected', async () => {
         () => undefined
       }
     >
-      <Audience isSubmitting={false} />
+      {(formikProps: FormikProps<{ experiment: Partial<ExperimentFull> }>) => <Audience formikProps={formikProps} />}
     </Formik>,
   )
   expect(container).toMatchSnapshot()
