@@ -251,12 +251,20 @@ export class ExperimentFull implements ApiDataSource {
   }
 }
 
+export enum DefaultVariationKey {
+  Control = 'control',
+  Treatment = 'treatment',
+}
+
 export function createNewExperiment(): Partial<ExperimentFull> {
   return ({
     platform: Platform.Wpcom,
     metricAssignments: [],
     segmentAssignments: [],
-    variations: [],
+    variations: [
+      { name: 'control', isDefault: true, allocatedPercentage: 50, key: DefaultVariationKey.Control },
+      { name: 'treatment', isDefault: false, allocatedPercentage: 50, key: DefaultVariationKey.Treatment },
+    ],
     // TODO: Remove this once schemas are in
   } as unknown) as Partial<ExperimentFull>
 }

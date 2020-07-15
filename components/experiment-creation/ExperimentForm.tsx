@@ -38,8 +38,8 @@ const ExperimentForm = ({
   return (
     <div className={classes.root}>
       <Formik initialValues={{ experiment: initialExperiment }} onSubmit={(v) => alert(JSON.stringify(v, null, 2))}>
-        {({ handleSubmit, isSubmitting }) => (
-          <form onSubmit={handleSubmit}>
+        {(formikProps) => (
+          <form onSubmit={formikProps.handleSubmit}>
             <Paper className={classes.formPart}>
               <Beginning />
             </Paper>
@@ -47,7 +47,7 @@ const ExperimentForm = ({
               <BasicInfo />
             </Paper>
             <Paper className={classes.formPart}>
-              <Audience isSubmitting={isSubmitting} />
+              <Audience formikProps={formikProps} />
             </Paper>
             <Button type='submit' variant='contained'>
               Submit

@@ -1,21 +1,32 @@
 import {
+  Button,
   FormControl,
   FormControlLabel,
   FormHelperText,
   FormLabel,
+  InputAdornment,
   MenuItem,
   Radio,
-  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField as MuiTextField,
   Typography,
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import { Field } from 'formik'
-import { RadioGroup, Select } from 'formik-material-ui'
+import { Field, FieldArray, FormikProps } from 'formik'
+import { RadioGroup, Select, TextField as FormikMuiTextField } from 'formik-material-ui'
 import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
 import React from 'react'
 
-import { Platform, SegmentAssignment, SegmentType } from '@/models'
+import { DefaultVariationKey, ExperimentFull, Platform, SegmentAssignment, SegmentType } from '@/models'
+
+// TODO: Add to feature flag object
+const ALLOW_ADDITIONAL_VARIATIONS = false
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +45,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     segmentationFieldSet: {
       width: '100%',
+    },
+    variationAllocatedPercentage: {
+      width: '7rem',
     },
   }),
 )
@@ -102,7 +116,17 @@ const SegmentsAutocomplete = (props: AutocompleteProps<Segment, true, false, fal
   )
 }
 
-const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
+const newVariation = () => {
+  const time = new Date().getTime()
+  return {
+    name: `treatment_${time}`,
+    isDefault: false,
+    allocatedPercentage: 0,
+    key: time,
+  }
+}
+
+const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Partial<ExperimentFull> }> }) => {
   const classes = useStyles()
 
   return (
@@ -140,14 +164,14 @@ const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
             <FormControlLabel
               value='false'
               label='New users only'
-              control={<Radio disabled={isSubmitting} />}
-              disabled={isSubmitting}
+              control={<Radio disabled={formikProps.isSubmitting} />}
+              disabled={formikProps.isSubmitting}
             />
             <FormControlLabel
               value='true'
               label='All users (new + existing)'
-              control={<Radio disabled={isSubmitting} />}
-              disabled={isSubmitting}
+              control={<Radio disabled={formikProps.isSubmitting} />}
+              disabled={formikProps.isSubmitting}
             />
           </Field>
         </FormControl>
@@ -165,10 +189,86 @@ const Audience = ({ isSubmitting }: { isSubmitting: boolean }) => {
             // Fix these types after Schema
             // TODO: Error state, see https://stackworx.github.io/formik-material-ui/docs/api/material-ui-lab
             renderInput={(params: AutocompleteRenderInputParams) => (
-              <TextField {...params} variant='outlined' placeholder='Segments' />
+              <MuiTextField {...params} variant='outlined' placeholder='Segments' />
             )}
             fullWidth
             id='segments-select'
+          />
+        </FormControl>
+      </div>
+      <div className={classes.row}>
+        <FormControl component='fieldset' className={classes.segmentationFieldSet}>
+          <FormLabel htmlFor='variations-select'>Variations</FormLabel>
+          <FormHelperText className={classes.segmentationHelperText}>
+            Define the percentages to include in the experiment.
+            <br />
+            Use &ldquo;control&rdquo; for the default (fallback) experience.
+          </FormHelperText>
+          <FieldArray
+            name='experiment.variations'
+            render={(arrayHelpers) => (
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell> Name </TableCell>
+                      <TableCell> Allocated Percentage </TableCell>
+                      {ALLOW_ADDITIONAL_VARIATIONS && <TableCell></TableCell>}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {formikProps.values.experiment.variations?.map((variation, idx) => {
+                      const key = ((variation as unknown) as { key: DefaultVariationKey }).key
+                      const isDefaultVariation = Object.values(DefaultVariationKey).includes(key)
+
+                      return (
+                        // TODO: Fix after schema
+                        <TableRow key={key}>
+                          <TableCell>
+                            {isDefaultVariation ? (
+                              variation.name
+                            ) : (
+                              <Field
+                                component={FormikMuiTextField}
+                                name={`experiment.variations[${idx}].name`}
+                                size='small'
+                                variant='outlined'
+                                required
+                              />
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <Field
+                              className={classes.variationAllocatedPercentage}
+                              component={FormikMuiTextField}
+                              name={`experiment.variations[${idx}].allocatedPercentage`}
+                              type='number'
+                              size='small'
+                              variant='outlined'
+                              inputProps={{ min: 1, max: 99 }}
+                              required
+                              InputProps={{
+                                endAdornment: <InputAdornment position='end'>%</InputAdornment>,
+                              }}
+                            />
+                          </TableCell>
+                          {ALLOW_ADDITIONAL_VARIATIONS && (
+                            <TableCell>
+                              {!Object.values(DefaultVariationKey).includes(
+                                ((variation as unknown) as { key: DefaultVariationKey }).key,
+                              ) && <Button onClick={() => arrayHelpers.remove(idx)}>Remove</Button>}
+                            </TableCell>
+                          )}
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+                {ALLOW_ADDITIONAL_VARIATIONS && (
+                  <Button onClick={() => arrayHelpers.push(newVariation())}>Add Variation</Button>
+                )}
+              </TableContainer>
+            )}
           />
         </FormControl>
       </div>
