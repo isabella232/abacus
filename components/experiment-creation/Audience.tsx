@@ -170,7 +170,9 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
         <FormControl component='fieldset' className={classes.segmentationFieldSet}>
           <FormLabel htmlFor='segments-select'>Segmentation</FormLabel>
           <FormHelperText className={classes.segmentationHelperText}>
-            Optionally, add segmentation to your experiment
+            Who should see this experiment?
+            <br />
+            Add optional segments to target specific audiences
           </FormHelperText>
           <Field
             name='experiment.segmentAssignments'
@@ -178,7 +180,7 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
             options={Object.values(segments)}
             // TODO: Error state, see https://stackworx.github.io/formik-material-ui/docs/api/material-ui-lab
             renderInput={(params: AutocompleteRenderInputParams) => (
-              <MuiTextField {...params} variant='outlined' placeholder='Segments' />
+              <MuiTextField {...params} variant='outlined' placeholder='Search and select to customize' />
             )}
             fullWidth
             id='segments-select'
