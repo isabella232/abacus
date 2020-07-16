@@ -15,7 +15,7 @@ import MaterialTable from 'material-table'
 import React from 'react'
 
 import MetricsApi from '@/api/MetricsApi'
-import { MetricBare } from '@/models'
+import { MetricBare } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { formatBoolean } from '@/utils/formatters'
 import { defaultTableOptions } from '@/utils/material-table'

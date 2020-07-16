@@ -1,15 +1,12 @@
 import ExperimentsApi from '@/api/ExperimentsApi'
-import { ExperimentFull, Platform, Status } from '@/models'
-
-const PLATFORMS = Object.values(Platform)
-const STATUSES = Object.values(Status)
+import { validationErrorDisplayer } from '@/helpers/test-utils'
+import { Platform, Status } from '@/lib/schemas'
 
 describe('ExperimentsApi.ts module', () => {
   describe('create', () => {
     it('should create a new experiment', async () => {
-      const newExperiment = await ExperimentsApi.create(
-        new ExperimentFull({
-          experimentId: null,
+      const experiment = await validationErrorDisplayer(
+        ExperimentsApi.create({
           name: 'my_experiment',
           startDatetime: new Date(Date.UTC(2020, 4, 1)),
           endDatetime: new Date(Date.UTC(2020, 4, 4)),
@@ -24,52 +21,21 @@ describe('ExperimentsApi.ts module', () => {
           metricAssignments: [],
         }),
       )
-      // We expect that the response will return the new experiment with its newly
-      // assigned ID. These integration tests test against the "development" API which
-      // only returns mock data. So, instead of trying to keep in sync with the actual
-      // mock values, the fact that we are using TypeScript and we get a defined
-      // instance should be pretty sufficient.
-      expect(newExperiment).toBeDefined()
-      expect(typeof newExperiment.experimentId).toBe('number')
+      expect(experiment.experimentId).toBeGreaterThan(0)
     })
   })
 
   describe('findAll', () => {
     it('should return a set of experiments with the expected experiment shape', async () => {
-      const experiments = await ExperimentsApi.findAll()
-      expect(experiments).toBeDefined()
-      expect(Array.isArray(experiments)).toBe(true)
+      const experiments = await validationErrorDisplayer(ExperimentsApi.findAll())
       expect(experiments.length).toBeGreaterThan(0)
-      experiments.forEach((experiment) => {
-        expect(typeof experiment.experimentId).toBe('number')
-        expect(typeof experiment.name).toBe('string')
-        expect(experiment.startDatetime).toBeInstanceOf(Date)
-        expect(experiment.endDatetime).toBeInstanceOf(Date)
-        expect(PLATFORMS.includes(experiment.platform)).toBe(true)
-        expect(STATUSES.includes(experiment.status)).toBe(true)
-        expect(typeof experiment.ownerLogin).toBe('string')
-      })
     })
   })
 
   describe('findById', () => {
     it('should return an experiment with the expected experiment shape', async () => {
-      const experiment = await ExperimentsApi.findById(123)
-      expect(experiment).toBeDefined()
-      expect(typeof experiment.experimentId).toBe('number')
-      expect(typeof experiment.name).toBe('string')
-      expect(typeof experiment.description).toBe('string')
-      expect(experiment.startDatetime).toBeInstanceOf(Date)
-      expect(experiment.endDatetime).toBeInstanceOf(Date)
-      expect(PLATFORMS.includes(experiment.platform)).toBe(true)
-      expect(STATUSES.includes(experiment.status)).toBe(true)
-      expect(typeof experiment.ownerLogin).toBe('string')
-      expect(typeof experiment.existingUsersAllowed).toBe('boolean')
-      expect(typeof experiment.p2Url).toBe('string')
-
-      expect(Array.isArray(experiment.variations)).toBe(true)
-      expect(Array.isArray(experiment.segmentAssignments)).toBe(true)
-      expect(Array.isArray(experiment.metricAssignments)).toBe(true)
+      const experiment = await validationErrorDisplayer(ExperimentsApi.findById(123))
+      expect(experiment.experimentId).toBeGreaterThan(0)
     })
   })
 })

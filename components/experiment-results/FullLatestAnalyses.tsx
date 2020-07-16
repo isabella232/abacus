@@ -5,14 +5,10 @@ import React, { useMemo } from 'react'
 
 import DatetimeText from '@/components/DatetimeText'
 import RecommendationString from '@/components/experiment-results/RecommendationString'
-import {
-  Analysis,
-  AnalysisStrategyToHuman,
-  AttributionWindowSecondsToHuman,
-  ExperimentFull,
-  MetricBare,
-  RecommendationWarningToHuman,
-} from '@/models'
+import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from '@/lib/analyses'
+import * as MetricAssignments from '@/lib/metric-assignments'
+import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
+import { Analysis, ExperimentFull, MetricBare } from '@/lib/schemas'
 import { createStaticTableOptions } from '@/utils/material-table'
 
 /**
@@ -29,11 +25,11 @@ export default function FullLatestAnalyses({
 }) {
   // Sort the assignments for consistency and collect the data we need to render the component.
   const resultSummaries = useMemo(() => {
-    return experiment.getSortedMetricAssignments().map((metricAssignment) => {
+    return MetricAssignments.sort(experiment.metricAssignments).map((metricAssignment) => {
       return {
         metricAssignment,
         metric: metricsById[metricAssignment.metricId],
-        latestAnalyses: metricAssignmentIdToLatestAnalyses[metricAssignment.metricAssignmentId as number] || [],
+        latestAnalyses: metricAssignmentIdToLatestAnalyses[metricAssignment.metricAssignmentId] || [],
       }
     })
   }, [experiment, metricsById, metricAssignmentIdToLatestAnalyses])

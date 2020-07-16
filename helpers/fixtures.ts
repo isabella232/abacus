@@ -14,7 +14,7 @@ import {
   MetricAssignment,
   MetricBare,
   MetricFull,
-  MetricRevenueParams,
+  MetricParameterType,
   Platform,
   RecommendationReason,
   RecommendationWarning,
@@ -23,11 +23,10 @@ import {
   SegmentType,
   Status,
   TransactionTypes,
-  Variation,
-} from '@/models'
+} from '@/lib/schemas'
 
-function createAnalysis(fieldOverrides: Partial<Analysis>) {
-  return new Analysis({
+function createAnalysis(fieldOverrides: Partial<Analysis>): Analysis {
+  return {
     metricAssignmentId: 123,
     analysisStrategy: AnalysisStrategy.IttPure,
     participantStats: {
@@ -49,7 +48,7 @@ function createAnalysis(fieldOverrides: Partial<Analysis>) {
     },
     analysisDatetime: new Date(Date.UTC(2020, 4, 10)),
     ...fieldOverrides,
-  })
+  }
 }
 
 function createAnalyses() {
@@ -244,8 +243,8 @@ function createAnalyses() {
   ]
 }
 
-function createMetricAssignment(fieldOverrides: Partial<MetricAssignment>) {
-  return new MetricAssignment({
+function createMetricAssignment(fieldOverrides: Partial<MetricAssignment>): MetricAssignment {
+  return {
     metricAssignmentId: 123,
     metricId: 1,
     experimentId: 1,
@@ -254,11 +253,11 @@ function createMetricAssignment(fieldOverrides: Partial<MetricAssignment>) {
     isPrimary: true,
     minDifference: 0.1,
     ...fieldOverrides,
-  })
+  }
 }
 
-function createExperimentFull(fieldOverrides: Partial<ExperimentFull> = {}) {
-  return new ExperimentFull({
+function createExperimentFull(fieldOverrides: Partial<ExperimentFull> = {}): ExperimentFull {
+  return {
     experimentId: 1,
     name: 'experiment_1',
     startDatetime: new Date(Date.UTC(2020, 5, 4)),
@@ -269,20 +268,22 @@ function createExperimentFull(fieldOverrides: Partial<ExperimentFull> = {}) {
     description: 'Experiment with things. Change stuff. Profit.',
     existingUsersAllowed: false,
     p2Url: 'https://wordpress.com/experiment_1',
-    exposureEvents: null,
+    endReason: null,
+    conclusionUrl: null,
+    deployedVariationId: null,
     variations: [
-      new Variation({
+      {
         variationId: 2,
         name: 'test',
         isDefault: false,
         allocatedPercentage: 40,
-      }),
-      new Variation({
+      },
+      {
         variationId: 1,
         name: 'control',
         isDefault: true,
         allocatedPercentage: 60,
-      }),
+      },
     ],
     metricAssignments: [
       createMetricAssignment({
@@ -320,49 +321,49 @@ function createExperimentFull(fieldOverrides: Partial<ExperimentFull> = {}) {
     ],
     segmentAssignments: [],
     ...fieldOverrides,
-  })
+  }
 }
 
-function createMetricBare(id: number) {
-  return new MetricBare({
+function createMetricBare(id: number): MetricBare {
+  return {
     metricId: id,
     name: `metric_${id}`,
     description: `This is metric ${id}`,
-    parameterType: id % 2 === 0 ? 'revenue' : 'conversion',
-  })
+    parameterType: id % 2 === 0 ? MetricParameterType.Revenue : MetricParameterType.Conversion,
+  }
 }
 
 function createMetricBares(numMetrics = 3) {
   return _.range(1, numMetrics + 1).map(createMetricBare)
 }
 
-function createMetricFull(id: number) {
+function createMetricFull(id: number): MetricFull {
   // Note: It is hard to reuse createMetricBare here as it is boxed
   //       Currently we only unbox it into an ApiData format which is different from this
-  const parameterType = id % 2 === 0 ? 'revenue' : 'conversion'
+  const parameterType = id % 2 === 0 ? MetricParameterType.Revenue : MetricParameterType.Conversion
   const eventParams = [{ event: 'event_name', props: { has_blocks: 'true' } }]
-  const revenueParams = new MetricRevenueParams({
+  const revenueParams = {
     refundDays: id * 2,
     productSlugs: ['xx-bundles'],
     transactionTypes: [TransactionTypes.NewPurchase],
-  })
-  return new MetricFull({
+  }
+  return {
     metricId: id,
     name: `metric_${id}`,
     description: `This is metric ${id}`,
     parameterType,
     higherIsBetter: id % 3 === 0,
-    eventParams: parameterType === 'conversion' ? eventParams : null,
-    revenueParams: parameterType === 'revenue' ? revenueParams : null,
-  })
+    eventParams: parameterType === MetricParameterType.Conversion ? eventParams : undefined,
+    revenueParams: parameterType === MetricParameterType.Revenue ? revenueParams : undefined,
+  }
 }
 
-function createSegment(id: number) {
-  return new Segment({
+function createSegment(id: number): Segment {
+  return {
     segmentId: id,
     name: `segment_${id}`,
     type: id % 2 === 0 ? SegmentType.Country : SegmentType.Locale,
-  })
+  }
 }
 
 /**
@@ -372,14 +373,14 @@ function createSegments(numSegments: number) {
   return _.range(numSegments).map(createSegment)
 }
 
-function createSegmentAssignment(fieldOverrides: Partial<SegmentAssignment>) {
-  return new SegmentAssignment({
+function createSegmentAssignment(fieldOverrides: Partial<SegmentAssignment>): SegmentAssignment {
+  return {
     segmentAssignmentId: 123,
     experimentId: 1,
     segmentId: 1,
     isExcluded: false,
     ...fieldOverrides,
-  })
+  }
 }
 
 const Fixtures = {

@@ -1,19 +1,12 @@
 import MetricsApi from '@/api/MetricsApi'
 import NotFoundError from '@/api/NotFoundError'
+import { validationErrorDisplayer } from '@/helpers/test-utils'
 
 describe('MetricsApi.ts module', () => {
   describe('findAll', () => {
     it('should return a set of metrics with the expected metric shape', async () => {
-      const metrics = await MetricsApi.findAll()
-      expect(metrics).toBeDefined()
-      expect(Array.isArray(metrics)).toBe(true)
+      const metrics = await validationErrorDisplayer(MetricsApi.findAll())
       expect(metrics.length).toBeGreaterThan(0)
-      metrics.forEach((metric) => {
-        expect(typeof metric.metricId).toBe('number')
-        expect(typeof metric.name).toBe('string')
-        expect(typeof metric.description).toBe('string')
-        expect(typeof metric.parameterType).toBe('string')
-      })
     })
   })
 
@@ -21,20 +14,8 @@ describe('MetricsApi.ts module', () => {
     it('should return the metric with the expected metric shape', async () => {
       // TODO: Test different metrics with different parameter types (conversion and
       // revenue). Can't do it now because only one metric is available to test.
-      const metric = await MetricsApi.findById(31)
-      expect(metric).toBeDefined()
-      expect(typeof metric.metricId).toBe('number')
-      expect(typeof metric.name).toBe('string')
-      expect(typeof metric.description).toBe('string')
-      expect(typeof metric.higherIsBetter).toBe('boolean')
-      expect(typeof metric.parameterType).toBe('string')
-      expect(Array.isArray(metric.eventParams)).toBe(true)
-      metric.eventParams?.forEach((eventParam) => {
-        expect(typeof eventParam.event).toBe('string')
-        expect(typeof eventParam.props).toBe('object')
-        expect(eventParam.props).not.toBe(null)
-      })
-      expect(metric.revenueParams).toBe(null)
+      const metric = await validationErrorDisplayer(MetricsApi.findById(31))
+      expect(metric.metricId).toBeGreaterThan(0)
     })
 
     // TODO: Unskip this once the mock API stops returning the mock metric regardless

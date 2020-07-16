@@ -23,7 +23,8 @@ import { RadioGroup, Select, TextField as FormikMuiTextField } from 'formik-mate
 import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
 import React from 'react'
 
-import { DefaultVariationKey, ExperimentFull, Platform, SegmentAssignment, SegmentType } from '@/models'
+import { ExperimentFull, Platform, SegmentAssignment, SegmentType } from '@/lib/schemas'
+import { DefaultVariationKey } from '@/lib/variations'
 
 // TODO: Add to feature flag object
 const ALLOW_ADDITIONAL_VARIATIONS = false
@@ -228,14 +229,14 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
                             {isDefaultVariation ? (
                               variation.name
                             ) : (
-                              <Field
-                                component={FormikMuiTextField}
-                                name={`experiment.variations[${idx}].name`}
-                                size='small'
-                                variant='outlined'
-                                required
-                              />
-                            )}
+                                <Field
+                                  component={FormikMuiTextField}
+                                  name={`experiment.variations[${idx}].name`}
+                                  size='small'
+                                  variant='outlined'
+                                  required
+                                />
+                              )}
                           </TableCell>
                           <TableCell>
                             <Field

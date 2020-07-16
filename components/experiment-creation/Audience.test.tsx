@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Formik, FormikProps } from 'formik'
 import React from 'react'
 
-import { ExperimentFull } from '@/models'
+import { ExperimentFull } from '@/lib/schemas'
 
 import Audience from './Audience'
 

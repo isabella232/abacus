@@ -6,7 +6,7 @@ import MetricsApi from '@/api/MetricsApi'
 import SegmentsApi from '@/api/SegmentsApi'
 import ExperimentForm from '@/components/experiment-creation/ExperimentForm'
 import Layout from '@/components/Layout'
-import { createNewExperiment } from '@/models'
+import { createNewExperiment } from '@/lib/experiments'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { or } from '@/utils/general'
 
