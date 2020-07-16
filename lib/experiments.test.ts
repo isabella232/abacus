@@ -1,8 +1,7 @@
 import Fixtures from '@/helpers/fixtures'
 
 import * as Experiments from './experiments'
-import { AnalysisStrategy } from './schemas'
-import { DefaultVariationKey } from './variations'
+import { AnalysisStrategy, DefaultVariationKey } from './schemas'
 
 describe('lib/experiments.ts module', () => {
   describe('getDeployedVariation', () => {
