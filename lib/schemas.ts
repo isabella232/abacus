@@ -78,7 +78,7 @@ export enum AttributionWindowSeconds {
   FourWeeks = 2419200,
 }
 
-export const metricAssignmentCreateSchema = yup
+export const metricAssignmentNewSchema = yup
   .object({
     attributionWindowSeconds: yup
       .number()
@@ -93,9 +93,9 @@ export const metricAssignmentCreateSchema = yup
   })
   .defined()
   .camelCase()
-export type MetricAssignmentCreate = yup.InferType<typeof metricAssignmentCreateSchema>
+export type MetricAssignmentNew = yup.InferType<typeof metricAssignmentNewSchema>
 
-export const metricAssignmentSchema = metricAssignmentCreateSchema
+export const metricAssignmentSchema = metricAssignmentNewSchema
   .shape({
     metricAssignmentId: idSchema.defined(),
     experimentId: idSchema.defined(),
@@ -119,16 +119,16 @@ export const segmentSchema = yup
   .camelCase()
 export type Segment = yup.InferType<typeof segmentSchema>
 
-export const segmentAssignmentCreateSchema = yup
+export const segmentAssignmentNewSchema = yup
   .object({
     segmentId: idSchema.defined(),
     isExcluded: yup.bool().defined(),
   })
   .defined()
   .camelCase()
-export type SegmentAssignmentCreate = yup.InferType<typeof segmentAssignmentCreateSchema>
+export type SegmentAssignmentNew = yup.InferType<typeof segmentAssignmentNewSchema>
 
-export const segmentAssignmentSchema = segmentAssignmentCreateSchema
+export const segmentAssignmentSchema = segmentAssignmentNewSchema
   .shape({
     segmentAssignmentId: idSchema.defined(),
     experimentId: idSchema.defined(),
@@ -139,7 +139,7 @@ export const segmentAssignmentSchema = segmentAssignmentCreateSchema
   .camelCase()
 export type SegmentAssignment = yup.InferType<typeof segmentAssignmentSchema>
 
-export const variationCreateSchema = yup
+export const variationNewSchema = yup
   .object({
     name: nameSchema.defined(),
     isDefault: yup.bool().defined(),
@@ -149,9 +149,9 @@ export const variationCreateSchema = yup
   })
   .defined()
   .camelCase()
-export type VariationCreate = yup.InferType<typeof variationCreateSchema>
+export type VariationNew = yup.InferType<typeof variationNewSchema>
 
-export const variationSchema = variationCreateSchema
+export const variationSchema = variationNewSchema
   .shape({
     variationId: idSchema.defined(),
   })
@@ -203,13 +203,13 @@ export const experimentFullSchema = experimentBareSchema
 export type ExperimentFull = yup.InferType<typeof experimentFullSchema>
 
 // Just a stub for now
-export const experimentCreateSchema = experimentFullSchema.shape({
+export const experimentFullNewSchema = experimentFullSchema.shape({
   experimentId: idSchema.nullable(),
-  metricAssignments: yup.array(metricAssignmentCreateSchema).defined(),
-  segmentAssignments: yup.array(segmentAssignmentCreateSchema).defined(),
-  variations: yup.array(variationCreateSchema).defined(),
+  metricAssignments: yup.array(metricAssignmentNewSchema).defined(),
+  segmentAssignments: yup.array(segmentAssignmentNewSchema).defined(),
+  variations: yup.array(variationNewSchema).defined(),
 })
-export type ExperimentFullCreate = yup.InferType<typeof experimentCreateSchema>
+export type ExperimentFullNew = yup.InferType<typeof experimentFullNewSchema>
 
 export enum RecommendationReason {
   CiInRope = 'ci_in_rope',
