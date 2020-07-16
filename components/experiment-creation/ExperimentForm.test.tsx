@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import React from 'react'
 
 import Fixtures from '@/helpers/fixtures'
+import { createNewExperiment } from '@/lib/experiments'
 
 import ExperimentForm from './ExperimentForm'
 
@@ -11,7 +12,7 @@ test('renders as expected', () => {
     <ExperimentForm
       metrics={Fixtures.createMetricBares(20)}
       segments={Fixtures.createSegments(20)}
-      initialExperiment={{}}
+      initialExperiment={createNewExperiment()}
     />,
   )
   expect(container).toMatchInlineSnapshot(`
@@ -379,7 +380,7 @@ test('renders as expected', () => {
                   class="MuiFormControl-root"
                 >
                   <label
-                    class="MuiFormLabel-root Mui-required"
+                    class="MuiFormLabel-root MuiFormLabel-filled Mui-required"
                   >
                     Platform
                     <span
@@ -401,14 +402,12 @@ test('renders as expected', () => {
                       role="button"
                       tabindex="0"
                     >
-                      <span>
-                        ​
-                      </span>
+                      WordPress.com
                     </div>
                     <input
                       name="experiment.platform"
                       type="hidden"
-                      value=""
+                      value="wpcom"
                     />
                     <svg
                       aria-hidden="true"
@@ -572,7 +571,9 @@ test('renders as expected', () => {
                   <p
                     class="MuiFormHelperText-root makeStyles-segmentationHelperText-18"
                   >
-                    Optionally, add segmentation to your experiment
+                    Who should see this experiment?
+                    <br />
+                    Add optional segments to target specific audiences
                   </p>
                   <div
                     aria-expanded="false"
@@ -593,7 +594,7 @@ test('renders as expected', () => {
                           autocomplete="off"
                           class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                           id="segments-select"
-                          placeholder="Segments"
+                          placeholder="Search and select to customize"
                           spellcheck="false"
                           type="text"
                           value=""
@@ -718,7 +719,116 @@ test('renders as expected', () => {
                       </thead>
                       <tbody
                         class="MuiTableBody-root"
-                      />
+                      >
+                        <tr
+                          class="MuiTableRow-root"
+                        >
+                          <td
+                            class="MuiTableCell-root MuiTableCell-body"
+                          >
+                            control
+                          </td>
+                          <td
+                            class="MuiTableCell-root MuiTableCell-body"
+                          >
+                            <div
+                              class="MuiFormControl-root MuiTextField-root makeStyles-variationAllocatedPercentage-20"
+                            >
+                              <div
+                                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+                              >
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                                  max="99"
+                                  min="1"
+                                  name="experiment.variations[0].allocatedPercentage"
+                                  required=""
+                                  type="number"
+                                  value="50"
+                                />
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-marginDense"
+                                >
+                                  <p
+                                    class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+                                  >
+                                    %
+                                  </p>
+                                </div>
+                                <fieldset
+                                  aria-hidden="true"
+                                  class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+                                  style="padding-left: 8px;"
+                                >
+                                  <legend
+                                    class="PrivateNotchedOutline-legend-9"
+                                    style="width: 0.01px;"
+                                  >
+                                    <span>
+                                      ​
+                                    </span>
+                                  </legend>
+                                </fieldset>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr
+                          class="MuiTableRow-root"
+                        >
+                          <td
+                            class="MuiTableCell-root MuiTableCell-body"
+                          >
+                            treatment
+                          </td>
+                          <td
+                            class="MuiTableCell-root MuiTableCell-body"
+                          >
+                            <div
+                              class="MuiFormControl-root MuiTextField-root makeStyles-variationAllocatedPercentage-20"
+                            >
+                              <div
+                                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+                              >
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                                  max="99"
+                                  min="1"
+                                  name="experiment.variations[1].allocatedPercentage"
+                                  required=""
+                                  type="number"
+                                  value="50"
+                                />
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-marginDense"
+                                >
+                                  <p
+                                    class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+                                  >
+                                    %
+                                  </p>
+                                </div>
+                                <fieldset
+                                  aria-hidden="true"
+                                  class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+                                  style="padding-left: 8px;"
+                                >
+                                  <legend
+                                    class="PrivateNotchedOutline-legend-9"
+                                    style="width: 0.01px;"
+                                  >
+                                    <span>
+                                      ​
+                                    </span>
+                                  </legend>
+                                </fieldset>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                 </fieldset>

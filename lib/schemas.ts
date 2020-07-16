@@ -160,6 +160,7 @@ export const variationSchema = variationNewSchema
     _key: yup
       .mixed()
       .oneOf([])
+      /* istanbul ignore next; inconsequential */
       .transform(() => undefined),
   })
   .defined()
@@ -203,7 +204,7 @@ export const experimentFullSchema = experimentBareSchema
     exposureEvents: yup.array<Event>(eventSchema).nullable(),
     metricAssignments: yup.array(metricAssignmentSchema).defined(),
     segmentAssignments: yup.array(segmentAssignmentSchema).defined(),
-    variations: yup.array(variationSchema).defined(),
+    variations: yup.array<Variation>(variationSchema).defined(),
   })
   .defined()
   .camelCase()
