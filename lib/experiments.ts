@@ -58,8 +58,8 @@ export function createNewExperiment(): Partial<ExperimentFullNew> {
     metricAssignments: [],
     segmentAssignments: [],
     variations: [
-      { name: 'control', isDefault: true, allocatedPercentage: 50, key: DefaultVariationKey.Control },
-      { name: 'treatment', isDefault: false, allocatedPercentage: 50, key: DefaultVariationKey.Treatment },
+      { name: 'control', isDefault: true, allocatedPercentage: 50, _key: DefaultVariationKey.Control },
+      { name: 'treatment', isDefault: false, allocatedPercentage: 50, _key: DefaultVariationKey.Treatment },
     ],
   }
 }

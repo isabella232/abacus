@@ -31,6 +31,7 @@ import {
   Segment,
   SegmentAssignmentNew,
   SegmentType,
+  VariationNew,
 } from '@/lib/schemas'
 import { SegmentTypeToHuman } from '@/lib/segments'
 
@@ -105,13 +106,13 @@ const SegmentsAutocomplete = (props: AutocompleteProps<Segment, true, false, fal
   )
 }
 
-const newVariation = () => {
+const newVariation = (): VariationNew => {
   const time = new Date().getTime()
   return {
     name: `treatment_${time}`,
     isDefault: false,
     allocatedPercentage: 0,
-    key: time,
+    _key: time,
   }
 }
 
@@ -211,9 +212,9 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
                     </TableHead>
                     <TableBody>
                       {formikProps.values.experiment.variations.map((variation, idx) => {
-                        const isControl = DefaultVariationKey.Control === variation.key
+                        const isControl = DefaultVariationKey.Control === variation._key
                         return (
-                          <TableRow key={variation.key}>
+                          <TableRow key={variation._key}>
                             <TableCell>
                               {!isControl && ALLOW_ADDITIONAL_VARIATIONS ? (
                                 <Field

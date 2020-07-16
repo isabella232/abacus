@@ -151,6 +151,7 @@ module.exports = {
       {
         selector: 'property',
         format: ['snake_case', 'strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow',
       },
       {
         selector: 'variable',

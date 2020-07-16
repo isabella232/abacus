@@ -149,21 +149,15 @@ export const variationNewSchema = yup
     name: nameSchema.defined(),
     isDefault: yup.bool().defined(),
     allocatedPercentage: yup.number().integer().min(1).max(99).defined(),
-    // For client use only
-    key: yup
-      .mixed()
-      .oneOf([])
-      .concat(yup.string().oneOf(Object.values(DefaultVariationKey)).defined())
-      .concat(yup.number().integer().defined()),
   })
   .defined()
   .camelCase()
-export type VariationNew = yup.InferType<typeof variationNewSchema>
+export type VariationNew = yup.InferType<typeof variationNewSchema> & { _key?: DefaultVariationKey | number } // For client use only
 
 export const variationSchema = variationNewSchema
   .shape({
     variationId: idSchema.defined(),
-    key: yup
+    _key: yup
       .mixed()
       .oneOf([])
       .transform(() => undefined),
@@ -220,7 +214,7 @@ export const experimentFullNewSchema = experimentFullSchema.shape({
   experimentId: idSchema.nullable(),
   metricAssignments: yup.array(metricAssignmentNewSchema).defined(),
   segmentAssignments: yup.array(segmentAssignmentNewSchema).defined(),
-  variations: yup.array(variationNewSchema).defined(),
+  variations: yup.array<VariationNew>(variationNewSchema).defined(),
 })
 export type ExperimentFullNew = yup.InferType<typeof experimentFullNewSchema>
 
