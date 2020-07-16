@@ -6,7 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Formik } from 'formik'
 import React from 'react'
 
-import { ExperimentFull, MetricBare, Segment } from '@/lib/schemas'
+import { ExperimentFullNew, MetricBare, Segment } from '@/lib/schemas'
 
 import Audience from './Audience'
 import BasicInfo from './BasicInfo'
@@ -31,7 +31,7 @@ const ExperimentForm = ({
 }: {
   metrics: MetricBare[]
   segments: Segment[]
-  initialExperiment: Partial<ExperimentFull>
+  initialExperiment: Partial<ExperimentFullNew>
 }) => {
   const classes = useStyles()
 

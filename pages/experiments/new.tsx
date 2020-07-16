@@ -16,8 +16,6 @@ const ExperimentsNewPage = function () {
   debug('ExperimentsNewPage#render')
   const initialExperiment = createNewExperiment()
 
-  // TODO: Create a component from this point to allow editing as
-  //       well as creation.
   const { isLoading: metricsIsLoading, data: metrics, error: metricsError } = useDataSource(
     () => MetricsApi.findAll(),
     [],

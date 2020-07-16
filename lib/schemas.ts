@@ -139,13 +139,22 @@ export const segmentAssignmentSchema = segmentAssignmentNewSchema
   .camelCase()
 export type SegmentAssignment = yup.InferType<typeof segmentAssignmentSchema>
 
+export enum DefaultVariationKey {
+  Control = 'control',
+  Treatment = 'treatment',
+}
+
 export const variationNewSchema = yup
   .object({
     name: nameSchema.defined(),
     isDefault: yup.bool().defined(),
     allocatedPercentage: yup.number().integer().min(1).max(99).defined(),
     // For client use only
-    key: yup.mixed(),
+    key: yup
+      .mixed()
+      .oneOf([])
+      .concat(yup.string().oneOf(Object.values(DefaultVariationKey)).defined())
+      .concat(yup.number().integer().defined()),
   })
   .defined()
   .camelCase()
@@ -154,6 +163,10 @@ export type VariationNew = yup.InferType<typeof variationNewSchema>
 export const variationSchema = variationNewSchema
   .shape({
     variationId: idSchema.defined(),
+    key: yup
+      .mixed()
+      .oneOf([])
+      .transform(() => undefined),
   })
   .defined()
   .camelCase()

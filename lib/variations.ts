@@ -8,8 +8,3 @@ import { Variation } from './schemas'
 export function sort(variations: Variation[]): Variation[] {
   return _.orderBy(variations, ['isDefault', 'name'], ['desc', 'asc'])
 }
-
-export enum DefaultVariationKey {
-  Control = 'control',
-  Treatment = 'treatment',
-}
