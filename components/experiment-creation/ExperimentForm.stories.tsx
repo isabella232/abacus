@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Fixtures from '@/helpers/fixtures'
-import { createNewExperiment } from '@/models'
+import { createNewExperiment } from '@/lib/experiments'
 
 import ExperimentForm from './ExperimentForm'
 

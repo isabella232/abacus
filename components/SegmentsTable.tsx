@@ -8,7 +8,7 @@ import _ from 'lodash'
 import React, { useMemo } from 'react'
 
 import Label from '@/components/Label'
-import { Segment, SegmentType } from '@/models'
+import { Segment, SegmentType } from '@/lib/schemas'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

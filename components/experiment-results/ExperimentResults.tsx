@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import React, { useMemo } from 'react'
 
-import { Analysis, ExperimentFull, MetricBare } from '@/models'
+import * as Experiments from '@/lib/experiments'
+import { Analysis, ExperimentFull, MetricBare } from '@/lib/schemas'
 
 import CondensedLatestAnalyses from './CondensedLatestAnalyses'
 import FullLatestAnalyses from './FullLatestAnalyses'
@@ -46,7 +47,7 @@ export default function ExperimentResults({
           <ParticipantCounts
             experiment={experiment}
             latestPrimaryMetricAnalyses={
-              metricAssignmentIdToLatestAnalyses[experiment.getPrimaryMetricAssignmentId() as number]
+              metricAssignmentIdToLatestAnalyses[Experiments.getPrimaryMetricAssignmentId(experiment) as number]
             }
           />
         </div>

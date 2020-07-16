@@ -1,6 +1,13 @@
-import { ExperimentBare, ExperimentFull } from '@/models'
+import * as yup from 'yup'
 
-import { ApiData } from './ApiData'
+import {
+  ExperimentBare,
+  experimentBareSchema,
+  experimentCreateSchema,
+  ExperimentFull,
+  experimentFullSchema,
+} from '@/lib/schemas'
+
 import { fetchApi } from './utils'
 
 /**
@@ -8,8 +15,10 @@ import { fetchApi } from './utils'
  *
  * Note: Be sure to handle any errors that may be thrown.
  */
-async function create(experiment: ExperimentFull) {
-  return ExperimentFull.fromApiData(await fetchApi('POST', '/experiments', experiment))
+async function create(newExperiment: Partial<ExperimentFull>) {
+  const validatedNewExperiment = await experimentCreateSchema.validate(newExperiment, { abortEarly: false })
+  const experiment = await fetchApi('POST', '/experiments', validatedNewExperiment)
+  return await experimentFullSchema.validate(experiment)
 }
 
 /**
@@ -20,9 +29,8 @@ async function create(experiment: ExperimentFull) {
  * @throws UnauthorizedError
  */
 async function findAll(): Promise<ExperimentBare[]> {
-  return (await fetchApi('GET', '/experiments')).experiments.map((apiData: ApiData) =>
-    ExperimentBare.fromApiData(apiData),
-  )
+  const { experiments } = await fetchApi('GET', '/experiments')
+  return await yup.array(experimentBareSchema).defined().validate(experiments, { abortEarly: false })
 }
 
 /**
@@ -30,8 +38,9 @@ async function findAll(): Promise<ExperimentBare[]> {
  *
  * @param id - The ID of the experiment to fetch.
  */
-async function findById(id: number) {
-  return ExperimentFull.fromApiData(await fetchApi('GET', `/experiments/${id}`))
+async function findById(id: number): Promise<ExperimentFull> {
+  const experiment = await fetchApi('GET', `/experiments/${id}`)
+  return await experimentFullSchema.validate(experiment, { abortEarly: false })
 }
 
 const ExperimentsApi = {

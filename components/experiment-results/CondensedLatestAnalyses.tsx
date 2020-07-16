@@ -4,15 +4,12 @@ import React from 'react'
 
 import DatetimeText from '@/components/DatetimeText'
 import Label from '@/components/Label'
-import {
-  Analysis,
-  AnalysisStrategyToHuman,
-  AttributionWindowSecondsToHuman,
-  ExperimentFull,
-  MetricAssignment,
-  MetricBare,
-  RecommendationWarningToHuman,
-} from '@/models'
+import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from '@/lib/analyses'
+import * as Experiments from '@/lib/experiments'
+import * as MetricAssignments from '@/lib/metric-assignments'
+import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
+import { Analysis, ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
+import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
 
 import RecommendationString from './RecommendationString'
@@ -31,9 +28,9 @@ export default function CondensedLatestAnalyses({
   metricAssignmentIdToLatestAnalyses: { [key: number]: Analysis[] }
 }) {
   // Sort the assignments for consistency and collect the data we need to render the component.
-  const defaultAnalysisStrategy = experiment.getDefaultAnalysisStrategy()
-  const resultSummaries = experiment.getSortedMetricAssignments().map((metricAssignment) => {
-    const latestAnalyses = metricAssignmentIdToLatestAnalyses[metricAssignment.metricAssignmentId as number] || []
+  const defaultAnalysisStrategy = Experiments.getDefaultAnalysisStrategy(experiment)
+  const resultSummaries = MetricAssignments.sort(experiment.metricAssignments).map((metricAssignment) => {
+    const latestAnalyses = metricAssignmentIdToLatestAnalyses[metricAssignment.metricAssignmentId] || []
     const uniqueRecommendations = _.uniq(latestAnalyses.map(({ recommendation }) => JSON.stringify(recommendation)))
     return {
       metricAssignment,
@@ -108,7 +105,7 @@ function AnalysisDetailPanel({ analysis, experiment }: { analysis: Analysis; exp
       <dt>Analyzed participants</dt>
       <dd>
         {analysis.participantStats.total} ({analysis.participantStats.not_final} not final
-        {experiment.getSortedVariations().map(({ variationId, name }) => (
+        {Variations.sort(experiment.variations).map(({ variationId, name }) => (
           <span key={variationId}>
             ; {analysis.participantStats[`variation_${variationId}`]} in {name}
           </span>

@@ -6,7 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Formik } from 'formik'
 import React from 'react'
 
-import { ExperimentFull, MetricBare, Segment } from '@/models'
+import { ExperimentFull, MetricBare, Segment } from '@/lib/schemas'
 
 import BasicInfo from './BasicInfo'
 import Beginning from './Beginning'

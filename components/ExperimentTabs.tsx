@@ -4,7 +4,7 @@ import Tabs from '@material-ui/core/Tabs'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 
-import { ExperimentFull } from '@/models'
+import { ExperimentFull } from '@/lib/schemas'
 
 const useStyles = makeStyles(() =>
   createStyles({

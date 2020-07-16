@@ -9,7 +9,9 @@ import Typography from '@material-ui/core/Typography'
 import React, { useMemo } from 'react'
 
 import Label from '@/components/Label'
-import { AttributionWindowSecondsToHuman, ExperimentFull, MetricAssignment, MetricBare } from '@/models'
+import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
+import * as MetricAssignments from '@/lib/metric-assignments'
+import { ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
 import { formatBoolean, formatUsCurrencyDollar } from '@/utils/formatters'
 
 /**
@@ -59,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function MetricAssignmentsPanel({ experiment, metrics }: { experiment: ExperimentFull; metrics: MetricBare[] }) {
   const classes = useStyles()
   const resolvedMetricAssignments = useMemo(
-    () => resolveMetricAssignments(experiment.getSortedMetricAssignments(), metrics),
+    () => resolveMetricAssignments(MetricAssignments.sort(experiment.metricAssignments), metrics),
     [experiment, metrics],
   )
 

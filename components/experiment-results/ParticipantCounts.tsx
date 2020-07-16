@@ -1,7 +1,9 @@
 import MaterialTable from 'material-table'
 import React from 'react'
 
-import { Analysis, AnalysisStrategyToHuman, ExperimentFull } from '@/models'
+import { AnalysisStrategyToHuman } from '@/lib/analyses'
+import { Analysis, ExperimentFull } from '@/lib/schemas'
+import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
 
 /**
@@ -18,7 +20,7 @@ export default function ParticipantCounts({
     { title: 'Strategy', render: ({ analysisStrategy }: Analysis) => AnalysisStrategyToHuman[analysisStrategy] },
     { title: 'Total', render: ({ participantStats }: Analysis) => participantStats.total },
   ]
-  experiment.getSortedVariations().forEach(({ variationId, name }) => {
+  Variations.sort(experiment.variations).forEach(({ variationId, name }) => {
     tableColumns.push({
       title: name,
       render: ({ participantStats }: Analysis) => participantStats[`variation_${variationId}`] || 0,
