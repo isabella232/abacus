@@ -7,6 +7,7 @@ import {
   InputAdornment,
   MenuItem,
   Radio,
+  RadioGroup as MuiRadioGroup,
   Table,
   TableBody,
   TableCell,
@@ -19,9 +20,9 @@ import {
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { Field, FieldArray, FormikProps } from 'formik'
-import { RadioGroup, Select, TextField as FormikMuiTextField } from 'formik-material-ui'
+import { RadioGroup as FormikMuiRadioGroup, Select, TextField as FormikMuiTextField } from 'formik-material-ui'
 import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { PlatformToHuman } from '@/lib/experiments'
 import {
@@ -50,17 +51,25 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
     },
-    segmentationHelperText: {
-      marginBottom: theme.spacing(2),
-    },
+    segmentationHelperText: {},
     segmentationFieldSet: {
       width: '100%',
+    },
+    segmentationExclusionState: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginBottom: theme.spacing(1),
     },
     variationAllocatedPercentage: {
       width: '7rem',
     },
   }),
 )
+
+enum SegmentExclusionState {
+  Exclude = 'exclude',
+  Include = 'include',
+}
 
 const segments: Record<number, Segment> = {
   1: { segmentId: 1, name: 'us', type: SegmentType.Country },
@@ -119,6 +128,13 @@ const newVariation = (): VariationNew => {
 const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Partial<ExperimentFullNew> }> }) => {
   const classes = useStyles()
 
+  const [segmentExclusionState, setSegmentExclusionState] = useState<SegmentExclusionState>(
+    SegmentExclusionState.Include,
+  )
+  const onChangeSegmentExclusionState = (event: React.SyntheticEvent<HTMLInputElement>, value: string) => {
+    setSegmentExclusionState(value as SegmentExclusionState)
+  }
+
   return (
     <div className={classes.root}>
       <Typography variant='h2' gutterBottom>
@@ -144,7 +160,7 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
           <FormHelperText>Types of users to include in experiment</FormHelperText>
 
           <Field
-            component={RadioGroup}
+            component={FormikMuiRadioGroup}
             name='experiment.existingUsersAllowed'
             required
             InputLabelProps={{
@@ -168,12 +184,21 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
       </div>
       <div className={classes.row}>
         <FormControl component='fieldset' className={classes.segmentationFieldSet}>
-          <FormLabel htmlFor='segments-select'>Segmentation</FormLabel>
+          <FormLabel htmlFor='segments-select'>Targeting</FormLabel>
           <FormHelperText className={classes.segmentationHelperText}>
             Who should see this experiment?
             <br />
-            Add optional segments to target specific audiences
+            Add optional filters to include or exclude specific target audience segments.
           </FormHelperText>
+          <MuiRadioGroup
+            aria-label='include-or-exclude-segments'
+            className={classes.segmentationExclusionState}
+            value={segmentExclusionState}
+            onChange={onChangeSegmentExclusionState}
+          >
+            <FormControlLabel value={SegmentExclusionState.Include} control={<Radio />} label='Include' />
+            <FormControlLabel value={SegmentExclusionState.Exclude} control={<Radio />} label='Exclude' />
+          </MuiRadioGroup>
           <Field
             name='experiment.segmentAssignments'
             component={SegmentsAutocomplete}
