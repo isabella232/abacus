@@ -156,6 +156,7 @@ module.exports = {
       {
         selector: 'variable',
         format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow', // For indicating unused parameter to TypeScript (For array destructuring).
       },
       {
         selector: 'memberLike',
@@ -169,7 +170,7 @@ module.exports = {
       },
     ],
 
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
   },
   settings: {
     'import/resolver': {

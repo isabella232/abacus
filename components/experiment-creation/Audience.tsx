@@ -19,10 +19,10 @@ import {
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import { Field, FieldArray, FormikProps } from 'formik'
+import { Field, FieldArray, FormikProps, useField } from 'formik'
 import { RadioGroup as FormikMuiRadioGroup, Select, TextField as FormikMuiTextField } from 'formik-material-ui'
 import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { PlatformToHuman } from '@/lib/experiments'
 import {
@@ -78,10 +78,13 @@ const segments: Record<number, Segment> = {
   4: { segmentId: 4, name: 'en-AU', type: SegmentType.Locale },
 }
 
-const SegmentsAutocomplete = (props: AutocompleteProps<Segment, true, false, false>) => {
+const SegmentsAutocomplete = (
+  props: AutocompleteProps<Segment, true, false, false> & { segmentExclusionState: SegmentExclusionState },
+) => {
   const {
     form: { setFieldValue },
     field: { name, value: outerValue },
+    segmentExclusionState,
   } = props
 
   // Here we translate SegmentAssignment (outside) <-> Segment (inside)
@@ -92,15 +95,18 @@ const SegmentsAutocomplete = (props: AutocompleteProps<Segment, true, false, fal
     }
     return segment
   }
-  const segmentToSegmentAssignment = (segment: Segment): SegmentAssignmentNew => ({
-    segmentId: segment.segmentId,
-    isExcluded: false,
-  })
-  const onChange = React.useCallback(
+  const segmentToSegmentAssignment = useCallback(
+    (segment: Segment): SegmentAssignmentNew => ({
+      segmentId: segment.segmentId,
+      isExcluded: segmentExclusionState === SegmentExclusionState.Exclude,
+    }),
+    [segmentExclusionState],
+  )
+  const onChange = useCallback(
     (_event, value: Segment[]) => {
       setFieldValue(name, value.map(segmentToSegmentAssignment))
     },
-    [setFieldValue, name],
+    [setFieldValue, name, segmentToSegmentAssignment],
   )
   const value = outerValue && (outerValue as SegmentAssignmentNew[]).map(segmentAssignmentToSegment)
 
@@ -128,11 +134,25 @@ const newVariation = (): VariationNew => {
 const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Partial<ExperimentFullNew> }> }) => {
   const classes = useStyles()
 
+  // The segmentExclusion code is currently split between here and SegmentAutocomplete
+  // An improvement might be to have SegmentAutocomplete only handle Segment[] and for code here
+  // to translate Segment <-> SegmentAssignment
+  const [segmentAssignmentsField, _segmentAssignmentsFieldMeta, segmentAssignmentsFieldHelper] = useField(
+    'experiment.segmentAssignments',
+  )
   const [segmentExclusionState, setSegmentExclusionState] = useState<SegmentExclusionState>(
     SegmentExclusionState.Include,
   )
   const onChangeSegmentExclusionState = (event: React.SyntheticEvent<HTMLInputElement>, value: string) => {
     setSegmentExclusionState(value as SegmentExclusionState)
+    segmentAssignmentsFieldHelper.setValue(
+      (segmentAssignmentsField.value as SegmentAssignmentNew[]).map((segmentAssignment: SegmentAssignmentNew) => {
+        return {
+          ...segmentAssignment,
+          isExcluded: value === SegmentExclusionState.Exclude,
+        }
+      }),
+    )
   }
 
   return (
@@ -207,6 +227,7 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
             renderInput={(params: AutocompleteRenderInputParams) => (
               <MuiTextField {...params} variant='outlined' placeholder='Search and select to customize' />
             )}
+            segmentExclusionState={segmentExclusionState}
             fullWidth
             id='segments-select'
           />
