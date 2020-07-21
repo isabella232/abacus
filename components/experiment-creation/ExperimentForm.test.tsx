@@ -456,19 +456,19 @@ test('renders as expected', () => {
                     >
                       <span
                         aria-disabled="false"
-                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-22 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                       >
                         <span
                           class="MuiIconButton-label"
                         >
                           <input
-                            class="PrivateSwitchBase-input-24"
+                            class="PrivateSwitchBase-input-25"
                             name="experiment.existingUsersAllowed"
                             type="radio"
                             value="false"
                           />
                           <div
-                            class="PrivateRadioButtonIcon-root-25"
+                            class="PrivateRadioButtonIcon-root-26"
                           >
                             <svg
                               aria-hidden="true"
@@ -482,7 +482,7 @@ test('renders as expected', () => {
                             </svg>
                             <svg
                               aria-hidden="true"
-                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
+                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-27"
                               focusable="false"
                               viewBox="0 0 24 24"
                             >
@@ -507,19 +507,19 @@ test('renders as expected', () => {
                     >
                       <span
                         aria-disabled="false"
-                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-22 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                       >
                         <span
                           class="MuiIconButton-label"
                         >
                           <input
-                            class="PrivateSwitchBase-input-24"
+                            class="PrivateSwitchBase-input-25"
                             name="experiment.existingUsersAllowed"
                             type="radio"
                             value="true"
                           />
                           <div
-                            class="PrivateRadioButtonIcon-root-25"
+                            class="PrivateRadioButtonIcon-root-26"
                           >
                             <svg
                               aria-hidden="true"
@@ -533,7 +533,7 @@ test('renders as expected', () => {
                             </svg>
                             <svg
                               aria-hidden="true"
-                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
+                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-27"
                               focusable="false"
                               viewBox="0 0 24 24"
                             >
@@ -566,20 +566,130 @@ test('renders as expected', () => {
                     class="MuiFormLabel-root"
                     for="segments-select"
                   >
-                    Segmentation
+                    Targeting
                   </label>
                   <p
                     class="MuiFormHelperText-root makeStyles-segmentationHelperText-18"
                   >
                     Who should see this experiment?
                     <br />
-                    Add optional segments to target specific audiences
+                    Add optional filters to include or exclude specific target audience segments.
                   </p>
+                  <div
+                    aria-label="include-or-exclude-segments"
+                    class="MuiFormGroup-root makeStyles-segmentationExclusionState-20"
+                    role="radiogroup"
+                  >
+                    <label
+                      class="MuiFormControlLabel-root"
+                    >
+                      <span
+                        aria-disabled="false"
+                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-22 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-23 Mui-checked MuiIconButton-colorSecondary"
+                      >
+                        <span
+                          class="MuiIconButton-label"
+                        >
+                          <input
+                            checked=""
+                            class="PrivateSwitchBase-input-25"
+                            name="mui-8082"
+                            type="radio"
+                            value="include"
+                          />
+                          <div
+                            class="PrivateRadioButtonIcon-root-26 PrivateRadioButtonIcon-checked-28"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                              />
+                            </svg>
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-27"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                        <span
+                          class="MuiTouchRipple-root"
+                        />
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                      >
+                        Include
+                      </span>
+                    </label>
+                    <label
+                      class="MuiFormControlLabel-root"
+                    >
+                      <span
+                        aria-disabled="false"
+                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-22 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                      >
+                        <span
+                          class="MuiIconButton-label"
+                        >
+                          <input
+                            class="PrivateSwitchBase-input-25"
+                            name="mui-8082"
+                            type="radio"
+                            value="exclude"
+                          />
+                          <div
+                            class="PrivateRadioButtonIcon-root-26"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                              />
+                            </svg>
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-27"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                        <span
+                          class="MuiTouchRipple-root"
+                        />
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                      >
+                        Exclude
+                      </span>
+                    </label>
+                  </div>
                   <div
                     aria-expanded="false"
                     class="MuiAutocomplete-root MuiAutocomplete-fullWidth MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
                     name="experiment.segmentAssignments"
                     role="combobox"
+                    segmentexclusionstate="include"
                   >
                     <div
                       class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -732,7 +842,7 @@ test('renders as expected', () => {
                             class="MuiTableCell-root MuiTableCell-body"
                           >
                             <div
-                              class="MuiFormControl-root MuiTextField-root makeStyles-variationAllocatedPercentage-20"
+                              class="MuiFormControl-root MuiTextField-root makeStyles-variationAllocatedPercentage-21"
                             >
                               <div
                                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd MuiInputBase-marginDense MuiOutlinedInput-marginDense"
@@ -786,7 +896,7 @@ test('renders as expected', () => {
                             class="MuiTableCell-root MuiTableCell-body"
                           >
                             <div
-                              class="MuiFormControl-root MuiTextField-root makeStyles-variationAllocatedPercentage-20"
+                              class="MuiFormControl-root MuiTextField-root makeStyles-variationAllocatedPercentage-21"
                             >
                               <div
                                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd MuiInputBase-marginDense MuiOutlinedInput-marginDense"
