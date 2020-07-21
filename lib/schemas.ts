@@ -157,11 +157,6 @@ export type VariationNew = yup.InferType<typeof variationNewSchema> & { key_?: D
 export const variationSchema = variationNewSchema
   .shape({
     variationId: idSchema.defined(),
-    key_: yup
-      .mixed()
-      .oneOf([])
-      /* istanbul ignore next; inconsequential */
-      .transform(() => undefined),
   })
   .defined()
   .camelCase()
