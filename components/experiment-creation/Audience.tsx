@@ -127,7 +127,7 @@ const newVariation = (): VariationNew => {
     name: `treatment_${time}`,
     isDefault: false,
     allocatedPercentage: 0,
-    _key: time,
+    key_: time,
   }
 }
 
@@ -260,9 +260,9 @@ const Audience = ({ formikProps }: { formikProps: FormikProps<{ experiment: Part
                     </TableHead>
                     <TableBody>
                       {formikProps.values.experiment.variations.map((variation, idx) => {
-                        const isControl = DefaultVariationKey.Control === variation._key
+                        const isControl = DefaultVariationKey.Control === variation.key_
                         return (
-                          <TableRow key={variation._key}>
+                          <TableRow key={variation.key_}>
                             <TableCell>
                               {!isControl && ALLOW_ADDITIONAL_VARIATIONS ? (
                                 <Field
