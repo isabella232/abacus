@@ -90,6 +90,7 @@ const SegmentsAutocomplete = (
   // Here we translate SegmentAssignment (outside) <-> Segment (inside)
   const segmentAssignmentToSegment = (segmentAssignment: SegmentAssignmentNew) => {
     const segment = segments[segmentAssignment.segmentId]
+    /* istanbul ignore next; Should never happen */
     if (!segment) {
       throw new Error('Could not find segment with specified segmentId.')
     }
