@@ -151,10 +151,12 @@ module.exports = {
       {
         selector: 'property',
         format: ['snake_case', 'strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
+        trailingUnderscore: 'allow', // For non-canonical extensions to objects, eg. for adding metadata to objects
       },
       {
         selector: 'variable',
         format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow', // For indicating unused parameter to TypeScript (For array destructuring).
       },
       {
         selector: 'memberLike',
@@ -168,7 +170,7 @@ module.exports = {
       },
     ],
 
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
   },
   settings: {
     'import/resolver': {

@@ -1,4 +1,4 @@
-import { AnalysisStrategy, ExperimentFull, Variation } from './schemas'
+import { AnalysisStrategy, ExperimentFull, ExperimentFullNew, Platform, Variation } from './schemas'
 
 /**
  * Return the deployed variation if one has been selected, otherwise `null`.
@@ -45,10 +45,19 @@ export function getDefaultAnalysisStrategy(experiment: ExperimentFull) {
   return experiment.exposureEvents ? AnalysisStrategy.PpNaive : AnalysisStrategy.MittNoSpammersNoCrossovers
 }
 
-export function createNewExperiment(): Partial<ExperimentFull> {
+export function createNewExperiment(): Partial<ExperimentFullNew> {
   return {
+    platform: Platform.Wpcom,
     metricAssignments: [],
     segmentAssignments: [],
-    variations: [],
+    variations: [
+      { name: 'control', isDefault: true, allocatedPercentage: 50 },
+      { name: 'treatment', isDefault: false, allocatedPercentage: 50 },
+    ],
   }
+}
+
+export const PlatformToHuman: Record<Platform, string> = {
+  [Platform.Wpcom]: 'WordPress.com',
+  [Platform.Calypso]: 'Calypso',
 }

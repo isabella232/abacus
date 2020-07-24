@@ -91,9 +91,8 @@ export enum AttributionWindowSeconds {
   FourWeeks = 2419200,
 }
 
-export const metricAssignmentSchema = yup
+export const metricAssignmentNewSchema = yup
   .object({
-    metricAssignmentId: idSchema.defined(),
     attributionWindowSeconds: yup
       .number()
       .integer()
@@ -104,6 +103,14 @@ export const metricAssignmentSchema = yup
     isPrimary: yup.bool().defined(),
     metricId: idSchema.defined(),
     minDifference: yup.number().defined(),
+  })
+  .defined()
+  .camelCase()
+export type MetricAssignmentNew = yup.InferType<typeof metricAssignmentNewSchema>
+
+export const metricAssignmentSchema = metricAssignmentNewSchema
+  .shape({
+    metricAssignmentId: idSchema.defined(),
   })
   .defined()
   .camelCase()
@@ -124,22 +131,36 @@ export const segmentSchema = yup
   .camelCase()
 export type Segment = yup.InferType<typeof segmentSchema>
 
-export const segmentAssignmentSchema = yup
+export const segmentAssignmentNewSchema = yup
   .object({
-    segmentAssignmentId: idSchema.defined(),
     segmentId: idSchema.defined(),
     isExcluded: yup.bool().defined(),
   })
   .defined()
   .camelCase()
+export type SegmentAssignmentNew = yup.InferType<typeof segmentAssignmentNewSchema>
+
+export const segmentAssignmentSchema = segmentAssignmentNewSchema
+  .shape({
+    segmentAssignmentId: idSchema.defined(),
+  })
+  .defined()
+  .camelCase()
 export type SegmentAssignment = yup.InferType<typeof segmentAssignmentSchema>
 
-export const variationSchema = yup
+export const variationNewSchema = yup
   .object({
-    variationId: idSchema.defined(),
     name: nameSchema.defined(),
     isDefault: yup.bool().defined(),
     allocatedPercentage: yup.number().integer().min(1).max(99).defined(),
+  })
+  .defined()
+  .camelCase()
+export type VariationNew = yup.InferType<typeof variationNewSchema>
+
+export const variationSchema = variationNewSchema
+  .shape({
+    variationId: idSchema.defined(),
   })
   .defined()
   .camelCase()
@@ -184,14 +205,14 @@ export const experimentFullSchema = experimentBareSchema
     exposureEvents: yup.array<Event>(eventSchema).nullable(),
     metricAssignments: yup.array(metricAssignmentSchema).defined().min(1),
     segmentAssignments: yup.array(segmentAssignmentSchema).defined(),
-    variations: yup.array(variationSchema).defined().min(2),
+    variations: yup.array<Variation>(variationSchema).defined().min(2),
   })
   .defined()
   .camelCase()
 export type ExperimentFull = yup.InferType<typeof experimentFullSchema>
 
 const now = new Date()
-export const experimentCreateSchema = experimentFullSchema.shape({
+export const experimentFullNewSchema = experimentFullSchema.shape({
   experimentId: idSchema.nullable(),
   // Using yesterday here to avoid timezone issues
   startDatetime: yup
@@ -217,8 +238,11 @@ export const experimentCreateSchema = experimentFullSchema.shape({
             `End date must be within ${MAX_DISTANCE_BETWEEN_START_AND_END_DATE_IN_MONTHS} months of start date.`,
           ),
     ),
+  metricAssignments: yup.array(metricAssignmentNewSchema).defined(),
+  segmentAssignments: yup.array(segmentAssignmentNewSchema).defined(),
+  variations: yup.array<VariationNew>(variationNewSchema).defined().min(2),
 })
-export type ExperimentFullNew = yup.InferType<typeof experimentCreateSchema>
+export type ExperimentFullNew = yup.InferType<typeof experimentFullNewSchema>
 
 export enum RecommendationReason {
   CiInRope = 'ci_in_rope',

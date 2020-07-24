@@ -1,7 +1,7 @@
 import Fixtures from '@/test-helpers/fixtures'
 
 import * as Experiments from './experiments'
-import { AnalysisStrategy } from './schemas'
+import { AnalysisStrategy, Platform } from './schemas'
 
 describe('lib/experiments.ts module', () => {
   describe('getDeployedVariation', () => {
@@ -69,9 +69,13 @@ describe('lib/experiments.ts module', () => {
   describe('createNewExperiment', () => {
     it('should return a new experiment', () => {
       expect(Experiments.createNewExperiment()).toEqual({
+        platform: Platform.Wpcom,
         metricAssignments: [],
         segmentAssignments: [],
-        variations: [],
+        variations: [
+          { name: 'control', isDefault: true, allocatedPercentage: 50 },
+          { name: 'treatment', isDefault: false, allocatedPercentage: 50 },
+        ],
       })
     })
   })

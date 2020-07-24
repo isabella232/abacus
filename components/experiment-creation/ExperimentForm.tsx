@@ -7,8 +7,9 @@ import { Formik } from 'formik'
 import React, { useRef, useState } from 'react'
 import * as yup from 'yup'
 
-import { experimentCreateSchema, ExperimentFull, MetricBare, Segment } from '@/lib/schemas'
+import { ExperimentFullNew, experimentFullNewSchema, MetricBare, Segment } from '@/lib/schemas'
 
+import Audience from './Audience'
 import BasicInfo from './BasicInfo'
 import Beginning from './Beginning'
 
@@ -91,7 +92,7 @@ const ExperimentForm = ({
 }: {
   metrics: MetricBare[]
   segments: Segment[]
-  initialExperiment: Partial<ExperimentFull>
+  initialExperiment: Partial<ExperimentFullNew>
 }) => {
   const classes = useStyles()
 
@@ -164,10 +165,10 @@ const ExperimentForm = ({
         <Formik
           initialValues={{ experiment: initialExperiment }}
           onSubmit={(v) => alert(JSON.stringify(v, null, 2))}
-          validationSchema={yup.object({ experiment: experimentCreateSchema })}
+          validationSchema={yup.object({ experiment: experimentFullNewSchema })}
         >
-          {({ handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
+          {(formikProps) => (
+            <form onSubmit={formikProps.handleSubmit}>
               <div className={classes.formPart} ref={formPartBeginningRef}>
                 <Beginning />
                 <div className={classes.formPartActions}>
@@ -189,7 +190,7 @@ const ExperimentForm = ({
               </div>
               <div className={classes.formPart} ref={formPartAudienceRef}>
                 <Paper className={classes.paper}>
-                  <Typography variant='body1'>Audience Form Part</Typography>
+                  <Audience formikProps={formikProps} />
                 </Paper>
                 <div className={classes.formPartActions}>
                   <Button onClick={prevStage}>Previous</Button>
