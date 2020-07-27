@@ -86,12 +86,12 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const ExperimentForm = ({
-  metrics,
-  segments,
+  normalizedMetrics,
+  normalizedSegments,
   initialExperiment,
 }: {
-  metrics: MetricBare[]
-  segments: Segment[]
+  normalizedMetrics: Record<string, MetricBare>
+  normalizedSegments: Record<string, Segment>
   initialExperiment: Partial<ExperimentFullNew>
 }) => {
   const classes = useStyles()
