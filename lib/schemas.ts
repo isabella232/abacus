@@ -238,6 +238,20 @@ export const experimentFullNormalizrSchema = new normalizr.schema.Entity<Experim
   },
   { idAttribute: 'experimentId' },
 )
+export type ExperimentFullNormalized = Omit<
+  ExperimentFull,
+  'metricAssignments' | 'segmentAssignments' | 'variations'
+> & {
+  metricAssignments: number[]
+  segmentAssignments: number[]
+  variations: number[]
+}
+export interface ExperimentFullNormalizedEntities {
+  experiments: Record<number, ExperimentFullNormalized>
+  metricAssignments: Record<number, MetricAssignment>
+  segmentAssignments: Record<number, SegmentAssignment>
+  variations: Record<number, Variation>
+}
 
 const now = new Date()
 export const experimentFullNewSchema = experimentFullSchema.shape({
