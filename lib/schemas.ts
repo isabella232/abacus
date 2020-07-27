@@ -2,6 +2,7 @@
 // https://app.swaggerhub.com/apis/yanir/experiments/0.1.0
 
 import * as dateFns from 'date-fns'
+import * as normalizr from 'normalizr'
 import * as yup from 'yup'
 
 const idSchema = yup.number().integer().positive()
@@ -130,6 +131,7 @@ export const segmentSchema = yup
   .defined()
   .camelCase()
 export type Segment = yup.InferType<typeof segmentSchema>
+export const segmentNormalizrSchema = new normalizr.schema.Entity<Segment>('segments', {}, { idAttribute: 'segmentId' })
 
 export const segmentAssignmentNewSchema = yup
   .object({
