@@ -60,6 +60,11 @@ export const metricBareSchema = yup
   .defined()
   .camelCase()
 export type MetricBare = yup.InferType<typeof metricBareSchema>
+export const metricBareNormalizrSchema = new normalizr.schema.Entity<MetricBare>(
+  'metrics',
+  {},
+  { idAttribute: 'metricId' },
+)
 
 export const metricFullSchema = metricBareSchema
   .shape({
