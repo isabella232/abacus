@@ -19,21 +19,21 @@ const ExperimentsNewPage = function () {
   debug('ExperimentsNewPage#render')
   const initialExperiment = createNewExperiment()
 
-  const { isLoading: metricsIsLoading, data: normalizedMetrics, error: metricsError } = useDataSource(async () => {
+  const { isLoading: metricsIsLoading, data: indexedMetrics, error: metricsError } = useDataSource(async () => {
     const metrics = await MetricsApi.findAll()
     const {
-      entities: { metrics: normalizedMetrics },
+      entities: { metrics: indexedMetrics },
     } = normalize<MetricBare>(metrics, [metricBareNormalizrSchema])
-    return normalizedMetrics
+    return indexedMetrics
   }, [])
   useDataLoadingError(metricsError, 'Metrics')
 
-  const { isLoading: segmentsIsLoading, data: normalizedSegments, error: segmentsError } = useDataSource(async () => {
+  const { isLoading: segmentsIsLoading, data: indexedSegments, error: segmentsError } = useDataSource(async () => {
     const segments = await SegmentsApi.findAll()
     const {
-      entities: { segments: normalizedSegments },
+      entities: { segments: indexedSegments },
     } = normalize<Segment>(segments, [segmentNormalizrSchema])
-    return normalizedSegments
+    return indexedSegments
   }, [])
   useDataLoadingError(segmentsError, 'Segments')
 
@@ -42,16 +42,16 @@ const ExperimentsNewPage = function () {
   return (
     <Layout title='Create an Experiment'>
       {isLoading && <LinearProgress />}
-      {!isLoading && normalizedMetrics && normalizedSegments && (
+      {!isLoading && indexedMetrics && indexedSegments && (
         <ExperimentForm
-          normalizedMetrics={normalizedMetrics}
-          normalizedSegments={normalizedSegments}
+          indexedMetrics={indexedMetrics}
+          indexedSegments={indexedSegments}
           initialExperiment={initialExperiment}
         />
       )}
       <DebugOutput label='Initial Experiment' content={initialExperiment} />
-      <DebugOutput label='Metrics' content={normalizedMetrics} />
-      <DebugOutput label='Segments' content={normalizedSegments} />
+      <DebugOutput label='Metrics' content={indexedMetrics} />
+      <DebugOutput label='Segments' content={indexedSegments} />
     </Layout>
   )
 }

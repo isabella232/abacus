@@ -58,7 +58,7 @@ enum SegmentExclusionState {
 
 const SegmentsAutocomplete = (
   props: AutocompleteProps<Segment, true, false, false> & {
-    normalizedSegments: Record<number, Segment>
+    indexedSegments: Record<number, Segment>
     segmentExclusionState: SegmentExclusionState
   },
 ) => {
@@ -70,7 +70,7 @@ const SegmentsAutocomplete = (
 
   // Here we translate SegmentAssignment (outside) <-> Segment (inside)
   const segmentAssignmentToSegment = (segmentAssignment: SegmentAssignmentNew) => {
-    const segment = props.normalizedSegments[segmentAssignment.segmentId]
+    const segment = props.indexedSegments[segmentAssignment.segmentId]
     /* istanbul ignore next; Should never happen */
     if (!segment) {
       throw new Error('Could not find segment with specified segmentId.')
@@ -94,7 +94,7 @@ const SegmentsAutocomplete = (
 
   return (
     <Autocomplete
-      {...fieldToAutocomplete(_.omit(props, 'segmentExclusionState', 'normalizedSegments'))}
+      {...fieldToAutocomplete(_.omit(props, 'segmentExclusionState', 'indexedSegments'))}
       multiple={true}
       onChange={onChange}
       value={value}
@@ -104,10 +104,10 @@ const SegmentsAutocomplete = (
 }
 
 const Audience = ({
-  normalizedSegments,
+  indexedSegments,
   formikProps,
 }: {
-  normalizedSegments: Record<number, Segment>
+  indexedSegments: Record<number, Segment>
   formikProps: FormikProps<{ experiment: Partial<ExperimentFullNew> }>
 }) => {
   const classes = useStyles()
@@ -202,13 +202,13 @@ const Audience = ({
           <Field
             name='experiment.segmentAssignments'
             component={SegmentsAutocomplete}
-            options={Object.values(normalizedSegments)}
+            options={Object.values(indexedSegments)}
             // TODO: Error state, see https://stackworx.github.io/formik-material-ui/docs/api/material-ui-lab
             renderInput={(params: AutocompleteRenderInputParams) => (
               <MuiTextField {...params} variant='outlined' placeholder='Search and select to customize' />
             )}
             segmentExclusionState={segmentExclusionState}
-            normalizedSegments={normalizedSegments}
+            indexedSegments={indexedSegments}
             fullWidth
             id='segments-select'
           />
