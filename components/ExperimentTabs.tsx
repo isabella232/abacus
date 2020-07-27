@@ -38,29 +38,30 @@ function LinkTab({ as, label, url, value }: { as?: string; label: ReactNode; url
  */
 export default function ExperimentTabs({
   className,
-  experiment,
-  /*
-  // Not yet used
   normalizedExperiment,
-  */
   tab,
 }: {
   className?: string
   experiment: ExperimentFull
-  normalizedExperiment?: ExperimentFullNormalized
+  normalizedExperiment: ExperimentFullNormalized
   tab: 'details' | 'results' | 'snippets'
 }) {
   return (
     <Tabs className={className} value={tab}>
-      <LinkTab as={`/experiments/${experiment.experimentId}`} label='Details' value='details' url='/experiments/[id]' />
       <LinkTab
-        as={`/experiments/${experiment.experimentId}/results`}
+        as={`/experiments/${normalizedExperiment.experimentId}`}
+        label='Details'
+        value='details'
+        url='/experiments/[id]'
+      />
+      <LinkTab
+        as={`/experiments/${normalizedExperiment.experimentId}/results`}
         label='Results'
         value='results'
         url='/experiments/[id]/results'
       />
       <LinkTab
-        as={`/experiments/${experiment.experimentId}/snippets`}
+        as={`/experiments/${normalizedExperiment.experimentId}/snippets`}
         label='Snippets'
         value='snippets'
         url='/experiments/[id]/snippets'

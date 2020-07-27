@@ -255,6 +255,7 @@ export interface ExperimentFullNormalizedEntities {
   segmentAssignments: Record<number, SegmentAssignment>
   variations: Record<number, Variation>
 }
+export type ExperimentFullNormalizedData = normalizr.NormalizedSchema<ExperimentFullNormalizedEntities, number>
 
 const now = new Date()
 export const experimentFullNewSchema = experimentFullSchema.shape({

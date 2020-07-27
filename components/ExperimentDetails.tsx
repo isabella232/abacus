@@ -2,7 +2,6 @@ import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import debugFactory from 'debug'
-import { NormalizedSchema } from 'normalizr'
 import React from 'react'
 
 import AudiencePanel from '@/components/AudiencePanel'
@@ -13,7 +12,7 @@ import * as Experiments from '@/lib/experiments'
 import {
   ExperimentFull,
   ExperimentFullNormalized,
-  ExperimentFullNormalizedEntities,
+  ExperimentFullNormalizedData,
   MetricBare,
   Segment,
 } from '@/lib/schemas'
@@ -35,7 +34,7 @@ function ExperimentDetails({
 }: {
   experiment: ExperimentFull
   normalizedExperiment: ExperimentFullNormalized
-  normalizedExperimentData: NormalizedSchema<ExperimentFullNormalizedEntities, number>
+  normalizedExperimentData: ExperimentFullNormalizedData
   metrics: MetricBare[]
   segments: Segment[]
 }) {
