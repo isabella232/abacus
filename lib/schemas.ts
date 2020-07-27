@@ -2,6 +2,7 @@
 // https://app.swaggerhub.com/apis/yanir/experiments/0.1.0
 
 import * as dateFns from 'date-fns'
+import * as normalizr from 'normalizr'
 import * as yup from 'yup'
 
 const idSchema = yup.number().integer().positive()
@@ -116,6 +117,11 @@ export const metricAssignmentSchema = metricAssignmentNewSchema
   .defined()
   .camelCase()
 export type MetricAssignment = yup.InferType<typeof metricAssignmentSchema>
+export const metricAssignmentNormalizrSchema = new normalizr.schema.Entity<MetricAssignment>(
+  'metricAssignments',
+  {},
+  { idAttribute: 'metricAssignmentId' },
+)
 
 export enum SegmentType {
   Country = 'country',
@@ -149,6 +155,11 @@ export const segmentAssignmentSchema = segmentAssignmentNewSchema
   .defined()
   .camelCase()
 export type SegmentAssignment = yup.InferType<typeof segmentAssignmentSchema>
+export const segmentAssignmentNormalizrSchema = new normalizr.schema.Entity<SegmentAssignment>(
+  'segmentAssignments',
+  {},
+  { idAttribute: 'segmentAssignmentId' },
+)
 
 export const variationNewSchema = yup
   .object({
@@ -168,6 +179,11 @@ export const variationSchema = variationNewSchema
   .defined()
   .camelCase()
 export type Variation = yup.InferType<typeof variationSchema>
+export const variationNormalizrSchema = new normalizr.schema.Entity<Variation>(
+  'variations',
+  {},
+  { idAttribute: 'variationId' },
+)
 
 export enum Platform {
   Calypso = 'calypso',
@@ -213,6 +229,15 @@ export const experimentFullSchema = experimentBareSchema
   .defined()
   .camelCase()
 export type ExperimentFull = yup.InferType<typeof experimentFullSchema>
+export const experimentFullNormalizrSchema = new normalizr.schema.Entity<ExperimentFull>(
+  'experiments',
+  {
+    metricsAssignments: [metricAssignmentNormalizrSchema],
+    segmentAssignments: [segmentAssignmentNormalizrSchema],
+    variations: [variationNormalizrSchema],
+  },
+  { idAttribute: 'experimentId' },
+)
 
 const now = new Date()
 export const experimentFullNewSchema = experimentFullSchema.shape({
