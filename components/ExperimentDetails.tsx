@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import debugFactory from 'debug'
+import { NormalizedSchema } from 'normalizr'
 import React from 'react'
 
 import AudiencePanel from '@/components/AudiencePanel'
@@ -9,7 +10,13 @@ import ConclusionsPanel from '@/components/ConclusionsPanel'
 import GeneralPanel from '@/components/GeneralPanel'
 import MetricAssignmentsPanel from '@/components/MetricAssignmentsPanel'
 import * as Experiments from '@/lib/experiments'
-import { ExperimentFull, MetricBare, Segment } from '@/lib/schemas'
+import {
+  ExperimentFull,
+  ExperimentFullNormalized,
+  ExperimentFullNormalizedEntities,
+  MetricBare,
+  Segment,
+} from '@/lib/schemas'
 
 const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
 
@@ -18,10 +25,17 @@ const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
  */
 function ExperimentDetails({
   experiment,
+  /*
+  // Not yet used
+  normalizedExperiment,
+  normalizedExperimentData,
+  */
   metrics,
   segments,
 }: {
   experiment: ExperimentFull
+  normalizedExperiment: ExperimentFullNormalized
+  normalizedExperimentData: NormalizedSchema<ExperimentFullNormalizedEntities, number>
   metrics: MetricBare[]
   segments: Segment[]
 }) {
