@@ -190,7 +190,7 @@ const ExperimentForm = ({
               </div>
               <div className={classes.formPart} ref={formPartAudienceRef}>
                 <Paper className={classes.paper}>
-                  <Audience formikProps={formikProps} />
+                  <Audience formikProps={formikProps} normalizedSegments={normalizedSegments} />
                 </Paper>
                 <div className={classes.formPartActions}>
                   <Button onClick={prevStage}>Previous</Button>
