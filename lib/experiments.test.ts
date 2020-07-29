@@ -1,16 +1,36 @@
+import { normalize } from 'normalizr'
+
 import Fixtures from '@/test-helpers/fixtures'
 
 import * as Experiments from './experiments'
-import { AnalysisStrategy, Platform } from './schemas'
+import {
+  AnalysisStrategy,
+  ExperimentFull,
+  ExperimentFullNormalizedEntities,
+  experimentFullNormalizrSchema,
+  Platform,
+} from './schemas'
 
 describe('lib/experiments.ts module', () => {
   describe('getDeployedVariation', () => {
     it('should return null when no deployed variation declared', () => {
-      expect(Experiments.getDeployedVariation(Fixtures.createExperimentFull())).toBeNull()
+      const experiment = Fixtures.createExperimentFull()
+      const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+        experiment,
+        experimentFullNormalizrSchema,
+      )
+
+      expect(Experiments.getDeployedVariation(normalizedExperimentData)).toBeNull()
     })
 
     it('should return the deployed variation when declared', () => {
-      expect(Experiments.getDeployedVariation(Fixtures.createExperimentFull({ deployedVariationId: 1 }))).toEqual({
+      const experiment = Fixtures.createExperimentFull({ deployedVariationId: 1 })
+      const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+        experiment,
+        experimentFullNormalizrSchema,
+      )
+
+      expect(Experiments.getDeployedVariation(normalizedExperimentData)).toEqual({
         variationId: 1,
         name: 'control',
         isDefault: true,
@@ -19,8 +39,14 @@ describe('lib/experiments.ts module', () => {
     })
 
     it('should throw an error when deployed variation is declared but cannot be resolved', () => {
+      const experiment = Fixtures.createExperimentFull({ deployedVariationId: 0 })
+      const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+        experiment,
+        experimentFullNormalizrSchema,
+      )
+
       expect(() => {
-        Experiments.getDeployedVariation(Fixtures.createExperimentFull({ deployedVariationId: 0 }))
+        Experiments.getDeployedVariation(normalizedExperimentData)
       }).toThrowError()
     })
   })

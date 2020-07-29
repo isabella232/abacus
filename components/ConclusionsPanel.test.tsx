@@ -1,5 +1,7 @@
+import { normalize } from 'normalizr'
 import React from 'react'
 
+import { ExperimentFull, ExperimentFullNormalizedEntities, experimentFullNormalizrSchema } from '@/lib/schemas'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
@@ -11,7 +13,11 @@ test('renders as expected with complete conclusion data', () => {
     deployedVariationId: 2,
     endReason: 'Ran its course.',
   })
-  const { container } = render(<ConclusionsPanel experiment={experiment} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const { container } = render(<ConclusionsPanel normalizedExperimentData={normalizedExperimentData} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>
@@ -96,7 +102,11 @@ test('renders as expected without deployed variation', () => {
     deployedVariationId: null,
     endReason: 'Ran its course.',
   })
-  const { container } = render(<ConclusionsPanel experiment={experiment} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const { container } = render(<ConclusionsPanel normalizedExperimentData={normalizedExperimentData} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>

@@ -1,4 +1,11 @@
-import { AnalysisStrategy, ExperimentFull, ExperimentFullNew, Platform, Variation } from './schemas'
+import {
+  AnalysisStrategy,
+  ExperimentFull,
+  ExperimentFullNew,
+  ExperimentFullNormalizedData,
+  Platform,
+  Variation,
+} from './schemas'
 
 /**
  * Return the deployed variation if one has been selected, otherwise `null`.
@@ -6,19 +13,19 @@ import { AnalysisStrategy, ExperimentFull, ExperimentFullNew, Platform, Variatio
  * @throws {Error} If a `deployedVariationId` is set but cannot be found in the
  *   variations.
  */
-export function getDeployedVariation(experiment: ExperimentFull): null | Variation {
-  let deployedVariation = null
+export function getDeployedVariation(normalizedExperimentData: ExperimentFullNormalizedData): null | Variation {
+  const normalizedExperiment = normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
 
-  if (typeof experiment.deployedVariationId === 'number') {
-    deployedVariation = experiment.variations.find(
-      (variation) => experiment.deployedVariationId === variation.variationId,
+  if (typeof normalizedExperiment.deployedVariationId !== 'number') {
+    return null
+  }
+
+  const deployedVariation = normalizedExperimentData.entities.variations[normalizedExperiment.deployedVariationId]
+
+  if (!deployedVariation) {
+    throw new Error(
+      `Failed to resolve the deployed variation with ID ${normalizedExperiment.deployedVariationId} for experiment with ID ${normalizedExperiment.experimentId}.`,
     )
-
-    if (!deployedVariation) {
-      throw Error(
-        `Failed to resolve the deployed variation with ID ${experiment.deployedVariationId} for experiment with ID ${experiment.experimentId}.`,
-      )
-    }
   }
 
   return deployedVariation
