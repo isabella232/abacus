@@ -23,7 +23,7 @@ const ExperimentsNewPage = function () {
     const metrics = await MetricsApi.findAll()
     const {
       entities: { metrics: indexedMetrics },
-    } = normalize<MetricBare>(metrics, [metricBareNormalizrSchema])
+    } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
     return indexedMetrics
   }, [])
   useDataLoadingError(metricsError, 'Metrics')
@@ -32,7 +32,7 @@ const ExperimentsNewPage = function () {
     const segments = await SegmentsApi.findAll()
     const {
       entities: { segments: indexedSegments },
-    } = normalize<Segment>(segments, [segmentNormalizrSchema])
+    } = normalize<Segment, { segments: Record<number, Segment> }>(segments, [segmentNormalizrSchema])
     return indexedSegments
   }, [])
   useDataLoadingError(segmentsError, 'Segments')

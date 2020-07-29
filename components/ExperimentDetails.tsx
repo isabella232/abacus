@@ -25,15 +25,15 @@ const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
 function ExperimentDetails({
   experiment,
   normalizedExperiment,
-  // normalizedExperimentData,
+  normalizedExperimentData,
   metrics,
-  segments,
+  indexedSegments,
 }: {
   experiment: ExperimentFull
   normalizedExperiment: ExperimentFullNormalized
   normalizedExperimentData: ExperimentFullNormalizedData
   metrics: MetricBare[]
-  segments: Segment[]
+  indexedSegments: Record<number, Segment>
 }) {
   debug('ExperimentDetails#render')
   const theme = useTheme()
@@ -48,7 +48,7 @@ function ExperimentDetails({
           </Grid>
           {isMdDown && (
             <Grid item>
-              <AudiencePanel experiment={experiment} segments={segments} />
+              <AudiencePanel normalizedExperimentData={normalizedExperimentData} indexedSegments={indexedSegments} />
             </Grid>
           )}
           <Grid item>
@@ -63,7 +63,7 @@ function ExperimentDetails({
       </Grid>
       {!isMdDown && (
         <Grid item lg={5}>
-          <AudiencePanel experiment={experiment} segments={segments} />
+          <AudiencePanel normalizedExperimentData={normalizedExperimentData} indexedSegments={indexedSegments} />
         </Grid>
       )}
     </Grid>

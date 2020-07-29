@@ -12,7 +12,13 @@ import SegmentsApi from '@/api/SegmentsApi'
 import ExperimentDetails from '@/components/ExperimentDetails'
 import ExperimentTabs from '@/components/ExperimentTabs'
 import Layout from '@/components/Layout'
-import { ExperimentFull, ExperimentFullNormalizedEntities, experimentFullNormalizrSchema } from '@/lib/schemas'
+import {
+  ExperimentFull,
+  ExperimentFullNormalizedEntities,
+  experimentFullNormalizrSchema,
+  Segment,
+  segmentNormalizrSchema,
+} from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
 
@@ -41,11 +47,11 @@ export default function ExperimentPage() {
       return createUnresolvingPromise<null>()
     }
     const experiment = await ExperimentsApi.findById(experimentId)
-    const normalizedExperiment = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
       experiment,
       experimentFullNormalizrSchema,
     )
-    return normalizedExperiment
+    return normalizedExperimentData
   }, [experimentId])
   useDataLoadingError(experimentError, 'Experiment')
   const normalizedExperiment =
@@ -61,10 +67,13 @@ export default function ExperimentPage() {
   )
   useDataLoadingError(metricsError, 'Metrics')
 
-  const { isLoading: segmentsIsLoading, data: segments, error: segmentsError } = useDataSource(
-    () => SegmentsApi.findAll(),
-    [],
-  )
+  const { isLoading: segmentsIsLoading, data: indexedSegments, error: segmentsError } = useDataSource(async () => {
+    const segments = await SegmentsApi.findAll()
+    const {
+      entities: { segments: indexedSegments },
+    } = normalize<Segment, { segments: Record<number, Segment> }>(segments, [segmentNormalizrSchema])
+    return indexedSegments
+  }, [])
   useDataLoadingError(segmentsError, 'Segments')
 
   const isLoading = or(experimentIsLoading, metricsIsLoading, segmentsIsLoading)
@@ -78,7 +87,7 @@ export default function ExperimentPage() {
         normalizedExperimentData &&
         experiment &&
         metrics &&
-        segments && (
+        indexedSegments && (
           <>
             <ExperimentTabs className={classes.tabs} normalizedExperiment={normalizedExperiment} tab='details' />
             <ExperimentDetails
@@ -86,7 +95,7 @@ export default function ExperimentPage() {
               normalizedExperiment={normalizedExperiment}
               normalizedExperimentData={normalizedExperimentData}
               metrics={metrics}
-              segments={segments}
+              indexedSegments={indexedSegments}
             />
           </>
         )

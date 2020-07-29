@@ -5,10 +5,10 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import _ from 'lodash'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import Label from '@/components/Label'
-import { Segment, SegmentType } from '@/lib/schemas'
+import { Segment, SegmentAssignment, SegmentType } from '@/lib/schemas'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,19 +34,17 @@ const SegmentTypeToHeading = {
  * @param props.type - The segment type the segment assignments represent.
  */
 function SegmentsTable({
-  resolvedSegmentAssignments,
+  segmentAssignmentsWithSegments,
   type,
 }: {
-  resolvedSegmentAssignments: {
+  segmentAssignmentsWithSegments: {
+    segmentAssignment: SegmentAssignment
     segment: Segment
-    isExcluded: boolean
   }[]
   type: SegmentType
 }) {
-  const sortedResolvedSegmentAssignments = useMemo(
-    () => _.orderBy(resolvedSegmentAssignments, [_.property('segment.name')]),
-    [resolvedSegmentAssignments],
-  )
+  const sortedSegmentAssignmentsWithSegments = _.orderBy(segmentAssignmentsWithSegments, [_.property('segment.name')])
+
   const classes = useStyles()
   return (
     <Table>
@@ -58,22 +56,19 @@ function SegmentsTable({
         </TableRow>
       </TableHead>
       <TableBody>
-        {resolvedSegmentAssignments.length === 0 ? (
+        {sortedSegmentAssignmentsWithSegments.length === 0 ? (
           <TableRow>
             <TableCell>All {type === SegmentType.Country ? 'countries' : 'locales'} included</TableCell>
           </TableRow>
         ) : (
-          sortedResolvedSegmentAssignments.map(
-            (resolvedSegmentAssignment) =>
-              resolvedSegmentAssignment.segment && (
-                <TableRow key={resolvedSegmentAssignment.segment.segmentId}>
-                  <TableCell>
-                    {resolvedSegmentAssignment.segment.name}
-                    {resolvedSegmentAssignment.isExcluded && <Label className={classes.excluded} text='Excluded' />}
-                  </TableCell>
-                </TableRow>
-              ),
-          )
+          sortedSegmentAssignmentsWithSegments.map(({ segmentAssignment, segment }) => (
+            <TableRow key={segment.segmentId}>
+              <TableCell>
+                {segment.name}
+                {segmentAssignment.isExcluded && <Label className={classes.excluded} text='Excluded' />}
+              </TableCell>
+            </TableRow>
+          ))
         )}
       </TableBody>
     </Table>

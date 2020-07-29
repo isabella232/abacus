@@ -36,11 +36,11 @@ export default function ResultsPage() {
       return createUnresolvingPromise<null>()
     }
     const experiment = await ExperimentsApi.findById(experimentId)
-    const normalizedExperiment = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
       experiment,
       experimentFullNormalizrSchema,
     )
-    return normalizedExperiment
+    return normalizedExperimentData
   }, [experimentId])
   useDataLoadingError(experimentError, 'Experiment')
   const normalizedExperiment =

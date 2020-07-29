@@ -1,17 +1,23 @@
 import React from 'react'
 
-import { Segment, SegmentType } from '@/lib/schemas'
+import { Segment, SegmentAssignment, SegmentType } from '@/lib/schemas'
 import { render } from '@/test-helpers/test-utils'
 
 import SegmentsTable from './SegmentsTable'
 
 test('renders as expected with segment names not in order', () => {
-  const resolvedSegmentAssignments: Array<{ segment: Segment; isExcluded: boolean }> = [
-    { segment: { segmentId: 1, name: 'foo', type: SegmentType.Country }, isExcluded: false },
-    { segment: { segmentId: 2, name: 'bar', type: SegmentType.Country }, isExcluded: true },
+  const resolvedSegmentAssignments: Array<{ segment: Segment; segmentAssignment: SegmentAssignment }> = [
+    {
+      segment: { segmentId: 1, name: 'foo', type: SegmentType.Country },
+      segmentAssignment: { segmentAssignmentId: 1, segmentId: 1, isExcluded: false },
+    },
+    {
+      segment: { segmentId: 2, name: 'bar', type: SegmentType.Country },
+      segmentAssignment: { segmentAssignmentId: 2, segmentId: 2, isExcluded: true },
+    },
   ]
   const { container } = render(
-    <SegmentsTable resolvedSegmentAssignments={resolvedSegmentAssignments} type={SegmentType.Country} />,
+    <SegmentsTable segmentAssignmentsWithSegments={resolvedSegmentAssignments} type={SegmentType.Country} />,
   )
 
   expect(container).toMatchInlineSnapshot(`
