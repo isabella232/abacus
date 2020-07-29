@@ -1,6 +1,8 @@
 import MockDate from 'mockdate'
+import { normalize } from 'normalizr'
 import React from 'react'
 
+import { ExperimentFull, ExperimentFullNormalizedEntities, experimentFullNormalizrSchema } from '@/lib/schemas'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
@@ -10,7 +12,12 @@ MockDate.set('2020-07-21')
 
 test('renders as expected', () => {
   const experiment = Fixtures.createExperimentFull()
-  const { container } = render(<GeneralPanel experiment={experiment} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const normalizedExperiment = normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
+  const { container } = render(<GeneralPanel normalizedExperiment={normalizedExperiment} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>

@@ -24,11 +24,8 @@ const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
  */
 function ExperimentDetails({
   experiment,
-  /*
-  // Not yet used
   normalizedExperiment,
-  normalizedExperimentData,
-  */
+  // normalizedExperimentData,
   metrics,
   segments,
 }: {
@@ -47,7 +44,7 @@ function ExperimentDetails({
       <Grid item xs={12} lg={7}>
         <Grid container direction='column' spacing={2}>
           <Grid item>
-            <GeneralPanel experiment={experiment} />
+            <GeneralPanel normalizedExperiment={normalizedExperiment} />
           </Grid>
           {isMdDown && (
             <Grid item>

@@ -3,7 +3,7 @@ import React from 'react'
 
 import DatetimeText from '@/components/DatetimeText'
 import LabelValuePanel from '@/components/LabelValuePanel'
-import { ExperimentFull } from '@/lib/schemas'
+import { ExperimentFullNormalized } from '@/lib/schemas'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme: Theme) =>
  *
  * @param props.experiment - The experiment with the general information.
  */
-function GeneralPanel({ experiment }: { experiment: ExperimentFull }) {
+function GeneralPanel({ normalizedExperiment }: { normalizedExperiment: ExperimentFullNormalized }) {
   const classes = useStyles()
   const data = [
-    { label: 'Description', value: experiment.description },
+    { label: 'Description', value: normalizedExperiment.description },
     {
       label: 'P2 Link',
       value: (
-        <a href={experiment.p2Url} rel='noopener noreferrer' target='_blank'>
-          {experiment.p2Url}
+        <a href={normalizedExperiment.p2Url} rel='noopener noreferrer' target='_blank'>
+          {normalizedExperiment.p2Url}
         </a>
       ),
     },
@@ -35,13 +35,13 @@ function GeneralPanel({ experiment }: { experiment: ExperimentFull }) {
       label: 'Dates',
       value: (
         <>
-          <DatetimeText datetime={experiment.startDatetime} excludeTime />
+          <DatetimeText datetime={normalizedExperiment.startDatetime} excludeTime />
           <span className={classes.to}>to</span>
-          <DatetimeText datetime={experiment.endDatetime} excludeTime />
+          <DatetimeText datetime={normalizedExperiment.endDatetime} excludeTime />
         </>
       ),
     },
-    { label: 'Owner', value: experiment.ownerLogin },
+    { label: 'Owner', value: normalizedExperiment.ownerLogin },
   ]
   return <LabelValuePanel data={data} title='General' />
 }
