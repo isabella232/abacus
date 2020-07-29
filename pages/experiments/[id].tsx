@@ -80,12 +80,7 @@ export default function ExperimentPage() {
         metrics &&
         segments && (
           <>
-            <ExperimentTabs
-              className={classes.tabs}
-              experiment={experiment}
-              normalizedExperiment={normalizedExperiment}
-              tab='details'
-            />
+            <ExperimentTabs className={classes.tabs} normalizedExperiment={normalizedExperiment} tab='details' />
             <ExperimentDetails
               experiment={experiment}
               normalizedExperiment={normalizedExperiment}

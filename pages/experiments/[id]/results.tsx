@@ -1,6 +1,7 @@
 import { LinearProgress } from '@material-ui/core'
 import debugFactory from 'debug'
 import { useRouter } from 'next/router'
+import { denormalize, normalize } from 'normalizr'
 import { toIntOrNull } from 'qc-to_int'
 import React from 'react'
 
@@ -10,7 +11,12 @@ import MetricsApi from '@/api/MetricsApi'
 import ExperimentResults from '@/components/experiment-results/ExperimentResults'
 import ExperimentTabs from '@/components/ExperimentTabs'
 import Layout from '@/components/Layout'
-import { Analysis, ExperimentFull } from '@/lib/schemas'
+import {
+  Analysis,
+  ExperimentFull,
+  ExperimentFullNormalizedEntities,
+  experimentFullNormalizrSchema,
+} from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
 
@@ -21,11 +27,28 @@ export default function ResultsPage() {
   const experimentId = toIntOrNull(router.query.id)
   debug(`ResultPage#render ${experimentId}`)
 
-  const { isLoading: experimentIsLoading, data: experiment, error: experimentError } = useDataSource(
-    () => (experimentId ? ExperimentsApi.findById(experimentId) : createUnresolvingPromise<ExperimentFull>()),
-    [experimentId],
-  )
+  const {
+    isLoading: experimentIsLoading,
+    data: normalizedExperimentData,
+    error: experimentError,
+  } = useDataSource(async () => {
+    if (!experimentId) {
+      return createUnresolvingPromise<null>()
+    }
+    const experiment = await ExperimentsApi.findById(experimentId)
+    const normalizedExperiment = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+      experiment,
+      experimentFullNormalizrSchema,
+    )
+    return normalizedExperiment
+  }, [experimentId])
   useDataLoadingError(experimentError, 'Experiment')
+  const normalizedExperiment =
+    normalizedExperimentData && normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
+  // Keeping this denormalized experiment here as temporary scafolding:
+  const experiment =
+    normalizedExperimentData &&
+    denormalize(normalizedExperimentData.result, experimentFullNormalizrSchema, normalizedExperimentData.entities)
 
   const { isLoading: metricsIsLoading, data: metrics, error: metricsError } = useDataSource(
     () => MetricsApi.findAll(),
@@ -46,11 +69,12 @@ export default function ResultsPage() {
       {isLoading ? (
         <LinearProgress />
       ) : (
+        normalizedExperiment &&
         experiment &&
         analyses &&
         metrics && (
           <>
-            <ExperimentTabs experiment={experiment} tab='results' />
+            <ExperimentTabs normalizedExperiment={normalizedExperiment} tab='results' />
             <ExperimentResults
               analyses={analyses}
               experiment={experiment}

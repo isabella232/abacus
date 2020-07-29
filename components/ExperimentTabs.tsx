@@ -4,7 +4,7 @@ import Tabs from '@material-ui/core/Tabs'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 
-import { ExperimentFull, ExperimentFullNormalized } from '@/lib/schemas'
+import { ExperimentFullNormalized } from '@/lib/schemas'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -42,7 +42,6 @@ export default function ExperimentTabs({
   tab,
 }: {
   className?: string
-  experiment: ExperimentFull
   normalizedExperiment: ExperimentFullNormalized
   tab: 'details' | 'results' | 'snippets'
 }) {
