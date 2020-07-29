@@ -1,5 +1,13 @@
+import { normalize } from 'normalizr'
 import React from 'react'
 
+import {
+  ExperimentFull,
+  ExperimentFullNormalizedEntities,
+  experimentFullNormalizrSchema,
+  MetricBare,
+  metricBareNormalizrSchema,
+} from '@/lib/schemas'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
@@ -8,7 +16,16 @@ import MetricAssignmentsPanel from './MetricAssignmentsPanel'
 test('renders as expected with all metrics resolvable', () => {
   const metrics = Fixtures.createMetricBares()
   const experiment = Fixtures.createExperimentFull()
-  const { container } = render(<MetricAssignmentsPanel experiment={experiment} metrics={metrics} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const {
+    entities: { metrics: indexedMetrics },
+  } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
+  const { container } = render(
+    <MetricAssignmentsPanel normalizedExperimentData={normalizedExperimentData} indexedMetrics={indexedMetrics} />,
+  )
 
   expect(container).toMatchInlineSnapshot(`
     <div>
@@ -182,12 +199,22 @@ test('throws an error when some metrics not resolvable', () => {
   const metrics = Fixtures.createMetricBares(1)
   const experiment = Fixtures.createExperimentFull()
 
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const {
+    entities: { metrics: indexedMetrics },
+  } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
+
   // Note: This console.error spy is mainly used to suppress the output that the
   // `render` function outputs.
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const consoleErrorSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {})
   try {
-    render(<MetricAssignmentsPanel experiment={experiment} metrics={metrics} />)
+    render(
+      <MetricAssignmentsPanel normalizedExperimentData={normalizedExperimentData} indexedMetrics={indexedMetrics} />,
+    )
     expect(false).toBe(true) // Should never be reached
   } catch (err) {
     expect(consoleErrorSpy).toHaveBeenCalled()

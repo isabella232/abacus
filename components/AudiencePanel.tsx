@@ -29,7 +29,7 @@ function AudiencePanel({
       const segment = indexedSegments[segmentAssignment.segmentId]
       if (!segment) {
         throw new Error(
-          `Can't find segment matching segmentId '${segmentAssignment.segmentId}' in segmentAssignment (${segmentAssignment.segmentAssignmentId})`,
+          `Can't find segment matching segmentId '${segmentAssignment.segmentId}' of segmentAssignment (${segmentAssignment.segmentAssignmentId})`,
         )
       }
       return { segmentAssignment, segment }

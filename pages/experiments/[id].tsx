@@ -16,6 +16,8 @@ import {
   ExperimentFull,
   ExperimentFullNormalizedEntities,
   experimentFullNormalizrSchema,
+  MetricBare,
+  metricBareNormalizrSchema,
   Segment,
   segmentNormalizrSchema,
 } from '@/lib/schemas'
@@ -61,10 +63,13 @@ export default function ExperimentPage() {
     normalizedExperimentData &&
     denormalize(normalizedExperimentData.result, experimentFullNormalizrSchema, normalizedExperimentData.entities)
 
-  const { isLoading: metricsIsLoading, data: metrics, error: metricsError } = useDataSource(
-    () => MetricsApi.findAll(),
-    [],
-  )
+  const { isLoading: metricsIsLoading, data: indexedMetrics, error: metricsError } = useDataSource(async () => {
+    const metrics = await MetricsApi.findAll()
+    const {
+      entities: { metrics: indexedMetrics },
+    } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
+    return indexedMetrics
+  }, [])
   useDataLoadingError(metricsError, 'Metrics')
 
   const { isLoading: segmentsIsLoading, data: indexedSegments, error: segmentsError } = useDataSource(async () => {
@@ -86,7 +91,7 @@ export default function ExperimentPage() {
         normalizedExperiment &&
         normalizedExperimentData &&
         experiment &&
-        metrics &&
+        indexedMetrics &&
         indexedSegments && (
           <>
             <ExperimentTabs className={classes.tabs} normalizedExperiment={normalizedExperiment} tab='details' />
@@ -94,7 +99,7 @@ export default function ExperimentPage() {
               experiment={experiment}
               normalizedExperiment={normalizedExperiment}
               normalizedExperimentData={normalizedExperimentData}
-              metrics={metrics}
+              indexedMetrics={indexedMetrics}
               indexedSegments={indexedSegments}
             />
           </>

@@ -26,13 +26,13 @@ function ExperimentDetails({
   experiment,
   normalizedExperiment,
   normalizedExperimentData,
-  metrics,
+  indexedMetrics,
   indexedSegments,
 }: {
   experiment: ExperimentFull
   normalizedExperiment: ExperimentFullNormalized
   normalizedExperimentData: ExperimentFullNormalizedData
-  metrics: MetricBare[]
+  indexedMetrics: Record<number, MetricBare>
   indexedSegments: Record<number, Segment>
 }) {
   debug('ExperimentDetails#render')
@@ -52,7 +52,10 @@ function ExperimentDetails({
             </Grid>
           )}
           <Grid item>
-            <MetricAssignmentsPanel experiment={experiment} metrics={metrics} />
+            <MetricAssignmentsPanel
+              normalizedExperimentData={normalizedExperimentData}
+              indexedMetrics={indexedMetrics}
+            />
           </Grid>
           {Experiments.hasConclusionData(experiment) && (
             <Grid item>

@@ -6,39 +6,13 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import Label from '@/components/Label'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
 import * as MetricAssignments from '@/lib/metric-assignments'
-import { ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
+import { ExperimentFullNormalizedData, MetricBare } from '@/lib/schemas'
 import { formatBoolean, formatUsCurrencyDollar } from '@/utils/formatters'
-
-/**
- * Resolves the metric ID of the metric assignment with the actual metric. If the
- * ID cannot be resolved, then an `Error` will be thrown.
- *
- * @param metricAssignments - The metric assignments to be resolved.
- * @param metrics - The metrics to associate with the assignments.
- * @throws {Error} When unable to resolve a metric ID with one of the supplied
- *   metrics.
- */
-function resolveMetricAssignments(metricAssignments: MetricAssignment[], metrics: MetricBare[]) {
-  const metricsById: { [metricId: string]: MetricBare } = {}
-  metrics.forEach((metric) => (metricsById[metric.metricId] = metric))
-
-  return metricAssignments.map((metricAssignment) => {
-    const metric = metricsById[metricAssignment.metricId]
-
-    if (!metric) {
-      throw Error(
-        `Failed to lookup metric with ID ${metricAssignment.metricId} for assignment with ID ${metricAssignment.metricAssignmentId}.`,
-      )
-    }
-
-    return { ...metricAssignment, metric }
-  })
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,12 +32,28 @@ const useStyles = makeStyles((theme: Theme) =>
  * @param props.metrics - The metrics to look up (aka resolve) the metric IDs of the
  *   experiment's metric assignments.
  */
-function MetricAssignmentsPanel({ experiment, metrics }: { experiment: ExperimentFull; metrics: MetricBare[] }) {
+function MetricAssignmentsPanel({
+  normalizedExperimentData,
+  indexedMetrics,
+}: {
+  normalizedExperimentData: ExperimentFullNormalizedData
+  indexedMetrics: Record<number, MetricBare>
+}) {
   const classes = useStyles()
-  const resolvedMetricAssignments = useMemo(
-    () => resolveMetricAssignments(MetricAssignments.sort(experiment.metricAssignments), metrics),
-    [experiment, metrics],
+
+  const sortedMetricAssignments = MetricAssignments.sort(
+    Object.values(normalizedExperimentData.entities.metricAssignments),
   )
+
+  const metricAssignmentsWithMetrics = sortedMetricAssignments.map((metricAssignment) => {
+    const metric = indexedMetrics[metricAssignment.metricId]
+    if (!metric) {
+      throw new Error(
+        `Can't find metric matching metricId '${metricAssignment.metricId}' of metricAssignment (${metricAssignment.metricAssignmentId})`,
+      )
+    }
+    return { metricAssignment, metric }
+  })
 
   return (
     <Paper>
@@ -88,23 +78,21 @@ function MetricAssignmentsPanel({ experiment, metrics }: { experiment: Experimen
           </TableRow>
         </TableHead>
         <TableBody>
-          {resolvedMetricAssignments.map((resolvedMetricAssignment) => (
-            <TableRow key={resolvedMetricAssignment.metricAssignmentId}>
+          {metricAssignmentsWithMetrics.map(({ metricAssignment, metric }) => (
+            <TableRow key={metricAssignment.metricAssignmentId}>
               <TableCell>
-                {resolvedMetricAssignment.metric.name}
-                {resolvedMetricAssignment.isPrimary && <Label className={classes.primary} text='Primary' />}
+                {metric.name}
+                {metricAssignment.isPrimary && <Label className={classes.primary} text='Primary' />}
               </TableCell>
               <TableCell>
                 <span>
-                  {resolvedMetricAssignment.metric.parameterType === 'revenue'
-                    ? formatUsCurrencyDollar(resolvedMetricAssignment.minDifference)
-                    : `${resolvedMetricAssignment.minDifference} pp`}
+                  {metric.parameterType === 'revenue'
+                    ? formatUsCurrencyDollar(metricAssignment.minDifference)
+                    : `${metricAssignment.minDifference} pp`}
                 </span>
               </TableCell>
-              <TableCell>
-                {AttributionWindowSecondsToHuman[resolvedMetricAssignment.attributionWindowSeconds]}
-              </TableCell>
-              <TableCell>{formatBoolean(resolvedMetricAssignment.changeExpected)}</TableCell>
+              <TableCell>{AttributionWindowSecondsToHuman[metricAssignment.attributionWindowSeconds]}</TableCell>
+              <TableCell>{formatBoolean(metricAssignment.changeExpected)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
