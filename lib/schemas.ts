@@ -246,7 +246,7 @@ export type ExperimentFullNormalized = Omit<
   'metricAssignments' | 'segmentAssignments' | 'variations'
 > & {
   metricAssignments: number[]
-  segmentAssignments: number[]
+  segmentAssignments?: number[]
   variations: number[]
 }
 export interface ExperimentFullNormalizedEntities {

@@ -24,7 +24,7 @@ function AudiencePanel({
 }) {
   const normalizedExperiment = normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
 
-  const segmentAssignmentsWithSegments = Object.values(normalizedExperimentData.entities.segmentAssignments).map(
+  const segmentAssignmentsWithSegments = Object.values(normalizedExperimentData.entities.segmentAssignments ?? []).map(
     (segmentAssignment) => {
       const segment = indexedSegments[segmentAssignment.segmentId]
       if (!segment) {

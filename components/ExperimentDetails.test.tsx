@@ -1,6 +1,16 @@
 import MockDate from 'mockdate'
+import { normalize } from 'normalizr'
 import React from 'react'
 
+import {
+  ExperimentFull,
+  ExperimentFullNormalizedEntities,
+  experimentFullNormalizrSchema,
+  MetricBare,
+  metricBareNormalizrSchema,
+  Segment,
+  segmentNormalizrSchema,
+} from '@/lib/schemas'
 import Fixtures from '@/test-helpers/fixtures'
 import { createMatchMedia, render } from '@/test-helpers/test-utils'
 
@@ -24,7 +34,28 @@ test('renders as expected at large width', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const normalizedExperiment =
+    normalizedExperimentData && normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
+  const {
+    entities: { metrics: indexedMetrics },
+  } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
+  const {
+    entities: { segments: indexedSegments },
+  } = normalize<Segment, { segments: Record<number, Segment> }>(segments, [segmentNormalizrSchema])
+
+  const { container } = render(
+    <ExperimentDetails
+      experiment={experiment}
+      indexedMetrics={indexedMetrics}
+      indexedSegments={indexedSegments}
+      normalizedExperiment={normalizedExperiment}
+      normalizedExperimentData={normalizedExperimentData}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -39,7 +70,28 @@ test('renders as expected at small width', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const normalizedExperiment =
+    normalizedExperimentData && normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
+  const {
+    entities: { metrics: indexedMetrics },
+  } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
+  const {
+    entities: { segments: indexedSegments },
+  } = normalize<Segment, { segments: Record<number, Segment> }>(segments, [segmentNormalizrSchema])
+
+  const { container } = render(
+    <ExperimentDetails
+      experiment={experiment}
+      indexedMetrics={indexedMetrics}
+      indexedSegments={indexedSegments}
+      normalizedExperiment={normalizedExperiment}
+      normalizedExperimentData={normalizedExperimentData}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -56,7 +108,28 @@ test('renders as expected with conclusion data', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const normalizedExperiment =
+    normalizedExperimentData && normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
+  const {
+    entities: { metrics: indexedMetrics },
+  } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
+  const {
+    entities: { segments: indexedSegments },
+  } = normalize<Segment, { segments: Record<number, Segment> }>(segments, [segmentNormalizrSchema])
+
+  const { container } = render(
+    <ExperimentDetails
+      experiment={experiment}
+      indexedMetrics={indexedMetrics}
+      indexedSegments={indexedSegments}
+      normalizedExperiment={normalizedExperiment}
+      normalizedExperimentData={normalizedExperimentData}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -70,7 +143,28 @@ test('renders as expected without conclusion data', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const normalizedExperiment =
+    normalizedExperimentData && normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
+  const {
+    entities: { metrics: indexedMetrics },
+  } = normalize<MetricBare, { metrics: Record<number, MetricBare> }>(metrics, [metricBareNormalizrSchema])
+  const {
+    entities: { segments: indexedSegments },
+  } = normalize<Segment, { segments: Record<number, Segment> }>(segments, [segmentNormalizrSchema])
+
+  const { container } = render(
+    <ExperimentDetails
+      experiment={experiment}
+      indexedMetrics={indexedMetrics}
+      indexedSegments={indexedSegments}
+      normalizedExperiment={normalizedExperiment}
+      normalizedExperimentData={normalizedExperimentData}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })

@@ -15,7 +15,9 @@ import { render } from '@/test-helpers/test-utils'
 import AudiencePanel from './AudiencePanel'
 
 test('renders as expected with no segment assignments', () => {
-  const experiment = Fixtures.createExperimentFull()
+  const experiment = Fixtures.createExperimentFull({
+    segmentAssignments: [],
+  })
   const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
     experiment,
     experimentFullNormalizrSchema,
@@ -30,6 +32,7 @@ test('renders as expected with no segment assignments', () => {
 test('renders as expected with existing users allowed', () => {
   const experiment = Fixtures.createExperimentFull({
     existingUsersAllowed: true,
+    segmentAssignments: [],
   })
   const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
     experiment,
