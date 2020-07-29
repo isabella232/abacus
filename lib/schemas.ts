@@ -235,7 +235,7 @@ export type ExperimentFull = yup.InferType<typeof experimentFullSchema>
 export const experimentFullNormalizrSchema = new normalizr.schema.Entity<ExperimentFull>(
   'experiments',
   {
-    metricsAssignments: [metricAssignmentNormalizrSchema],
+    metricAssignments: [metricAssignmentNormalizrSchema],
     segmentAssignments: [segmentAssignmentNormalizrSchema],
     variations: [variationNormalizrSchema],
   },
