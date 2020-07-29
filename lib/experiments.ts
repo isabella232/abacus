@@ -2,6 +2,7 @@ import {
   AnalysisStrategy,
   ExperimentFull,
   ExperimentFullNew,
+  ExperimentFullNormalized,
   ExperimentFullNormalizedData,
   Platform,
   Variation,
@@ -41,7 +42,7 @@ export function getPrimaryMetricAssignmentId(experiment: ExperimentFull): number
 /**
  * Determines whether conclusion data has been entered for this experiment.
  */
-export function hasConclusionData(experiment: ExperimentFull): boolean {
+export function hasConclusionData(experiment: ExperimentFull | ExperimentFullNormalized): boolean {
   return !!experiment.endReason || !!experiment.conclusionUrl || typeof experiment.deployedVariationId === 'number'
 }
 

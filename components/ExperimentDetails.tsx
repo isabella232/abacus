@@ -9,13 +9,7 @@ import ConclusionsPanel from '@/components/ConclusionsPanel'
 import GeneralPanel from '@/components/GeneralPanel'
 import MetricAssignmentsPanel from '@/components/MetricAssignmentsPanel'
 import * as Experiments from '@/lib/experiments'
-import {
-  ExperimentFull,
-  ExperimentFullNormalized,
-  ExperimentFullNormalizedData,
-  MetricBare,
-  Segment,
-} from '@/lib/schemas'
+import { ExperimentFullNormalized, ExperimentFullNormalizedData, MetricBare, Segment } from '@/lib/schemas'
 
 const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
 
@@ -23,13 +17,11 @@ const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
  * Renders the main details of an experiment.
  */
 function ExperimentDetails({
-  experiment,
   normalizedExperiment,
   normalizedExperimentData,
   indexedMetrics,
   indexedSegments,
 }: {
-  experiment: ExperimentFull
   normalizedExperiment: ExperimentFullNormalized
   normalizedExperimentData: ExperimentFullNormalizedData
   indexedMetrics: Record<number, MetricBare>
@@ -57,7 +49,7 @@ function ExperimentDetails({
               indexedMetrics={indexedMetrics}
             />
           </Grid>
-          {Experiments.hasConclusionData(experiment) && (
+          {Experiments.hasConclusionData(normalizedExperiment) && (
             <Grid item>
               <ConclusionsPanel normalizedExperimentData={normalizedExperimentData} />
             </Grid>

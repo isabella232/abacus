@@ -2,7 +2,7 @@ import { LinearProgress } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import debugFactory from 'debug'
 import { useRouter } from 'next/router'
-import { denormalize, normalize } from 'normalizr'
+import { normalize } from 'normalizr'
 import { toIntOrNull } from 'qc-to_int'
 import React from 'react'
 
@@ -58,10 +58,6 @@ export default function ExperimentPage() {
   useDataLoadingError(experimentError, 'Experiment')
   const normalizedExperiment =
     normalizedExperimentData && normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
-  // Keeping this denormalized experiment here as temporary scafolding:
-  const experiment =
-    normalizedExperimentData &&
-    denormalize(normalizedExperimentData.result, experimentFullNormalizrSchema, normalizedExperimentData.entities)
 
   const { isLoading: metricsIsLoading, data: indexedMetrics, error: metricsError } = useDataSource(async () => {
     const metrics = await MetricsApi.findAll()
@@ -84,19 +80,17 @@ export default function ExperimentPage() {
   const isLoading = or(experimentIsLoading, metricsIsLoading, segmentsIsLoading)
 
   return (
-    <Layout title={`Experiment: ${experiment?.name || ''}`}>
+    <Layout title={`Experiment: ${normalizedExperiment?.name || ''}`}>
       {isLoading ? (
         <LinearProgress />
       ) : (
         normalizedExperiment &&
         normalizedExperimentData &&
-        experiment &&
         indexedMetrics &&
         indexedSegments && (
           <>
             <ExperimentTabs className={classes.tabs} normalizedExperiment={normalizedExperiment} tab='details' />
             <ExperimentDetails
-              experiment={experiment}
               normalizedExperiment={normalizedExperiment}
               normalizedExperimentData={normalizedExperimentData}
               indexedMetrics={indexedMetrics}
