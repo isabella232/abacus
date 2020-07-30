@@ -1,7 +1,7 @@
 // Temporarily ignore until more parts are in place
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* istanbul ignore file */
-import { Button, Paper, Step, StepButton, Stepper, Typography } from '@material-ui/core'
+import { Button, Paper, Step, StepButton, StepLabel, Stepper, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import useComponentSize from '@rehooks/component-size'
 import { Formik } from 'formik'
@@ -137,18 +137,34 @@ const ExperimentForm = ({
 
   const [currentStageId, setActiveStageId] = useState<StageId>(StageId.Beginning)
   const currentStageIndex = stages.findIndex((stage) => stage.id === currentStageId)
+
   const [completeStages, setCompleteStages] = useState<StageId[]>([])
   const markStageComplete = (stageId: StageId) => {
-    completeStages.includes(currentStageId) || setCompleteStages([...completeStages, currentStageId])
+    setCompleteStages((prevValue) => {
+      return prevValue.includes(stageId) ? prevValue : [...prevValue, stageId]
+    })
   }
   const markStageIncomplete = (stageId: StageId) => {
-    const index = completeStages.findIndex((stageIdCur) => stageIdCur === stageId)
-    index && setCompleteStages(completeStages.splice(index, 1))
+    setCompleteStages((prevValue) => {
+      return prevValue.filter((id) => id !== stageId)
+    })
   }
+
   const [errorStages, setErrorStages] = useState<StageId[]>([])
+  const markStageError = (stageId: StageId) => {
+    setErrorStages((prevValue) => {
+      return prevValue.includes(stageId) ? prevValue : [...prevValue, stageId]
+    })
+  }
+  const markStageNoError = (stageId: StageId) => {
+    setErrorStages((prevValue) => {
+      return prevValue.filter((id) => id !== stageId)
+    })
+  }
+
+  // TODO: Move this down and validate once the scrolling code is removed.
   const changeStage = useCallback(
     (stageId: StageId) => {
-      // TODO: Update current stage error and complete state
       setActiveStageId(stageId)
       if (stageFormPartRefs[stageId].current && rootRef.current) {
         stageFormPartRefs[stageId].current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' })
@@ -168,113 +184,135 @@ const ExperimentForm = ({
     }
   }, [changeStage, currentStageId])
 
-  const prevStage = () => {
-    if (currentStageIndex === 0) {
-      return
-    }
-    const prevStageIndex = currentStageIndex - 1
-
-    // Just to Demo: This will actually go on changeState
-    markStageIncomplete(currentStageId)
-    changeStage(stages[prevStageIndex].id)
-  }
-  const nextStage = () => {
-    if (stages.length <= currentStageIndex) {
-      return
-    }
-    const nextStageIndex = currentStageIndex + 1
-
-    // Just to Demo: This will actually go on changeState
-    markStageComplete(currentStageId)
-    changeStage(stages[nextStageIndex].id)
-  }
-
   return (
     <Formik
       initialValues={{ experiment: initialExperiment }}
       onSubmit={(v) => alert(JSON.stringify(v, null, 2))}
       validationSchema={yup.object({ experiment: experimentFullNewSchema })}
     >
-      {(formikProps) => (
-        <div className={classes.root} ref={rootRef}>
-          <div className={classes.navigation}>
-            <Stepper nonLinear activeStep={currentStageId} orientation='vertical'>
-              {stages.map((stage) => (
-                <Step key={stage.id} completed={completeStages.includes(stage.id)}>
-                  <StepButton onClick={() => changeStage(stage.id)}>{stage.title}</StepButton>
-                </Step>
-              ))}
-            </Stepper>
+      {(formikProps) => {
+        const isStageValid = async (stageId: StageId): Promise<boolean> => {
+          const stage = stages.find((stage) => stage.id === stageId)
+          if (!stage) {
+            throw new Error('Typeguard: This should never occur')
+          }
+
+          const errors = await formikProps.validateForm()
+          return !!stage.validatableFields?.some((field) => _.get(errors, field))
+        }
+
+        const updateStageState = async (stageId: StageId) => {
+          if (await isStageValid(stageId)) {
+            markStageError(stageId)
+            markStageIncomplete(stageId)
+          } else {
+            markStageNoError(stageId)
+            markStageComplete(stageId)
+          }
+        }
+
+        const prevStage = () => {
+          if (currentStageIndex === 0) {
+            return
+          }
+
+          updateStageState(currentStageId)
+          const prevStageIndex = currentStageIndex - 1
+          changeStage(stages[prevStageIndex].id)
+        }
+        const nextStage = () => {
+          if (stages.length <= currentStageIndex) {
+            return
+          }
+
+          updateStageState(currentStageId)
+          const nextStageIndex = currentStageIndex + 1
+          changeStage(stages[nextStageIndex].id)
+        }
+
+        return (
+          <div className={classes.root} ref={rootRef}>
+            <div className={classes.navigation}>
+              <Stepper nonLinear activeStep={currentStageId} orientation='vertical'>
+                {stages.map((stage) => (
+                  <Step key={stage.id} completed={completeStages.includes(stage.id)}>
+                    <StepButton onClick={() => changeStage(stage.id)}>
+                      <StepLabel error={errorStages.includes(stage.id)}>{stage.title}</StepLabel>
+                    </StepButton>
+                  </Step>
+                ))}
+              </Stepper>
+            </div>
+            <div className={classes.formConstrictor} ref={constrictorRef}>
+              <form className={classes.form} onSubmit={formikProps.handleSubmit} noValidate>
+                <div className={classes.formPart} ref={formPartBeginningRef} style={{ width: constrictorSizes.width }}>
+                  <Beginning />
+                  <div className={classes.formPartActions}>
+                    <Button onClick={nextStage} variant='contained' color='primary'>
+                      Begin
+                    </Button>
+                  </div>
+                </div>
+                <div className={classes.formPart} ref={formPartBasicInfoRef} style={{ width: constrictorSizes.width }}>
+                  <Paper className={classes.paper}>
+                    <BasicInfo />
+                  </Paper>
+                  <div className={classes.formPartActions}>
+                    <Button onClick={prevStage}>Previous</Button>
+                    <Button onClick={nextStage} variant='contained' color='primary'>
+                      Next
+                    </Button>
+                  </div>
+                </div>
+                <div className={classes.formPart} ref={formPartAudienceRef} style={{ width: constrictorSizes.width }}>
+                  <Paper className={classes.paper}>
+                    <Audience formikProps={formikProps} />
+                  </Paper>
+                  <div className={classes.formPartActions}>
+                    <Button onClick={prevStage}>Previous</Button>
+                    <Button onClick={nextStage} variant='contained' color='primary'>
+                      Next
+                    </Button>
+                  </div>
+                </div>
+                <div className={classes.formPart} ref={formPartMetricsRef} style={{ width: constrictorSizes.width }}>
+                  <Paper className={classes.paper}>
+                    <Typography variant='body1'>Metrics Form Part</Typography>
+                  </Paper>
+                  <div className={classes.formPartActions}>
+                    <Button onClick={prevStage}>Previous</Button>
+                    <Button onClick={nextStage} variant='contained' color='primary'>
+                      Next
+                    </Button>
+                  </div>
+                </div>
+                <div className={classes.formPart} ref={formPartSubmitRef} style={{ width: constrictorSizes.width }}>
+                  <Paper className={classes.paper}>
+                    <Typography variant='body1' gutterBottom>
+                      This last form-part gives the users a chance to pause and consider.
+                      <br />
+                      <br />
+                      It is good to have a mini-checklist here.
+                      <br />
+                      <br />
+                      Maybe a pre-submission summary.
+                      <br />
+                      <br />
+                      It is also good for the users to know the consequences of submitting so they aren&apos;t afraid of
+                      pressing the button.
+                    </Typography>
+                  </Paper>
+                  <div className={classes.formPartActions}>
+                    <Button type='submit' variant='contained' color='secondary'>
+                      Submit
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-          <div className={classes.formConstrictor} ref={constrictorRef}>
-            <form className={classes.form} onSubmit={formikProps.handleSubmit} noValidate>
-              <div className={classes.formPart} ref={formPartBeginningRef} style={{ width: constrictorSizes.width }}>
-                <Beginning />
-                <div className={classes.formPartActions}>
-                  <Button onClick={nextStage} variant='contained' color='primary'>
-                    Begin
-                  </Button>
-                </div>
-              </div>
-              <div className={classes.formPart} ref={formPartBasicInfoRef} style={{ width: constrictorSizes.width }}>
-                <Paper className={classes.paper}>
-                  <BasicInfo />
-                </Paper>
-                <div className={classes.formPartActions}>
-                  <Button onClick={prevStage}>Previous</Button>
-                  <Button onClick={nextStage} variant='contained' color='primary'>
-                    Next
-                  </Button>
-                </div>
-              </div>
-              <div className={classes.formPart} ref={formPartAudienceRef} style={{ width: constrictorSizes.width }}>
-                <Paper className={classes.paper}>
-                  <Audience formikProps={formikProps} />
-                </Paper>
-                <div className={classes.formPartActions}>
-                  <Button onClick={prevStage}>Previous</Button>
-                  <Button onClick={nextStage} variant='contained' color='primary'>
-                    Next
-                  </Button>
-                </div>
-              </div>
-              <div className={classes.formPart} ref={formPartMetricsRef} style={{ width: constrictorSizes.width }}>
-                <Paper className={classes.paper}>
-                  <Typography variant='body1'>Metrics Form Part</Typography>
-                </Paper>
-                <div className={classes.formPartActions}>
-                  <Button onClick={prevStage}>Previous</Button>
-                  <Button onClick={nextStage} variant='contained' color='primary'>
-                    Next
-                  </Button>
-                </div>
-              </div>
-              <div className={classes.formPart} ref={formPartSubmitRef} style={{ width: constrictorSizes.width }}>
-                <Paper className={classes.paper}>
-                  <Typography variant='body1' gutterBottom>
-                    This last form-part gives the users a chance to pause and consider.
-                    <br />
-                    <br />
-                    It is good to have a mini-checklist here.
-                    <br />
-                    <br />
-                    Maybe a pre-submission summary.
-                    <br />
-                    <br />
-                    It is also good for the users to know the consequences of submitting so they aren&apos;t afraid of
-                    pressing the button.
-                  </Typography>
-                </Paper>
-                <div className={classes.formPartActions}>
-                  <Button type='submit' variant='contained' color='secondary'>
-                    Submit
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+        )
+      }}
     </Formik>
   )
 }
