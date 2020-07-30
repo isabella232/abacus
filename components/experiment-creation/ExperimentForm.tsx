@@ -207,7 +207,7 @@ const ExperimentForm = ({
           validationSchema={yup.object({ experiment: experimentFullNewSchema })}
         >
           {(formikProps) => (
-            <form className={classes.form} onSubmit={formikProps.handleSubmit}>
+            <form className={classes.form} onSubmit={formikProps.handleSubmit} noValidate>
               <div className={classes.formPart} ref={formPartBeginningRef} style={{ width: constrictorSizes.width }}>
                 <Beginning />
                 <div className={classes.formPartActions}>
