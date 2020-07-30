@@ -190,23 +190,23 @@ const ExperimentForm = ({
   }
 
   return (
-    <div className={classes.root} ref={rootRef}>
-      <div className={classes.navigation}>
-        <Stepper nonLinear activeStep={currentStageId} orientation='vertical'>
-          {stages.map((stage) => (
-            <Step key={stage.id} completed={completeStages.includes(stage.id)}>
-              <StepButton onClick={() => changeStage(stage.id)}>{stage.title}</StepButton>
-            </Step>
-          ))}
-        </Stepper>
-      </div>
-      <div className={classes.formConstrictor} ref={constrictorRef}>
-        <Formik
-          initialValues={{ experiment: initialExperiment }}
-          onSubmit={(v) => alert(JSON.stringify(v, null, 2))}
-          validationSchema={yup.object({ experiment: experimentFullNewSchema })}
-        >
-          {(formikProps) => (
+    <Formik
+      initialValues={{ experiment: initialExperiment }}
+      onSubmit={(v) => alert(JSON.stringify(v, null, 2))}
+      validationSchema={yup.object({ experiment: experimentFullNewSchema })}
+    >
+      {(formikProps) => (
+        <div className={classes.root} ref={rootRef}>
+          <div className={classes.navigation}>
+            <Stepper nonLinear activeStep={currentStageId} orientation='vertical'>
+              {stages.map((stage) => (
+                <Step key={stage.id} completed={completeStages.includes(stage.id)}>
+                  <StepButton onClick={() => changeStage(stage.id)}>{stage.title}</StepButton>
+                </Step>
+              ))}
+            </Stepper>
+          </div>
+          <div className={classes.formConstrictor} ref={constrictorRef}>
             <form className={classes.form} onSubmit={formikProps.handleSubmit} noValidate>
               <div className={classes.formPart} ref={formPartBeginningRef} style={{ width: constrictorSizes.width }}>
                 <Beginning />
@@ -272,10 +272,10 @@ const ExperimentForm = ({
                 </div>
               </div>
             </form>
-          )}
-        </Formik>
-      </div>
-    </div>
+          </div>
+        </div>
+      )}
+    </Formik>
   )
 }
 
