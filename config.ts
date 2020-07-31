@@ -20,4 +20,5 @@ export const isTestingProductionConfigInDevelopment = false
 
 const isProduction = false
 
+// istanbul ignore next; Development only
 export const config = isProduction || isTestingProductionConfigInDevelopment ? productionConfig : developmentConfig
