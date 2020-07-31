@@ -1,13 +1,6 @@
 import qs from 'querystring'
 
-/**
- * Resolves the OAuth client ID based on the host.
- *
- * @param host
- */
-export const getAuthClientId = (host: string) => {
-  return host === 'experiments.a8c.com' ? 68795 : 68797
-}
+import { config } from '../config'
 
 /**
  * Experiments authorization info, as returned from OAuth call. See
@@ -49,32 +42,34 @@ export const saveExperimentsAuthInfo = (experimentsAuthInfo: ExperimentsAuthInfo
   }
 }
 
-export function initializeExperimentsAuthentication() {
-  if (typeof window !== 'undefined') {
-    // Inject a fake auth token to skip authentication in non-production contexts.
-    // This is a temporary solution. Ideally, we should test the full authentication flow in every environment.
-    if (window.location.host !== 'experiments.a8c.com') {
-      saveExperimentsAuthInfo({
-        accessToken: 'fake_token',
-        expiresAt: Date.parse('2100-01-01'),
-        scope: 'global',
-        type: 'bearer',
-      })
-    }
-
-    // Prompt user for authorization if we don't have auth info.
-    const experimentsAuthInfo = getExperimentsAuthInfo()
-    if (!experimentsAuthInfo) {
-      const authPath = 'https://public-api.wordpress.com/oauth2/authorize'
-      const authQuery = {
-        client_id: getAuthClientId(window.location.host),
-        redirect_uri: `${window.location.origin}/auth`,
-        response_type: 'token',
-        scope: 'global',
-      }
-
-      const authUrl = `${authPath}?${qs.stringify(authQuery)}`
-      window.location.replace(authUrl)
-    }
+/* istanbul ignore next; TODO: e2e test authorization */
+export function initializeExperimentsAuth() {
+  // This is needed because of server-side rendering
+  if (typeof window === 'undefined') {
+    console.warn('InitializeExperimentAuth: Could not find `window`')
+    return
   }
+
+  if (!config.experimentApi.needsAuth) {
+    console.warn('InitializeExperimentAuth: Proceeding uninitialized as needsAuth = false')
+    return
+  }
+
+  // Prompt user for authorization if we don't have auth info.
+  const experimentsAuthInfo = getExperimentsAuthInfo()
+  if (experimentsAuthInfo) {
+    console.info('InitializeExperimentAuth: Found existing auth info.')
+    return
+  }
+
+  const authQuery = {
+    client_id: config.experimentApi.authClientId,
+    redirect_uri: `${window.location.origin}/auth`,
+    response_type: 'token',
+    scope: 'global',
+  }
+
+  console.info('InitializeExperimentAuth: Could not find existing auth info, re-authing.')
+  const authUrl = `${config.experimentApi.authPath}?${qs.stringify(authQuery)}`
+  window.location.replace(authUrl)
 }
