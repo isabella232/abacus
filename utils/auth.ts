@@ -77,6 +77,7 @@ export function initializeExperimentsAuth() {
 
 export enum AuthError {
   AccessDenied,
+  UnknownError,
 }
 
 /* istanbul ignore next; TODO: e2e test authorization */
@@ -87,7 +88,8 @@ export function onExperimentAuthCallbackUrl(): void | AuthError {
   }
 
   if (!window.location.hash || window.location.hash.length === 0) {
-    throw new Error('Missing hash in auth callback url.')
+    console.error('Authentication Error:', 'Missing hash in auth callback url.')
+    return AuthError.UnknownError
   }
 
   // If we have the hash with the authorization info, then extract the info, save
@@ -98,9 +100,18 @@ export function onExperimentAuthCallbackUrl(): void | AuthError {
   // The hash should look something like the following upon failure:
   // #error=access_denied&error_description=You+need+to+log+in+to+WordPress.com&state=
   const authInfo = qs.parse(window.location.hash.substring(1))
-  if (authInfo.error === 'access_denied') {
+
+  if (authInfo.error) {
+    console.error('Authentication Error:', authInfo.error, authInfo.error_description)
     saveExperimentsAuthInfo(null)
-    return AuthError.AccessDenied
+    switch (authInfo.error) {
+      case 'access_denied': {
+        return AuthError.AccessDenied
+      }
+      default: {
+        return AuthError.UnknownError
+      }
+    }
   }
 
   if (authInfo.access_token && authInfo.scope === 'global' && authInfo.token_type === 'bearer') {
