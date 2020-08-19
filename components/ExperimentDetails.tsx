@@ -50,7 +50,7 @@ function ExperimentDetails({
             </Grid>
           )}
           <Grid item>
-            <MetricAssignmentsPanel experiment={experiment} metrics={metrics} />
+            <MetricAssignmentsPanel metricAssignments={Object.values(normalizedExperimentData.entities.metricAssignments)} indexedMetrics={indexedMetrics} />
           </Grid>
           {Experiments.hasConclusionData(normalizedExperiment) && (
             <Grid item>
