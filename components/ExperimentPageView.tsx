@@ -11,7 +11,7 @@ import ExperimentResults from '@/components/experiment-results/ExperimentResults
 import ExperimentDetails from '@/components/ExperimentDetails'
 import ExperimentTabs from '@/components/ExperimentTabs'
 import Layout from '@/components/Layout'
-import { normalizeExperiment } from '@/lib/normalizers'
+import { normalizeExperiment, indexMetrics, indexSegments } from '@/lib/normalizers'
 import { Analysis, ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
@@ -60,17 +60,19 @@ export default function ExperimentPageView({
     ;[experiment, normalizedExperiment, normalizedExperimentData] = experimentData
   }
 
-  const { isLoading: metricsIsLoading, data: metrics, error: metricsError } = useDataSource(
-    () => MetricsApi.findAll(),
+  const { isLoading: metricsIsLoading, data: indexedMetrics, error: metricsError } = useDataSource(
+    async () => indexMetrics(await MetricsApi.findAll()),
     [],
   )
   useDataLoadingError(metricsError, 'Metrics')
+  const metrics = indexedMetrics && Object.values(indexedMetrics)
 
-  const { isLoading: segmentsIsLoading, data: segments, error: segmentsError } = useDataSource(
-    () => SegmentsApi.findAll(),
+  const { isLoading: segmentsIsLoading, data: indexedSegments, error: segmentsError } = useDataSource(
+    async () => indexSegments(await SegmentsApi.findAll()),
     [],
   )
   useDataLoadingError(segmentsError, 'Segments')
+  const segments = indexedSegments && Object.values(indexedSegments)
 
   const { isLoading: analysesIsLoading, data: analyses, error: analysesError } = useDataSource(
     () => (experimentId ? AnalysesApi.findByExperimentId(experimentId) : createUnresolvingPromise<Analysis[]>()),
@@ -91,6 +93,8 @@ export default function ExperimentPageView({
             experiment &&
             normalizedExperiment &&
             normalizedExperimentData &&
+            indexedMetrics &&
+            indexedSegments &&
             metrics &&
             segments &&
             analyses && (
