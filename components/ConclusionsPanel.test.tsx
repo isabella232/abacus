@@ -4,6 +4,7 @@ import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
 import ConclusionsPanel from './ConclusionsPanel'
+import { normalizeExperiment } from '@/lib/normalizers'
 
 test('renders as expected with complete conclusion data', () => {
   const experiment = Fixtures.createExperimentFull({
@@ -11,7 +12,8 @@ test('renders as expected with complete conclusion data', () => {
     deployedVariationId: 2,
     endReason: 'Ran its course.',
   })
-  const { container } = render(<ConclusionsPanel experiment={experiment} />)
+  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const { container } = render(<ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentData }} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>
@@ -96,7 +98,8 @@ test('renders as expected without deployed variation', () => {
     deployedVariationId: null,
     endReason: 'Ran its course.',
   })
-  const { container } = render(<ConclusionsPanel experiment={experiment} />)
+  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const { container } = render(<ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentData }} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>

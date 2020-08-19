@@ -1,23 +1,25 @@
 import React from 'react'
+import _ from 'lodash'
 
 import LabelValuePanel from '@/components/LabelValuePanel'
-import * as Experiments from '@/lib/experiments'
-import { ExperimentFull } from '@/lib/schemas'
+import { ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
 
 /**
  * Renders the conclusion information of an experiment in a panel component.
  *
  * @param props.experiment - The experiment with the conclusion information.
  */
-function ConclusionsPanel({ experiment }: { experiment: ExperimentFull }) {
-  const deployedVariation = Experiments.getDeployedVariation(experiment)
+function ConclusionsPanel({ normalizedExperiment, normalizedExperimentData }: { normalizedExperiment: ExperimentFullNormalized, normalizedExperimentData: ExperimentFullNormalizedData }) {
+  const deployedVariation = _.isNumber(normalizedExperiment.deployedVariationId) ? normalizedExperimentData.entities.variations[normalizedExperiment.deployedVariationId] : null
+
+
   const data = [
-    { label: 'Reason the experiment ended', value: experiment.endReason },
+    { label: 'Reason the experiment ended', value: normalizedExperiment.endReason },
     {
       label: 'Conclusion URL',
-      value: !!experiment.conclusionUrl && (
-        <a href={experiment.conclusionUrl} rel='noopener noreferrer' target='_blank'>
-          {experiment.conclusionUrl}
+      value: !!normalizedExperiment.conclusionUrl && (
+        <a href={normalizedExperiment.conclusionUrl} rel='noopener noreferrer' target='_blank'>
+          {normalizedExperiment.conclusionUrl}
         </a>
       ),
     },
