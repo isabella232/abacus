@@ -1,47 +1,12 @@
 import { TableCellProps } from '@material-ui/core/TableCell'
 import _ from 'lodash'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import LabelValuePanel from '@/components/LabelValuePanel'
 import SegmentsTable from '@/components/SegmentsTable'
 import VariationsTable from '@/components/VariationsTable'
-import { ExperimentFull, Segment, SegmentAssignment, SegmentType } from '@/lib/schemas'
+import { Segment, SegmentType, ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
-
-/**
- * Resolves the segment ID of the segment assignment with the actual segment.
- * If the ID cannot be resolved, then an `Error` will be thrown.
- *
- * @param segmentAssignments - The segment assignments to be resolved.
- * @param segments - The segments to associate with the assignments.
- * @throws {Error} When unable to resolve a segment ID with one of the supplied
- *   segments.
- */
-function resolveSegmentAssignments(
-  segmentAssignments: SegmentAssignment[],
-  segments: Segment[],
-): {
-  segment: Segment
-  isExcluded: boolean
-}[] {
-  const segmentsById: { [segmentId: string]: Segment } = {}
-  segments.forEach((segment) => (segmentsById[segment.segmentId] = segment))
-
-  return segmentAssignments.map((segmentAssignment) => {
-    const segment = segmentsById[segmentAssignment.segmentId]
-
-    if (!segment) {
-      throw Error(
-        `Failed to lookup segment with ID ${segmentAssignment.segmentId} for assignment with ID ${segmentAssignment.segmentAssignmentId}.`,
-      )
-    }
-
-    return {
-      segment,
-      isExcluded: segmentAssignment.isExcluded,
-    }
-  })
-}
 
 /**
  * Renders the audience information of an experiment in a panel component.
@@ -50,19 +15,18 @@ function resolveSegmentAssignments(
  * @param props.segments - The segments to look up (aka resolve) the segment IDs
  *   of the experiment's segment assignments.
  */
-function AudiencePanel({ experiment, segments }: { experiment: ExperimentFull; segments: Segment[] }) {
-  const segmentsByType = useMemo(
-    () => _.groupBy(resolveSegmentAssignments(experiment.segmentAssignments, segments), _.property('segment.type')),
-    [experiment.segmentAssignments, segments],
-  )
+function AudiencePanel({ normalizedExperiment, normalizedExperimentData, indexedSegments }: { normalizedExperiment: ExperimentFullNormalized; normalizedExperimentData: ExperimentFullNormalizedData; indexedSegments: Record<number, Segment> }) {
+  const segmentAssignmentsWithSegments = Object.values(normalizedExperimentData.entities.segmentAssignments)
+    .map(segmentAssignment => ({ segmentAssignment, segment: indexedSegments[segmentAssignment.segmentId] }))
+  const segmentAssignmentsWithSegmentsByType = _.groupBy(segmentAssignmentsWithSegments, _.property('segment.type'))
 
   const data = [
-    { label: 'Platform', value: experiment.platform },
-    { label: 'User Type', value: experiment.existingUsersAllowed ? 'All users (new + existing)' : 'New users only' },
+    { label: 'Platform', value: normalizedExperiment.platform },
+    { label: 'User Type', value: normalizedExperiment.existingUsersAllowed ? 'All users (new + existing)' : 'New users only' },
     {
       label: 'Variations',
       padding: 'none' as TableCellProps['padding'],
-      value: <VariationsTable variations={Variations.sort(experiment.variations)} />,
+      value: <VariationsTable variations={Variations.sort(Object.values(normalizedExperimentData.entities.variations))} />,
     },
     {
       label: 'Segments',
@@ -70,11 +34,11 @@ function AudiencePanel({ experiment, segments }: { experiment: ExperimentFull; s
       value: (
         <>
           <SegmentsTable
-            resolvedSegmentAssignments={segmentsByType[SegmentType.Locale] ?? []}
+            segmentAssignmentsWithSegments={segmentAssignmentsWithSegmentsByType[SegmentType.Locale] ?? []}
             type={SegmentType.Locale}
           />
           <SegmentsTable
-            resolvedSegmentAssignments={segmentsByType[SegmentType.Country] ?? []}
+            segmentAssignmentsWithSegments={segmentAssignmentsWithSegmentsByType[SegmentType.Country] ?? []}
             type={SegmentType.Country}
           />
         </>

@@ -46,7 +46,7 @@ function ExperimentDetails({
           </Grid>
           {isMdDown && (
             <Grid item>
-              <AudiencePanel experiment={experiment} segments={segments} />
+              <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />
             </Grid>
           )}
           <Grid item>
@@ -61,7 +61,7 @@ function ExperimentDetails({
       </Grid>
       {!isMdDown && (
         <Grid item lg={5}>
-          <AudiencePanel experiment={experiment} segments={segments} />
+          <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />
         </Grid>
       )}
     </Grid>
