@@ -54,7 +54,7 @@ function ExperimentDetails({
           </Grid>
           {Experiments.hasConclusionData(normalizedExperiment) && (
             <Grid item>
-              <ConclusionsPanel experiment={experiment} />
+              <ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentData }} />
             </Grid>
           )}
         </Grid>

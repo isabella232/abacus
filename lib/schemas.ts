@@ -4,6 +4,7 @@
 import * as dateFns from 'date-fns'
 import * as normalizr from 'normalizr'
 import * as yup from 'yup'
+import _ from 'lodash'
 
 const idSchema = yup.number().integer().positive()
 const nameSchema = yup
@@ -224,8 +225,15 @@ export const experimentFullSchema = experimentBareSchema
     exposureEvents: yup.array<Event>(eventSchema).nullable(),
     metricAssignments: yup.array(metricAssignmentSchema).defined().min(1),
     segmentAssignments: yup.array(segmentAssignmentSchema).defined(),
-    variations: yup.array<Variation>(variationSchema).defined().min(2),
+    variations: yup.array<Variation>(variationSchema).defined().min(2)
   })
+  .test(
+    'deployedVariationId-variation-check',
+    'Could not find variation matching deployedVariationId.',
+    async (experiment) => {
+      return _.isNumber(experiment.deployedVariationId) ? experiment.variations.some((variation: Variation) => variation.variationId === experiment.deployedVariationId) : true
+    }
+  )
   .defined()
   .camelCase()
 export type ExperimentFull = yup.InferType<typeof experimentFullSchema>
