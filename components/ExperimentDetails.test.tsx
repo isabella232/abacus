@@ -31,13 +31,10 @@ test('renders as expected at large width', () => {
   const { container } = render(
     <ExperimentDetails
       {...{
-        experiment,
         normalizedExperiment,
         normalizedExperimentData,
         indexedMetrics,
         indexedSegments,
-        metrics,
-        segments,
       }}
     />,
   )
@@ -61,13 +58,10 @@ test('renders as expected at small width', () => {
   const { container } = render(
     <ExperimentDetails
       {...{
-        experiment,
         normalizedExperiment,
         normalizedExperimentData,
         indexedMetrics,
         indexedSegments,
-        metrics,
-        segments,
       }}
     />,
   )
@@ -93,13 +87,10 @@ test('renders as expected with conclusion data', () => {
   const { container } = render(
     <ExperimentDetails
       {...{
-        experiment,
         normalizedExperiment,
         normalizedExperimentData,
         indexedMetrics,
         indexedSegments,
-        metrics,
-        segments,
       }}
     />,
   )
@@ -122,13 +113,10 @@ test('renders as expected without conclusion data', () => {
   const { container } = render(
     <ExperimentDetails
       {...{
-        experiment,
         normalizedExperiment,
         normalizedExperimentData,
         indexedMetrics,
         indexedSegments,
-        metrics,
-        segments,
       }}
     />,
   )

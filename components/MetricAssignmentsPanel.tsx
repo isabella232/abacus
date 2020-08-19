@@ -36,10 +36,15 @@ function MetricAssignmentsPanel({
   indexedMetrics: Record<number, MetricBare>
 }) {
   const classes = useStyles()
-  const sortedMetricAssignmentsWithMetrics = MetricAssignments.sort(metricAssignments).map((metricAssignment) => ({
-    metricAssignment,
-    metric: indexedMetrics[metricAssignment.metricAssignmentId],
-  }))
+  const sortedMetricAssignmentsWithMetrics = MetricAssignments.sort(metricAssignments).map((metricAssignment) => {
+    const metric = indexedMetrics[metricAssignment.metricId]
+    if (!metric) {
+      throw new Error(
+        `Could not find metric corresponding to metricAssignment. metricAssignmentId: '${metricAssignment.metricAssignmentId}'`,
+      )
+    }
+    return { metricAssignment, metric }
+  })
 
   return (
     <Paper>

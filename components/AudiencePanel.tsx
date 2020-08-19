@@ -24,9 +24,17 @@ function AudiencePanel({
   normalizedExperimentData: ExperimentFullNormalizedData
   indexedSegments: Record<number, Segment>
 }) {
-  const segmentAssignmentsWithSegments = Object.values(
-    normalizedExperimentData.entities.segmentAssignments,
-  ).map((segmentAssignment) => ({ segmentAssignment, segment: indexedSegments[segmentAssignment.segmentId] }))
+  const segmentAssignmentsWithSegments = normalizedExperimentData.entities.segmentAssignments
+    ? Object.values(normalizedExperimentData.entities.segmentAssignments).map((segmentAssignment) => {
+        const segment = indexedSegments[segmentAssignment.segmentId]
+        if (!segment) {
+          throw new Error(
+            `Could not find metric corresponding to segmentAssignment. segmentAssignmentId: '${segmentAssignment.segmentAssignmentId}'`,
+          )
+        }
+        return { segmentAssignment, segment }
+      })
+    : []
   const segmentAssignmentsWithSegmentsByType = _.groupBy(segmentAssignmentsWithSegments, _.property('segment.type'))
 
   const data = [
