@@ -11,7 +11,8 @@ import ExperimentResults from '@/components/experiment-results/ExperimentResults
 import ExperimentDetails from '@/components/ExperimentDetails'
 import ExperimentTabs from '@/components/ExperimentTabs'
 import Layout from '@/components/Layout'
-import { Analysis, ExperimentFull } from '@/lib/schemas'
+import { normalizeExperiment } from '@/lib/normalizers'
+import { Analysis, ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
 
@@ -40,11 +41,24 @@ export default function ExperimentPageView({
 }) {
   const classes = useStyles()
 
-  const { isLoading: experimentIsLoading, data: experiment, error: experimentError } = useDataSource(
-    () => (experimentId ? ExperimentsApi.findById(experimentId) : createUnresolvingPromise<ExperimentFull>()),
-    [experimentId],
-  )
+  const {
+    isLoading: experimentIsLoading,
+    data: experimentData,
+    error: experimentError,
+  } = useDataSource(async (): Promise<[ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData]> => {
+    if (!experimentId) {
+      return createUnresolvingPromise<[ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData]>()
+    }
+
+    const experiment = await ExperimentsApi.findById(experimentId)
+    const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+    return [experiment, normalizedExperiment, normalizedExperimentData]
+  }, [experimentId])
   useDataLoadingError(experimentError, 'Experiment')
+  let experiment, normalizedExperiment, normalizedExperimentData
+  if (experimentData) {
+    ;[experiment, normalizedExperiment, normalizedExperimentData] = experimentData
+  }
 
   const { isLoading: metricsIsLoading, data: metrics, error: metricsError } = useDataSource(
     () => MetricsApi.findAll(),
@@ -75,6 +89,8 @@ export default function ExperimentPageView({
           <LinearProgress />
         ) : (
           experiment &&
+          normalizedExperiment &&
+          normalizedExperimentData &&
           metrics &&
           segments &&
           analyses && (
