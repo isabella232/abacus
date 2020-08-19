@@ -1,6 +1,13 @@
 import { normalize, schema } from 'normalizr'
 
-import { MetricBare, MetricFull, Segment } from './schemas'
+import {
+  ExperimentFull,
+  ExperimentFullNormalizedEntities,
+  experimentFullNormalizrSchema,
+  MetricBare,
+  MetricFull,
+  Segment,
+} from './schemas'
 
 const metricNormalizrSchema = new schema.Entity<MetricBare | MetricFull>('metrics', {}, { idAttribute: 'metricId' })
 
@@ -18,4 +25,16 @@ const segmentNormalizrSchema = new schema.Entity<Segment>('segments', {}, { idAt
  */
 export function indexSegments(segments: Segment[]): Record<number, Segment> {
   return normalize<Segment>(segments, [segmentNormalizrSchema]).entities.segments || {}
+}
+
+/**
+ * Returns a tuple of normalizedExperiment and normalizedExperimentData (normalizr format, includes all nested entities).
+ */
+export function normalizeExperiment(experiment: ExperimentFull) {
+  const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
+    experiment,
+    experimentFullNormalizrSchema,
+  )
+  const normalizedExperiment = normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
+  return [normalizedExperiment, normalizedExperimentData]
 }
