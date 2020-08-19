@@ -38,7 +38,7 @@ function ExperimentDetails({
       <Grid item xs={12} lg={7}>
         <Grid container direction='column' spacing={2}>
           <Grid item>
-            <GeneralPanel experiment={experiment} />
+            <GeneralPanel {...{ normalizedExperiment }} />
           </Grid>
           {isMdDown && (
             <Grid item>

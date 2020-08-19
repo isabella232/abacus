@@ -5,12 +5,13 @@ import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
 import GeneralPanel from './GeneralPanel'
+import { normalizeExperiment } from '@/lib/normalizers'
 
 MockDate.set('2020-07-21')
 
 test('renders as expected', () => {
   const experiment = Fixtures.createExperimentFull()
-  const { container } = render(<GeneralPanel experiment={experiment} />)
+  const { container } = render(<GeneralPanel normalizedExperiment={normalizeExperiment(experiment)[0]} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>
