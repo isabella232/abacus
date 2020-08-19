@@ -1,11 +1,11 @@
 import MockDate from 'mockdate'
 import React from 'react'
 
+import { normalizeExperiment } from '@/lib/normalizers'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
 import GeneralPanel from './GeneralPanel'
-import { normalizeExperiment } from '@/lib/normalizers'
 
 MockDate.set('2020-07-21')
 

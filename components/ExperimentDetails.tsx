@@ -9,7 +9,7 @@ import ConclusionsPanel from '@/components/ConclusionsPanel'
 import GeneralPanel from '@/components/GeneralPanel'
 import MetricAssignmentsPanel from '@/components/MetricAssignmentsPanel'
 import * as Experiments from '@/lib/experiments'
-import { MetricBare, Segment, ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
+import { ExperimentFullNormalized, ExperimentFullNormalizedData, MetricBare, Segment } from '@/lib/schemas'
 
 const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
 
@@ -22,10 +22,10 @@ function ExperimentDetails({
   indexedMetrics,
   indexedSegments,
 }: {
-  normalizedExperiment: ExperimentFullNormalized,
-  normalizedExperimentData: ExperimentFullNormalizedData,
-  indexedMetrics: Record<number, MetricBare>,
-  indexedSegments: Record<number, Segment>,
+  normalizedExperiment: ExperimentFullNormalized
+  normalizedExperimentData: ExperimentFullNormalizedData
+  indexedMetrics: Record<number, MetricBare>
+  indexedSegments: Record<number, Segment>
 }) {
   debug('ExperimentDetails#render')
   const theme = useTheme()
@@ -44,7 +44,10 @@ function ExperimentDetails({
             </Grid>
           )}
           <Grid item>
-            <MetricAssignmentsPanel metricAssignments={Object.values(normalizedExperimentData.entities.metricAssignments)} indexedMetrics={indexedMetrics} />
+            <MetricAssignmentsPanel
+              metricAssignments={Object.values(normalizedExperimentData.entities.metricAssignments)}
+              indexedMetrics={indexedMetrics}
+            />
           </Grid>
           {Experiments.hasConclusionData(normalizedExperiment) && (
             <Grid item>

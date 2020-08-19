@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import Label from '@/components/Label'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
@@ -28,9 +28,18 @@ const useStyles = makeStyles((theme: Theme) =>
 /**
  * Renders the assigned metric information of an experiment in a panel component.
  */
-function MetricAssignmentsPanel({ metricAssignments, indexedMetrics }: { metricAssignments: MetricAssignment[]; indexedMetrics: Record<number, MetricBare> }) {
+function MetricAssignmentsPanel({
+  metricAssignments,
+  indexedMetrics,
+}: {
+  metricAssignments: MetricAssignment[]
+  indexedMetrics: Record<number, MetricBare>
+}) {
   const classes = useStyles()
-  const sortedMetricAssignmentsWithMetrics = MetricAssignments.sort(metricAssignments).map(metricAssignment => ({ metricAssignment, metric: indexedMetrics[metricAssignment.metricAssignmentId] }))
+  const sortedMetricAssignmentsWithMetrics = MetricAssignments.sort(metricAssignments).map((metricAssignment) => ({
+    metricAssignment,
+    metric: indexedMetrics[metricAssignment.metricAssignmentId],
+  }))
 
   return (
     <Paper>
@@ -61,9 +70,7 @@ function MetricAssignmentsPanel({ metricAssignments, indexedMetrics }: { metricA
                 {metric.name}
                 {metricAssignment.isPrimary && <Label className={classes.primary} text='Primary' />}
               </TableCell>
-              <TableCell>
-                {AttributionWindowSecondsToHuman[metricAssignment.attributionWindowSeconds]}
-              </TableCell>
+              <TableCell>{AttributionWindowSecondsToHuman[metricAssignment.attributionWindowSeconds]}</TableCell>
               <TableCell>{formatBoolean(metricAssignment.changeExpected)}</TableCell>
               <TableCell>
                 <span>

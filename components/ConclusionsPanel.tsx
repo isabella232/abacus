@@ -1,5 +1,5 @@
-import React from 'react'
 import _ from 'lodash'
+import React from 'react'
 
 import LabelValuePanel from '@/components/LabelValuePanel'
 import { ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
@@ -9,9 +9,16 @@ import { ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/sc
  *
  * @param props.experiment - The experiment with the conclusion information.
  */
-function ConclusionsPanel({ normalizedExperiment, normalizedExperimentData }: { normalizedExperiment: ExperimentFullNormalized, normalizedExperimentData: ExperimentFullNormalizedData }) {
-  const deployedVariation = _.isNumber(normalizedExperiment.deployedVariationId) ? normalizedExperimentData.entities.variations[normalizedExperiment.deployedVariationId] : null
-
+function ConclusionsPanel({
+  normalizedExperiment,
+  normalizedExperimentData,
+}: {
+  normalizedExperiment: ExperimentFullNormalized
+  normalizedExperimentData: ExperimentFullNormalizedData
+}) {
+  const deployedVariation = _.isNumber(normalizedExperiment.deployedVariationId)
+    ? normalizedExperimentData.entities.variations[normalizedExperiment.deployedVariationId]
+    : null
 
   const data = [
     { label: 'Reason the experiment ended', value: normalizedExperiment.endReason },

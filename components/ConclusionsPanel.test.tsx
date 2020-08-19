@@ -1,10 +1,10 @@
 import React from 'react'
 
+import { normalizeExperiment } from '@/lib/normalizers'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
 import ConclusionsPanel from './ConclusionsPanel'
-import { normalizeExperiment } from '@/lib/normalizers'
 
 test('renders as expected with complete conclusion data', () => {
   const experiment = Fixtures.createExperimentFull({

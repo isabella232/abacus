@@ -1,14 +1,20 @@
 import React from 'react'
 
-import { Segment, SegmentType, SegmentAssignment } from '@/lib/schemas'
+import { Segment, SegmentAssignment, SegmentType } from '@/lib/schemas'
 import { render } from '@/test-helpers/test-utils'
 
 import SegmentsTable from './SegmentsTable'
 
 test('renders as expected with segment names not in order', () => {
   const segmentAssignmentsWithSegments: Array<{ segment: Segment; segmentAssignment: SegmentAssignment }> = [
-    { segment: { segmentId: 1, name: 'foo', type: SegmentType.Country }, segmentAssignment: { segmentAssignmentId: 0, segmentId: 1, isExcluded: false } },
-    { segment: { segmentId: 2, name: 'bar', type: SegmentType.Country }, segmentAssignment: { segmentAssignmentId: 1, segmentId: 2, isExcluded: true } },
+    {
+      segment: { segmentId: 1, name: 'foo', type: SegmentType.Country },
+      segmentAssignment: { segmentAssignmentId: 0, segmentId: 1, isExcluded: false },
+    },
+    {
+      segment: { segmentId: 2, name: 'bar', type: SegmentType.Country },
+      segmentAssignment: { segmentAssignmentId: 1, segmentId: 2, isExcluded: true },
+    },
   ]
   const { container } = render(
     <SegmentsTable segmentAssignmentsWithSegments={segmentAssignmentsWithSegments} type={SegmentType.Country} />,

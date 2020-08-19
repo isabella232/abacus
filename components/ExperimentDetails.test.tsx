@@ -1,11 +1,11 @@
 import MockDate from 'mockdate'
 import React from 'react'
 
+import { indexMetrics, indexSegments, normalizeExperiment } from '@/lib/normalizers'
 import Fixtures from '@/test-helpers/fixtures'
 import { createMatchMedia, render } from '@/test-helpers/test-utils'
 
 import ExperimentDetails from './ExperimentDetails'
-import { normalizeExperiment, indexMetrics, indexSegments } from '@/lib/normalizers'
 
 MockDate.set('2020-07-21')
 
@@ -28,7 +28,19 @@ test('renders as expected at large width', () => {
     ],
   })
   const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments, metrics, segments }} />)
+  const { container } = render(
+    <ExperimentDetails
+      {...{
+        experiment,
+        normalizedExperiment,
+        normalizedExperimentData,
+        indexedMetrics,
+        indexedSegments,
+        metrics,
+        segments,
+      }}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -46,7 +58,19 @@ test('renders as expected at small width', () => {
     ],
   })
   const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments, metrics, segments }} />)
+  const { container } = render(
+    <ExperimentDetails
+      {...{
+        experiment,
+        normalizedExperiment,
+        normalizedExperimentData,
+        indexedMetrics,
+        indexedSegments,
+        metrics,
+        segments,
+      }}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -66,7 +90,19 @@ test('renders as expected with conclusion data', () => {
     ],
   })
   const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments, metrics, segments }} />)
+  const { container } = render(
+    <ExperimentDetails
+      {...{
+        experiment,
+        normalizedExperiment,
+        normalizedExperimentData,
+        indexedMetrics,
+        indexedSegments,
+        metrics,
+        segments,
+      }}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -83,7 +119,19 @@ test('renders as expected without conclusion data', () => {
     ],
   })
   const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments, metrics, segments }} />)
+  const { container } = render(
+    <ExperimentDetails
+      {...{
+        experiment,
+        normalizedExperiment,
+        normalizedExperimentData,
+        indexedMetrics,
+        indexedSegments,
+        metrics,
+        segments,
+      }}
+    />,
+  )
 
   expect(container).toMatchSnapshot()
 })

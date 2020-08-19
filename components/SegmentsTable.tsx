@@ -5,10 +5,10 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import _ from 'lodash'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import Label from '@/components/Label'
-import { Segment, SegmentType, SegmentAssignment } from '@/lib/schemas'
+import { Segment, SegmentAssignment, SegmentType } from '@/lib/schemas'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,18 +60,20 @@ function SegmentsTable({
             <TableCell>All {type === SegmentType.Country ? 'countries' : 'locales'} included</TableCell>
           </TableRow>
         ) : (
-            sortedSegmentAssignmentsWithSegments.map(
-              (resolvedSegmentAssignment) =>
-                resolvedSegmentAssignment.segment && (
-                  <TableRow key={resolvedSegmentAssignment.segment.segmentId}>
-                    <TableCell>
-                      {resolvedSegmentAssignment.segment.name}
-                      {resolvedSegmentAssignment.segmentAssignment.isExcluded && <Label className={classes.excluded} text='Excluded' />}
-                    </TableCell>
-                  </TableRow>
-                ),
-            )
-          )}
+          sortedSegmentAssignmentsWithSegments.map(
+            (resolvedSegmentAssignment) =>
+              resolvedSegmentAssignment.segment && (
+                <TableRow key={resolvedSegmentAssignment.segment.segmentId}>
+                  <TableCell>
+                    {resolvedSegmentAssignment.segment.name}
+                    {resolvedSegmentAssignment.segmentAssignment.isExcluded && (
+                      <Label className={classes.excluded} text='Excluded' />
+                    )}
+                  </TableCell>
+                </TableRow>
+              ),
+          )
+        )}
       </TableBody>
     </Table>
   )

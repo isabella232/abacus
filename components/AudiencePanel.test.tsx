@@ -1,18 +1,20 @@
 import React from 'react'
 
 import RenderErrorBoundary from '@/components/RenderErrorBoundary'
+import { indexSegments, normalizeExperiment } from '@/lib/normalizers'
+import { Segment } from '@/lib/schemas'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
 import AudiencePanel from './AudiencePanel'
-import { normalizeExperiment, indexSegments } from '@/lib/normalizers'
-import { Segment } from '@/lib/schemas'
 
 test('renders as expected with no segment assignments', () => {
   const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(Fixtures.createExperimentFull())
   const segments: Segment[] = []
   const indexedSegments = indexSegments(segments)
-  const { container } = render(<AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />)
+  const { container } = render(
+    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -24,7 +26,9 @@ test('renders as expected with existing users allowed', () => {
   const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
   const segments: Segment[] = []
   const indexedSegments = indexSegments(segments)
-  const { container } = render(<AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />)
+  const { container } = render(
+    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -41,7 +45,9 @@ test('renders as expected with all segments resolvable', () => {
     ],
   })
   const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-  const { container } = render(<AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />)
+  const { container } = render(
+    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />,
+  )
 
   expect(container).toMatchSnapshot()
 })
@@ -63,10 +69,12 @@ test('throws an error when some segments not resolvable', () => {
   // Note: This console.error spy is mainly used to suppress the output that the
   // `render` function outputs.
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const consoleErrorSpy = jest.spyOn(global.console, 'error').mockImplementation(() => { })
+  const consoleErrorSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {})
   try {
     render(
-      <RenderErrorBoundary>{() => <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />}</RenderErrorBoundary>,
+      <RenderErrorBoundary>
+        {() => <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />}
+      </RenderErrorBoundary>,
     )
     expect(false).toBe(true) // Should never be reached
   } catch (err) {

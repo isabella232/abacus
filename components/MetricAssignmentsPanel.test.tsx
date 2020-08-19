@@ -1,15 +1,17 @@
 import React from 'react'
 
+import { indexMetrics } from '@/lib/normalizers'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
 
 import MetricAssignmentsPanel from './MetricAssignmentsPanel'
-import { indexMetrics } from '@/lib/normalizers'
 
 test('renders as expected with all metrics resolvable', () => {
   const indexedMetrics = indexMetrics(Fixtures.createMetricBares())
   const experiment = Fixtures.createExperimentFull()
-  const { container } = render(<MetricAssignmentsPanel metricAssignments={experiment.metricAssignments} indexedMetrics={indexedMetrics} />)
+  const { container } = render(
+    <MetricAssignmentsPanel metricAssignments={experiment.metricAssignments} indexedMetrics={indexedMetrics} />,
+  )
 
   expect(container).toMatchInlineSnapshot(`
     <div>
@@ -186,7 +188,7 @@ test('throws an error when some metrics not resolvable', () => {
   // Note: This console.error spy is mainly used to suppress the output that the
   // `render` function outputs.
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const consoleErrorSpy = jest.spyOn(global.console, 'error').mockImplementation(() => { })
+  const consoleErrorSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {})
   try {
     render(<MetricAssignmentsPanel metricAssignments={experiment.metricAssignments} indexedMetrics={indexedMetrics} />)
     expect(false).toBe(true) // Should never be reached

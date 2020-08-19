@@ -5,7 +5,7 @@ import React from 'react'
 import LabelValuePanel from '@/components/LabelValuePanel'
 import SegmentsTable from '@/components/SegmentsTable'
 import VariationsTable from '@/components/VariationsTable'
-import { Segment, SegmentType, ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
+import { ExperimentFullNormalized, ExperimentFullNormalizedData, Segment, SegmentType } from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
 
 /**
@@ -15,18 +15,32 @@ import * as Variations from '@/lib/variations'
  * @param props.segments - The segments to look up (aka resolve) the segment IDs
  *   of the experiment's segment assignments.
  */
-function AudiencePanel({ normalizedExperiment, normalizedExperimentData, indexedSegments }: { normalizedExperiment: ExperimentFullNormalized; normalizedExperimentData: ExperimentFullNormalizedData; indexedSegments: Record<number, Segment> }) {
-  const segmentAssignmentsWithSegments = Object.values(normalizedExperimentData.entities.segmentAssignments)
-    .map(segmentAssignment => ({ segmentAssignment, segment: indexedSegments[segmentAssignment.segmentId] }))
+function AudiencePanel({
+  normalizedExperiment,
+  normalizedExperimentData,
+  indexedSegments,
+}: {
+  normalizedExperiment: ExperimentFullNormalized
+  normalizedExperimentData: ExperimentFullNormalizedData
+  indexedSegments: Record<number, Segment>
+}) {
+  const segmentAssignmentsWithSegments = Object.values(
+    normalizedExperimentData.entities.segmentAssignments,
+  ).map((segmentAssignment) => ({ segmentAssignment, segment: indexedSegments[segmentAssignment.segmentId] }))
   const segmentAssignmentsWithSegmentsByType = _.groupBy(segmentAssignmentsWithSegments, _.property('segment.type'))
 
   const data = [
     { label: 'Platform', value: normalizedExperiment.platform },
-    { label: 'User Type', value: normalizedExperiment.existingUsersAllowed ? 'All users (new + existing)' : 'New users only' },
+    {
+      label: 'User Type',
+      value: normalizedExperiment.existingUsersAllowed ? 'All users (new + existing)' : 'New users only',
+    },
     {
       label: 'Variations',
       padding: 'none' as TableCellProps['padding'],
-      value: <VariationsTable variations={Variations.sort(Object.values(normalizedExperimentData.entities.variations))} />,
+      value: (
+        <VariationsTable variations={Variations.sort(Object.values(normalizedExperimentData.entities.variations))} />
+      ),
     },
     {
       label: 'Segments',

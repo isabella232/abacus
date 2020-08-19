@@ -11,7 +11,7 @@ import ExperimentResults from '@/components/experiment-results/ExperimentResults
 import ExperimentDetails from '@/components/ExperimentDetails'
 import ExperimentTabs from '@/components/ExperimentTabs'
 import Layout from '@/components/Layout'
-import { normalizeExperiment, indexMetrics, indexSegments } from '@/lib/normalizers'
+import { indexMetrics, indexSegments, normalizeExperiment } from '@/lib/normalizers'
 import { Analysis, ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
@@ -90,22 +90,26 @@ export default function ExperimentPageView({
         {isLoading ? (
           <LinearProgress />
         ) : (
-            experiment &&
-            normalizedExperiment &&
-            normalizedExperimentData &&
-            indexedMetrics &&
-            indexedSegments &&
-            metrics &&
-            segments &&
-            analyses && (
-              <>
-                {view === ExperimentView.Details && <ExperimentDetails {...{ normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments }} />}
-                {view === ExperimentView.Results && (
-                  <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
-                )}
-              </>
-            )
-          )}
+          experiment &&
+          normalizedExperiment &&
+          normalizedExperimentData &&
+          indexedMetrics &&
+          indexedSegments &&
+          metrics &&
+          segments &&
+          analyses && (
+            <>
+              {view === ExperimentView.Details && (
+                <ExperimentDetails
+                  {...{ normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments }}
+                />
+              )}
+              {view === ExperimentView.Results && (
+                <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
+              )}
+            </>
+          )
+        )}
       </>
     </Layout>
   )

@@ -1,8 +1,8 @@
 import Fixtures from '@/test-helpers/fixtures'
 
 import * as Experiments from './experiments'
-import { AnalysisStrategy } from './schemas'
 import { normalizeExperiment } from './normalizers'
+import { AnalysisStrategy } from './schemas'
 
 describe('lib/experiments.ts module', () => {
   describe('getPrimaryMetricAssignmentId', () => {
@@ -28,8 +28,16 @@ describe('lib/experiments.ts module', () => {
           )[0],
         ),
       ).toBe(true)
-      expect(Experiments.hasConclusionData(normalizeExperiment(Fixtures.createExperimentFull({ deployedVariationId: 1 }))[0])).toBe(true)
-      expect(Experiments.hasConclusionData(normalizeExperiment(Fixtures.createExperimentFull({ endReason: 'Ran its course.' }))[0])).toBe(true)
+      expect(
+        Experiments.hasConclusionData(
+          normalizeExperiment(Fixtures.createExperimentFull({ deployedVariationId: 1 }))[0],
+        ),
+      ).toBe(true)
+      expect(
+        Experiments.hasConclusionData(
+          normalizeExperiment(Fixtures.createExperimentFull({ endReason: 'Ran its course.' }))[0],
+        ),
+      ).toBe(true)
     })
 
     it('should return false if no conclusion data is set', () => {

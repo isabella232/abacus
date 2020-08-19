@@ -1,4 +1,4 @@
-import { AnalysisStrategy, ExperimentFull, Platform, Variation, ExperimentFullNormalized } from './schemas'
+import { AnalysisStrategy, ExperimentFull, ExperimentFullNormalized, Platform } from './schemas'
 
 /**
  * Return the primary metric assignment ID for this experiment if one exists.
@@ -11,7 +11,11 @@ export function getPrimaryMetricAssignmentId(experiment: ExperimentFull): number
  * Determines whether conclusion data has been entered for this experiment.
  */
 export function hasConclusionData(normalizedExperiment: ExperimentFullNormalized): boolean {
-  return !!normalizedExperiment.endReason || !!normalizedExperiment.conclusionUrl || typeof normalizedExperiment.deployedVariationId === 'number'
+  return (
+    !!normalizedExperiment.endReason ||
+    !!normalizedExperiment.conclusionUrl ||
+    typeof normalizedExperiment.deployedVariationId === 'number'
+  )
 }
 
 /**
