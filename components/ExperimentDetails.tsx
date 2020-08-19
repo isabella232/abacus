@@ -19,12 +19,16 @@ const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
 function ExperimentDetails({
   normalizedExperiment,
   normalizedExperimentData,
+  indexedMetrics,
+  indexedSegments,
   experiment,
   metrics,
   segments,
 }: {
   normalizedExperiment: ExperimentFullNormalized,
   normalizedExperimentData: ExperimentFullNormalizedData,
+  indexedMetrics: Record<number, MetricBare>,
+  indexedSegments: Record<number, Segment>,
   experiment: ExperimentFull
   metrics: MetricBare[]
   segments: Segment[]
