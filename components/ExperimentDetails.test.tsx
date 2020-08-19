@@ -5,6 +5,7 @@ import Fixtures from '@/test-helpers/fixtures'
 import { createMatchMedia, render } from '@/test-helpers/test-utils'
 
 import ExperimentDetails from './ExperimentDetails'
+import { normalizeExperiment } from '@/lib/normalizers'
 
 MockDate.set('2020-07-21')
 
@@ -24,7 +25,8 @@ test('renders as expected at large width', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, metrics, segments }} />)
 
   expect(container).toMatchSnapshot()
 })
@@ -39,7 +41,8 @@ test('renders as expected at small width', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, metrics, segments }} />)
 
   expect(container).toMatchSnapshot()
 })
@@ -56,7 +59,8 @@ test('renders as expected with conclusion data', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, metrics, segments }} />)
 
   expect(container).toMatchSnapshot()
 })
@@ -70,7 +74,8 @@ test('renders as expected without conclusion data', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const { container } = render(<ExperimentDetails experiment={experiment} metrics={metrics} segments={segments} />)
+  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const { container } = render(<ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, metrics, segments }} />)
 
   expect(container).toMatchSnapshot()
 })

@@ -88,20 +88,20 @@ export default function ExperimentPageView({
         {isLoading ? (
           <LinearProgress />
         ) : (
-          experiment &&
-          normalizedExperiment &&
-          normalizedExperimentData &&
-          metrics &&
-          segments &&
-          analyses && (
-            <>
-              {view === ExperimentView.Details && <ExperimentDetails {...{ experiment, metrics, segments }} />}
-              {view === ExperimentView.Results && (
-                <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
-              )}
-            </>
-          )
-        )}
+            experiment &&
+            normalizedExperiment &&
+            normalizedExperimentData &&
+            metrics &&
+            segments &&
+            analyses && (
+              <>
+                {view === ExperimentView.Details && <ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, metrics, segments }} />}
+                {view === ExperimentView.Results && (
+                  <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
+                )}
+              </>
+            )
+          )}
       </>
     </Layout>
   )
