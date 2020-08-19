@@ -99,7 +99,7 @@ export default function ExperimentPageView({
             segments &&
             analyses && (
               <>
-                {view === ExperimentView.Details && <ExperimentDetails {...{ experiment, normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments, metrics, segments }} />}
+                {view === ExperimentView.Details && <ExperimentDetails {...{ normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments }} />}
                 {view === ExperimentView.Results && (
                   <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
                 )}
