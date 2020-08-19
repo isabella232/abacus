@@ -2,6 +2,7 @@ import Fixtures from '@/test-helpers/fixtures'
 
 import * as Experiments from './experiments'
 import { AnalysisStrategy } from './schemas'
+import { normalizeExperiment } from './normalizers'
 
 describe('lib/experiments.ts module', () => {
   describe('getDeployedVariation', () => {
@@ -41,17 +42,19 @@ describe('lib/experiments.ts module', () => {
     it('should return true if at least one piece of conclusion data is set', () => {
       expect(
         Experiments.hasConclusionData(
-          Fixtures.createExperimentFull({
-            conclusionUrl: 'https://betterexperiments.wordpress.com/experiment_1/conclusion',
-          }),
+          normalizeExperiment(
+            Fixtures.createExperimentFull({
+              conclusionUrl: 'https://betterexperiments.wordpress.com/experiment_1/conclusion',
+            }),
+          )[0],
         ),
       ).toBe(true)
-      expect(Experiments.hasConclusionData(Fixtures.createExperimentFull({ deployedVariationId: 1 }))).toBe(true)
-      expect(Experiments.hasConclusionData(Fixtures.createExperimentFull({ endReason: 'Ran its course.' }))).toBe(true)
+      expect(Experiments.hasConclusionData(normalizeExperiment(Fixtures.createExperimentFull({ deployedVariationId: 1 }))[0])).toBe(true)
+      expect(Experiments.hasConclusionData(normalizeExperiment(Fixtures.createExperimentFull({ endReason: 'Ran its course.' }))[0])).toBe(true)
     })
 
     it('should return false if no conclusion data is set', () => {
-      expect(Experiments.hasConclusionData(Fixtures.createExperimentFull())).toBe(false)
+      expect(Experiments.hasConclusionData(normalizeExperiment(Fixtures.createExperimentFull())[0])).toBe(false)
     })
   })
 

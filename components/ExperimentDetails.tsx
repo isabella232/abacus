@@ -48,7 +48,7 @@ function ExperimentDetails({
           <Grid item>
             <MetricAssignmentsPanel experiment={experiment} metrics={metrics} />
           </Grid>
-          {Experiments.hasConclusionData(experiment) && (
+          {Experiments.hasConclusionData(normalizedExperiment) && (
             <Grid item>
               <ConclusionsPanel experiment={experiment} />
             </Grid>

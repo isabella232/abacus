@@ -1,4 +1,4 @@
-import { AnalysisStrategy, ExperimentFull, Platform, Variation } from './schemas'
+import { AnalysisStrategy, ExperimentFull, Platform, Variation, ExperimentFullNormalized } from './schemas'
 
 /**
  * Return the deployed variation if one has been selected, otherwise `null`.
@@ -34,8 +34,8 @@ export function getPrimaryMetricAssignmentId(experiment: ExperimentFull): number
 /**
  * Determines whether conclusion data has been entered for this experiment.
  */
-export function hasConclusionData(experiment: ExperimentFull): boolean {
-  return !!experiment.endReason || !!experiment.conclusionUrl || typeof experiment.deployedVariationId === 'number'
+export function hasConclusionData(normalizedExperiment: ExperimentFullNormalized): boolean {
+  return !!normalizedExperiment.endReason || !!normalizedExperiment.conclusionUrl || typeof normalizedExperiment.deployedVariationId === 'number'
 }
 
 /**
