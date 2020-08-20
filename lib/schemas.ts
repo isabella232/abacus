@@ -232,9 +232,8 @@ export const experimentFullSchema = experimentBareSchema
     'Could not find variation matching deployedVariationId.',
     /* istanbul ignore next; this is a data validation test itself */
     (experiment) => {
-      return _.isNumber(experiment.deployedVariationId)
-        ? experiment.variations.some((variation: Variation) => variation.variationId === experiment.deployedVariationId)
-        : true
+      return _.isNull(experiment.deployedVariation) ||
+        experiment.variations.some((variation: Variation) => variation.variationId === experiment.deployedVariationId)
     },
   )
   .defined()
