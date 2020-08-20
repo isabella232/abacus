@@ -9,7 +9,7 @@ import ConclusionsPanel from '@/components/ConclusionsPanel'
 import GeneralPanel from '@/components/GeneralPanel'
 import MetricAssignmentsPanel from '@/components/MetricAssignmentsPanel'
 import * as Experiments from '@/lib/experiments'
-import { ExperimentFullNormalized, ExperimentFullNormalizedData, MetricBare, Segment } from '@/lib/schemas'
+import { ExperimentFullNormalized, ExperimentFullNormalizedEntities, MetricBare, Segment } from '@/lib/schemas'
 
 const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
 
@@ -18,12 +18,12 @@ const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
  */
 function ExperimentDetails({
   normalizedExperiment,
-  normalizedExperimentData,
+  normalizedExperimentEntities,
   indexedMetrics,
   indexedSegments,
 }: {
   normalizedExperiment: ExperimentFullNormalized
-  normalizedExperimentData: ExperimentFullNormalizedData
+  normalizedExperimentEntities: ExperimentFullNormalizedEntities
   indexedMetrics: Record<number, MetricBare>
   indexedSegments: Record<number, Segment>
 }) {
@@ -40,25 +40,25 @@ function ExperimentDetails({
           </Grid>
           {isMdDown && (
             <Grid item>
-              <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />
+              <AudiencePanel {...{ normalizedExperiment, normalizedExperimentEntities, indexedSegments }} />
             </Grid>
           )}
           <Grid item>
             <MetricAssignmentsPanel
-              metricAssignments={Object.values(normalizedExperimentData.entities.metricAssignments)}
+              metricAssignments={Object.values(normalizedExperimentEntities.metricAssignments)}
               indexedMetrics={indexedMetrics}
             />
           </Grid>
           {Experiments.hasConclusionData(normalizedExperiment) && (
             <Grid item>
-              <ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentData }} />
+              <ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentEntities }} />
             </Grid>
           )}
         </Grid>
       </Grid>
       {!isMdDown && (
         <Grid item lg={5}>
-          <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />
+          <AudiencePanel {...{ normalizedExperiment, normalizedExperimentEntities, indexedSegments }} />
         </Grid>
       )}
     </Grid>

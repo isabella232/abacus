@@ -27,12 +27,12 @@ test('renders as expected at large width', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
   const { container } = render(
     <ExperimentDetails
       {...{
         normalizedExperiment,
-        normalizedExperimentData,
+        normalizedExperimentEntities,
         indexedMetrics,
         indexedSegments,
       }}
@@ -54,12 +54,12 @@ test('renders as expected at small width', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
   const { container } = render(
     <ExperimentDetails
       {...{
         normalizedExperiment,
-        normalizedExperimentData,
+        normalizedExperimentEntities,
         indexedMetrics,
         indexedSegments,
       }}
@@ -83,12 +83,12 @@ test('renders as expected with conclusion data', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
   const { container } = render(
     <ExperimentDetails
       {...{
         normalizedExperiment,
-        normalizedExperimentData,
+        normalizedExperimentEntities,
         indexedMetrics,
         indexedSegments,
       }}
@@ -109,12 +109,12 @@ test('renders as expected without conclusion data', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 102, segmentId: 2, isExcluded: true }),
     ],
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
   const { container } = render(
     <ExperimentDetails
       {...{
         normalizedExperiment,
-        normalizedExperimentData,
+        normalizedExperimentEntities,
         indexedMetrics,
         indexedSegments,
       }}

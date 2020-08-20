@@ -9,11 +9,11 @@ import { render } from '@/test-helpers/test-utils'
 import AudiencePanel from './AudiencePanel'
 
 test('renders as expected with no segment assignments', () => {
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(Fixtures.createExperimentFull())
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(Fixtures.createExperimentFull())
   const segments: Segment[] = []
   const indexedSegments = indexSegments(segments)
   const { container } = render(
-    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />,
+    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentEntities, indexedSegments }} />,
   )
 
   expect(container).toMatchSnapshot()
@@ -23,11 +23,11 @@ test('renders as expected with existing users allowed', () => {
   const experiment = Fixtures.createExperimentFull({
     existingUsersAllowed: true,
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
   const segments: Segment[] = []
   const indexedSegments = indexSegments(segments)
   const { container } = render(
-    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />,
+    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentEntities, indexedSegments }} />,
   )
 
   expect(container).toMatchSnapshot()
@@ -44,9 +44,9 @@ test('renders as expected with all segments resolvable', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 104, segmentId: 4 }),
     ],
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
   const { container } = render(
-    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />,
+    <AudiencePanel {...{ normalizedExperiment, normalizedExperimentEntities, indexedSegments }} />,
   )
 
   expect(container).toMatchSnapshot()
@@ -64,7 +64,7 @@ test('throws an error when some segments not resolvable', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 110, segmentId: 10 }),
     ],
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
 
   // Note: This console.error spy is mainly used to suppress the output that the
   // `render` function outputs.
@@ -73,7 +73,7 @@ test('throws an error when some segments not resolvable', () => {
   try {
     render(
       <RenderErrorBoundary>
-        {() => <AudiencePanel {...{ normalizedExperiment, normalizedExperimentData, indexedSegments }} />}
+        {() => <AudiencePanel {...{ normalizedExperiment, normalizedExperimentEntities, indexedSegments }} />}
       </RenderErrorBoundary>,
     )
     expect(false).toBe(true) // Should never be reached

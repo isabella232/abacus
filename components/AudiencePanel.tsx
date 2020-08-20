@@ -5,36 +5,32 @@ import React from 'react'
 import LabelValuePanel from '@/components/LabelValuePanel'
 import SegmentsTable from '@/components/SegmentsTable'
 import VariationsTable from '@/components/VariationsTable'
-import { ExperimentFullNormalized, ExperimentFullNormalizedData, Segment, SegmentType } from '@/lib/schemas'
+import { ExperimentFullNormalized, ExperimentFullNormalizedEntities, Segment, SegmentType } from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
 
 /**
  * Renders the audience information of an experiment in a panel component.
- *
- * @param props.experiment - The experiment with the audience information.
- * @param props.segments - The segments to look up (aka resolve) the segment IDs
- *   of the experiment's segment assignments.
  */
 function AudiencePanel({
   normalizedExperiment,
-  normalizedExperimentData,
+  normalizedExperimentEntities,
   indexedSegments,
 }: {
   normalizedExperiment: ExperimentFullNormalized
-  normalizedExperimentData: ExperimentFullNormalizedData
+  normalizedExperimentEntities: ExperimentFullNormalizedEntities
   indexedSegments: Record<number, Segment>
 }) {
-  const segmentAssignmentsWithSegments = normalizedExperimentData.entities.segmentAssignments
-    ? Object.values(normalizedExperimentData.entities.segmentAssignments).map((segmentAssignment) => {
-        const segment = indexedSegments[segmentAssignment.segmentId]
-        if (!segment) {
-          throw new Error(
-            `Could not find metric corresponding to segmentAssignment. segmentAssignmentId: '${segmentAssignment.segmentAssignmentId}'`,
-          )
-        }
-        return { segmentAssignment, segment }
-      })
-    : []
+  const segmentAssignmentsWithSegments = Object.values(normalizedExperimentEntities.segmentAssignments).map(
+    (segmentAssignment) => {
+      const segment = indexedSegments[segmentAssignment.segmentId]
+      if (!segment) {
+        throw new Error(
+          `Could not find segment corresponding to segmentAssignment. segmentAssignmentId: '${segmentAssignment.segmentAssignmentId}'`,
+        )
+      }
+      return { segmentAssignment, segment }
+    },
+  )
   const segmentAssignmentsWithSegmentsByType = _.groupBy(segmentAssignmentsWithSegments, _.property('segment.type'))
 
   const data = [
@@ -46,9 +42,7 @@ function AudiencePanel({
     {
       label: 'Variations',
       padding: 'none' as TableCellProps['padding'],
-      value: (
-        <VariationsTable variations={Variations.sort(Object.values(normalizedExperimentData.entities.variations))} />
-      ),
+      value: <VariationsTable variations={Variations.sort(Object.values(normalizedExperimentEntities.variations))} />,
     },
     {
       label: 'Segments',

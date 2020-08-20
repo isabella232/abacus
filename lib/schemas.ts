@@ -230,6 +230,7 @@ export const experimentFullSchema = experimentBareSchema
   .test(
     'deployedVariationId-variation-check',
     'Could not find variation matching deployedVariationId.',
+    /* istanbul ignore next; this is a data validation test itself */
     (experiment) => {
       return _.isNumber(experiment.deployedVariationId)
         ? experiment.variations.some((variation: Variation) => variation.variationId === experiment.deployedVariationId)
@@ -262,7 +263,6 @@ export interface ExperimentFullNormalizedEntities {
   segmentAssignments: Record<number, SegmentAssignment>
   variations: Record<number, Variation>
 }
-export type ExperimentFullNormalizedData = normalizr.NormalizedSchema<ExperimentFullNormalizedEntities, number>
 
 const now = new Date()
 export const experimentFullNewSchema = experimentFullSchema.shape({

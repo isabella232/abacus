@@ -12,7 +12,7 @@ import ExperimentDetails from '@/components/ExperimentDetails'
 import ExperimentTabs from '@/components/ExperimentTabs'
 import Layout from '@/components/Layout'
 import { indexMetrics, indexSegments, normalizeExperiment } from '@/lib/normalizers'
-import { Analysis, ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
+import { Analysis, ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedEntities } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
 
@@ -45,19 +45,19 @@ export default function ExperimentPageView({
     isLoading: experimentIsLoading,
     data: experimentData,
     error: experimentError,
-  } = useDataSource(async (): Promise<[ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData]> => {
+  } = useDataSource(async (): Promise<[ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedEntities]> => {
     if (!experimentId) {
-      return createUnresolvingPromise<[ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedData]>()
+      return createUnresolvingPromise<[ExperimentFull, ExperimentFullNormalized, ExperimentFullNormalizedEntities]>()
     }
 
     const experiment = await ExperimentsApi.findById(experimentId)
-    const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-    return [experiment, normalizedExperiment, normalizedExperimentData]
+    const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
+    return [experiment, normalizedExperiment, normalizedExperimentEntities]
   }, [experimentId])
   useDataLoadingError(experimentError, 'Experiment')
-  let experiment, normalizedExperiment, normalizedExperimentData
+  let experiment, normalizedExperiment, normalizedExperimentEntities
   if (experimentData) {
-    ;[experiment, normalizedExperiment, normalizedExperimentData] = experimentData
+    ;[experiment, normalizedExperiment, normalizedExperimentEntities] = experimentData
   }
 
   const { isLoading: metricsIsLoading, data: indexedMetrics, error: metricsError } = useDataSource(
@@ -92,7 +92,7 @@ export default function ExperimentPageView({
         ) : (
           experiment &&
           normalizedExperiment &&
-          normalizedExperimentData &&
+          normalizedExperimentEntities &&
           indexedMetrics &&
           indexedSegments &&
           metrics &&
@@ -101,7 +101,7 @@ export default function ExperimentPageView({
             <>
               {view === ExperimentView.Details && (
                 <ExperimentDetails
-                  {...{ normalizedExperiment, normalizedExperimentData, indexedMetrics, indexedSegments }}
+                  {...{ normalizedExperiment, normalizedExperimentEntities, indexedMetrics, indexedSegments }}
                 />
               )}
               {view === ExperimentView.Results && (

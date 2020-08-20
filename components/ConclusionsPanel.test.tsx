@@ -12,8 +12,8 @@ test('renders as expected with complete conclusion data', () => {
     deployedVariationId: 2,
     endReason: 'Ran its course.',
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-  const { container } = render(<ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentData }} />)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
+  const { container } = render(<ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentEntities }} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>
@@ -98,8 +98,8 @@ test('renders as expected without deployed variation', () => {
     deployedVariationId: null,
     endReason: 'Ran its course.',
   })
-  const [normalizedExperiment, normalizedExperimentData] = normalizeExperiment(experiment)
-  const { container } = render(<ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentData }} />)
+  const [normalizedExperiment, normalizedExperimentEntities] = normalizeExperiment(experiment)
+  const { container } = render(<ConclusionsPanel {...{ normalizedExperiment, normalizedExperimentEntities }} />)
 
   expect(container).toMatchInlineSnapshot(`
     <div>

@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 
 import LabelValuePanel from '@/components/LabelValuePanel'
-import { ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/schemas'
+import { ExperimentFullNormalized, ExperimentFullNormalizedEntities } from '@/lib/schemas'
 
 /**
  * Renders the conclusion information of an experiment in a panel component.
@@ -11,13 +11,13 @@ import { ExperimentFullNormalized, ExperimentFullNormalizedData } from '@/lib/sc
  */
 function ConclusionsPanel({
   normalizedExperiment,
-  normalizedExperimentData,
+  normalizedExperimentEntities,
 }: {
   normalizedExperiment: ExperimentFullNormalized
-  normalizedExperimentData: ExperimentFullNormalizedData
+  normalizedExperimentEntities: ExperimentFullNormalizedEntities
 }) {
   const deployedVariation = _.isNumber(normalizedExperiment.deployedVariationId)
-    ? normalizedExperimentData.entities.variations[normalizedExperiment.deployedVariationId]
+    ? normalizedExperimentEntities.variations[normalizedExperiment.deployedVariationId]
     : null
 
   const data = [

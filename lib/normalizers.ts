@@ -3,7 +3,6 @@ import { normalize, schema } from 'normalizr'
 import {
   ExperimentFull,
   ExperimentFullNormalized,
-  ExperimentFullNormalizedData,
   ExperimentFullNormalizedEntities,
   experimentFullNormalizrSchema,
   MetricBare,
@@ -30,15 +29,21 @@ export function indexSegments(segments: Segment[]): Record<number, Segment> {
 }
 
 /**
- * Returns a tuple of normalizedExperiment and normalizedExperimentData (normalizr format, includes all nested entities).
+ * Returns a tuple of normalizedExperiment and normalizedExperimentEntities (all the entities in experiment including experiment itself).
  */
 export function normalizeExperiment(
   experiment: ExperimentFull,
-): [ExperimentFullNormalized, ExperimentFullNormalizedData] {
+): [ExperimentFullNormalized, ExperimentFullNormalizedEntities] {
   const normalizedExperimentData = normalize<ExperimentFull, ExperimentFullNormalizedEntities>(
     experiment,
     experimentFullNormalizrSchema,
   )
   const normalizedExperiment = normalizedExperimentData.entities.experiments[normalizedExperimentData.result]
-  return [normalizedExperiment, normalizedExperimentData]
+  const entities = {
+    experiments: normalizedExperimentData.entities.experiments,
+    metricAssignments: normalizedExperimentData.entities.metricAssignments || {},
+    segmentAssignments: normalizedExperimentData.entities.segmentAssignments || {},
+    variations: normalizedExperimentData.entities.variations || {},
+  }
+  return [normalizedExperiment, entities]
 }

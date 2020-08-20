@@ -24,4 +24,21 @@ describe('lib/normalizers.ts module', () => {
       expect(Normalizers.indexSegments(segments)).toEqual({ 1: segments[0], 2: segments[1] })
     })
   })
+
+  describe('normalizeExperiment', () => {
+    it('normalizes an empty experiment', () => {
+      const experiment = { experimentId: 0 }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore; This is just for minimal testing
+      expect(Normalizers.normalizeExperiment(experiment)).toEqual([
+        experiment,
+        {
+          experiments: { 0: experiment },
+          metricAssignments: {},
+          segmentAssignments: {},
+          variations: {},
+        },
+      ])
+    })
+  })
 })
