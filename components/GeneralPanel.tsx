@@ -17,10 +17,11 @@ import { TextField } from 'formik-material-ui'
 import _ from 'lodash'
 import { useSnackbar } from 'notistack'
 import React, { useState } from 'react'
+import * as yup from 'yup'
 
 import DatetimeText from '@/components/DatetimeText'
 import LabelValueTable from '@/components/LabelValueTable'
-import { ExperimentFull, Status } from '@/lib/schemas'
+import { ExperimentFull, experimentFullSchema, Status, yupPick } from '@/lib/schemas'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,10 +82,22 @@ function GeneralPanel({ experiment }: { experiment: ExperimentFull }) {
   // Edit Modal
   const { enqueueSnackbar } = useSnackbar()
   const [isEditing, setIsEditing] = useState<boolean>(false)
+  const props = ['description', 'ownerLogin', 'endDatetime']
   const generalEditInitialExperiment = {
-    ..._.pick(experiment, ['description', 'p2Url', 'ownerLogin', 'endDatetime']),
+    ..._.pick(experiment, props),
     endDatetime: dateFns.format(experiment.endDatetime, 'yyyy-MM-dd'),
+    // Needed for endDatetime validation
+    startDatetime: experiment.startDatetime,
   }
+  const generalEditValidationSchema = yupPick(experimentFullSchema, props).shape({
+    // We need to ensure the end date is in the future
+    endDatetime: ((yup.reach(experimentFullSchema, 'endDatetime') as unknown) as yup.MixedSchema).test(
+      'future-end-date',
+      'End date (UTC) must be in the future.',
+      // We need to refer to new Date() instead of using dateFns.isFuture so MockDate works with this in the tests.
+      (date) => dateFns.isBefore(new Date(), date),
+    ),
+  })
   const onEdit = () => setIsEditing(true)
   const onCancelEdit = () => {
     setIsEditing(false)
@@ -111,7 +124,11 @@ function GeneralPanel({ experiment }: { experiment: ExperimentFull }) {
       <LabelValueTable data={data} />
       <Dialog open={isEditing} fullWidth aria-labelledby='edit-experiment-general-form-dialog-title'>
         <DialogTitle id='edit-experiment-general-form-dialog-title'>Edit Experiment: General</DialogTitle>
-        <Formik initialValues={{ experiment: generalEditInitialExperiment }} onSubmit={onSubmitEdit}>
+        <Formik
+          initialValues={{ experiment: generalEditInitialExperiment }}
+          validationSchema={yup.object({ experiment: generalEditValidationSchema })}
+          onSubmit={onSubmitEdit}
+        >
           {(formikProps) => (
             <form onSubmit={formikProps.handleSubmit}>
               <DialogContent>
