@@ -8,6 +8,7 @@ import {
   Paper,
   Toolbar,
   Typography,
+  Tooltip,
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Edit } from '@material-ui/icons'
@@ -102,6 +103,7 @@ function GeneralPanel({
     // Needed for endDatetime validation
     startDatetime: experiment.startDatetime,
   }
+  const canEditExperiment = experiment.status !== Status.Staging
   const canEditEndDate = experiment.status === Status.Running
   const generalEditValidationSchema = yupPick(experimentFullSchema, ['description', 'ownerLogin']).shape({
     ...(canEditEndDate && {
@@ -138,10 +140,14 @@ function GeneralPanel({
         <Typography className={classes.title} color='textPrimary' variant='h3'>
           General
         </Typography>
-        <Button onClick={onEdit} variant='outlined'>
-          <Edit />
-          Edit
-        </Button>
+        <Tooltip title={canEditExperiment ? '' : 'Use "Edit in Wizard" for staging experiments.'}>
+          <div>
+            <Button onClick={onEdit} variant='outlined' disabled={!canEditExperiment}>
+              <Edit />
+              Edit
+            </Button>
+          </div>
+        </Tooltip>
       </Toolbar>
       <LabelValueTable data={data} />
       <Dialog open={isEditing} fullWidth aria-labelledby='edit-experiment-general-form-dialog-title'>
