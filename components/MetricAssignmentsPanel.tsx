@@ -39,10 +39,12 @@ import {
   metricAssignmentNewSchema,
   MetricBare,
   MetricParameterType,
+  Status,
 } from '@/lib/schemas'
 import { formatBoolean, formatUsCurrencyDollar } from '@/utils/formatters'
 
 import LoadingButtonContainer from './LoadingButtonContainer'
+import { Dictionary } from 'lodash'
 
 /**
  * Resolves the metric ID of the metric assignment with the actual metric. If the
@@ -123,6 +125,11 @@ function MetricAssignmentsPanel({
 
   // Assign Metric Modal
   const { enqueueSnackbar } = useSnackbar()
+  const canAssignMetric = experiment.status === Status.Running
+  const cantAssignReasons: Record<string, string> = {
+    [Status.Staging]: 'Use "Edit in Wizard" for staging experiments.',
+    [Status.Disabled]: `This experiment is disabled.`
+  }
   const [isAssigningMetric, setIsAssigningMetric] = useState<boolean>(false)
   const assignMetricInitialAssignMetric = {
     metricId: '',
@@ -155,10 +162,14 @@ function MetricAssignmentsPanel({
         <Typography className={classes.title} color='textPrimary' variant='h3'>
           Metrics
         </Typography>
-        <Button onClick={onAssignMetric} variant='outlined'>
-          <Add />
-          Assign Metric
-        </Button>
+        <Tooltip title={canAssignMetric ? '' : cantAssignReasons[experiment.status]}>
+          <div>
+            <Button onClick={onAssignMetric} variant='outlined' disabled={!canAssignMetric}>
+              <Add />
+              Assign Metric
+            </Button>
+          </div>
+        </Tooltip>
       </Toolbar>
       <Table>
         <TableHead>
