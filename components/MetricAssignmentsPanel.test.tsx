@@ -5,11 +5,11 @@ import * as notistack from 'notistack'
 import React from 'react'
 
 import ExperimentsApi from '@/api/ExperimentsApi'
+import { Status } from '@/lib/schemas'
 import Fixtures from '@/test-helpers/fixtures'
 import { changeFieldByRole, render } from '@/test-helpers/test-utils'
 
 import MetricAssignmentsPanel from './MetricAssignmentsPanel'
-import { Status } from '@/lib/schemas'
 
 jest.mock('@/api/ExperimentsApi')
 const mockedExperimentsApi = ExperimentsApi as jest.Mocked<typeof ExperimentsApi>
