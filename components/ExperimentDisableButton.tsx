@@ -55,7 +55,7 @@ const ExperimentDisableButton = ({
 
   return (
     <>
-      <Tooltip title={canDisableExperiment ? '' : 'Experiment is already disabled.'}>
+      <Tooltip title={canDisableExperiment ? '' : 'This experiment is disabled.'}>
         <span>
           <Button
             variant='outlined'

@@ -101,9 +101,9 @@ export default function ExperimentPageView({
   const canEditInWizard = experiment && experiment.status === Status.Staging
   const canRunExperiment = experiment && experiment.status === Status.Staging
   const cantRunExperimentReason: Record<string, string> = {
-    [Status.Running]: 'Experiment is running.',
-    [Status.Completed]: 'Experiment has ran.',
-    [Status.Disabled]: 'Experiment has been disabled.',
+    [Status.Running]: 'This experiment is running.',
+    [Status.Completed]: 'This experiment has ran.',
+    [Status.Disabled]: 'This experiment is disabled.',
   }
 
   return (
