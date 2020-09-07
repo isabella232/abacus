@@ -142,7 +142,7 @@ function GeneralPanel({
         </Typography>
         <Tooltip title={canEditExperiment ? '' : 'Use "Edit in Wizard" for staging experiments.'}>
           <div>
-            <Button onClick={onEdit} variant='outlined' disabled={!canEditExperiment}>
+            <Button onClick={onEdit} variant='outlined' disabled={!canEditExperiment} aria-label='Edit Experiment General Data'>
               <Edit />
               Edit
             </Button>
