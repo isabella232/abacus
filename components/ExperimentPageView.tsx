@@ -1,5 +1,5 @@
 // istanbul ignore file; Even though it sits with components this is a "page" component
-import { Button, createStyles, LinearProgress, makeStyles, Tab, Tabs, Theme } from '@material-ui/core'
+import { Button, createStyles, LinearProgress, makeStyles, Tab, Tabs, Theme, Tooltip } from '@material-ui/core'
 import _ from 'lodash'
 import Link from 'next/link'
 import React from 'react'
@@ -13,7 +13,7 @@ import ExperimentCodeSetup from '@/components/ExperimentCodeSetup'
 import ExperimentDetails from '@/components/ExperimentDetails'
 import ExperimentDisableButton from '@/components/ExperimentDisableButton'
 import Layout from '@/components/Layout'
-import { Analysis, ExperimentFull } from '@/lib/schemas'
+import { Analysis, ExperimentFull, Status } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
 
@@ -98,6 +98,8 @@ export default function ExperimentPageView({
 
   const isLoading = or(experimentIsLoading, metricsIsLoading, segmentsIsLoading, analysesIsLoading)
 
+  const canEditInWizard = experiment && experiment.status === Status.Staging
+
   return (
     <Layout title={`Experiment: ${experiment?.name || ''}`}>
       <>
@@ -129,15 +131,22 @@ export default function ExperimentPageView({
             />
           </Tabs>
           <div className={classes.topBarActions}>
-            <Button
-              variant='outlined'
-              color='primary'
-              component={NextMuiLink}
-              href={`/experiments/[id]/wizard-edit`}
-              hrefAs={`/experiments/${experimentId}/wizard-edit`}
+            <Tooltip 
+              title={canEditInWizard ? '' : 'Only available while staging.'}
             >
-              Edit In Wizard
-            </Button>{' '}
+              <span>
+              <Button
+                variant='outlined'
+                color='primary'
+                component={NextMuiLink}
+                href={`/experiments/[id]/wizard-edit`}
+                hrefAs={`/experiments/${experimentId}/wizard-edit`}
+                disabled={!canEditInWizard}
+              >
+                Edit In Wizard
+              </Button>
+              </span>
+            </Tooltip>{' '}
             <Button variant='outlined' color='secondary'>
               Run
             </Button>{' '}
