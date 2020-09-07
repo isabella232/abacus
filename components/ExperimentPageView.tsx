@@ -99,6 +99,12 @@ export default function ExperimentPageView({
   const isLoading = or(experimentIsLoading, metricsIsLoading, segmentsIsLoading, analysesIsLoading)
 
   const canEditInWizard = experiment && experiment.status === Status.Staging
+  const canRunExperiment = experiment && experiment.status === Status.Staging
+  const cantRunExperimentReason: Record<string, string> = {
+    [Status.Running]: 'Experiment is running.',
+    [Status.Completed]: 'Experiment has ran.',
+    [Status.Disabled]: 'Experiment has been disabled.',
+  }
 
   return (
     <Layout title={`Experiment: ${experiment?.name || ''}`}>
@@ -147,9 +153,15 @@ export default function ExperimentPageView({
               </Button>
               </span>
             </Tooltip>{' '}
-            <Button variant='outlined' color='secondary'>
-              Run
-            </Button>{' '}
+            <Tooltip 
+              title={!canRunExperiment ? cantRunExperimentReason[experiment?.status as string] : ''}
+            >
+              <span>
+                <Button variant='outlined' color='secondary' disabled={!canRunExperiment}>
+                  Run
+                </Button>
+              </span>
+            </Tooltip>{' '}
             <ExperimentDisableButton {...{ experiment, experimentReloadRef }} />
           </div>
         </div>
