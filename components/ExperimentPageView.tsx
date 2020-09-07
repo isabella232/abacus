@@ -137,25 +137,21 @@ export default function ExperimentPageView({
             />
           </Tabs>
           <div className={classes.topBarActions}>
-            <Tooltip 
-              title={canEditInWizard ? '' : 'Only available while staging.'}
-            >
+            <Tooltip title={canEditInWizard ? '' : 'Only available while staging.'}>
               <span>
-              <Button
-                variant='outlined'
-                color='primary'
-                component={NextMuiLink}
-                href={`/experiments/[id]/wizard-edit`}
-                hrefAs={`/experiments/${experimentId}/wizard-edit`}
-                disabled={!canEditInWizard}
-              >
-                Edit In Wizard
-              </Button>
+                <Button
+                  variant='outlined'
+                  color='primary'
+                  component={NextMuiLink}
+                  href={`/experiments/[id]/wizard-edit`}
+                  hrefAs={`/experiments/${experimentId}/wizard-edit`}
+                  disabled={!canEditInWizard}
+                >
+                  Edit In Wizard
+                </Button>
               </span>
             </Tooltip>{' '}
-            <Tooltip 
-              title={!canRunExperiment ? cantRunExperimentReason[experiment?.status as string] : ''}
-            >
+            <Tooltip title={!canRunExperiment ? cantRunExperimentReason[experiment?.status as string] : ''}>
               <span>
                 <Button variant='outlined' color='secondary' disabled={!canRunExperiment}>
                   Run

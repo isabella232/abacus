@@ -44,7 +44,6 @@ import {
 import { formatBoolean, formatUsCurrencyDollar } from '@/utils/formatters'
 
 import LoadingButtonContainer from './LoadingButtonContainer'
-import { Dictionary } from 'lodash'
 
 /**
  * Resolves the metric ID of the metric assignment with the actual metric. If the
@@ -128,7 +127,7 @@ function MetricAssignmentsPanel({
   const canAssignMetric = experiment.status === Status.Running
   const cantAssignReasons: Record<string, string> = {
     [Status.Staging]: 'Use "Edit in Wizard" for staging experiments.',
-    [Status.Disabled]: `This experiment is disabled.`
+    [Status.Disabled]: `This experiment is disabled.`,
   }
   const [isAssigningMetric, setIsAssigningMetric] = useState<boolean>(false)
   const assignMetricInitialAssignMetric = {

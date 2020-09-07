@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/require-await, @typescript-eslint/ban-ts-ignore */
-import { fireEvent, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
+import _ from 'lodash'
 import MockDate from 'mockdate'
 import * as notistack from 'notistack'
 import React from 'react'
-import _ from 'lodash'
 
+import AnalysesApi from '@/api/AnalysesApi'
 import ExperimentsApi from '@/api/ExperimentsApi'
 import MetricsApi from '@/api/MetricsApi'
 import SegmentsApi from '@/api/SegmentsApi'
-import AnalysesApi from '@/api/AnalysesApi'
+import { Status } from '@/lib/schemas'
 import Fixtures from '@/test-helpers/fixtures'
 import { render } from '@/test-helpers/test-utils'
-import ExperimentPageView, { ExperimentView } from './ExperimentPageView'
-import { Status } from '@/lib/schemas'
 
+import ExperimentPageView, { ExperimentView } from './ExperimentPageView'
 
 MockDate.set('2020-07-21')
 
@@ -49,7 +49,9 @@ test('staging experiment shows correct features enabled in overview', async () =
   const analyses = Fixtures.createAnalyses()
   mockedAnalysesApi.findByExperimentId.mockImplementationOnce(async () => analyses)
 
-  const { container } = render(<ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />)
+  const { container } = render(
+    <ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />,
+  )
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
   expect(container).toMatchSnapshot()
@@ -82,7 +84,9 @@ test('running experiment shows correct features enabled in overview', async () =
   const analyses = Fixtures.createAnalyses()
   mockedAnalysesApi.findByExperimentId.mockImplementationOnce(async () => analyses)
 
-  const { container } = render(<ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />)
+  const { container } = render(
+    <ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />,
+  )
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
   expect(container).toMatchSnapshot()
@@ -115,7 +119,9 @@ test('completed experiment shows correct features enabled in overview', async ()
   const analyses = Fixtures.createAnalyses()
   mockedAnalysesApi.findByExperimentId.mockImplementationOnce(async () => analyses)
 
-  const { container } = render(<ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />)
+  const { container } = render(
+    <ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />,
+  )
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
   expect(container).toMatchSnapshot()
@@ -148,7 +154,9 @@ test('disabled experiment shows correct features enabled in overview', async () 
   const analyses = Fixtures.createAnalyses()
   mockedAnalysesApi.findByExperimentId.mockImplementationOnce(async () => analyses)
 
-  const { container } = render(<ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />)
+  const { container } = render(
+    <ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />,
+  )
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
   expect(container).toMatchSnapshot()

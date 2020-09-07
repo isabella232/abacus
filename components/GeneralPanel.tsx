@@ -7,8 +7,8 @@ import {
   InputAdornment,
   Paper,
   Toolbar,
-  Typography,
   Tooltip,
+  Typography,
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Edit } from '@material-ui/icons'
@@ -142,7 +142,12 @@ function GeneralPanel({
         </Typography>
         <Tooltip title={canEditExperiment ? '' : 'Use "Edit in Wizard" for staging experiments.'}>
           <div>
-            <Button onClick={onEdit} variant='outlined' disabled={!canEditExperiment} aria-label='Edit Experiment General Data'>
+            <Button
+              onClick={onEdit}
+              variant='outlined'
+              disabled={!canEditExperiment}
+              aria-label='Edit Experiment General Data'
+            >
               <Edit />
               Edit
             </Button>
