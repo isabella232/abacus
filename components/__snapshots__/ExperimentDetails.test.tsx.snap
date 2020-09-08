@@ -1681,12 +1681,11 @@ exports[`renders as expected with conclusion data 1`] = `
               </h3>
               <div
                 class=""
-                title="This experiment is disabled."
+                title=""
               >
                 <button
-                  class="MuiButtonBase-root MuiButton-root MuiButton-outlined Mui-disabled Mui-disabled"
-                  disabled=""
-                  tabindex="-1"
+                  class="MuiButtonBase-root MuiButton-root MuiButton-outlined"
+                  tabindex="0"
                   type="button"
                 >
                   <span
@@ -1704,6 +1703,9 @@ exports[`renders as expected with conclusion data 1`] = `
                     </svg>
                     Assign Metric
                   </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
                 </button>
               </div>
             </div>
