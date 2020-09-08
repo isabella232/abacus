@@ -124,11 +124,7 @@ function MetricAssignmentsPanel({
 
   // Assign Metric Modal
   const { enqueueSnackbar } = useSnackbar()
-  const canAssignMetric = experiment.status === Status.Running
-  const cantAssignReasons: Record<string, string> = {
-    [Status.Staging]: 'Use "Edit in Wizard" for staging experiments.',
-    [Status.Disabled]: `This experiment is disabled.`,
-  }
+  const canAssignMetric = experiment.status !== Status.Staging
   const [isAssigningMetric, setIsAssigningMetric] = useState<boolean>(false)
   const assignMetricInitialAssignMetric = {
     metricId: '',
@@ -161,7 +157,7 @@ function MetricAssignmentsPanel({
         <Typography className={classes.title} color='textPrimary' variant='h3'>
           Metrics
         </Typography>
-        <Tooltip title={canAssignMetric ? '' : cantAssignReasons[experiment.status]}>
+        <Tooltip title={canAssignMetric ? '' : 'Use "Edit in Wizard" for staging experiments.'}>
           <div>
             <Button onClick={onAssignMetric} variant='outlined' disabled={!canAssignMetric}>
               <Add />
