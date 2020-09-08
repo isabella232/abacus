@@ -103,7 +103,7 @@ function GeneralPanel({
     // Needed for endDatetime validation
     startDatetime: experiment.startDatetime,
   }
-  const canEditExperiment = experiment.status !== Status.Staging
+  const canEdit = experiment.status !== Status.Staging
   const canEditEndDate = experiment.status === Status.Running
   const generalEditValidationSchema = yupPick(experimentFullSchema, ['description', 'ownerLogin']).shape({
     ...(canEditEndDate && {
@@ -140,12 +140,12 @@ function GeneralPanel({
         <Typography className={classes.title} color='textPrimary' variant='h3'>
           General
         </Typography>
-        <Tooltip title={canEditExperiment ? '' : 'Use "Edit in Wizard" for staging experiments.'}>
+        <Tooltip title={canEdit ? '' : 'Use "Edit in Wizard" for staging experiments.'}>
           <div>
             <Button
               onClick={onEdit}
               variant='outlined'
-              disabled={!canEditExperiment}
+              disabled={!canEdit}
               aria-label='Edit Experiment General Data'
             >
               <Edit />
