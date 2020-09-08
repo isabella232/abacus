@@ -1,4 +1,3 @@
-// istanbul ignore file; Even though it sits with components this is a "page" component
 import { Button, createStyles, LinearProgress, makeStyles, Tab, Tabs, Theme, Tooltip } from '@material-ui/core'
 import _ from 'lodash'
 import Link from 'next/link'
@@ -100,11 +99,6 @@ export default function ExperimentPageView({
 
   const canEditInWizard = experiment && experiment.status === Status.Staging
   const canRunExperiment = experiment && experiment.status === Status.Staging
-  const cantRunExperimentReason: Record<string, string> = {
-    [Status.Running]: 'This experiment is running.',
-    [Status.Completed]: 'This experiment has ran.',
-    [Status.Disabled]: 'This experiment is disabled.',
-  }
 
   return (
     <Layout title={`Experiment: ${experiment?.name || ''}`}>
@@ -137,7 +131,7 @@ export default function ExperimentPageView({
             />
           </Tabs>
           <div className={classes.topBarActions}>
-            <Tooltip title={canEditInWizard ? '' : 'Only available while staging.'}>
+            <Tooltip title={canEditInWizard ? '' : 'Only available for staging experiments.'}>
               <span>
                 <Button
                   variant='outlined'
@@ -151,7 +145,7 @@ export default function ExperimentPageView({
                 </Button>
               </span>
             </Tooltip>{' '}
-            <Tooltip title={!canRunExperiment ? cantRunExperimentReason[experiment?.status as string] : ''}>
+            <Tooltip title={canRunExperiment ? '' : `This experiment is ${experiment?.status}.`}>
               <span>
                 <Button variant='outlined' color='secondary' disabled={!canRunExperiment}>
                   Run
