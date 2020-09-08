@@ -17,6 +17,8 @@ import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
 
 const NextMuiLink = React.forwardRef(
+  // istanbul ignore next; Just the trivial className = undefined path that is missing
+  // Should be refactored soon anyway
   (
     {
       className = undefined,

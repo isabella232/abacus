@@ -36,8 +36,8 @@ mockedNotistack.useSnackbar.mockImplementation(() => ({
   closeSnackbar: jest.fn(),
 }))
 
-const renderExperimentPageView = (status: Status) => {
-  const experiment = Fixtures.createExperimentFull({ status })
+const renderExperimentPageView = ({ experiment: experimentOverrides = {} }, view: ExperimentView) => {
+  const experiment = Fixtures.createExperimentFull(experimentOverrides)
   mockedExperimentsApi.findById.mockImplementationOnce(async () => experiment)
 
   const metrics = Fixtures.createMetricBares(10)
@@ -50,7 +50,7 @@ const renderExperimentPageView = (status: Status) => {
   mockedAnalysesApi.findByExperimentId.mockImplementationOnce(async () => analyses)
 
   return render(
-    <ExperimentPageView experimentId={experiment.experimentId} view={ExperimentView.Overview} debugMode={false} />,
+    <ExperimentPageView experimentId={experiment.experimentId} view={view} debugMode={false} />,
   )
 }
 
@@ -78,8 +78,27 @@ const getButtonStates = () => {
   }
 }
 
+test('experiment page view renders results without crashing', async () => {
+  const { container: _container } = renderExperimentPageView({}, ExperimentView.Results)
+})
+
+test('experiment page view renders code-setup without crashing', async () => {
+  const { container: _container } = renderExperimentPageView({}, ExperimentView.CodeSetup)
+})
+
+test('experiment page view renders with null experimentId without crashing', async () => {
+  const metrics = Fixtures.createMetricBares(10)
+  mockedMetricsApi.findAll.mockImplementationOnce(async () => metrics)
+
+  const segments = Fixtures.createSegments(10)
+  mockedSegmentsApi.findAll.mockImplementationOnce(async () => segments)
+
+  // @ts-ignore
+  render(<ExperimentPageView experimentId={null} view={ExperimentView.Overview} debugMode={false} />)
+})
+
 test('staging experiment shows correct features enabled in overview', async () => {
-  const { container: _container } = renderExperimentPageView(Status.Staging)
+  const { container: _container } = renderExperimentPageView({ experiment: { status: Status.Staging } }, ExperimentView.Overview)
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
 
@@ -94,7 +113,7 @@ test('staging experiment shows correct features enabled in overview', async () =
 })
 
 test('running experiment shows correct features enabled in overview', async () => {
-  const { container: _container } = renderExperimentPageView(Status.Running)
+  const { container: _container } = renderExperimentPageView({ experiment: { status: Status.Running } }, ExperimentView.Overview)
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
 
@@ -109,7 +128,7 @@ test('running experiment shows correct features enabled in overview', async () =
 })
 
 test('completed experiment shows correct features enabled in overview', async () => {
-  const { container: _container } = renderExperimentPageView(Status.Completed)
+  const { container: _container } = renderExperimentPageView({ experiment: { status: Status.Completed } }, ExperimentView.Overview)
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
 
@@ -124,7 +143,7 @@ test('completed experiment shows correct features enabled in overview', async ()
 })
 
 test('disabled experiment shows correct features enabled in overview', async () => {
-  const { container: _container } = renderExperimentPageView(Status.Disabled)
+  const { container: _container } = renderExperimentPageView({ experiment: { status: Status.Disabled } }, ExperimentView.Overview)
 
   await waitFor(() => screen.getByRole('button', { name: /Assign Metric/ }))
 
