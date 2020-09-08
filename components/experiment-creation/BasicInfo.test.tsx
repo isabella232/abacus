@@ -1,5 +1,4 @@
-/* eslint-disable no-irregular-whitespace */
-import { act, fireEvent, getByLabelText, render } from '@testing-library/react'
+import { fireEvent, getByLabelText, render } from '@testing-library/react'
 import MockDate from 'mockdate'
 import React from 'react'
 
@@ -21,24 +20,22 @@ test('renders as expected', () => {
 test('renders sensible dates as expected', () => {
   MockDate.set('2020-07-21')
   const { container } = render(
-    <MockFormik>
+    <MockFormik initialValues={{ experiment: { startDatetime: '', endDatetime: '' } }}>
       <BasicInfo />
     </MockFormik>,
   )
   const startDateInput = getByLabelText(container, /Start date/)
   const endDateInput = getByLabelText(container, /End date/)
 
-  act(() => {
-    fireEvent.change(startDateInput, { target: { value: '2020-07-28' } })
-    fireEvent.change(endDateInput, { target: { value: '2020-10-28' } })
-  })
+  fireEvent.change(startDateInput, { target: { value: '2020-07-28' } })
+  fireEvent.change(endDateInput, { target: { value: '2020-10-28' } })
   expect(container).toMatchSnapshot()
 })
 
 test('renders date validation errors as expected', () => {
   MockDate.set('2020-07-21')
   const { container } = render(
-    <MockFormik>
+    <MockFormik initialValues={{ experiment: { startDatetime: '', endDatetime: '' } }}>
       <BasicInfo />
     </MockFormik>,
   )
@@ -46,27 +43,19 @@ test('renders date validation errors as expected', () => {
   const endDateInput = getByLabelText(container, /End date/)
 
   // Start date before today
-  act(() => {
-    fireEvent.change(startDateInput, { target: { value: '2020-07-20' } })
-  })
+  fireEvent.change(startDateInput, { target: { value: '2020-07-20' } })
   expect(container).toMatchSnapshot()
 
   // Start date too far into the future
-  act(() => {
-    fireEvent.change(startDateInput, { target: { value: '2025-07-20' } })
-  })
+  fireEvent.change(startDateInput, { target: { value: '2025-07-20' } })
   expect(container).toMatchSnapshot()
 
   // End date before start date
-  act(() => {
-    fireEvent.change(startDateInput, { target: { value: '2020-07-28' } })
-    fireEvent.change(endDateInput, { target: { value: '2020-07-20' } })
-  })
+  fireEvent.change(startDateInput, { target: { value: '2020-07-28' } })
+  fireEvent.change(endDateInput, { target: { value: '2020-07-20' } })
   expect(container).toMatchSnapshot()
 
   // End date too far into the future
-  act(() => {
-    fireEvent.change(endDateInput, { target: { value: '2025-07-21' } })
-  })
+  fireEvent.change(endDateInput, { target: { value: '2025-07-21' } })
   expect(container).toMatchSnapshot()
 })

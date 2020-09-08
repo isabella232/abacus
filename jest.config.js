@@ -37,6 +37,7 @@ module.exports = {
     '@/(.*)': '<rootDir>/$1',
   },
   preset: 'ts-jest',
+  setupFiles: ['./test-helpers/jest-setup.ts'],
   // Adds special extended assertions to Jest, thus simplifying the tests.
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   testPathIgnorePatterns: ['/__tests__/', '/e2e/', '/node_modules/'],

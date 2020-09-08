@@ -33,6 +33,7 @@ module.exports = {
     '@/(.*)': '<rootDir>/$1',
   },
   preset: 'ts-jest',
+  setupFiles: ['./test-helpers/jest-setup.ts'],
   setupFilesAfterEnv: ['isomorphic-fetch'],
   testMatch: ['**/__tests__/**/?(*.)+(spec|test).ts?(x)'],
 }
