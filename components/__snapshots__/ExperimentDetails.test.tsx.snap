@@ -626,7 +626,32 @@ exports[`renders as expected at large width 1`] = `
                   <p
                     class="MuiTypography-root MuiTypography-body1"
                   >
-                    No exposure events defined
+                    <span
+                      class="makeStyles-eventName-25"
+                    >
+                      eventName
+                    </span>
+                    <span
+                      class="makeStyles-entry-24"
+                    >
+                      additionalProp1
+                      : 
+                      prop1Value
+                    </span>
+                    <span
+                      class="makeStyles-entry-24"
+                    >
+                      additionalProp2
+                      : 
+                      prop2Value
+                    </span>
+                    <span
+                      class="makeStyles-entry-24"
+                    >
+                      additionalProp3
+                      : 
+                      prop3Value
+                    </span>
                   </p>
                 </div>
               </td>
@@ -1066,7 +1091,32 @@ exports[`renders as expected at small width 1`] = `
                       <p
                         class="MuiTypography-root MuiTypography-body1"
                       >
-                        No exposure events defined
+                        <span
+                          class="makeStyles-eventName-51"
+                        >
+                          eventName
+                        </span>
+                        <span
+                          class="makeStyles-entry-50"
+                        >
+                          additionalProp1
+                          : 
+                          prop1Value
+                        </span>
+                        <span
+                          class="makeStyles-entry-50"
+                        >
+                          additionalProp2
+                          : 
+                          prop2Value
+                        </span>
+                        <span
+                          class="makeStyles-entry-50"
+                        >
+                          additionalProp3
+                          : 
+                          prop3Value
+                        </span>
                       </p>
                     </div>
                   </td>
@@ -1707,7 +1757,32 @@ exports[`renders as expected with conclusion data 1`] = `
                       <p
                         class="MuiTypography-root MuiTypography-body1"
                       >
-                        No exposure events defined
+                        <span
+                          class="makeStyles-eventName-79"
+                        >
+                          eventName
+                        </span>
+                        <span
+                          class="makeStyles-entry-78"
+                        >
+                          additionalProp1
+                          : 
+                          prop1Value
+                        </span>
+                        <span
+                          class="makeStyles-entry-78"
+                        >
+                          additionalProp2
+                          : 
+                          prop2Value
+                        </span>
+                        <span
+                          class="makeStyles-entry-78"
+                        >
+                          additionalProp3
+                          : 
+                          prop3Value
+                        </span>
                       </p>
                     </div>
                   </td>
@@ -2452,7 +2527,32 @@ exports[`renders as expected without conclusion data 1`] = `
                       <p
                         class="MuiTypography-root MuiTypography-body1"
                       >
-                        No exposure events defined
+                        <span
+                          class="makeStyles-eventName-105"
+                        >
+                          eventName
+                        </span>
+                        <span
+                          class="makeStyles-entry-104"
+                        >
+                          additionalProp1
+                          : 
+                          prop1Value
+                        </span>
+                        <span
+                          class="makeStyles-entry-104"
+                        >
+                          additionalProp2
+                          : 
+                          prop2Value
+                        </span>
+                        <span
+                          class="makeStyles-entry-104"
+                        >
+                          additionalProp3
+                          : 
+                          prop3Value
+                        </span>
                       </p>
                     </div>
                   </td>

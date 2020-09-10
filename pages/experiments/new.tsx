@@ -9,7 +9,7 @@ import MetricsApi from '@/api/MetricsApi'
 import SegmentsApi from '@/api/SegmentsApi'
 import ExperimentForm from '@/components/experiment-creation/ExperimentForm'
 import Layout from '@/components/Layout'
-import { createInitialExperiment } from '@/lib/experiments'
+import { experimentToFormData } from '@/lib/form-data'
 import * as Normalizers from '@/lib/normalizers'
 import { ExperimentFullNew } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
@@ -32,8 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ExperimentsNewPage = function () {
   debug('ExperimentsNewPage#render')
   const classes = useStyles()
-
-  const initialExperiment = createInitialExperiment()
+  const initialExperiment = experimentToFormData({})
 
   const { isLoading: metricsIsLoading, data: indexedMetrics, error: metricsError } = useDataSource(
     async () => Normalizers.indexMetrics(await MetricsApi.findAll()),
