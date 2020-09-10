@@ -128,7 +128,7 @@ test('renders as expected', () => {
                 </span>
                 <span
                   class="makeStyles-root-12"
-                  title="20/11/2020, 20:00:00"
+                  title="20/11/2020, 19:00:00"
                 >
                   2020-11-21
                 </span>

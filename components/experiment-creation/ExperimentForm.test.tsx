@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 
 import { act, fireEvent, screen, waitFor } from '@testing-library/react'
-import { format } from 'date-fns'
 import noop from 'lodash/noop'
 import MockDate from 'mockdate'
 import * as notistack from 'notistack'
@@ -11,6 +10,7 @@ import { createInitialExperiment } from '@/lib/experiments'
 import * as Normalizers from '@/lib/normalizers'
 import Fixtures from '@/test-helpers/fixtures'
 import { changeFieldByRole, render } from '@/test-helpers/test-utils'
+import { formatIsoDate } from '@/utils/time'
 
 import ExperimentForm from './ExperimentForm'
 
@@ -302,10 +302,10 @@ test('form submits with valid fields', async () => {
   const nextWeek = new Date()
   nextWeek.setDate(now.getDate() + 7)
   await act(async () => {
-    fireEvent.change(screen.getByLabelText(/Start date/), { target: { value: format(now, 'yyyy-MM-dd') } })
+    fireEvent.change(screen.getByLabelText(/Start date/), { target: { value: formatIsoDate(now) } })
   })
   await act(async () => {
-    fireEvent.change(screen.getByLabelText(/End date/), { target: { value: format(nextWeek, 'yyyy-MM-dd') } })
+    fireEvent.change(screen.getByLabelText(/End date/), { target: { value: formatIsoDate(nextWeek) } })
   })
   await changeFieldByRole('textbox', /Owner/, 'owner-nickname')
   await act(async () => {
@@ -403,8 +403,8 @@ test('form submits with valid fields', async () => {
       p2Url: 'http://example.com/',
       name: 'test_experiment_name',
       description: 'experiment description',
-      startDatetime: format(now, 'yyyy-MM-dd'),
-      endDatetime: format(nextWeek, 'yyyy-MM-dd'),
+      startDatetime: formatIsoDate(now),
+      endDatetime: formatIsoDate(nextWeek),
       ownerLogin: 'owner-nickname',
       platform: 'wpcom',
       existingUsersAllowed: 'true',
