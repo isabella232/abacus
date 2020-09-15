@@ -5,6 +5,7 @@ import { RadioGroup, Switch, TextField } from 'formik-material-ui'
 import React from 'react'
 
 import { MetricParameterType } from '@/lib/schemas'
+import { MetricFormData } from '@/lib/form-data'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: unknown }> }) => {
+const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: MetricFormData }> }) => {
   const classes = useStyles()
 
   return (
@@ -92,6 +93,42 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
             />
           </Field>
         </FormControl>
+      </div>
+      <div className={classes.row}>
+        <Field
+          component={TextField}
+          name='metric.eventParams'
+          id='metric.eventParams'
+          label='Event Parameters'
+          variant='outlined'
+          disabled={formikProps.values.metric.parameterType !== MetricParameterType.Conversion}
+          fullWidth
+          required
+          multiline
+          resizable
+          rows={8}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </div>
+      <div className={classes.row}>
+        <Field
+          component={TextField}
+          name='metric.revenueParams'
+          id='metric.revenueParams'
+          label='Revenue Parameters'
+          variant='outlined'
+          disabled={formikProps.values.metric.parameterType !== MetricParameterType.Revenue}
+          fullWidth
+          required
+          multiline
+          resizable
+          rows={8}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
       </div>
     </>
   )
