@@ -1,8 +1,36 @@
 import * as yup from 'yup'
+import _ from 'lodash'
 
-import { MetricBare, metricBareSchema, MetricFull, metricFullSchema } from '@/lib/schemas'
+import { MetricBare, metricBareSchema, MetricFull, metricFullSchema, MetricFullNew, metricFullNewSchema, metricFullNewOutboundSchema } from '@/lib/schemas'
 
 import { fetchApi } from './utils'
+
+/**
+ * Attempts to create a new metric.
+ *
+ * Note: Be sure to handle any errors that may be thrown.
+ */
+async function create(newMetric: MetricFullNew) {
+  const validatedNewMetric = await metricFullNewSchema.validate(newMetric, { abortEarly: false })
+  const outboundNewMetric = metricFullNewOutboundSchema.cast(validatedNewMetric)
+  const returnedMetric = await fetchApi('POST', '/metrics', outboundNewMetric)
+  return await metricFullSchema.validate(returnedMetric)
+}
+
+/**
+ * Attempts to put a new metric.
+ *
+ * Note: Be sure to handle any errors that may be thrown.
+ */
+async function put(metricId: number, newMetric: MetricFullNew) {
+  if (!_.isNumber(metricId)) {
+    throw new Error('Invalid metricId.')
+  }
+  const validatedNewMetric = await metricFullNewSchema.validate(newMetric, { abortEarly: false })
+  const outboundNewMetric = metricFullNewOutboundSchema.cast(validatedNewMetric)
+  const returnedMetric = await fetchApi('PUT', `/metrics/${metricId}`, outboundNewMetric)
+  return await metricFullSchema.validate(returnedMetric)
+}
 
 /**
  * Finds all the available metrics.
@@ -29,6 +57,8 @@ async function findById(metricId: number): Promise<MetricFull> {
 }
 
 const MetricsApi = {
+  create,
+  put,
   findAll,
   findById,
 }
