@@ -40,7 +40,7 @@ const MetricsIndexPage = () => {
   debug('MetricsIndexPage#render')
   const classes = useStyles()
 
-  const { isLoading, data: metrics, error } = useDataSource(() => MetricsApi.findAll(), [])
+  const { isLoading, data: metrics, error, reloadRef } = useDataSource(() => MetricsApi.findAll(), [])
   useDataLoadingError(error, 'Metrics')
 
   const router = useRouter()
@@ -72,7 +72,7 @@ const MetricsIndexPage = () => {
       }
       await MetricsApi.put(editMetricMetricId, metric as unknown as MetricFullNew)
       enqueueSnackbar('Metric Edited!', { variant: 'success' })
-      // TODO: Reload metrics
+      reloadRef.current()
       setEditMetricMetricId(null)
     } catch (e) /* istanbul ignore next; Shouldn't happen */ {
       console.error(e)
@@ -90,7 +90,7 @@ const MetricsIndexPage = () => {
     try {
       await MetricsApi.create(metric as unknown as MetricFullNew)
       enqueueSnackbar('Metric Added!', { variant: 'success' })
-      // TODO: Reload metrics
+      reloadRef.current()
       setIsAddingMetric(false)
     } catch (e) /* istanbul ignore next; Shouldn't happen */ {
       console.error(e)
