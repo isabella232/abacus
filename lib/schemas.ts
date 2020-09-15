@@ -89,6 +89,18 @@ export const metricFullSchema = metricBareSchema
     return !!metricFull.eventParams !== !!metricFull.revenueParams
   })
 export type MetricFull = yup.InferType<typeof metricFullSchema>
+export const metricFullNewSchema = metricFullSchema.shape({
+  metricId: idSchema.nullable(),
+})
+export type MetricFullNew = yup.InferType<typeof metricFullNewSchema>
+export const metricFullNewOutboundSchema = metricFullNewSchema
+  .snakeCase()
+  .transform(
+    (currentValue) => ({
+      ...currentValue,
+      revenue_params: metricRevenueParamsSchema.snakeCase().cast(currentValue.revenue_params)
+    })
+  )
 
 export enum AttributionWindowSeconds {
   OneHour = 3600,
