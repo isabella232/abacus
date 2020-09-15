@@ -19,8 +19,10 @@ import MetricsApi from '@/api/MetricsApi'
 import Layout from '@/components/Layout'
 import MetricFormFields from '@/components/MetricFormFields'
 import MetricsTable from '@/components/MetricsTable'
-import { MetricParameterType } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
+import { metricToFormData, MetricFormData } from '@/lib/form-data'
+import LoadingButtonContainer from '@/components/LoadingButtonContainer'
+import { MetricFullNew } from '@/lib/schemas'
 
 const debug = debugFactory('abacus:pages/metrics/index.tsx')
 
@@ -63,31 +65,37 @@ const MetricsIndexPage = () => {
   const onCancelEditMetric = () => {
     setEditMetricMetricId(null)
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/require-await
-  const onSubmitEditMetric = async (formData: unknown) => {
-    // TODO: Full submission
-    enqueueSnackbar('Metric Edited!', { variant: 'success' })
-    setEditMetricMetricId(null)
+  const onSubmitEditMetric = async ({ metric }: { metric: MetricFormData }) => {
+    try {
+      if (!editMetricMetricId) {
+        throw new Error(`Missing metricId, this shouldn't happen.`)
+      }
+      await MetricsApi.put(editMetricMetricId, metric as unknown as MetricFullNew)
+      enqueueSnackbar('Metric Edited!', { variant: 'success' })
+      // TODO: Reload metrics
+      setEditMetricMetricId(null)
+    } catch (e) /* istanbul ignore next; Shouldn't happen */ {
+      console.error(e)
+      enqueueSnackbar('Oops! Something went wrong while trying to update your metric.', { variant: 'error' })
+    }
   }
 
   // Add Metric Modal
   const [isAddingMetric, setIsAddingMetric] = useState<boolean>(false)
-  const addMetricInitialMetric = {
-    name: '',
-    description: '',
-    parameterType: MetricParameterType.Conversion,
-    higherIsBetter: 'true',
-    params: '',
-  }
   const onAddMetric = () => setIsAddingMetric(true)
   const onCancelAddMetric = () => {
     setIsAddingMetric(false)
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/require-await
-  const onSubmitAddMetric = async (formData: unknown) => {
-    // TODO: Full submission
-    enqueueSnackbar('Metric Added!', { variant: 'success' })
-    setIsAddingMetric(false)
+  const onSubmitAddMetric = async ({ metric }: { metric: MetricFormData }) => {
+    try {
+      await MetricsApi.create(metric as unknown as MetricFullNew)
+      enqueueSnackbar('Metric Added!', { variant: 'success' })
+      // TODO: Reload metrics
+      setIsAddingMetric(false)
+    } catch (e) /* istanbul ignore next; Shouldn't happen */ {
+      console.error(e)
+      enqueueSnackbar('Oops! Something went wrong while trying to add your metric.', { variant: 'error' })
+    }
   }
 
   return (
@@ -110,19 +118,26 @@ const MetricsIndexPage = () => {
         <DialogTitle id='edit-metric-form-dialog-title'>Edit Metric</DialogTitle>
         {editMetricIsLoading && <LinearProgress />}
         {editMetricInitialMetric && (
-          <Formik initialValues={{ metric: editMetricInitialMetric }} onSubmit={onSubmitEditMetric}>
+          <Formik initialValues={{ metric: metricToFormData(editMetricInitialMetric) }} onSubmit={onSubmitEditMetric}>
             {(formikProps) => (
-              <form onSubmit={formikProps.handleSubmit}>
+              <form onSubmit={formikProps.handleSubmit} noValidate>
                 <DialogContent>
-                  <MetricFormFields formikProps={formikProps as FormikProps<{ metric: unknown }>} />
+                  <MetricFormFields formikProps={formikProps as FormikProps<{ metric: MetricFormData }>} />
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={onCancelEditMetric} color='primary'>
                     Cancel
                   </Button>
-                  <Button color='primary' type='submit'>
-                    Save
-                  </Button>
+                  <LoadingButtonContainer isLoading={formikProps.isSubmitting}>
+                    <Button
+                      type='submit'
+                      variant='contained'
+                      color='secondary'
+                      disabled={formikProps.isSubmitting || !formikProps.isValid}
+                    >
+                      Save
+                    </Button>
+                  </LoadingButtonContainer>
                 </DialogActions>
               </form>
             )}
@@ -131,19 +146,26 @@ const MetricsIndexPage = () => {
       </Dialog>
       <Dialog open={isAddingMetric} fullWidth aria-labelledby='add-metric-form-dialog-title'>
         <DialogTitle id='add-metric-form-dialog-title'>Add Metric</DialogTitle>
-        <Formik initialValues={{ metric: addMetricInitialMetric }} onSubmit={onSubmitAddMetric}>
+        <Formik initialValues={{ metric: metricToFormData({}) }} onSubmit={onSubmitAddMetric}>
           {(formikProps) => (
-            <form onSubmit={formikProps.handleSubmit}>
+            <form onSubmit={formikProps.handleSubmit} noValidate>
               <DialogContent>
-                <MetricFormFields formikProps={formikProps as FormikProps<{ metric: unknown }>} />
+                <MetricFormFields formikProps={formikProps as FormikProps<{ metric: MetricFormData }>} />
               </DialogContent>
               <DialogActions>
                 <Button onClick={onCancelAddMetric} color='primary'>
                   Cancel
                 </Button>
-                <Button color='primary' type='submit'>
-                  Add
-                </Button>
+                <LoadingButtonContainer isLoading={formikProps.isSubmitting}>
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    color='secondary'
+                    disabled={formikProps.isSubmitting || !formikProps.isValid}
+                  >
+                    Add
+                  </Button>
+                </LoadingButtonContainer>
               </DialogActions>
             </form>
           )}
