@@ -100,9 +100,10 @@ const MetricsIndexPage = () => {
 
   return (
     <Layout title='Metrics'>
-      {isLoading ? (
+      {isLoading && (
         <LinearProgress />
-      ) : (
+      )}
+      { metrics && 
         <>
           <MetricsTable metrics={metrics || []} onEditMetric={debugMode ? onEditMetric : undefined} />
           {debugMode && (
@@ -113,7 +114,7 @@ const MetricsIndexPage = () => {
             </div>
           )}
         </>
-      )}
+      }
       <Dialog open={isEditingMetric} fullWidth aria-labelledby='edit-metric-form-dialog-title'>
         <DialogTitle id='edit-metric-form-dialog-title'>Edit Metric</DialogTitle>
         {editMetricIsLoading && <LinearProgress />}
