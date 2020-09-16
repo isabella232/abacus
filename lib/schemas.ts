@@ -79,8 +79,16 @@ export type MetricBare = yup.InferType<typeof metricBareSchema>
 export const metricFullSchema = metricBareSchema
   .shape({
     higherIsBetter: yup.boolean().defined(),
-    eventParams: yup.array(eventSchema).nullable(),
-    revenueParams: metricRevenueParamsSchema.notRequired().nullable(),
+    eventParams: yup.array(eventSchema).nullable()
+      .when('parameterType', {
+        is: MetricParameterType.Conversion,
+        then: yup.array(eventSchema).defined(),
+      }),
+    revenueParams: metricRevenueParamsSchema.notRequired().nullable()
+      .when('parameterType', {
+        is: MetricParameterType.Revenue,
+        then: metricRevenueParamsSchema.defined(),
+      }),
   })
   .defined()
   .camelCase()

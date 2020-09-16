@@ -14,6 +14,7 @@ import { Formik, FormikProps } from 'formik'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import React, { useState } from 'react'
+import * as yup from 'yup'
 
 import MetricsApi from '@/api/MetricsApi'
 import Layout from '@/components/Layout'
@@ -22,7 +23,8 @@ import MetricsTable from '@/components/MetricsTable'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { metricToFormData, MetricFormData } from '@/lib/form-data'
 import LoadingButtonContainer from '@/components/LoadingButtonContainer'
-import { MetricFullNew } from '@/lib/schemas'
+import { MetricFullNew, metricFullNewSchema } from '@/lib/schemas'
+import DebugOutput from '@/components/DebugOutput'
 
 const debug = debugFactory('abacus:pages/metrics/index.tsx')
 
@@ -119,11 +121,12 @@ const MetricsIndexPage = () => {
         <DialogTitle id='edit-metric-form-dialog-title'>Edit Metric</DialogTitle>
         {editMetricIsLoading && <LinearProgress />}
         {editMetricInitialMetric && (
-          <Formik initialValues={{ metric: metricToFormData(editMetricInitialMetric) }} onSubmit={onSubmitEditMetric}>
+          <Formik initialValues={{ metric: metricToFormData(editMetricInitialMetric) }} onSubmit={onSubmitEditMetric} validationSchema={yup.object({ metric: metricFullNewSchema })}>
             {(formikProps) => (
               <form onSubmit={formikProps.handleSubmit} noValidate>
                 <DialogContent>
                   <MetricFormFields formikProps={formikProps as FormikProps<{ metric: MetricFormData }>} />
+                  <DebugOutput label="All Errors" content={formikProps.errors} />
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={onCancelEditMetric} color='primary'>
@@ -147,11 +150,12 @@ const MetricsIndexPage = () => {
       </Dialog>
       <Dialog open={isAddingMetric} fullWidth aria-labelledby='add-metric-form-dialog-title'>
         <DialogTitle id='add-metric-form-dialog-title'>Add Metric</DialogTitle>
-        <Formik initialValues={{ metric: metricToFormData({}) }} onSubmit={onSubmitAddMetric}>
+        <Formik initialValues={{ metric: metricToFormData({}) }} onSubmit={onSubmitAddMetric} validationSchema={yup.object({ metric: metricFullNewSchema })}>
           {(formikProps) => (
             <form onSubmit={formikProps.handleSubmit} noValidate>
               <DialogContent>
                 <MetricFormFields formikProps={formikProps as FormikProps<{ metric: MetricFormData }>} />
+                <DebugOutput label="All Errors" content={formikProps.errors} />
               </DialogContent>
               <DialogActions>
                 <Button onClick={onCancelAddMetric} color='primary'>
