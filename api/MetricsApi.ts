@@ -1,7 +1,15 @@
-import * as yup from 'yup'
 import _ from 'lodash'
+import * as yup from 'yup'
 
-import { MetricBare, metricBareSchema, MetricFull, metricFullSchema, MetricFullNew, metricFullNewSchema, metricFullNewOutboundSchema } from '@/lib/schemas'
+import {
+  MetricBare,
+  metricBareSchema,
+  MetricFull,
+  MetricFullNew,
+  metricFullNewOutboundSchema,
+  metricFullNewSchema,
+  metricFullSchema,
+} from '@/lib/schemas'
 
 import { fetchApi } from './utils'
 

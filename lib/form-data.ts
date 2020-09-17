@@ -1,6 +1,15 @@
 import { formatIsoDate } from '@/utils/time'
 
-import { Event, ExperimentFull, MetricAssignment, Platform, SegmentAssignment, Variation, MetricFull, MetricParameterType } from './schemas'
+import {
+  Event,
+  ExperimentFull,
+  MetricAssignment,
+  MetricFull,
+  MetricParameterType,
+  Platform,
+  SegmentAssignment,
+  Variation,
+} from './schemas'
 
 function metricAssignmentToFormData(metricAssignment: MetricAssignment) {
   return {
@@ -67,11 +76,11 @@ export type ExperimentFormData = ReturnType<typeof experimentToFormData>
  * Convert a metric for use as form data in Formik.
  */
 export const metricToFormData = (metric: Partial<MetricFull>) => ({
-    name: metric.name ?? '',
-    description: metric.description ?? '',
-    parameterType: metric.parameterType ?? MetricParameterType.Conversion,
-    higherIsBetter: metric.higherIsBetter ?? true,
-    eventParams: metric.eventParams ? JSON.stringify(metric.eventParams, null, 2) : '',
-    revenueParams: metric.revenueParams ? JSON.stringify(metric.revenueParams, null, 2) : '',
+  name: metric.name ?? '',
+  description: metric.description ?? '',
+  parameterType: metric.parameterType ?? MetricParameterType.Conversion,
+  higherIsBetter: metric.higherIsBetter ?? true,
+  eventParams: metric.eventParams ? JSON.stringify(metric.eventParams, null, 2) : '',
+  revenueParams: metric.revenueParams ? JSON.stringify(metric.revenueParams, null, 2) : '',
 })
 export type MetricFormData = ReturnType<typeof metricToFormData>

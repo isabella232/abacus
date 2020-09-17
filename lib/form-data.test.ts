@@ -2,7 +2,7 @@ import MockDate from 'mockdate'
 
 import Fixtures from '@/test-helpers/fixtures'
 
-import { experimentToFormData } from './form-data'
+import { experimentToFormData, metricToFormData } from './form-data'
 
 MockDate.set('2020-08-13')
 
@@ -117,6 +117,34 @@ describe('lib/form-data.test.ts module', () => {
               "name": "control",
             },
           ],
+        }
+      `)
+    })
+  })
+
+  describe('metricToFormData', () => {
+    it('should return form data for a new metric', () => {
+      expect(metricToFormData({})).toMatchInlineSnapshot(`
+        Object {
+          "description": "",
+          "eventParams": "",
+          "higherIsBetter": true,
+          "name": "",
+          "parameterType": "conversion",
+          "revenueParams": "",
+        }
+      `)
+    })
+
+    it('should return form data for an existing metric', () => {
+      expect(metricToFormData({})).toMatchInlineSnapshot(`
+        Object {
+          "description": "",
+          "eventParams": "",
+          "higherIsBetter": true,
+          "name": "",
+          "parameterType": "conversion",
+          "revenueParams": "",
         }
       `)
     })

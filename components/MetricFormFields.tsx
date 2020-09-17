@@ -1,14 +1,15 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, TextField as MuiTextField } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field, FormikProps, getIn } from 'formik'
-import { RadioGroup, Switch, TextField, TextFieldProps, fieldToTextField } from 'formik-material-ui'
+import { fieldToTextField, RadioGroup, Switch, TextField, TextFieldProps } from 'formik-material-ui'
 import React, { useEffect } from 'react'
 
-import { MetricParameterType } from '@/lib/schemas'
 import { MetricFormData } from '@/lib/form-data'
+import { MetricParameterType } from '@/lib/schemas'
+
 import DebugOutput from './DebugOutput'
 
-const useJsonTextFieldStyles = makeStyles((theme: Theme) =>
+const useJsonTextFieldStyles = makeStyles((_theme: Theme) =>
   createStyles({
     root: { width: '100%' },
   }),
@@ -18,13 +19,15 @@ const useJsonTextFieldStyles = makeStyles((theme: Theme) =>
 function JsonTextField({ children, helperText = '', ...props }: TextFieldProps) {
   const classes = useJsonTextFieldStyles()
 
-  const fieldError = getIn(props.form.errors, props.field.name);
-  const showError = getIn(props.form.touched, props.field.name) && !!fieldError;
+  const fieldError = getIn(props.form.errors, props.field.name)
+  const showError = getIn(props.form.touched, props.field.name) && !!fieldError
 
   return (
     <div className={classes.root}>
-      <MuiTextField {...fieldToTextField(props)} helperText={helperText}>{children}</MuiTextField>
-      {showError && <DebugOutput label="Errors" content={fieldError} />}
+      <MuiTextField {...fieldToTextField(props)} helperText={helperText}>
+        {children}
+      </MuiTextField>
+      {showError && <DebugOutput label='Errors' content={fieldError} />}
     </div>
   )
 }
@@ -56,19 +59,20 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
           ...formikProps.values.metric,
           revenueParams: 'undefined',
           eventParams: eventParams === 'undefined' ? '[]' : eventParams,
-        }
+        },
       })
     } else {
-      const revenueParams = formikProps.values.metric.revenueParams 
+      const revenueParams = formikProps.values.metric.revenueParams
       formikProps.setValues({
         ...formikProps.values,
         metric: {
           ...formikProps.values.metric,
           revenueParams: revenueParams === 'undefined' ? '{}' : revenueParams,
           eventParams: 'undefined',
-        }
+        },
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formikProps.values.metric.parameterType])
 
   return (
@@ -143,7 +147,6 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
       </div>
       <div className={classes.row}>
         {formikProps.values.metric.parameterType === MetricParameterType.Conversion && (
-
           <Field
             component={JsonTextField}
             name='metric.eventParams'

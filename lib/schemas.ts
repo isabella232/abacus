@@ -79,16 +79,17 @@ export type MetricBare = yup.InferType<typeof metricBareSchema>
 export const metricFullSchema = metricBareSchema
   .shape({
     higherIsBetter: yup.boolean().defined(),
-    eventParams: yup.array(eventSchema).nullable()
+    eventParams: yup
+      .array(eventSchema)
+      .nullable()
       .when('parameterType', {
         is: MetricParameterType.Conversion,
         then: yup.array(eventSchema).defined(),
       }),
-    revenueParams: metricRevenueParamsSchema.notRequired().nullable()
-      .when('parameterType', {
-        is: MetricParameterType.Revenue,
-        then: metricRevenueParamsSchema.defined(),
-      }),
+    revenueParams: metricRevenueParamsSchema.notRequired().nullable().when('parameterType', {
+      is: MetricParameterType.Revenue,
+      then: metricRevenueParamsSchema.defined(),
+    }),
   })
   .defined()
   .camelCase()
@@ -101,14 +102,10 @@ export const metricFullNewSchema = metricFullSchema.shape({
   metricId: idSchema.nullable(),
 })
 export type MetricFullNew = yup.InferType<typeof metricFullNewSchema>
-export const metricFullNewOutboundSchema = metricFullNewSchema
-  .snakeCase()
-  .transform(
-    (currentValue) => ({
-      ...currentValue,
-      revenue_params: metricRevenueParamsSchema.snakeCase().cast(currentValue.revenue_params)
-    })
-  )
+export const metricFullNewOutboundSchema = metricFullNewSchema.snakeCase().transform((currentValue) => ({
+  ...currentValue,
+  revenue_params: metricRevenueParamsSchema.snakeCase().cast(currentValue.revenue_params),
+}))
 
 export enum AttributionWindowSeconds {
   OneHour = 3600,
