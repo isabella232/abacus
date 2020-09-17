@@ -19,15 +19,11 @@ const useJsonTextFieldStyles = makeStyles((_theme: Theme) =>
 function JsonTextField({ children, helperText = '', ...props }: TextFieldProps) {
   const classes = useJsonTextFieldStyles()
 
-  const fieldError = getIn(props.form.errors, props.field.name)
-  const showError = getIn(props.form.touched, props.field.name) && !!fieldError
-
   return (
     <div className={classes.root}>
       <MuiTextField {...fieldToTextField(props)} helperText={helperText}>
         {children}
       </MuiTextField>
-      {showError && <DebugOutput label='Errors' content={fieldError} />}
     </div>
   )
 }
