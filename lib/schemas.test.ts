@@ -2,6 +2,140 @@ import * as Schemas from './schemas'
 
 describe('lib/schemas.ts module', () => {
   describe('metricFullSchema params constraint', () => {
+    it('should require params matching parameter type', async () => {
+      expect.assertions(6)
+
+      try {
+        await Schemas.metricFullSchema.validate(
+          {
+            parameterType: Schemas.MetricParameterType.Conversion,
+            eventParams: null,
+            revenueParams: null,
+          },
+          { abortEarly: false },
+        )
+      } catch (e) {
+        expect(e.errors).toMatchInlineSnapshot(`
+          Array [
+            "metricId must be defined",
+            "name must be defined",
+            "description must be defined",
+            "higherIsBetter must be defined",
+            "Event Params is required and must be valid JSON.",
+            "Exactly one of eventParams or revenueParams must be defined.",
+          ]
+        `)
+      }
+
+      try {
+        await Schemas.metricFullSchema.validate(
+          {
+            parameterType: Schemas.MetricParameterType.Revenue,
+            eventParams: null,
+            revenueParams: null,
+          },
+          { abortEarly: false },
+        )
+      } catch (e) {
+        expect(e.errors).toMatchInlineSnapshot(`
+          Array [
+            "metricId must be defined",
+            "name must be defined",
+            "description must be defined",
+            "higherIsBetter must be defined",
+            "Revenue Params is required and must be valid JSON.",
+            "Exactly one of eventParams or revenueParams must be defined.",
+          ]
+        `)
+      }
+
+      try {
+        await Schemas.metricFullSchema.validate(
+          {
+            parameterType: Schemas.MetricParameterType.Conversion,
+            eventParams: [],
+            revenueParams: null,
+          },
+          { abortEarly: false },
+        )
+      } catch (e) {
+        expect(e.errors).toMatchInlineSnapshot(`
+          Array [
+            "metricId must be defined",
+            "name must be defined",
+            "description must be defined",
+            "higherIsBetter must be defined",
+          ]
+        `)
+      }
+
+      try {
+        await Schemas.metricFullSchema.validate(
+          {
+            parameterType: Schemas.MetricParameterType.Revenue,
+            eventParams: [],
+            revenueParams: null,
+          },
+          { abortEarly: false },
+        )
+      } catch (e) {
+        expect(e.errors).toMatchInlineSnapshot(`
+          Array [
+            "metricId must be defined",
+            "name must be defined",
+            "description must be defined",
+            "higherIsBetter must be defined",
+            "Revenue Params is required and must be valid JSON.",
+          ]
+        `)
+      }
+
+      try {
+        await Schemas.metricFullSchema.validate(
+          {
+            parameterType: Schemas.MetricParameterType.Conversion,
+            eventParams: null,
+            revenueParams: {},
+          },
+          { abortEarly: false },
+        )
+      } catch (e) {
+        expect(e.errors).toMatchInlineSnapshot(`
+          Array [
+            "metricId must be defined",
+            "name must be defined",
+            "description must be defined",
+            "higherIsBetter must be defined",
+            "revenueParams.refundDays must be defined",
+            "revenueParams.productSlugs must be defined",
+            "Event Params is required and must be valid JSON.",
+          ]
+        `)
+      }
+
+      try {
+        await Schemas.metricFullSchema.validate(
+          {
+            parameterType: Schemas.MetricParameterType.Revenue,
+            eventParams: null,
+            revenueParams: {},
+          },
+          { abortEarly: false },
+        )
+      } catch (e) {
+        expect(e.errors).toMatchInlineSnapshot(`
+          Array [
+            "metricId must be defined",
+            "name must be defined",
+            "description must be defined",
+            "higherIsBetter must be defined",
+            "revenueParams.refundDays must be defined",
+            "revenueParams.productSlugs must be defined",
+          ]
+        `)
+      }
+    })
+
     it('should require exactly one params property', async () => {
       expect.assertions(4)
 

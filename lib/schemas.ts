@@ -93,6 +93,12 @@ export const metricFullSchema = metricBareSchema
   })
   .defined()
   .camelCase()
+  .test('event-params-required', 'Event Params is required and must be valid JSON.', (metricFull) => {
+    return !(metricFull.parameterType === MetricParameterType.Conversion && !metricFull.eventParams)
+  })
+  .test('revenue-params-required', 'Revenue Params is required and must be valid JSON.', (metricFull) => {
+    return !(metricFull.parameterType === MetricParameterType.Revenue && !metricFull.revenueParams)
+  })
   .test('exactly-one-params', 'Exactly one of eventParams or revenueParams must be defined.', (metricFull) => {
     // (Logical XOR)
     return !!metricFull.eventParams !== !!metricFull.revenueParams
