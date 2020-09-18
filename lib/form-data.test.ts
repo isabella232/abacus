@@ -2,7 +2,7 @@ import MockDate from 'mockdate'
 
 import Fixtures from '@/test-helpers/fixtures'
 
-import { experimentToFormData } from './form-data'
+import { experimentToFormData, metricToFormData } from './form-data'
 
 MockDate.set('2020-08-13')
 
@@ -117,6 +117,60 @@ describe('lib/form-data.test.ts module', () => {
               "name": "control",
             },
           ],
+        }
+      `)
+    })
+  })
+
+  describe('metricToFormData', () => {
+    it('should return form data for a new metric', () => {
+      expect(metricToFormData({})).toMatchInlineSnapshot(`
+        Object {
+          "description": "",
+          "eventParams": undefined,
+          "higherIsBetter": true,
+          "name": "",
+          "parameterType": "conversion",
+          "revenueParams": undefined,
+        }
+      `)
+    })
+
+    it('should return form data for an existing metric', () => {
+      expect(metricToFormData(Fixtures.createMetricFull(1))).toMatchInlineSnapshot(`
+        Object {
+          "description": "This is metric 1",
+          "eventParams": "[
+          {
+            \\"event\\": \\"event_name\\",
+            \\"props\\": {
+              \\"has_blocks\\": \\"true\\"
+            }
+          }
+        ]",
+          "higherIsBetter": false,
+          "name": "metric_1",
+          "parameterType": "conversion",
+          "revenueParams": undefined,
+        }
+      `)
+
+      expect(metricToFormData(Fixtures.createMetricFull(2))).toMatchInlineSnapshot(`
+        Object {
+          "description": "This is metric 2",
+          "eventParams": undefined,
+          "higherIsBetter": false,
+          "name": "metric_2",
+          "parameterType": "revenue",
+          "revenueParams": "{
+          \\"refundDays\\": 4,
+          \\"productSlugs\\": [
+            \\"xx-bundles\\"
+          ],
+          \\"transactionTypes\\": [
+            \\"new purchase\\"
+          ]
+        }",
         }
       `)
     })

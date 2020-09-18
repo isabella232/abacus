@@ -19,6 +19,7 @@ import MetricsApi from '@/api/MetricsApi'
 import Layout from '@/components/Layout'
 import MetricFormFields from '@/components/MetricFormFields'
 import MetricsTable from '@/components/MetricsTable'
+import { MetricFormData } from '@/lib/form-data'
 import { MetricParameterType } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 
@@ -114,7 +115,8 @@ const MetricsIndexPage = () => {
             {(formikProps) => (
               <form onSubmit={formikProps.handleSubmit}>
                 <DialogContent>
-                  <MetricFormFields formikProps={formikProps as FormikProps<{ metric: unknown }>} />
+                  {/* This unknown case is temporary to help with the split */}
+                  <MetricFormFields formikProps={(formikProps as unknown) as FormikProps<{ metric: MetricFormData }>} />
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={onCancelEditMetric} color='primary'>
@@ -135,7 +137,8 @@ const MetricsIndexPage = () => {
           {(formikProps) => (
             <form onSubmit={formikProps.handleSubmit}>
               <DialogContent>
-                <MetricFormFields formikProps={formikProps as FormikProps<{ metric: unknown }>} />
+                {/* This unknown case is temporary to help with the split */}
+                <MetricFormFields formikProps={(formikProps as unknown) as FormikProps<{ metric: MetricFormData }>} />
               </DialogContent>
               <DialogActions>
                 <Button onClick={onCancelAddMetric} color='primary'>
