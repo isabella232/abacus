@@ -31,6 +31,7 @@ async function create(newMetric: MetricFullNew) {
  * Note: Be sure to handle any errors that may be thrown.
  */
 async function put(metricId: number, newMetric: MetricFullNew) {
+  // istanbul ignore next; Shouldn't happen
   if (!_.isNumber(metricId)) {
     throw new Error('Invalid metricId.')
   }

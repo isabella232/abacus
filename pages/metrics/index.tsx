@@ -17,7 +17,6 @@ import React, { useState } from 'react'
 import * as yup from 'yup'
 
 import MetricsApi from '@/api/MetricsApi'
-import DebugOutput from '@/components/DebugOutput'
 import Layout from '@/components/Layout'
 import LoadingButtonContainer from '@/components/LoadingButtonContainer'
 import MetricFormFields from '@/components/MetricFormFields'
@@ -128,7 +127,6 @@ const MetricsIndexPage = () => {
               <form onSubmit={formikProps.handleSubmit} noValidate>
                 <DialogContent>
                   <MetricFormFields formikProps={formikProps as FormikProps<{ metric: MetricFormData }>} />
-                  <DebugOutput label='All Errors' content={formikProps.errors} />
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={onCancelEditMetric} color='primary'>
@@ -161,7 +159,6 @@ const MetricsIndexPage = () => {
             <form onSubmit={formikProps.handleSubmit} noValidate>
               <DialogContent>
                 <MetricFormFields formikProps={formikProps as FormikProps<{ metric: MetricFormData }>} />
-                <DebugOutput label='All Errors' content={formikProps.errors} />
               </DialogContent>
               <DialogActions>
                 <Button onClick={onCancelAddMetric} color='primary'>

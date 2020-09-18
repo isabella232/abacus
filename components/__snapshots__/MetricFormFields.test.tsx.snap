@@ -3,7 +3,7 @@
 exports[`renders as expected for conversion metric 1`] = `
 <div>
   <div
-    class="makeStyles-row-16"
+    class="makeStyles-row-2"
   >
     <div
       class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -39,10 +39,10 @@ exports[`renders as expected for conversion metric 1`] = `
         />
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-17 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-19 PrivateNotchedOutline-legendNotched-20"
+            class="PrivateNotchedOutline-legendLabelled-5 PrivateNotchedOutline-legendNotched-6"
           >
             <span>
               Metric name
@@ -60,7 +60,7 @@ exports[`renders as expected for conversion metric 1`] = `
     </div>
   </div>
   <div
-    class="makeStyles-row-16"
+    class="makeStyles-row-2"
   >
     <div
       class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -96,10 +96,10 @@ exports[`renders as expected for conversion metric 1`] = `
         </textarea>
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-17 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-19 PrivateNotchedOutline-legendNotched-20"
+            class="PrivateNotchedOutline-legendLabelled-5 PrivateNotchedOutline-legendNotched-6"
           >
             <span>
               Metric description
@@ -111,7 +111,7 @@ exports[`renders as expected for conversion metric 1`] = `
     </div>
   </div>
   <div
-    class="makeStyles-row-16"
+    class="makeStyles-row-2"
   >
     <label
       class="MuiFormControlLabel-root"
@@ -122,7 +122,7 @@ exports[`renders as expected for conversion metric 1`] = `
         <span
           aria-disabled="false"
           aria-label="Higher is better"
-          class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiSwitch-switchBase MuiSwitch-colorSecondary"
+          class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiSwitch-switchBase MuiSwitch-colorSecondary"
           label="Higher is better"
           variant="outlined"
         >
@@ -130,7 +130,7 @@ exports[`renders as expected for conversion metric 1`] = `
             class="MuiIconButton-label"
           >
             <input
-              class="PrivateSwitchBase-input-24 MuiSwitch-input"
+              class="PrivateSwitchBase-input-10 MuiSwitch-input"
               id="metric.higherIsBetter"
               name="metric.higherIsBetter"
               type="checkbox"
@@ -156,13 +156,14 @@ exports[`renders as expected for conversion metric 1`] = `
     </label>
   </div>
   <div
-    class="makeStyles-row-16"
+    class="makeStyles-row-2"
   >
     <fieldset
       class="MuiFormControl-root"
     >
       <label
         class="MuiFormLabel-root Mui-required"
+        id="metric-form-radio-metric-type-label"
       >
         Metric Type
         <span
@@ -174,29 +175,31 @@ exports[`renders as expected for conversion metric 1`] = `
         </span>
       </label>
       <div
+        aria-labelledby="metric-form-radio-metric-type-label"
         class="MuiFormGroup-root"
         required=""
         role="radiogroup"
       >
         <label
+          aria-label="Conversion"
           class="MuiFormControlLabel-root"
         >
           <span
             aria-disabled="false"
-            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-22 Mui-checked MuiIconButton-colorSecondary"
+            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-8 Mui-checked MuiIconButton-colorSecondary"
           >
             <span
               class="MuiIconButton-label"
             >
               <input
                 checked=""
-                class="PrivateSwitchBase-input-24"
+                class="PrivateSwitchBase-input-10"
                 name="metric.parameterType"
                 type="radio"
                 value="conversion"
               />
               <div
-                class="PrivateRadioButtonIcon-root-25 PrivateRadioButtonIcon-checked-27"
+                class="PrivateRadioButtonIcon-root-11 PrivateRadioButtonIcon-checked-13"
               >
                 <svg
                   aria-hidden="true"
@@ -210,7 +213,7 @@ exports[`renders as expected for conversion metric 1`] = `
                 </svg>
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
+                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-12"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -231,23 +234,24 @@ exports[`renders as expected for conversion metric 1`] = `
           </span>
         </label>
         <label
+          aria-label="Revenue"
           class="MuiFormControlLabel-root"
         >
           <span
             aria-disabled="false"
-            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
           >
             <span
               class="MuiIconButton-label"
             >
               <input
-                class="PrivateSwitchBase-input-24"
+                class="PrivateSwitchBase-input-10"
                 name="metric.parameterType"
                 type="radio"
                 value="revenue"
               />
               <div
-                class="PrivateRadioButtonIcon-root-25"
+                class="PrivateRadioButtonIcon-root-11"
               >
                 <svg
                   aria-hidden="true"
@@ -261,7 +265,7 @@ exports[`renders as expected for conversion metric 1`] = `
                 </svg>
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
+                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-12"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -285,10 +289,10 @@ exports[`renders as expected for conversion metric 1`] = `
     </fieldset>
   </div>
   <div
-    class="makeStyles-row-16"
+    class="makeStyles-row-2"
   >
     <div
-      class="makeStyles-root-28"
+      class="makeStyles-root-14"
     >
       <div
         class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -330,10 +334,10 @@ exports[`renders as expected for conversion metric 1`] = `
           </textarea>
           <fieldset
             aria-hidden="true"
-            class="PrivateNotchedOutline-root-17 MuiOutlinedInput-notchedOutline"
+            class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
           >
             <legend
-              class="PrivateNotchedOutline-legendLabelled-19 PrivateNotchedOutline-legendNotched-20"
+              class="PrivateNotchedOutline-legendLabelled-5 PrivateNotchedOutline-legendNotched-6"
             >
               <span>
                 Event Parameters
@@ -347,15 +351,389 @@ exports[`renders as expected for conversion metric 1`] = `
     </div>
   </div>
   <div
-    class="makeStyles-row-16"
+    class="makeStyles-row-2"
   />
+  <div
+    class="makeStyles-root-15"
+  >
+    <p
+      class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+    >
+      Validation Errors
+    </p>
+    <p
+      class="MuiTypography-root makeStyles-pre-16 MuiTypography-body1"
+    >
+      {}
+    </p>
+  </div>
+</div>
+`;
+
+exports[`renders as expected for new metric 1`] = `
+<div>
+  <div
+    class="makeStyles-row-36"
+  >
+    <div
+      class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    >
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined Mui-required Mui-required"
+        data-shrink="true"
+        for="metric.name"
+        id="metric.name-label"
+      >
+        Metric name
+        <span
+          aria-hidden="true"
+          class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+        >
+           
+          *
+        </span>
+      </label>
+      <div
+        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
+      >
+        <input
+          aria-describedby="metric.name-helper-text"
+          aria-invalid="false"
+          class="MuiInputBase-input MuiOutlinedInput-input"
+          id="metric.name"
+          name="metric.name"
+          placeholder="metric_name"
+          required=""
+          type="text"
+          value=""
+        />
+        <fieldset
+          aria-hidden="true"
+          class="PrivateNotchedOutline-root-37 MuiOutlinedInput-notchedOutline"
+        >
+          <legend
+            class="PrivateNotchedOutline-legendLabelled-39 PrivateNotchedOutline-legendNotched-40"
+          >
+            <span>
+              Metric name
+               *
+            </span>
+          </legend>
+        </fieldset>
+      </div>
+      <p
+        class="MuiFormHelperText-root MuiFormHelperText-contained Mui-required"
+        id="metric.name-helper-text"
+      >
+        Use snake_case.
+      </p>
+    </div>
+  </div>
+  <div
+    class="makeStyles-row-36"
+  >
+    <div
+      class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    >
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined Mui-required Mui-required"
+        data-shrink="true"
+        for="metric.description"
+        id="metric.description-label"
+      >
+        Metric description
+        <span
+          aria-hidden="true"
+          class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+        >
+           
+          *
+        </span>
+      </label>
+      <div
+        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiOutlinedInput-multiline"
+      >
+        <textarea
+          aria-invalid="false"
+          class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMultiline MuiOutlinedInput-inputMultiline"
+          id="metric.description"
+          name="metric.description"
+          placeholder="Put your Metric description here!"
+          required=""
+          rows="4"
+        />
+        <fieldset
+          aria-hidden="true"
+          class="PrivateNotchedOutline-root-37 MuiOutlinedInput-notchedOutline"
+        >
+          <legend
+            class="PrivateNotchedOutline-legendLabelled-39 PrivateNotchedOutline-legendNotched-40"
+          >
+            <span>
+              Metric description
+               *
+            </span>
+          </legend>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  <div
+    class="makeStyles-row-36"
+  >
+    <label
+      class="MuiFormControlLabel-root"
+    >
+      <span
+        class="MuiSwitch-root"
+      >
+        <span
+          aria-disabled="false"
+          aria-label="Higher is better"
+          class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-41 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-42 Mui-checked"
+          label="Higher is better"
+          variant="outlined"
+        >
+          <span
+            class="MuiIconButton-label"
+          >
+            <input
+              checked=""
+              class="PrivateSwitchBase-input-44 MuiSwitch-input"
+              id="metric.higherIsBetter"
+              name="metric.higherIsBetter"
+              type="checkbox"
+              value="true"
+            />
+            <span
+              class="MuiSwitch-thumb"
+            />
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </span>
+        <span
+          class="MuiSwitch-track"
+        />
+      </span>
+      <span
+        class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+      >
+        Higher is better
+      </span>
+    </label>
+  </div>
+  <div
+    class="makeStyles-row-36"
+  >
+    <fieldset
+      class="MuiFormControl-root"
+    >
+      <label
+        class="MuiFormLabel-root Mui-required"
+        id="metric-form-radio-metric-type-label"
+      >
+        Metric Type
+        <span
+          aria-hidden="true"
+          class="MuiFormLabel-asterisk"
+        >
+           
+          *
+        </span>
+      </label>
+      <div
+        aria-labelledby="metric-form-radio-metric-type-label"
+        class="MuiFormGroup-root"
+        required=""
+        role="radiogroup"
+      >
+        <label
+          aria-label="Conversion"
+          class="MuiFormControlLabel-root"
+        >
+          <span
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-41 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-42 Mui-checked MuiIconButton-colorSecondary"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <input
+                checked=""
+                class="PrivateSwitchBase-input-44"
+                name="metric.parameterType"
+                type="radio"
+                value="conversion"
+              />
+              <div
+                class="PrivateRadioButtonIcon-root-45 PrivateRadioButtonIcon-checked-47"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                  />
+                </svg>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-46"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                  />
+                </svg>
+              </div>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </span>
+          <span
+            class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+          >
+            Conversion
+          </span>
+        </label>
+        <label
+          aria-label="Revenue"
+          class="MuiFormControlLabel-root"
+        >
+          <span
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-41 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <input
+                class="PrivateSwitchBase-input-44"
+                name="metric.parameterType"
+                type="radio"
+                value="revenue"
+              />
+              <div
+                class="PrivateRadioButtonIcon-root-45"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                  />
+                </svg>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-46"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                  />
+                </svg>
+              </div>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </span>
+          <span
+            class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+          >
+            Revenue
+          </span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+  <div
+    class="makeStyles-row-36"
+  >
+    <div
+      class="makeStyles-root-48"
+    >
+      <div
+        class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined Mui-required Mui-required"
+          data-shrink="true"
+          for="metric.eventParams"
+          id="metric.eventParams-label"
+        >
+          Event Parameters
+          <span
+            aria-hidden="true"
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             
+            *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiOutlinedInput-multiline"
+        >
+          <textarea
+            aria-invalid="false"
+            class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMultiline MuiOutlinedInput-inputMultiline"
+            id="metric.eventParams"
+            name="metric.eventParams"
+            required=""
+            rows="8"
+          />
+          <fieldset
+            aria-hidden="true"
+            class="PrivateNotchedOutline-root-37 MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              class="PrivateNotchedOutline-legendLabelled-39 PrivateNotchedOutline-legendNotched-40"
+            >
+              <span>
+                Event Parameters
+                 *
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div
+    class="makeStyles-row-36"
+  />
+  <div
+    class="makeStyles-root-49"
+  >
+    <p
+      class="MuiTypography-root makeStyles-label-51 MuiTypography-body1"
+    >
+      Validation Errors
+    </p>
+    <p
+      class="MuiTypography-root makeStyles-pre-50 MuiTypography-body1"
+    >
+      {}
+    </p>
+  </div>
 </div>
 `;
 
 exports[`renders as expected for revenue metric 1`] = `
 <div>
   <div
-    class="makeStyles-row-2"
+    class="makeStyles-row-19"
   >
     <div
       class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -387,14 +765,14 @@ exports[`renders as expected for revenue metric 1`] = `
           placeholder="metric_name"
           required=""
           type="text"
-          value="metric_0"
+          value="metric_2"
         />
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-20 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-5 PrivateNotchedOutline-legendNotched-6"
+            class="PrivateNotchedOutline-legendLabelled-22 PrivateNotchedOutline-legendNotched-23"
           >
             <span>
               Metric name
@@ -412,7 +790,7 @@ exports[`renders as expected for revenue metric 1`] = `
     </div>
   </div>
   <div
-    class="makeStyles-row-2"
+    class="makeStyles-row-19"
   >
     <div
       class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -444,14 +822,14 @@ exports[`renders as expected for revenue metric 1`] = `
           required=""
           rows="4"
         >
-          This is metric 0
+          This is metric 2
         </textarea>
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-20 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-5 PrivateNotchedOutline-legendNotched-6"
+            class="PrivateNotchedOutline-legendLabelled-22 PrivateNotchedOutline-legendNotched-23"
           >
             <span>
               Metric description
@@ -463,7 +841,7 @@ exports[`renders as expected for revenue metric 1`] = `
     </div>
   </div>
   <div
-    class="makeStyles-row-2"
+    class="makeStyles-row-19"
   >
     <label
       class="MuiFormControlLabel-root"
@@ -474,7 +852,7 @@ exports[`renders as expected for revenue metric 1`] = `
         <span
           aria-disabled="false"
           aria-label="Higher is better"
-          class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-8 Mui-checked"
+          class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-24 MuiSwitch-switchBase MuiSwitch-colorSecondary"
           label="Higher is better"
           variant="outlined"
         >
@@ -482,12 +860,11 @@ exports[`renders as expected for revenue metric 1`] = `
             class="MuiIconButton-label"
           >
             <input
-              checked=""
-              class="PrivateSwitchBase-input-10 MuiSwitch-input"
+              class="PrivateSwitchBase-input-27 MuiSwitch-input"
               id="metric.higherIsBetter"
               name="metric.higherIsBetter"
               type="checkbox"
-              value="true"
+              value="false"
             />
             <span
               class="MuiSwitch-thumb"
@@ -509,13 +886,14 @@ exports[`renders as expected for revenue metric 1`] = `
     </label>
   </div>
   <div
-    class="makeStyles-row-2"
+    class="makeStyles-row-19"
   >
     <fieldset
       class="MuiFormControl-root"
     >
       <label
         class="MuiFormLabel-root Mui-required"
+        id="metric-form-radio-metric-type-label"
       >
         Metric Type
         <span
@@ -527,28 +905,30 @@ exports[`renders as expected for revenue metric 1`] = `
         </span>
       </label>
       <div
+        aria-labelledby="metric-form-radio-metric-type-label"
         class="MuiFormGroup-root"
         required=""
         role="radiogroup"
       >
         <label
+          aria-label="Conversion"
           class="MuiFormControlLabel-root"
         >
           <span
             aria-disabled="false"
-            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-24 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
           >
             <span
               class="MuiIconButton-label"
             >
               <input
-                class="PrivateSwitchBase-input-10"
+                class="PrivateSwitchBase-input-27"
                 name="metric.parameterType"
                 type="radio"
                 value="conversion"
               />
               <div
-                class="PrivateRadioButtonIcon-root-11"
+                class="PrivateRadioButtonIcon-root-28"
               >
                 <svg
                   aria-hidden="true"
@@ -562,7 +942,7 @@ exports[`renders as expected for revenue metric 1`] = `
                 </svg>
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-12"
+                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-29"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -583,24 +963,25 @@ exports[`renders as expected for revenue metric 1`] = `
           </span>
         </label>
         <label
+          aria-label="Revenue"
           class="MuiFormControlLabel-root"
         >
           <span
             aria-disabled="false"
-            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-8 Mui-checked MuiIconButton-colorSecondary"
+            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-24 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-25 Mui-checked MuiIconButton-colorSecondary"
           >
             <span
               class="MuiIconButton-label"
             >
               <input
                 checked=""
-                class="PrivateSwitchBase-input-10"
+                class="PrivateSwitchBase-input-27"
                 name="metric.parameterType"
                 type="radio"
                 value="revenue"
               />
               <div
-                class="PrivateRadioButtonIcon-root-11 PrivateRadioButtonIcon-checked-13"
+                class="PrivateRadioButtonIcon-root-28 PrivateRadioButtonIcon-checked-30"
               >
                 <svg
                   aria-hidden="true"
@@ -614,7 +995,7 @@ exports[`renders as expected for revenue metric 1`] = `
                 </svg>
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-12"
+                  class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-29"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
@@ -638,13 +1019,13 @@ exports[`renders as expected for revenue metric 1`] = `
     </fieldset>
   </div>
   <div
-    class="makeStyles-row-2"
+    class="makeStyles-row-19"
   />
   <div
-    class="makeStyles-row-2"
+    class="makeStyles-row-19"
   >
     <div
-      class="makeStyles-root-14"
+      class="makeStyles-root-31"
     >
       <div
         class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -676,7 +1057,7 @@ exports[`renders as expected for revenue metric 1`] = `
             rows="8"
           >
             {
-  "refundDays": 0,
+  "refundDays": 4,
   "productSlugs": [
     "xx-bundles"
   ],
@@ -687,10 +1068,10 @@ exports[`renders as expected for revenue metric 1`] = `
           </textarea>
           <fieldset
             aria-hidden="true"
-            class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
+            class="PrivateNotchedOutline-root-20 MuiOutlinedInput-notchedOutline"
           >
             <legend
-              class="PrivateNotchedOutline-legendLabelled-5 PrivateNotchedOutline-legendNotched-6"
+              class="PrivateNotchedOutline-legendLabelled-22 PrivateNotchedOutline-legendNotched-23"
             >
               <span>
                 Revenue Parameters
@@ -702,6 +1083,20 @@ exports[`renders as expected for revenue metric 1`] = `
         
       </div>
     </div>
+  </div>
+  <div
+    class="makeStyles-root-32"
+  >
+    <p
+      class="MuiTypography-root makeStyles-label-34 MuiTypography-body1"
+    >
+      Validation Errors
+    </p>
+    <p
+      class="MuiTypography-root makeStyles-pre-33 MuiTypography-body1"
+    >
+      {}
+    </p>
   </div>
 </div>
 `;

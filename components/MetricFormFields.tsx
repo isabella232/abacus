@@ -1,6 +1,6 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, TextField as MuiTextField } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Field, FormikProps, getIn } from 'formik'
+import { Field, FormikProps } from 'formik'
 import { fieldToTextField, RadioGroup, Switch, TextField, TextFieldProps } from 'formik-material-ui'
 import React, { useEffect } from 'react'
 
@@ -15,7 +15,8 @@ const useJsonTextFieldStyles = makeStyles((_theme: Theme) =>
   }),
 )
 
-// This fixes the error state in JSON text fields
+// This fixes the error state in JSON text fields by removing the error helper text
+// as otherwise it throws an exception when the error is an object.
 function JsonTextField({ children, helperText = '', ...props }: TextFieldProps) {
   const classes = useJsonTextFieldStyles()
 
@@ -53,8 +54,8 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
         ...formikProps.values,
         metric: {
           ...formikProps.values.metric,
-          revenueParams: 'undefined',
-          eventParams: eventParams === 'undefined' ? '[]' : eventParams,
+          revenueParams: 'null',
+          eventParams: eventParams === 'null' || eventParams === 'undefined' ? '[]' : eventParams,
         },
       })
     } else {
@@ -63,8 +64,8 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
         ...formikProps.values,
         metric: {
           ...formikProps.values.metric,
-          revenueParams: revenueParams === 'undefined' ? '{}' : revenueParams,
-          eventParams: 'undefined',
+          revenueParams: revenueParams === 'null' || revenueParams === 'undefined' ? '{}' : revenueParams,
+          eventParams: 'null',
         },
       })
     }
@@ -124,17 +125,26 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
       </div>
       <div className={classes.row}>
         <FormControl component='fieldset'>
-          <FormLabel required>Metric Type</FormLabel>
-          <Field component={RadioGroup} name='metric.parameterType' required>
+          <FormLabel required id='metric-form-radio-metric-type-label'>
+            Metric Type
+          </FormLabel>
+          <Field
+            component={RadioGroup}
+            name='metric.parameterType'
+            required
+            aria-labelledby='metric-form-radio-metric-type-label'
+          >
             <FormControlLabel
               value={MetricParameterType.Conversion}
               label='Conversion'
+              aria-label='Conversion'
               control={<Radio disabled={formikProps.isSubmitting} />}
               disabled={formikProps.isSubmitting}
             />
             <FormControlLabel
               value={MetricParameterType.Revenue}
               label='Revenue'
+              aria-label='Revenue'
               control={<Radio disabled={formikProps.isSubmitting} />}
               disabled={formikProps.isSubmitting}
             />
@@ -152,7 +162,6 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
             fullWidth
             required
             multiline
-            resizable
             rows={8}
             InputLabelProps={{
               shrink: true,
@@ -171,7 +180,6 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
             fullWidth
             required
             multiline
-            resizable
             rows={8}
             InputLabelProps={{
               shrink: true,
@@ -179,6 +187,7 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
           />
         )}
       </div>
+      <DebugOutput label='Validation Errors' content={formikProps.errors} />
     </>
   )
 }

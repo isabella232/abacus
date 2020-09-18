@@ -137,14 +137,40 @@ describe('lib/form-data.test.ts module', () => {
     })
 
     it('should return form data for an existing metric', () => {
-      expect(metricToFormData({})).toMatchInlineSnapshot(`
+      expect(metricToFormData(Fixtures.createMetricFull(1))).toMatchInlineSnapshot(`
         Object {
-          "description": "",
-          "eventParams": "",
-          "higherIsBetter": true,
-          "name": "",
+          "description": "This is metric 1",
+          "eventParams": "[
+          {
+            \\"event\\": \\"event_name\\",
+            \\"props\\": {
+              \\"has_blocks\\": \\"true\\"
+            }
+          }
+        ]",
+          "higherIsBetter": false,
+          "name": "metric_1",
           "parameterType": "conversion",
           "revenueParams": "",
+        }
+      `)
+
+      expect(metricToFormData(Fixtures.createMetricFull(2))).toMatchInlineSnapshot(`
+        Object {
+          "description": "This is metric 2",
+          "eventParams": "",
+          "higherIsBetter": false,
+          "name": "metric_2",
+          "parameterType": "revenue",
+          "revenueParams": "{
+          \\"refundDays\\": 4,
+          \\"productSlugs\\": [
+            \\"xx-bundles\\"
+          ],
+          \\"transactionTypes\\": [
+            \\"new purchase\\"
+          ]
+        }",
         }
       `)
     })
