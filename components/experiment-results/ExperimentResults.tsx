@@ -10,6 +10,12 @@ import FullLatestAnalyses from './FullLatestAnalyses'
 import ParticipantCounts from './ParticipantCounts'
 import { indexMetrics } from '@/lib/normalizers'
 
+export type MetricAssignmentAnalysesData = { 
+  metricAssignment: MetricAssignment, 
+  metric: MetricBare,
+  analysesByStrategy: Record<AnalysisStrategy, Analysis[]> 
+}
+
 /**
  * Main component for summarizing experiment results.
  */
@@ -36,6 +42,17 @@ export default function ExperimentResults({
       }),
     [analyses],
   )
+
+  const analysesByMetricAssignmentId = _.groupBy(analyses, 'metricAssignmentId')
+  const allMetricAssignmentAnalysisData: MetricAssignmentAnalysesData[] =
+      experiment.metricAssignments.map((metricAssignment) => {
+        const metricAssignmentAnalyses = analysesByMetricAssignmentId[metricAssignment.metricAssignmentId]
+        return {
+          metricAssignment,
+          metric: indexedMetrics[metricAssignment.metricId],
+          analysesByStrategy: _.groupBy(metricAssignmentAnalyses, 'analysisStrategy') as Record<AnalysisStrategy, Analysis[]>
+        }
+      })
 
   if (analyses.length === 0) {
     return <p>No analyses yet for {experiment.name}.</p>
