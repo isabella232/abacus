@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export default function CondensedLatestAnalyses({
   experiment,
-  metricsById,
+  indexedMetrics,
   metricAssignmentIdToLatestAnalyses,
 }: {
   experiment: ExperimentFull
-  metricsById: { [key: number]: MetricBare }
+  indexedMetrics: { [key: number]: MetricBare }
   metricAssignmentIdToLatestAnalyses: { [key: number]: Analysis[] }
 }) {
   const classes = useStyles()
@@ -63,7 +63,7 @@ export default function CondensedLatestAnalyses({
     const uniqueRecommendations = _.uniq(latestAnalyses.map(({ recommendation }) => JSON.stringify(recommendation)))
     return {
       metricAssignment,
-      metric: metricsById[metricAssignment.metricId],
+      metric: indexedMetrics[metricAssignment.metricId],
       analysis: latestAnalyses.find((analysis) => analysis.analysisStrategy === defaultAnalysisStrategy),
       recommendationConflict: uniqueRecommendations.length > 1,
     }

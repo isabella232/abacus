@@ -16,11 +16,11 @@ import { createStaticTableOptions } from '@/utils/material-table'
  */
 export default function FullLatestAnalyses({
   experiment,
-  metricsById,
+  indexedMetrics,
   metricAssignmentIdToLatestAnalyses,
 }: {
   experiment: ExperimentFull
-  metricsById: { [key: number]: MetricBare }
+  indexedMetrics: { [key: number]: MetricBare }
   metricAssignmentIdToLatestAnalyses: { [key: number]: Analysis[] }
 }) {
   // Sort the assignments for consistency and collect the data we need to render the component.
@@ -28,11 +28,11 @@ export default function FullLatestAnalyses({
     return MetricAssignments.sort(experiment.metricAssignments).map((metricAssignment) => {
       return {
         metricAssignment,
-        metric: metricsById[metricAssignment.metricId],
+        metric: indexedMetrics[metricAssignment.metricId],
         latestAnalyses: metricAssignmentIdToLatestAnalyses[metricAssignment.metricAssignmentId] || [],
       }
     })
-  }, [experiment, metricsById, metricAssignmentIdToLatestAnalyses])
+  }, [experiment, indexedMetrics, metricAssignmentIdToLatestAnalyses])
   const tableColumns = [
     { title: 'Strategy', render: ({ analysisStrategy }: Analysis) => AnalysisStrategyToHuman[analysisStrategy] },
     {

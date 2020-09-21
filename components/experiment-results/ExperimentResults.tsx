@@ -3,11 +3,12 @@ import React, { useMemo } from 'react'
 
 import DebugOutput from '@/components/DebugOutput'
 import * as Experiments from '@/lib/experiments'
-import { Analysis, ExperimentFull, MetricBare } from '@/lib/schemas'
+import { Analysis, ExperimentFull, MetricBare, MetricAssignment, AnalysisStrategy } from '@/lib/schemas'
 
 import CondensedLatestAnalyses from './CondensedLatestAnalyses'
 import FullLatestAnalyses from './FullLatestAnalyses'
 import ParticipantCounts from './ParticipantCounts'
+import { indexMetrics } from '@/lib/normalizers'
 
 /**
  * Main component for summarizing experiment results.
@@ -23,7 +24,7 @@ export default function ExperimentResults({
   metrics: MetricBare[]
   debugMode?: boolean
 }) {
-  const metricsById = useMemo(() => _.zipObject(_.map(metrics, 'metricId'), metrics), [metrics])
+  const indexedMetrics = indexMetrics(metrics)
   const metricAssignmentIdToLatestAnalyses = useMemo(
     () =>
       _.mapValues(_.groupBy(analyses, 'metricAssignmentId'), (metricAnalyses) => {
@@ -57,7 +58,7 @@ export default function ExperimentResults({
           <h3>Latest results by metric</h3>
           <FullLatestAnalyses
             experiment={experiment}
-            metricsById={metricsById}
+            indexedMetrics={indexedMetrics}
             metricAssignmentIdToLatestAnalyses={metricAssignmentIdToLatestAnalyses}
           />
         </div>
@@ -72,7 +73,7 @@ export default function ExperimentResults({
     <div className='analysis-latest-results'>
       <CondensedLatestAnalyses
         experiment={experiment}
-        metricsById={metricsById}
+        indexedMetrics={indexedMetrics}
         metricAssignmentIdToLatestAnalyses={metricAssignmentIdToLatestAnalyses}
       />
     </div>
