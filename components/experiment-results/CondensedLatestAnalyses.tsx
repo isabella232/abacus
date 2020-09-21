@@ -71,8 +71,6 @@ export default function CondensedLatestAnalyses({
       recommendationConflict: uniqueRecommendations.length > 1,
     }
   })
-  // Lodash is a bit of a pain to reuse sorts for nested entities ¯\_(ツ)_/¯
-  const sortedMetricAssignmentSummaryData = _.orderBy(metricAssignmentSummaryData, ['metricAssignment.isPrimary', 'metricAssignment.metricAssignmentId'], ['desc', 'asc'])
 
   const tableColumns = [
     {
@@ -128,8 +126,8 @@ export default function CondensedLatestAnalyses({
     <div className={classes.root}>
       <MaterialTable
         columns={tableColumns}
-        data={sortedMetricAssignmentSummaryData}
-        options={createStaticTableOptions(sortedMetricAssignmentSummaryData.length)}
+        data={metricAssignmentSummaryData}
+        options={createStaticTableOptions(metricAssignmentSummaryData.length)}
         onRowClick={(_event, rowData, togglePanel) => {
           const { latestDefaultAnalysis, recommendationConflict } = rowData as {
             latestDefaultAnalysis?: Analysis

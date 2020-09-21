@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 
 import DebugOutput from '@/components/DebugOutput'
 import * as Experiments from '@/lib/experiments'
+import * as MetricAssignments from '@/lib/metric-assignments'
 import { Analysis, ExperimentFull, MetricBare, MetricAssignment, AnalysisStrategy } from '@/lib/schemas'
 
 import CondensedLatestAnalyses from './CondensedLatestAnalyses'
@@ -31,25 +32,10 @@ export default function ExperimentResults({
   debugMode?: boolean
 }) {
   const indexedMetrics = indexMetrics(metrics)
-  /**
-   * @deprecated To be replaced by allMetricAssignmentsAnalysesData
-   */
-  const metricAssignmentIdToLatestAnalyses = useMemo(
-    () =>
-      _.mapValues(_.groupBy(analyses, 'metricAssignmentId'), (metricAnalyses) => {
-        metricAnalyses = _.orderBy(metricAnalyses, ['analysisDatetime'], ['desc'])
-        return _.sortBy(
-          _.filter(metricAnalyses, ['analysisDatetime', metricAnalyses[0].analysisDatetime]),
-          'analysisStrategy',
-        )
-      }),
-    [analyses],
-  )
-
   const analysesByMetricAssignmentId = _.groupBy(analyses, 'metricAssignmentId')
   const allMetricAssignmentAnalysesData: MetricAssignmentAnalysesData[] =
-      experiment.metricAssignments.map((metricAssignment) => {
-        const metricAssignmentAnalyses = analysesByMetricAssignmentId[metricAssignment.metricAssignmentId]
+      MetricAssignments.sort(experiment.metricAssignments).map((metricAssignment) => {
+        const metricAssignmentAnalyses = analysesByMetricAssignmentId[metricAssignment.metricAssignmentId] || []
         return {
           metricAssignment,
           metric: indexedMetrics[metricAssignment.metricId],
@@ -84,8 +70,7 @@ export default function ExperimentResults({
           <h3>Latest results by metric</h3>
           <FullLatestAnalyses
             experiment={experiment}
-            indexedMetrics={indexedMetrics}
-            metricAssignmentIdToLatestAnalyses={metricAssignmentIdToLatestAnalyses}
+            allMetricAssignmentAnalysesData={allMetricAssignmentAnalysesData}
           />
         </div>
 

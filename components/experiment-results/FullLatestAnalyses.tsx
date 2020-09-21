@@ -10,29 +10,27 @@ import * as MetricAssignments from '@/lib/metric-assignments'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
 import { Analysis, ExperimentFull, MetricBare } from '@/lib/schemas'
 import { createStaticTableOptions } from '@/utils/material-table'
+import { MetricAssignmentAnalysesData } from './ExperimentResults'
 
 /**
  * Render the latest analyses for the experiment for each metric assignment.
  */
 export default function FullLatestAnalyses({
   experiment,
-  indexedMetrics,
-  metricAssignmentIdToLatestAnalyses,
+  allMetricAssignmentAnalysesData,
 }: {
   experiment: ExperimentFull
-  indexedMetrics: { [key: number]: MetricBare }
-  metricAssignmentIdToLatestAnalyses: { [key: number]: Analysis[] }
+  allMetricAssignmentAnalysesData: MetricAssignmentAnalysesData[]
 }) {
-  // Sort the assignments for consistency and collect the data we need to render the component.
-  const resultSummaries = useMemo(() => {
-    return MetricAssignments.sort(experiment.metricAssignments).map((metricAssignment) => {
-      return {
-        metricAssignment,
-        metric: indexedMetrics[metricAssignment.metricId],
-        latestAnalyses: metricAssignmentIdToLatestAnalyses[metricAssignment.metricAssignmentId] || [],
-      }
-    })
-  }, [experiment, indexedMetrics, metricAssignmentIdToLatestAnalyses])
+  const metricAssignmentSummaries = allMetricAssignmentAnalysesData.map(({ metricAssignment, metric, analysesByStrategyDateAsc }) => { 
+    return {
+      metricAssignment,
+      metric,
+      analysesByStrategyDateAsc,
+      latestAnalyses: Object.values(analysesByStrategyDateAsc).map(_.last) as Analysis[],
+    }
+  })
+
   const tableColumns = [
     { title: 'Strategy', render: ({ analysisStrategy }: Analysis) => AnalysisStrategyToHuman[analysisStrategy] },
     {
@@ -69,7 +67,7 @@ export default function FullLatestAnalyses({
   ]
   return (
     <>
-      {resultSummaries.map(({ metricAssignment, metric, latestAnalyses }) => (
+      {metricAssignmentSummaries.map(({ metricAssignment, metric, latestAnalyses }) => (
         <div key={metricAssignment.metricAssignmentId}>
           <Typography variant={'subtitle1'}>
             <strong>
