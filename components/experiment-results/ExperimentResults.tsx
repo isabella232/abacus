@@ -31,6 +31,9 @@ export default function ExperimentResults({
   debugMode?: boolean
 }) {
   const indexedMetrics = indexMetrics(metrics)
+  /**
+   * @deprecated To be replaced by allMetricAssignmentsAnalysesData
+   */
   const metricAssignmentIdToLatestAnalyses = useMemo(
     () =>
       _.mapValues(_.groupBy(analyses, 'metricAssignmentId'), (metricAnalyses) => {
@@ -59,15 +62,21 @@ export default function ExperimentResults({
   }
 
   if (debugMode) {
+    const primaryMetricAssignmentId = Experiments.getPrimaryMetricAssignmentId(experiment)
+    const primaryMetricAssignmentAnalysesData = allMetricAssignmentAnalysesData.find(({ metricAssignment: { metricAssignmentId }}) => metricAssignmentId === primaryMetricAssignmentId)
+
+    // istanbul ignore next; Should never occur
+    if (!primaryMetricAssignmentAnalysesData) {
+      throw new Error('Missing primary metricAssignment!')
+    }
+
     return (
       <>
         <div className='analysis-participant-counts'>
           <h3>Participant counts for the primary metric</h3>
           <ParticipantCounts
             experiment={experiment}
-            latestPrimaryMetricAnalyses={
-              metricAssignmentIdToLatestAnalyses[Experiments.getPrimaryMetricAssignmentId(experiment) as number]
-            }
+            primaryMetricAssignmentAnalysesData={primaryMetricAssignmentAnalysesData}
           />
         </div>
 
