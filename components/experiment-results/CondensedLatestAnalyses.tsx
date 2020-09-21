@@ -60,7 +60,12 @@ export default function CondensedLatestAnalyses({
 
   // When will the Javascript pipe operator ever arrive... :'(
   const metricAssignmentSummaryData = allMetricAssignmentAnalysesData.map(({ metricAssignment, metric, analysesByStrategyDateAsc }) => { 
-    const recommendations = Object.values(analysesByStrategyDateAsc).map(analyses => _.last(analyses)?.recommendation).filter(x => !!x)
+    const recommendations = Object.values(analysesByStrategyDateAsc)
+      .map((analyses) => 
+        //  istanbul ignore next; We don't need to test empty analyses as we filter out all undefined values
+        _.last(analyses)?.recommendation
+      )
+      .filter(recommendation => !!recommendation)
     const uniqueRecommendations = _.uniq(recommendations.map(recommendation => JSON.stringify(recommendation)))
 
     return {
