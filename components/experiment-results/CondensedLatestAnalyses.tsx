@@ -131,16 +131,18 @@ export default function CondensedLatestAnalyses({
     ({
       analysesByStrategyDateAsc,
       latestDefaultAnalysis,
+      metricAssignment,
       recommendationConflict,
     }: {
       analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
       latestDefaultAnalysis?: Analysis
+      metricAssignment: MetricAssignment,
       recommendationConflict?: boolean
     }) => {
       return {
         render: () =>
           latestDefaultAnalysis && (
-            <AnalysisDetailPanel {...{ analysesByStrategyDateAsc, latestDefaultAnalysis, experiment }}/>
+            <AnalysisDetailPanel {...{ analysesByStrategyDateAsc, latestDefaultAnalysis, metricAssignment, experiment }}/>
           ),
         disabled: !latestDefaultAnalysis || recommendationConflict,
       }
@@ -182,15 +184,26 @@ const useAnalysisDetailStyles = makeStyles((theme: Theme) =>
     dataCell: {
       fontFamily: theme.custom.fonts.monospace,
     },
+    plots: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: theme.spacing(2),
+    },
+    plot: {
+      width: `calc(50% - ${theme.spacing(1)}px)`,
+      height: 400,
+    }
   }),
 )
 
 function AnalysisDetailPanel({
   latestDefaultAnalysis,
+  metricAssignment,
   analysesByStrategyDateAsc,
   experiment,
 }: {
   latestDefaultAnalysis: Analysis
+  metricAssignment: MetricAssignment
   analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
   experiment: ExperimentFull
 }) {
@@ -205,11 +218,12 @@ function AnalysisDetailPanel({
   const variantColors = ['rgba(71, 27, 92, .3)', 'rgba(205, 112, 85, .3)']
 
   const strategy = Experiments.getDefaultAnalysisStrategy(experiment)
+  const analyses = analysesByStrategyDateAsc[strategy]
+  const dates = analyses.map(({ analysisDatetime })=> analysisDatetime.toISOString())
+
   const plotlyDataVariationGraph = [
     ...experiment.variations.flatMap((variation, index) => {
       const variationKey = `variation_${variation.variationId}`
-      const analyses = analysesByStrategyDateAsc[strategy]
-      const dates = analyses.map(({ analysisDatetime })=> analysisDatetime.toISOString())
       return [
         {
           name: `Lower Bound: ${variation.name}`,
@@ -234,6 +248,63 @@ function AnalysisDetailPanel({
       ]
     })
   ]
+
+  const plotlyDataDifferenceGraph = [
+    {
+      name: `Lower Bound: Difference`,
+      x: dates,
+      y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].bottom),
+      line: { width: 0 },
+      marker: { color: "444" },
+      mode: "lines",
+      type: 'scatter',
+    },
+    {
+      name: `Upper Bound: Difference`,
+      x: dates,
+      y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].top),
+      fill: "tonexty",
+      fillcolor: 'rgba(0,0,0,.2)',
+      line: { width: 0 },
+      marker: { color: "444" },
+      mode: "lines",
+      type: "scatter"
+    },
+    {
+      // zero line
+      name: 'Zero Difference',
+      x: dates,
+      y: analyses.map(_ => 0),
+      line: {
+        color: 'rgba(0,0,0,.4)',
+      },
+      mode: 'lines',
+      type: 'scatter', 
+    },
+    {
+      name: 'Lower Bound: No Difference',
+      x: dates,
+      y: analyses.map(_ => -metricAssignment.minDifference),
+      line: {
+        color: 'rgba(0,0,0,.4)',
+        dash: 'dash',
+      },
+      mode: 'lines',
+      type: 'scatter', 
+    },
+    {
+      name: 'Upper Bound: No Difference',
+      x: dates,
+      y: analyses.map(_ => metricAssignment.minDifference),
+      line: {
+        color: 'rgba(0,0,0,.4)',
+        dash: 'dash',
+      },
+      mode: 'lines',
+      type: 'scatter', 
+    }
+  ]
+
   const plotlyLayoutDefault = { 
     autosize: true,
     margin: {
@@ -251,14 +322,6 @@ function AnalysisDetailPanel({
 
   return (
     <TableContainer className={clsx(classes.root, 'analysis-detail-panel')}>
-      <Plot
-        layout={{
-          ...plotlyLayoutDefault,
-          title: `Variation Confidence Intervals`,
-          yaxis: { title: 'Metric Estimate' },
-        }}
-        data={plotlyDataVariationGraph}
-      />
       <Table>
         <TableBody>
           <TableRow>
@@ -319,6 +382,26 @@ function AnalysisDetailPanel({
           )}
         </TableBody>
       </Table>
+      <div className={classes.plots}>
+        <Plot
+          layout={{
+            ...plotlyLayoutDefault,
+            title: `Variation Credible Intervals`,
+            yaxis: { title: 'Metric Estimates' },
+          }}
+          data={plotlyDataVariationGraph}
+          className={classes.plot}
+        />
+        <Plot
+          layout={{
+            ...plotlyLayoutDefault,
+            title: `Difference Credible Interval`,
+            yaxis: { title: 'Difference Estimate' },
+          }}
+          data={plotlyDataDifferenceGraph}
+          className={classes.plot}
+        />
+      </div>
     </TableContainer>
   )
 }
