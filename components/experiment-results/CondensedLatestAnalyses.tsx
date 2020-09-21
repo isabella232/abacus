@@ -66,7 +66,8 @@ export default function CondensedLatestAnalyses({
     return {
       metricAssignment,
       metric,
-      analysis: _.last(analysesByStrategyDateAsc[defaultAnalysisStrategy]),
+      analysesByStrategyDateAsc,
+      latestDefaultAnalysis: _.last(analysesByStrategyDateAsc[defaultAnalysisStrategy]),
       recommendationConflict: uniqueRecommendations.length > 1,
     }
   })
@@ -99,14 +100,14 @@ export default function CondensedLatestAnalyses({
     },
     {
       title: 'Recommendation',
-      render: ({ analysis, recommendationConflict }: { analysis?: Analysis; recommendationConflict?: boolean }) => {
+      render: ({ latestDefaultAnalysis, recommendationConflict }: { latestDefaultAnalysis?: Analysis; recommendationConflict?: boolean }) => {
         if (recommendationConflict) {
           return <>Manual analysis required</>
         }
-        if (!analysis?.recommendation) {
+        if (!latestDefaultAnalysis?.recommendation) {
           return <>Not analyzed yet</>
         }
-        return <RecommendationString recommendation={analysis.recommendation} experiment={experiment} />
+        return <RecommendationString recommendation={latestDefaultAnalysis.recommendation} experiment={experiment} />
       },
       cellStyle: {
         fontFamily: theme.custom.fonts.monospace,
@@ -115,10 +116,10 @@ export default function CondensedLatestAnalyses({
   ]
 
   const DetailPanel = [
-    ({ analysis, recommendationConflict }: { analysis?: Analysis; recommendationConflict?: boolean }) => {
+    ({ latestDefaultAnalysis, recommendationConflict }: { latestDefaultAnalysis?: Analysis; recommendationConflict?: boolean }) => {
       return {
-        render: () => analysis && <AnalysisDetailPanel analysis={analysis} experiment={experiment} />,
-        disabled: !analysis || recommendationConflict,
+        render: () => latestDefaultAnalysis && <AnalysisDetailPanel latestDefaultAnalysis={latestDefaultAnalysis} experiment={experiment} />,
+        disabled: !latestDefaultAnalysis || recommendationConflict,
       }
     },
   ]
@@ -130,11 +131,11 @@ export default function CondensedLatestAnalyses({
         data={sortedMetricAssignmentSummaryData}
         options={createStaticTableOptions(sortedMetricAssignmentSummaryData.length)}
         onRowClick={(_event, rowData, togglePanel) => {
-          const { analysis, recommendationConflict } = rowData as {
-            analysis?: Analysis
+          const { latestDefaultAnalysis, recommendationConflict } = rowData as {
+            latestDefaultAnalysis?: Analysis
             recommendationConflict?: boolean
           }
-          if (togglePanel && analysis && !recommendationConflict) {
+          if (togglePanel && latestDefaultAnalysis && !recommendationConflict) {
             togglePanel()
           }
         }}
@@ -161,7 +162,7 @@ const useAnalysisDetailStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-function AnalysisDetailPanel({ analysis, experiment }: { analysis: Analysis; experiment: ExperimentFull }) {
+function AnalysisDetailPanel({ latestDefaultAnalysis, experiment }: { latestDefaultAnalysis: Analysis; experiment: ExperimentFull }) {
   const classes = useAnalysisDetailStyles()
 
   return (
@@ -173,46 +174,46 @@ function AnalysisDetailPanel({ analysis, experiment }: { analysis: Analysis; exp
               Last analyzed
             </TableCell>
             <TableCell>
-              <DatetimeText datetime={analysis.analysisDatetime} excludeTime={true} />
+              <DatetimeText datetime={latestDefaultAnalysis.analysisDatetime} excludeTime={true} />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell component='th' scope='row' variant='head'>
               Analysis strategy
             </TableCell>
-            <TableCell className={classes.dataCell}>{AnalysisStrategyToHuman[analysis.analysisStrategy]}</TableCell>
+            <TableCell className={classes.dataCell}>{AnalysisStrategyToHuman[latestDefaultAnalysis.analysisStrategy]}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell component='th' scope='row' variant='head'>
               Analyzed participants
             </TableCell>
             <TableCell className={classes.dataCell}>
-              {analysis.participantStats.total} ({analysis.participantStats.not_final} not final
+              {latestDefaultAnalysis.participantStats.total} ({latestDefaultAnalysis.participantStats.not_final} not final
               {Variations.sort(experiment.variations).map(({ variationId, name }) => (
                 <span key={variationId}>
-                  ; {analysis.participantStats[`variation_${variationId}`]} in {name}
+                  ; {latestDefaultAnalysis.participantStats[`variation_${variationId}`]} in {name}
                 </span>
               ))}
               )
             </TableCell>
           </TableRow>
-          {analysis.metricEstimates && analysis.recommendation && (
+          {latestDefaultAnalysis.metricEstimates && latestDefaultAnalysis.recommendation && (
             <>
               <TableRow>
                 <TableCell component='th' scope='row' variant='head'>
                   Difference interval
                 </TableCell>
                 <TableCell className={classes.dataCell}>
-                  [{_.round(analysis.metricEstimates.diff.bottom, 4)}, {_.round(analysis.metricEstimates.diff.top, 4)}]
+                  [{_.round(latestDefaultAnalysis.metricEstimates.diff.bottom, 4)}, {_.round(latestDefaultAnalysis.metricEstimates.diff.top, 4)}]
                 </TableCell>
               </TableRow>
-              {analysis.recommendation.warnings.length > 0 && (
+              {latestDefaultAnalysis.recommendation.warnings.length > 0 && (
                 <TableRow>
                   <TableCell component='th' scope='row' variant='head'>
                     Warnings
                   </TableCell>
                   <TableCell className={classes.dataCell}>
-                    {analysis.recommendation.warnings.map((warning) => (
+                    {latestDefaultAnalysis.recommendation.warnings.map((warning) => (
                       <div key={warning}>{RecommendationWarningToHuman[warning]}</div>
                     ))}
                   </TableCell>
