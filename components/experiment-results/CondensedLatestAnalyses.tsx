@@ -14,12 +14,13 @@ import clsx from 'clsx'
 import _ from 'lodash'
 import MaterialTable from 'material-table'
 import React from 'react'
+import Plot from 'react-plotly.js'
 
 import DatetimeText from '@/components/DatetimeText'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from '@/lib/analyses'
 import * as Experiments from '@/lib/experiments'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
-import { Analysis, ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
+import { Analysis, AnalysisStrategy, ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
 
@@ -128,16 +129,18 @@ export default function CondensedLatestAnalyses({
 
   const DetailPanel = [
     ({
+      analysesByStrategyDateAsc,
       latestDefaultAnalysis,
       recommendationConflict,
     }: {
+      analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
       latestDefaultAnalysis?: Analysis
       recommendationConflict?: boolean
     }) => {
       return {
         render: () =>
           latestDefaultAnalysis && (
-            <AnalysisDetailPanel latestDefaultAnalysis={latestDefaultAnalysis} experiment={experiment} />
+            <AnalysisDetailPanel {...{ analysesByStrategyDateAsc, latestDefaultAnalysis, experiment }}/>
           ),
         disabled: !latestDefaultAnalysis || recommendationConflict,
       }
@@ -184,15 +187,78 @@ const useAnalysisDetailStyles = makeStyles((theme: Theme) =>
 
 function AnalysisDetailPanel({
   latestDefaultAnalysis,
+  analysesByStrategyDateAsc,
   experiment,
 }: {
   latestDefaultAnalysis: Analysis
+  analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
   experiment: ExperimentFull
 }) {
   const classes = useAnalysisDetailStyles()
+  const theme = useTheme()
+
+  // We hand out colors based on the order of the variant.
+  // Control and Treatment should have a consistent order even across experiments so this should give good results.
+  // Ideally we would add some marker to differentiate control variants
+  // 
+  // These come from a data pallete generator and should be visually equidistant.
+  const variantColors = ['rgba(71, 27, 92, .3)', 'rgba(205, 112, 85, .3)']
+
+  const strategy = Experiments.getDefaultAnalysisStrategy(experiment)
+  const plotlyDataVariationGraph = [
+    ...experiment.variations.flatMap((variation, index) => {
+      const variationKey = `variation_${variation.variationId}`
+      const analyses = analysesByStrategyDateAsc[strategy]
+      const dates = analyses.map(({ analysisDatetime })=> analysisDatetime.toISOString())
+      return [
+        {
+          name: `Lower Bound: ${variation.name}`,
+          x: dates,
+          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].bottom),
+          line: { width: 0 },
+          marker: { color: "444" },
+          mode: "lines",
+          type: 'scatter',
+        },
+        {
+          name: `Upper Bound: ${variation.name}`,
+          x: dates,
+          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top),
+          fill: "tonexty", 
+          fillcolor: variantColors[index], 
+          line: {width: 0}, 
+          marker: {color: "444"}, 
+          mode: "lines", 
+          type: "scatter"
+        }
+      ]
+    })
+  ]
+  const plotlyLayoutDefault = { 
+    autosize: true,
+    margin: {
+      l: theme.spacing(10),
+      r: theme.spacing(2),
+      t: theme.spacing(8),
+      b: theme.spacing(6),
+    },
+    showlegend: false,
+    hoverlabel: {
+      // Don't restrict name lengths
+      namelength: -1,
+    }
+  }
 
   return (
     <TableContainer className={clsx(classes.root, 'analysis-detail-panel')}>
+      <Plot
+        layout={{
+          ...plotlyLayoutDefault,
+          title: `Variation Confidence Intervals`,
+          yaxis: { title: 'Metric Estimate' },
+        }}
+        data={plotlyDataVariationGraph}
+      />
       <Table>
         <TableBody>
           <TableRow>
@@ -233,7 +299,7 @@ function AnalysisDetailPanel({
                   Difference interval
                 </TableCell>
                 <TableCell className={classes.dataCell}>
-                  [{_.round(latestDefaultAnalysis.metricEstimates.diff.bottom, 4)},{' '}
+                  [{_.round(latestDefaultAnalysis.metricEstimates.diff.bottom, 4)},
                   {_.round(latestDefaultAnalysis.metricEstimates.diff.top, 4)}]
                 </TableCell>
               </TableRow>
