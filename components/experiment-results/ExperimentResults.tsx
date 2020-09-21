@@ -13,7 +13,7 @@ import { indexMetrics } from '@/lib/normalizers'
 export type MetricAssignmentAnalysesData = { 
   metricAssignment: MetricAssignment, 
   metric: MetricBare,
-  analysesByStrategy: Record<AnalysisStrategy, Analysis[]> 
+  analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]> 
 }
 
 /**
@@ -44,13 +44,13 @@ export default function ExperimentResults({
   )
 
   const analysesByMetricAssignmentId = _.groupBy(analyses, 'metricAssignmentId')
-  const allMetricAssignmentAnalysisData: MetricAssignmentAnalysesData[] =
+  const allMetricAssignmentAnalysesData: MetricAssignmentAnalysesData[] =
       experiment.metricAssignments.map((metricAssignment) => {
         const metricAssignmentAnalyses = analysesByMetricAssignmentId[metricAssignment.metricAssignmentId]
         return {
           metricAssignment,
           metric: indexedMetrics[metricAssignment.metricId],
-          analysesByStrategy: _.groupBy(metricAssignmentAnalyses, 'analysisStrategy') as Record<AnalysisStrategy, Analysis[]>
+          analysesByStrategyDateAsc: _.groupBy(_.orderBy(metricAssignmentAnalyses, ['analysisDatetime'], ['asc']), 'analysisStrategy') as Record<AnalysisStrategy, Analysis[]>
         }
       })
 
@@ -90,8 +90,7 @@ export default function ExperimentResults({
     <div className='analysis-latest-results'>
       <CondensedLatestAnalyses
         experiment={experiment}
-        indexedMetrics={indexedMetrics}
-        metricAssignmentIdToLatestAnalyses={metricAssignmentIdToLatestAnalyses}
+        allMetricAssignmentAnalysesData={allMetricAssignmentAnalysesData}
       />
     </div>
   )

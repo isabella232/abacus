@@ -25,6 +25,7 @@ import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
 
 import RecommendationString from './RecommendationString'
+import { MetricAssignmentAnalysesData } from './ExperimentResults'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,28 +47,32 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export default function CondensedLatestAnalyses({
   experiment,
-  indexedMetrics,
-  metricAssignmentIdToLatestAnalyses,
+  allMetricAssignmentAnalysesData,
 }: {
   experiment: ExperimentFull
-  indexedMetrics: { [key: number]: MetricBare }
-  metricAssignmentIdToLatestAnalyses: { [key: number]: Analysis[] }
+  allMetricAssignmentAnalysesData: MetricAssignmentAnalysesData[]
 }) {
   const classes = useStyles()
   const theme = useTheme()
 
   // Sort the assignments for consistency and collect the data we need to render the component.
   const defaultAnalysisStrategy = Experiments.getDefaultAnalysisStrategy(experiment)
-  const resultSummaries = MetricAssignments.sort(experiment.metricAssignments).map((metricAssignment) => {
-    const latestAnalyses = metricAssignmentIdToLatestAnalyses[metricAssignment.metricAssignmentId] || []
-    const uniqueRecommendations = _.uniq(latestAnalyses.map(({ recommendation }) => JSON.stringify(recommendation)))
+
+  // When will the Javascript pipe operator ever arrive... :'(
+  const metricAssignmentSummaryData = allMetricAssignmentAnalysesData.map(({ metricAssignment, metric, analysesByStrategyDateAsc }) => { 
+    const recommendations = Object.values(analysesByStrategyDateAsc).map(analyses => _.last(analyses)?.recommendation).filter(x => !!x)
+    const uniqueRecommendations = _.uniq(recommendations.map(recommendation => JSON.stringify(recommendation)))
+
     return {
       metricAssignment,
-      metric: indexedMetrics[metricAssignment.metricId],
-      analysis: latestAnalyses.find((analysis) => analysis.analysisStrategy === defaultAnalysisStrategy),
+      metric,
+      analysis: _.last(analysesByStrategyDateAsc[defaultAnalysisStrategy]),
       recommendationConflict: uniqueRecommendations.length > 1,
     }
   })
+  // Lodash is a bit of a pain to reuse sorts for nested entities ¯\_(ツ)_/¯
+  const sortedMetricAssignmentSummaryData = _.orderBy(metricAssignmentSummaryData, ['metricAssignment.isPrimary', 'metricAssignment.metricAssignmentId'], ['desc', 'asc'])
+
   const tableColumns = [
     {
       title: 'Metric',
@@ -108,7 +113,8 @@ export default function CondensedLatestAnalyses({
       },
     },
   ]
-  const detailPanel = [
+
+  const DetailPanel = [
     ({ analysis, recommendationConflict }: { analysis?: Analysis; recommendationConflict?: boolean }) => {
       return {
         render: () => analysis && <AnalysisDetailPanel analysis={analysis} experiment={experiment} />,
@@ -116,12 +122,13 @@ export default function CondensedLatestAnalyses({
       }
     },
   ]
+
   return (
     <div className={classes.root}>
       <MaterialTable
         columns={tableColumns}
-        data={resultSummaries}
-        options={createStaticTableOptions(resultSummaries.length)}
+        data={sortedMetricAssignmentSummaryData}
+        options={createStaticTableOptions(sortedMetricAssignmentSummaryData.length)}
         onRowClick={(_event, rowData, togglePanel) => {
           const { analysis, recommendationConflict } = rowData as {
             analysis?: Analysis
@@ -131,7 +138,7 @@ export default function CondensedLatestAnalyses({
             togglePanel()
           }
         }}
-        detailPanel={detailPanel}
+        detailPanel={DetailPanel}
       />
     </div>
   )
