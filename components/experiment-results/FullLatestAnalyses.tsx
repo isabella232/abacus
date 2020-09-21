@@ -1,15 +1,15 @@
 import { Typography } from '@material-ui/core'
-import _ from 'lodash'
+import _, { last } from 'lodash'
 import MaterialTable from 'material-table'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import DatetimeText from '@/components/DatetimeText'
 import RecommendationString from '@/components/experiment-results/RecommendationString'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from '@/lib/analyses'
-import * as MetricAssignments from '@/lib/metric-assignments'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
-import { Analysis, ExperimentFull, MetricBare } from '@/lib/schemas'
+import { Analysis, ExperimentFull } from '@/lib/schemas'
 import { createStaticTableOptions } from '@/utils/material-table'
+
 import { MetricAssignmentAnalysesData } from './ExperimentResults'
 
 /**
@@ -22,14 +22,16 @@ export default function FullLatestAnalyses({
   experiment: ExperimentFull
   allMetricAssignmentAnalysesData: MetricAssignmentAnalysesData[]
 }) {
-  const metricAssignmentSummaries = allMetricAssignmentAnalysesData.map(({ metricAssignment, metric, analysesByStrategyDateAsc }) => { 
-    return {
-      metricAssignment,
-      metric,
-      analysesByStrategyDateAsc,
-      latestAnalyses: Object.values(analysesByStrategyDateAsc).map(_.last) as Analysis[],
-    }
-  })
+  const metricAssignmentSummaries = allMetricAssignmentAnalysesData.map(
+    ({ metricAssignment, metric, analysesByStrategyDateAsc }) => {
+      return {
+        metricAssignment,
+        metric,
+        analysesByStrategyDateAsc,
+        latestAnalyses: Object.values(analysesByStrategyDateAsc).map(last) as Analysis[],
+      }
+    },
+  )
 
   const tableColumns = [
     { title: 'Strategy', render: ({ analysisStrategy }: Analysis) => AnalysisStrategyToHuman[analysisStrategy] },

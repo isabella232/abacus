@@ -18,14 +18,13 @@ import React from 'react'
 import DatetimeText from '@/components/DatetimeText'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from '@/lib/analyses'
 import * as Experiments from '@/lib/experiments'
-import * as MetricAssignments from '@/lib/metric-assignments'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
 import { Analysis, ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
 
-import RecommendationString from './RecommendationString'
 import { MetricAssignmentAnalysesData } from './ExperimentResults'
+import RecommendationString from './RecommendationString'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,23 +58,26 @@ export default function CondensedLatestAnalyses({
   const defaultAnalysisStrategy = Experiments.getDefaultAnalysisStrategy(experiment)
 
   // When will the Javascript pipe operator ever arrive... :'(
-  const metricAssignmentSummaryData = allMetricAssignmentAnalysesData.map(({ metricAssignment, metric, analysesByStrategyDateAsc }) => { 
-    const recommendations = Object.values(analysesByStrategyDateAsc)
-      .map((analyses) => 
-        //  istanbul ignore next; We don't need to test empty analyses as we filter out all undefined values
-        _.last(analyses)?.recommendation
-      )
-      .filter(recommendation => !!recommendation)
-    const uniqueRecommendations = _.uniq(recommendations.map(recommendation => JSON.stringify(recommendation)))
+  const metricAssignmentSummaryData = allMetricAssignmentAnalysesData.map(
+    ({ metricAssignment, metric, analysesByStrategyDateAsc }) => {
+      const recommendations = Object.values(analysesByStrategyDateAsc)
+        .map(
+          (analyses) =>
+            //  istanbul ignore next; We don't need to test empty analyses as we filter out all undefined values
+            _.last(analyses)?.recommendation,
+        )
+        .filter((recommendation) => !!recommendation)
+      const uniqueRecommendations = _.uniq(recommendations.map((recommendation) => JSON.stringify(recommendation)))
 
-    return {
-      metricAssignment,
-      metric,
-      analysesByStrategyDateAsc,
-      latestDefaultAnalysis: _.last(analysesByStrategyDateAsc[defaultAnalysisStrategy]),
-      recommendationConflict: uniqueRecommendations.length > 1,
-    }
-  })
+      return {
+        metricAssignment,
+        metric,
+        analysesByStrategyDateAsc,
+        latestDefaultAnalysis: _.last(analysesByStrategyDateAsc[defaultAnalysisStrategy]),
+        recommendationConflict: uniqueRecommendations.length > 1,
+      }
+    },
+  )
 
   const tableColumns = [
     {
@@ -103,7 +105,13 @@ export default function CondensedLatestAnalyses({
     },
     {
       title: 'Recommendation',
-      render: ({ latestDefaultAnalysis, recommendationConflict }: { latestDefaultAnalysis?: Analysis; recommendationConflict?: boolean }) => {
+      render: ({
+        latestDefaultAnalysis,
+        recommendationConflict,
+      }: {
+        latestDefaultAnalysis?: Analysis
+        recommendationConflict?: boolean
+      }) => {
         if (recommendationConflict) {
           return <>Manual analysis required</>
         }
@@ -119,9 +127,18 @@ export default function CondensedLatestAnalyses({
   ]
 
   const DetailPanel = [
-    ({ latestDefaultAnalysis, recommendationConflict }: { latestDefaultAnalysis?: Analysis; recommendationConflict?: boolean }) => {
+    ({
+      latestDefaultAnalysis,
+      recommendationConflict,
+    }: {
+      latestDefaultAnalysis?: Analysis
+      recommendationConflict?: boolean
+    }) => {
       return {
-        render: () => latestDefaultAnalysis && <AnalysisDetailPanel latestDefaultAnalysis={latestDefaultAnalysis} experiment={experiment} />,
+        render: () =>
+          latestDefaultAnalysis && (
+            <AnalysisDetailPanel latestDefaultAnalysis={latestDefaultAnalysis} experiment={experiment} />
+          ),
         disabled: !latestDefaultAnalysis || recommendationConflict,
       }
     },
@@ -165,7 +182,13 @@ const useAnalysisDetailStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-function AnalysisDetailPanel({ latestDefaultAnalysis, experiment }: { latestDefaultAnalysis: Analysis; experiment: ExperimentFull }) {
+function AnalysisDetailPanel({
+  latestDefaultAnalysis,
+  experiment,
+}: {
+  latestDefaultAnalysis: Analysis
+  experiment: ExperimentFull
+}) {
   const classes = useAnalysisDetailStyles()
 
   return (
@@ -184,14 +207,17 @@ function AnalysisDetailPanel({ latestDefaultAnalysis, experiment }: { latestDefa
             <TableCell component='th' scope='row' variant='head'>
               Analysis strategy
             </TableCell>
-            <TableCell className={classes.dataCell}>{AnalysisStrategyToHuman[latestDefaultAnalysis.analysisStrategy]}</TableCell>
+            <TableCell className={classes.dataCell}>
+              {AnalysisStrategyToHuman[latestDefaultAnalysis.analysisStrategy]}
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell component='th' scope='row' variant='head'>
               Analyzed participants
             </TableCell>
             <TableCell className={classes.dataCell}>
-              {latestDefaultAnalysis.participantStats.total} ({latestDefaultAnalysis.participantStats.not_final} not final
+              {latestDefaultAnalysis.participantStats.total} ({latestDefaultAnalysis.participantStats.not_final} not
+              final
               {Variations.sort(experiment.variations).map(({ variationId, name }) => (
                 <span key={variationId}>
                   ; {latestDefaultAnalysis.participantStats[`variation_${variationId}`]} in {name}
@@ -207,7 +233,8 @@ function AnalysisDetailPanel({ latestDefaultAnalysis, experiment }: { latestDefa
                   Difference interval
                 </TableCell>
                 <TableCell className={classes.dataCell}>
-                  [{_.round(latestDefaultAnalysis.metricEstimates.diff.bottom, 4)}, {_.round(latestDefaultAnalysis.metricEstimates.diff.top, 4)}]
+                  [{_.round(latestDefaultAnalysis.metricEstimates.diff.bottom, 4)},{' '}
+                  {_.round(latestDefaultAnalysis.metricEstimates.diff.top, 4)}]
                 </TableCell>
               </TableRow>
               {latestDefaultAnalysis.recommendation.warnings.length > 0 && (

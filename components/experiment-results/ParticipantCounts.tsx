@@ -1,11 +1,12 @@
+import { last } from 'lodash'
 import MaterialTable from 'material-table'
 import React from 'react'
-import _ from 'lodash'
 
 import { AnalysisStrategyToHuman } from '@/lib/analyses'
 import { Analysis, ExperimentFull } from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
+
 import { MetricAssignmentAnalysesData } from './ExperimentResults'
 
 /**
@@ -16,9 +17,11 @@ export default function ParticipantCounts({
   primaryMetricAssignmentAnalysesData,
 }: {
   experiment: ExperimentFull
-  primaryMetricAssignmentAnalysesData: MetricAssignmentAnalysesData,
+  primaryMetricAssignmentAnalysesData: MetricAssignmentAnalysesData
 }) {
-  const latestPrimaryMetricAnalyses = Object.values(primaryMetricAssignmentAnalysesData.analysesByStrategyDateAsc).map(_.last) as Analysis[]
+  const latestPrimaryMetricAnalyses = Object.values(primaryMetricAssignmentAnalysesData.analysesByStrategyDateAsc).map(
+    last,
+  ) as Analysis[]
 
   const tableColumns = [
     { title: 'Strategy', render: ({ analysisStrategy }: Analysis) => AnalysisStrategyToHuman[analysisStrategy] },
