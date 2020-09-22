@@ -2,11 +2,11 @@ import { AppBar, Container, Theme, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 
 import { isTestingProductionConfigInDevelopment } from '@/config'
 import { isDebugMode, toggleDebugMode } from '@/utils/general'
-import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
