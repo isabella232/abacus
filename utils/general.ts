@@ -16,5 +16,10 @@ export function createUnresolvingPromise<T>() {
 }
 
 export function isDebugMode() {
+  // NextJS SSR...
+  if (typeof localStorage === 'undefined') {
+    return false
+  }
+
   return localStorage.getItem('abacus-debug-mode') === 'true'
 }
