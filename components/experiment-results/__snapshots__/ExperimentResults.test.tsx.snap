@@ -440,7 +440,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
               "color": "444",
             },
             "mode": "lines",
-            "name": "Lower Bound: test",
+            "name": "test: lower bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -459,7 +459,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
               "color": "444",
             },
             "mode": "lines",
-            "name": "Upper Bound: test",
+            "name": "test: upper bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -476,7 +476,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
               "color": "444",
             },
             "mode": "lines",
-            "name": "Lower Bound: control",
+            "name": "control: lower bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -495,7 +495,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
               "color": "444",
             },
             "mode": "lines",
-            "name": "Upper Bound: control",
+            "name": "control: upper bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -520,7 +520,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
           "showlegend": false,
           "title": "Variation Credible Intervals",
           "yaxis": Object {
-            "title": "Metric Estimates",
+            "title": "Metric Estimates (x100 %)",
           },
         },
         "style": Object {
@@ -543,7 +543,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
               "color": "444",
             },
             "mode": "lines",
-            "name": "Lower Bound: Difference",
+            "name": "difference: lower bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -562,7 +562,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
               "color": "444",
             },
             "mode": "lines",
-            "name": "Upper Bound: Difference",
+            "name": "difference: upper bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -574,24 +574,10 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
           Object {
             "line": Object {
               "color": "rgba(0,0,0,.4)",
-            },
-            "mode": "lines",
-            "name": "Zero Difference",
-            "type": "scatter",
-            "x": Array [
-              "2020-05-10T00:00:00.000Z",
-            ],
-            "y": Array [
-              0,
-            ],
-          },
-          Object {
-            "line": Object {
-              "color": "rgba(0,0,0,.4)",
               "dash": "dash",
             },
             "mode": "lines",
-            "name": "Lower Bound: No Difference",
+            "name": "ROPE: lower bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -606,7 +592,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
               "dash": "dash",
             },
             "mode": "lines",
-            "name": "Upper Bound: No Difference",
+            "name": "ROPE: upper bound",
             "type": "scatter",
             "x": Array [
               "2020-05-10T00:00:00.000Z",
@@ -631,7 +617,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 3`] = 
           "showlegend": false,
           "title": "Difference Credible Interval",
           "yaxis": Object {
-            "title": "Difference Estimate",
+            "title": "Difference Estimate (x100 %)",
           },
         },
         "style": Object {
