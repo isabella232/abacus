@@ -21,7 +21,14 @@ import DatetimeText from '@/components/DatetimeText'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from '@/lib/analyses'
 import * as Experiments from '@/lib/experiments'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
-import { Analysis, AnalysisStrategy, ExperimentFull, MetricAssignment, MetricBare, MetricParameterType } from '@/lib/schemas'
+import {
+  Analysis,
+  AnalysisStrategy,
+  ExperimentFull,
+  MetricAssignment,
+  MetricBare,
+  MetricParameterType,
+} from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
 
@@ -139,7 +146,7 @@ export default function CondensedLatestAnalyses({
       analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
       latestDefaultAnalysis?: Analysis
       metricAssignment: MetricAssignment
-      metric: MetricBare,
+      metric: MetricBare
       recommendationConflict?: boolean
     }) => {
       return {
