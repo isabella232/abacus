@@ -237,7 +237,7 @@ function AnalysisDetailPanel({
   const dates = analyses.map(({ analysisDatetime }) => analysisDatetime.toISOString())
 
   const plotlyDataVariationGraph: Array<Partial<PlotData>> = [
-    ...experiment.variations.flatMap((variation, index) => {
+    ..._.flatMap(experiment.variations, (variation, index) => {
       const variationKey = `variation_${variation.variationId}`
       return [
         {
