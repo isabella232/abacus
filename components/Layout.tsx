@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React, { ReactNode } from 'react'
 
 import { isTestingProductionConfigInDevelopment } from '@/config'
+import { isDebugMode } from '@/utils/general'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,6 +19,15 @@ const useStyles = makeStyles((theme: Theme) =>
       flexStretch: 0,
       padding: theme.spacing(1, 0),
       background: theme.palette.error.light,
+      color: theme.palette.error.contrastText,
+      textTransform: 'uppercase',
+      textAlign: 'center',
+    },
+
+    debugModeBar: {
+      flexStretch: 0,
+      padding: theme.spacing(1, 0),
+      background: '#232323bf',
       color: theme.palette.error.contrastText,
       textTransform: 'uppercase',
       textAlign: 'center',
@@ -90,6 +100,14 @@ const Layout = ({ title, headTitle, children }: { title?: string; headTitle?: st
           isTestingProductionConfigInDevelopment && (
             <div className={classes.productionConfigInDevelopmentBar}>
               <Typography variant='body1'> Using production config in development </Typography>
+            </div>
+          )
+        }
+        {
+          /* istanbul ignore next; Development mode only */
+          isDebugMode() && (
+            <div className={classes.debugModeBar}>
+              <Typography variant='body1'> Debug Mode </Typography>
             </div>
           )
         }
