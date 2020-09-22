@@ -154,7 +154,9 @@ const Layout = ({ title, headTitle, children }: { title?: string; headTitle?: st
       </Container>
       <footer className={classes.footer}>
         <Container>
-          <Typography variant='body1' onDoubleClick={onToggleDebugMode}>The Abacus footer. Brought to you by Automattic.</Typography>
+          <Typography variant='body1' onDoubleClick={onToggleDebugMode}>
+            The Abacus footer. Brought to you by Automattic.
+          </Typography>
         </Container>
       </footer>
     </div>
