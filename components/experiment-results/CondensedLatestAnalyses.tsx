@@ -234,7 +234,7 @@ function AnalysisDetailPanel({
       const variationKey = `variation_${variation.variationId}`
       return [
         {
-          name: `Lower Bound: ${variation.name}`,
+          name: `${variation.name}: lower bound`,
           x: dates,
           y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].bottom),
           line: { width: 0 },
@@ -243,7 +243,7 @@ function AnalysisDetailPanel({
           type: 'scatter' as 'scatter',
         },
         {
-          name: `Upper Bound: ${variation.name}`,
+          name: `${variation.name}: upper bound`,
           x: dates,
           y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top),
           fill: 'tonexty' as 'tonexty',
@@ -259,7 +259,7 @@ function AnalysisDetailPanel({
 
   const plotlyDataDifferenceGraph: Array<Partial<PlotData>> = [
     {
-      name: `Lower Bound: Difference`,
+      name: `difference: lower bound`,
       x: dates,
       y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].bottom),
       line: { width: 0 },
@@ -268,7 +268,7 @@ function AnalysisDetailPanel({
       type: 'scatter' as 'scatter',
     },
     {
-      name: `Upper Bound: Difference`,
+      name: `difference: upper bound`,
       x: dates,
       y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].top),
       fill: 'tonexty',
@@ -279,18 +279,7 @@ function AnalysisDetailPanel({
       type: 'scatter' as 'scatter',
     },
     {
-      // zero line
-      name: 'Zero Difference',
-      x: dates,
-      y: analyses.map((_) => 0),
-      line: {
-        color: 'rgba(0,0,0,.4)',
-      },
-      mode: 'lines' as 'lines',
-      type: 'scatter' as 'scatter',
-    },
-    {
-      name: 'Lower Bound: No Difference',
+      name: 'ROPE: lower bound',
       x: dates,
       y: analyses.map((_) => -metricAssignment.minDifference),
       line: {
@@ -301,7 +290,7 @@ function AnalysisDetailPanel({
       type: 'scatter' as 'scatter',
     },
     {
-      name: 'Upper Bound: No Difference',
+      name: 'ROPE: upper bound',
       x: dates,
       y: analyses.map((_) => metricAssignment.minDifference),
       line: {
