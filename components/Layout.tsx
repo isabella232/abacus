@@ -5,7 +5,8 @@ import Link from 'next/link'
 import React, { ReactNode } from 'react'
 
 import { isTestingProductionConfigInDevelopment } from '@/config'
-import { isDebugMode } from '@/utils/general'
+import { isDebugMode, toggleDebugMode } from '@/utils/general'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,6 +88,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Layout = ({ title, headTitle, children }: { title?: string; headTitle?: string; children?: ReactNode }) => {
   const classes = useStyles()
+  const router = useRouter()
+
+  // istanbul ignore next; debug mode only
+  const onToggleDebugMode = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    if (e.shiftKey) {
+      toggleDebugMode()
+      router.reload()
+    }
+  }
+
   return (
     <div className={classes.root}>
       <Head>
@@ -143,7 +154,7 @@ const Layout = ({ title, headTitle, children }: { title?: string; headTitle?: st
       </Container>
       <footer className={classes.footer}>
         <Container>
-          <Typography variant='body1'>The Abacus footer. Brought to you by Automattic.</Typography>
+          <Typography variant='body1' onDoubleClick={onToggleDebugMode}>The Abacus footer. Brought to you by Automattic.</Typography>
         </Container>
       </footer>
     </div>

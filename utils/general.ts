@@ -15,11 +15,23 @@ export function createUnresolvingPromise<T>() {
   return new Promise<T>(() => null)
 }
 
+const debugModeLocalStorageKey = 'abacus-debug-mode'
+
+// istanbul ignore next; Debug only
 export function isDebugMode() {
   // NextJS SSR...
   if (typeof localStorage === 'undefined') {
     return false
   }
 
-  return localStorage.getItem('abacus-debug-mode') === 'true'
+  return localStorage.getItem(debugModeLocalStorageKey) === 'true'
+}
+
+// istanbul ignore next; Debug only
+export function toggleDebugMode() {
+  if (localStorage.getItem(debugModeLocalStorageKey) === 'true') {
+    localStorage.removeItem(debugModeLocalStorageKey)
+  } else {
+    localStorage.setItem(debugModeLocalStorageKey, 'true')
+  }
 }
