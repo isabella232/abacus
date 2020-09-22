@@ -22,6 +22,7 @@ import MetricsTable from '@/components/MetricsTable'
 import { MetricFormData } from '@/lib/form-data'
 import { MetricParameterType } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
+import { isDebugMode } from '@/utils/general'
 
 const debug = debugFactory('abacus:pages/metrics/index.tsx')
 
@@ -42,8 +43,7 @@ const MetricsIndexPage = () => {
   const { isLoading, data: metrics, error } = useDataSource(() => MetricsApi.findAll(), [])
   useDataLoadingError(error, 'Metrics')
 
-  const router = useRouter()
-  const debugMode = router.query.debug === 'true'
+  const debugMode = isDebugMode()
 
   const { enqueueSnackbar } = useSnackbar()
 

@@ -14,3 +14,7 @@ export function or(...xs: unknown[]) {
 export function createUnresolvingPromise<T>() {
   return new Promise<T>(() => null)
 }
+
+export function isDebugMode() {
+  return localStorage.getItem('abacus-debug-mode') === 'true'
+}
