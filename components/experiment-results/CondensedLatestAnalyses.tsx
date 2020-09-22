@@ -13,6 +13,7 @@ import {
 import clsx from 'clsx'
 import _ from 'lodash'
 import MaterialTable from 'material-table'
+import { PlotData } from 'plotly.js'
 import React from 'react'
 import Plot from 'react-plotly.js'
 
@@ -136,13 +137,15 @@ export default function CondensedLatestAnalyses({
     }: {
       analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
       latestDefaultAnalysis?: Analysis
-      metricAssignment: MetricAssignment,
+      metricAssignment: MetricAssignment
       recommendationConflict?: boolean
     }) => {
       return {
         render: () =>
           latestDefaultAnalysis && (
-            <AnalysisDetailPanel {...{ analysesByStrategyDateAsc, latestDefaultAnalysis, metricAssignment, experiment }}/>
+            <AnalysisDetailPanel
+              {...{ analysesByStrategyDateAsc, latestDefaultAnalysis, metricAssignment, experiment }}
+            />
           ),
         disabled: !latestDefaultAnalysis || recommendationConflict,
       }
@@ -192,7 +195,7 @@ const useAnalysisDetailStyles = makeStyles((theme: Theme) =>
     plot: {
       width: `calc(50% - ${theme.spacing(1)}px)`,
       height: 400,
-    }
+    },
   }),
 )
 
@@ -213,15 +216,15 @@ function AnalysisDetailPanel({
   // We hand out colors based on the order of the variant.
   // Control and Treatment should have a consistent order even across experiments so this should give good results.
   // Ideally we would add some marker to differentiate control variants
-  // 
+  //
   // These come from a data pallete generator and should be visually equidistant.
   const variantColors = ['rgba(71, 27, 92, .3)', 'rgba(205, 112, 85, .3)']
 
   const strategy = Experiments.getDefaultAnalysisStrategy(experiment)
   const analyses = analysesByStrategyDateAsc[strategy]
-  const dates = analyses.map(({ analysisDatetime })=> analysisDatetime.toISOString())
+  const dates = analyses.map(({ analysisDatetime }) => analysisDatetime.toISOString())
 
-  const plotlyDataVariationGraph = [
+  const plotlyDataVariationGraph: Array<Partial<PlotData>> = [
     ...experiment.variations.flatMap((variation, index) => {
       const variationKey = `variation_${variation.variationId}`
       return [
@@ -230,82 +233,82 @@ function AnalysisDetailPanel({
           x: dates,
           y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].bottom),
           line: { width: 0 },
-          marker: { color: "444" },
-          mode: "lines",
-          type: 'scatter',
+          marker: { color: '444' },
+          mode: 'lines' as 'lines',
+          type: 'scatter' as 'scatter',
         },
         {
           name: `Upper Bound: ${variation.name}`,
           x: dates,
           y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top),
-          fill: "tonexty", 
-          fillcolor: variantColors[index], 
-          line: {width: 0}, 
-          marker: {color: "444"}, 
-          mode: "lines", 
-          type: "scatter"
-        }
+          fill: 'tonexty' as 'tonexty',
+          fillcolor: variantColors[index],
+          line: { width: 0 },
+          marker: { color: '444' },
+          mode: 'lines' as 'lines',
+          type: 'scatter' as 'scatter',
+        },
       ]
-    })
+    }),
   ]
 
-  const plotlyDataDifferenceGraph = [
+  const plotlyDataDifferenceGraph: Array<Partial<PlotData>> = [
     {
       name: `Lower Bound: Difference`,
       x: dates,
       y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].bottom),
       line: { width: 0 },
-      marker: { color: "444" },
-      mode: "lines",
-      type: 'scatter',
+      marker: { color: '444' },
+      mode: 'lines' as 'lines',
+      type: 'scatter' as 'scatter',
     },
     {
       name: `Upper Bound: Difference`,
       x: dates,
       y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].top),
-      fill: "tonexty",
+      fill: 'tonexty',
       fillcolor: 'rgba(0,0,0,.2)',
       line: { width: 0 },
-      marker: { color: "444" },
-      mode: "lines",
-      type: "scatter"
+      marker: { color: '444' },
+      mode: 'lines' as 'lines',
+      type: 'scatter' as 'scatter',
     },
     {
       // zero line
       name: 'Zero Difference',
       x: dates,
-      y: analyses.map(_ => 0),
+      y: analyses.map((_) => 0),
       line: {
         color: 'rgba(0,0,0,.4)',
       },
-      mode: 'lines',
-      type: 'scatter', 
+      mode: 'lines' as 'lines',
+      type: 'scatter' as 'scatter',
     },
     {
       name: 'Lower Bound: No Difference',
       x: dates,
-      y: analyses.map(_ => -metricAssignment.minDifference),
+      y: analyses.map((_) => -metricAssignment.minDifference),
       line: {
         color: 'rgba(0,0,0,.4)',
         dash: 'dash',
       },
-      mode: 'lines',
-      type: 'scatter', 
+      mode: 'lines' as 'lines',
+      type: 'scatter' as 'scatter',
     },
     {
       name: 'Upper Bound: No Difference',
       x: dates,
-      y: analyses.map(_ => metricAssignment.minDifference),
+      y: analyses.map((_) => metricAssignment.minDifference),
       line: {
         color: 'rgba(0,0,0,.4)',
         dash: 'dash',
       },
-      mode: 'lines',
-      type: 'scatter', 
-    }
+      mode: 'lines' as 'lines',
+      type: 'scatter' as 'scatter',
+    },
   ]
 
-  const plotlyLayoutDefault = { 
+  const plotlyLayoutDefault = {
     autosize: true,
     margin: {
       l: theme.spacing(10),
@@ -317,7 +320,7 @@ function AnalysisDetailPanel({
     hoverlabel: {
       // Don't restrict name lengths
       namelength: -1,
-    }
+    },
   }
 
   return (
