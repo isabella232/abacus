@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export enum ExperimentView {
   Overview = 'overview',
   Results = 'results',
+  Debug = 'debug',
   CodeSetup = 'code-setup',
 }
 
@@ -163,6 +164,14 @@ export default function ExperimentPageView({
               component={NextMuiLink}
               href='/experiments/[id]/results'
               hrefAs={`/experiments/${experimentId}/results`}
+            />
+            <Tab
+              className={classes.topBarTab}
+              label='Debug'
+              value={ExperimentView.Debug}
+              component={NextMuiLink}
+              href='/experiments/[id]/debug'
+              hrefAs={`/experiments/${experimentId}/debug`}
             />
             <Tab
               className={classes.topBarTab}
