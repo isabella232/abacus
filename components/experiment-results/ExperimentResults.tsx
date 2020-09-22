@@ -1,15 +1,11 @@
 import _ from 'lodash'
 import React from 'react'
 
-import DebugOutput from '@/components/DebugOutput'
-import * as Experiments from '@/lib/experiments'
 import * as MetricAssignments from '@/lib/metric-assignments'
 import { indexMetrics } from '@/lib/normalizers'
 import { Analysis, AnalysisStrategy, ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
 
 import CondensedLatestAnalyses from './CondensedLatestAnalyses'
-import FullLatestAnalyses from './FullLatestAnalyses'
-import ParticipantCounts from './ParticipantCounts'
 
 export type MetricAssignmentAnalysesData = {
   metricAssignment: MetricAssignment

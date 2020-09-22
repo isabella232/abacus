@@ -5,11 +5,11 @@ import DebugOutput from '@/components/DebugOutput'
 import * as Experiments from '@/lib/experiments'
 import * as MetricAssignments from '@/lib/metric-assignments'
 import { indexMetrics } from '@/lib/normalizers'
-import { Analysis, AnalysisStrategy, ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
+import { Analysis, AnalysisStrategy, ExperimentFull, MetricBare } from '@/lib/schemas'
 
+import { MetricAssignmentAnalysesData } from './ExperimentResults'
 import FullLatestAnalyses from './FullLatestAnalyses'
 import ParticipantCounts from './ParticipantCounts'
-import { MetricAssignmentAnalysesData } from './ExperimentResults'
 
 /**
  * Main component for summarizing experiment results.
@@ -18,7 +18,6 @@ export default function ExperimentDebug({
   analyses,
   experiment,
   metrics,
-  debugMode,
 }: {
   analyses: Analysis[]
   experiment: ExperimentFull
@@ -67,10 +66,7 @@ export default function ExperimentDebug({
 
       <div className='analysis-latest-results'>
         <h3>Latest results by metric</h3>
-        <FullLatestAnalyses
-          experiment={experiment}
-          allMetricAssignmentAnalysesData={allMetricAssignmentAnalysesData}
-        />
+        <FullLatestAnalyses experiment={experiment} allMetricAssignmentAnalysesData={allMetricAssignmentAnalysesData} />
       </div>
 
       <p>Found {analyses.length} analysis objects in total.</p>

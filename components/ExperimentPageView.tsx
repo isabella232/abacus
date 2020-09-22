@@ -28,8 +28,8 @@ import { Analysis, ExperimentFull, Status } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, isDebugMode, or } from '@/utils/general'
 
-import ExperimentRunButton from './ExperimentRunButton'
 import ExperimentDebug from './experiment-results/ExperimentDebug'
+import ExperimentRunButton from './ExperimentRunButton'
 
 const NextMuiLink = React.forwardRef(
   // istanbul ignore next; Just the trivial className = undefined path that is missing
@@ -209,7 +209,9 @@ export default function ExperimentPageView({
               <ExperimentDetails {...{ experiment, metrics, segments, experimentReloadRef }} />
             )}
             {view === ExperimentView.Results && <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />}
-            {view === ExperimentView.Debug && isDebugMode && <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />}
+            {view === ExperimentView.Debug && isDebugMode && (
+              <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />
+            )}
             {view === ExperimentView.CodeSetup && <ExperimentCodeSetup />}
           </>
         )}
