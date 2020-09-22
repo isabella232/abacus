@@ -21,7 +21,7 @@ import DatetimeText from '@/components/DatetimeText'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from '@/lib/analyses'
 import * as Experiments from '@/lib/experiments'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
-import { Analysis, AnalysisStrategy, ExperimentFull, MetricAssignment, MetricBare } from '@/lib/schemas'
+import { Analysis, AnalysisStrategy, ExperimentFull, MetricAssignment, MetricBare, MetricParameterType } from '@/lib/schemas'
 import * as Variations from '@/lib/variations'
 import { createStaticTableOptions } from '@/utils/material-table'
 
@@ -133,18 +133,20 @@ export default function CondensedLatestAnalyses({
       analysesByStrategyDateAsc,
       latestDefaultAnalysis,
       metricAssignment,
+      metric,
       recommendationConflict,
     }: {
       analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
       latestDefaultAnalysis?: Analysis
       metricAssignment: MetricAssignment
+      metric: MetricBare,
       recommendationConflict?: boolean
     }) => {
       return {
         render: () =>
           latestDefaultAnalysis && (
             <AnalysisDetailPanel
-              {...{ analysesByStrategyDateAsc, latestDefaultAnalysis, metricAssignment, experiment }}
+              {...{ analysesByStrategyDateAsc, latestDefaultAnalysis, metricAssignment, metric, experiment }}
             />
           ),
         disabled: !latestDefaultAnalysis || recommendationConflict,
@@ -202,11 +204,13 @@ const useAnalysisDetailStyles = makeStyles((theme: Theme) =>
 function AnalysisDetailPanel({
   latestDefaultAnalysis,
   metricAssignment,
+  metric,
   analysesByStrategyDateAsc,
   experiment,
 }: {
   latestDefaultAnalysis: Analysis
   metricAssignment: MetricAssignment
+  metric: MetricBare
   analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
   experiment: ExperimentFull
 }) {
@@ -220,6 +224,7 @@ function AnalysisDetailPanel({
   // These come from a data pallete generator and should be visually equidistant.
   const variantColors = ['rgba(71, 27, 92, .3)', 'rgba(205, 112, 85, .3)']
 
+  const unit = metric.parameterType === MetricParameterType.Conversion ? 'x100 %' : '$'
   const strategy = Experiments.getDefaultAnalysisStrategy(experiment)
   const analyses = analysesByStrategyDateAsc[strategy]
   const dates = analyses.map(({ analysisDatetime }) => analysisDatetime.toISOString())
@@ -390,7 +395,7 @@ function AnalysisDetailPanel({
           layout={{
             ...plotlyLayoutDefault,
             title: `Variation Credible Intervals`,
-            yaxis: { title: 'Metric Estimates' },
+            yaxis: { title: `Metric Estimates (${unit})` },
           }}
           data={plotlyDataVariationGraph}
           className={classes.plot}
@@ -399,7 +404,7 @@ function AnalysisDetailPanel({
           layout={{
             ...plotlyLayoutDefault,
             title: `Difference Credible Interval`,
-            yaxis: { title: 'Difference Estimate' },
+            yaxis: { title: `Difference Estimate (${unit})` },
           }}
           data={plotlyDataDifferenceGraph}
           className={classes.plot}
