@@ -231,7 +231,11 @@ function AnalysisDetailPanel({
   // These come from a data pallete generator and should be visually equidistant.
   const variantColors = ['rgba(71, 27, 92, .3)', 'rgba(205, 112, 85, .3)']
 
-  const unit = metric.parameterType === MetricParameterType.Conversion ? 'x100 %' : '$'
+
+  const isConversion = metric.parameterType === MetricParameterType.Conversion
+  const estimateTransform: ((estimate: number | null) => number | null) 
+    = isConversion ? (estimate: number | null) => (estimate && estimate * 100) : _.identity
+  const unit = isConversion ? '%' : '$'
   const strategy = Experiments.getDefaultAnalysisStrategy(experiment)
   const analyses = analysesByStrategyDateAsc[strategy]
   const dates = analyses.map(({ analysisDatetime }) => analysisDatetime.toISOString())
@@ -243,7 +247,7 @@ function AnalysisDetailPanel({
         {
           name: `${variation.name}: lower bound`,
           x: dates,
-          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].bottom),
+          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].bottom).map(estimateTransform),
           line: { width: 0 },
           marker: { color: '444' },
           mode: 'lines' as 'lines',
@@ -252,7 +256,7 @@ function AnalysisDetailPanel({
         {
           name: `${variation.name}: upper bound`,
           x: dates,
-          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top),
+          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top).map(estimateTransform),
           fill: 'tonexty' as 'tonexty',
           fillcolor: variantColors[index],
           line: { width: 0 },
@@ -268,7 +272,7 @@ function AnalysisDetailPanel({
     {
       name: `difference: lower bound`,
       x: dates,
-      y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].bottom),
+      y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].bottom).map(estimateTransform),
       line: { width: 0 },
       marker: { color: '444' },
       mode: 'lines' as 'lines',
@@ -277,7 +281,7 @@ function AnalysisDetailPanel({
     {
       name: `difference: upper bound`,
       x: dates,
-      y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].top),
+      y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].top).map(estimateTransform),
       fill: 'tonexty',
       fillcolor: 'rgba(0,0,0,.2)',
       line: { width: 0 },
@@ -288,7 +292,7 @@ function AnalysisDetailPanel({
     {
       name: 'ROPE: lower bound',
       x: dates,
-      y: analyses.map((_) => -metricAssignment.minDifference),
+      y: analyses.map((_) => -metricAssignment.minDifference).map(estimateTransform),
       line: {
         color: 'rgba(0,0,0,.4)',
         dash: 'dash',
@@ -299,7 +303,7 @@ function AnalysisDetailPanel({
     {
       name: 'ROPE: upper bound',
       x: dates,
-      y: analyses.map((_) => metricAssignment.minDifference),
+      y: analyses.map((_) => metricAssignment.minDifference).map(estimateTransform),
       line: {
         color: 'rgba(0,0,0,.4)',
         dash: 'dash',
