@@ -168,7 +168,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 1`] = 
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
                     >
-                      4 weeks
+                      1 hour
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -221,7 +221,7 @@ exports[`renders the condensed table with some analyses in non-debug mode 1`] = 
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
                     >
-                      1 hour
+                      4 weeks
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
