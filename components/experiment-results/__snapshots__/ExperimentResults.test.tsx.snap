@@ -434,10 +434,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
         "data": Array [
           Object {
             "line": Object {
-              "color": "rgba(71, 27, 92, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#1f78b488",
             },
             "mode": "lines",
             "name": "test: lower bound",
@@ -451,10 +448,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           Object {
             "line": Object {
-              "color": "rgba(71, 27, 92, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#1f78b488",
             },
             "mode": "lines",
             "name": "test: upper bound",
@@ -468,10 +462,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           Object {
             "line": Object {
-              "color": "rgba(205, 112, 85, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#ff7f0088",
             },
             "mode": "lines",
             "name": "control: lower bound",
@@ -485,10 +476,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           Object {
             "line": Object {
-              "color": "rgba(205, 112, 85, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#ff7f0088",
             },
             "mode": "lines",
             "name": "control: upper bound",
@@ -1066,10 +1054,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
         "data": Array [
           Object {
             "line": Object {
-              "color": "rgba(71, 27, 92, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#1f78b488",
             },
             "mode": "lines",
             "name": "test: lower bound",
@@ -1083,10 +1068,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           Object {
             "line": Object {
-              "color": "rgba(71, 27, 92, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#1f78b488",
             },
             "mode": "lines",
             "name": "test: upper bound",
@@ -1100,10 +1082,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           Object {
             "line": Object {
-              "color": "rgba(205, 112, 85, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#ff7f0088",
             },
             "mode": "lines",
             "name": "control: lower bound",
@@ -1117,10 +1096,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           Object {
             "line": Object {
-              "color": "rgba(205, 112, 85, .3)",
-            },
-            "marker": Object {
-              "color": "444",
+              "color": "#ff7f0088",
             },
             "mode": "lines",
             "name": "control: upper bound",
