@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@material-ui/core'
 import clsx from 'clsx'
-import _ from 'lodash'
+import _, { identity } from 'lodash'
 import MaterialTable from 'material-table'
 import { PlotData } from 'plotly.js'
 import React from 'react'
@@ -234,8 +234,7 @@ function AnalysisDetailPanel({
   const isConversion = metric.parameterType === MetricParameterType.Conversion
   const estimateTransform: (estimate: number | null) => number | null = isConversion
     ? (estimate: number | null) => estimate && estimate * 100
-    : _.identity
-  const unit = isConversion ? '%' : '$'
+    : identity
   const strategy = Experiments.getDefaultAnalysisStrategy(experiment)
   const analyses = analysesByStrategyDateAsc[strategy]
   const dates = analyses.map(({ analysisDatetime }) => analysisDatetime.toISOString())
