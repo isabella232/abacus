@@ -5,6 +5,8 @@ import { Field, useField } from 'formik'
 import { TextField } from 'formik-material-ui'
 import React from 'react'
 
+import { getUserCompletions } from '@/api/AutocompleteApi'
+import Autocomplete from '@/components/Autocomplete'
 import {
   MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS,
   MAX_DISTANCE_BETWEEN_START_AND_END_DATE_IN_MONTHS,
@@ -36,6 +38,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
+
+// allow the promise to be resolved exactly once
+const getUsers = async () => {
+  return (await getUserCompletions()).completions
+}
 
 const BasicInfo = () => {
   const classes = useStyles()
@@ -133,15 +140,16 @@ const BasicInfo = () => {
 
       <div className={classes.row}>
         <Field
-          component={TextField}
+          component={Autocomplete}
           name='experiment.ownerLogin'
           id='experiment.ownerLogin'
           label='Owner'
           placeholder='wp_username'
-          helperText='Use WordPress.com username.'
+          helpertext='Use WordPress.com username.'
           variant='outlined'
           fullWidth
           required
+          getCompletionData={getUsers}
           InputProps={{
             startAdornment: <InputAdornment position='start'>@</InputAdornment>,
           }}
