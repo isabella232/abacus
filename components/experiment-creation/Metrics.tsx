@@ -315,6 +315,7 @@ const Metrics = ({ indexedMetrics }: { indexedMetrics: Record<number, MetricBare
               props: [],
             })
           }
+
           return (
             <>
               <TableContainer>
@@ -324,13 +325,16 @@ const Metrics = ({ indexedMetrics }: { indexedMetrics: Record<number, MetricBare
                       const onRemoveExposureEvent = () => {
                         arrayHelpers.remove(index)
                       }
-
+                      console.log(exposureEvent)
+                        console.log(arrayHelpers)
+                        if(exposureEvent.event) {
+                        }
                       return (
                         <TableRow key={index}>
                           <TableCell>
                             <div className={classes.exposureEventsEventNameCell}>
                               <Field
-                                component={TextField}
+                                component={Autocomplete}
                                 name={`experiment.exposureEvents[${index}].event`}
                                 className={classes.exposureEventsEventName}
                                 id={`experiment.exposureEvents[${index}].event`}
@@ -338,12 +342,14 @@ const Metrics = ({ indexedMetrics }: { indexedMetrics: Record<number, MetricBare
                                 variant='outlined'
                                 placeholder='event_name'
                                 label='Event'
-                                inputProps={{
+                                freeSolo
+                                InputProps={{
                                   'aria-label': 'Event Name',
                                 }}
                                 InputLabelProps={{
                                   shrink: true,
                                 }}
+                                getCompletionData={getEvents}
                               />
                               <IconButton
                                 className={classes.exposureEventsEventRemoveButton}
