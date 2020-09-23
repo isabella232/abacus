@@ -229,7 +229,7 @@ function AnalysisDetailPanel({
   // Ideally we would add some marker to differentiate control variants
   //
   // These come from a data pallete generator and should be visually equidistant.
-  const variantColors = ['rgba(71, 27, 92, .3)', 'rgba(205, 112, 85, .3)']
+  const variantColors = ['#1f78b488', '#ff7f0088']
 
   const isConversion = metric.parameterType === MetricParameterType.Conversion
   const estimateTransform: (estimate: number | null) => number | null = isConversion
@@ -252,7 +252,6 @@ function AnalysisDetailPanel({
           line: {
             color: variantColors[index],
           },
-          marker: { color: '444' },
           mode: 'lines' as 'lines',
           type: 'scatter' as 'scatter',
         },
@@ -262,12 +261,9 @@ function AnalysisDetailPanel({
           y: analyses
             .map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top)
             .map(estimateTransform),
-          // fill: 'tonexty' as 'tonexty',
-          // fillcolor: variantColors[index],
           line: {
             color: variantColors[index],
           },
-          marker: { color: '444' },
           mode: 'lines' as 'lines',
           type: 'scatter' as 'scatter',
         },
