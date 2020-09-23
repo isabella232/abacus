@@ -13,7 +13,7 @@ import UnauthorizedError from './UnauthorizedError'
  *
  * @throws UnauthorizedError
  */
-async function fetchApi(method: string, path: string, body: unknown | null = null) {
+async function fetchApi<TReturn, TBody = {}>(method: string, path: string, body?: TBody) : Promise<TReturn> {
   /* istanbul ignore next; code branch not reachable in integration tests -- we don't hit production */
   const apiUrlRoot = config.experimentApi.rootUrl
 
@@ -54,9 +54,9 @@ async function fetchApi(method: string, path: string, body: unknown | null = nul
   // TODO: Should return the response object so the function calling can decide how to parse the result.
   const responseText = await response.text()
   if (responseText === '') {
-    return
+    return {} as TReturn
   }
-  return JSON.parse(responseText)
+  return JSON.parse(responseText) as TReturn
 }
 
 export { fetchApi }
