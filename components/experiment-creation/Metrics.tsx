@@ -18,12 +18,17 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Add, Clear } from '@material-ui/icons'
 import { Field, FieldArray, useField } from 'formik'
 import { Select, Switch, TextField } from 'formik-material-ui'
-import _ from 'lodash'
 import React, { useState } from 'react'
 
 import MoreMenu from '@/components/MoreMenu'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
 import { EventNew, MetricAssignment, MetricBare, MetricParameterType } from '@/lib/schemas'
+import {getEventNameCompletions} from "@/api/AutocompleteApi";
+import Autocomplete from "@/components/Autocomplete";
+
+const getEvents = async () => {
+    return (await getEventNameCompletions()).completions
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
