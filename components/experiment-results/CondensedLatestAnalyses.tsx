@@ -231,10 +231,10 @@ function AnalysisDetailPanel({
   // These come from a data pallete generator and should be visually equidistant.
   const variantColors = ['rgba(71, 27, 92, .3)', 'rgba(205, 112, 85, .3)']
 
-
   const isConversion = metric.parameterType === MetricParameterType.Conversion
-  const estimateTransform: ((estimate: number | null) => number | null) 
-    = isConversion ? (estimate: number | null) => (estimate && estimate * 100) : _.identity
+  const estimateTransform: (estimate: number | null) => number | null = isConversion
+    ? (estimate: number | null) => estimate && estimate * 100
+    : _.identity
   const unit = isConversion ? '%' : '$'
   const strategy = Experiments.getDefaultAnalysisStrategy(experiment)
   const analyses = analysesByStrategyDateAsc[strategy]
@@ -247,8 +247,12 @@ function AnalysisDetailPanel({
         {
           name: `${variation.name}: lower bound`,
           x: dates,
-          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].bottom).map(estimateTransform),
-          line: { width: 0 },
+          y: analyses
+            .map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].bottom)
+            .map(estimateTransform),
+          line: {
+            color: variantColors[index],
+          },
           marker: { color: '444' },
           mode: 'lines' as 'lines',
           type: 'scatter' as 'scatter',
@@ -256,10 +260,14 @@ function AnalysisDetailPanel({
         {
           name: `${variation.name}: upper bound`,
           x: dates,
-          y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top).map(estimateTransform),
-          fill: 'tonexty' as 'tonexty',
-          fillcolor: variantColors[index],
-          line: { width: 0 },
+          y: analyses
+            .map(({ metricEstimates }) => metricEstimates && metricEstimates[variationKey].top)
+            .map(estimateTransform),
+          // fill: 'tonexty' as 'tonexty',
+          // fillcolor: variantColors[index],
+          line: {
+            color: variantColors[index],
+          },
           marker: { color: '444' },
           mode: 'lines' as 'lines',
           type: 'scatter' as 'scatter',
@@ -272,7 +280,9 @@ function AnalysisDetailPanel({
     {
       name: `difference: lower bound`,
       x: dates,
-      y: analyses.map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].bottom).map(estimateTransform),
+      y: analyses
+        .map(({ metricEstimates }) => metricEstimates && metricEstimates['diff'].bottom)
+        .map(estimateTransform),
       line: { width: 0 },
       marker: { color: '444' },
       mode: 'lines' as 'lines',
@@ -316,7 +326,7 @@ function AnalysisDetailPanel({
   const plotlyLayoutDefault = {
     autosize: true,
     margin: {
-      l: theme.spacing(10),
+      l: theme.spacing(4),
       r: theme.spacing(2),
       t: theme.spacing(8),
       b: theme.spacing(6),
@@ -394,8 +404,7 @@ function AnalysisDetailPanel({
         <Plot
           layout={{
             ...plotlyLayoutDefault,
-            title: `Variation Credible Intervals`,
-            yaxis: { title: `Metric Estimates (${unit})` },
+            title: isConversion ? `Conversion rate estimates by variation [%]` : `Revenue estimates by variation [$]`,
           }}
           data={plotlyDataVariationGraph}
           className={classes.plot}
@@ -403,8 +412,7 @@ function AnalysisDetailPanel({
         <Plot
           layout={{
             ...plotlyLayoutDefault,
-            title: `Difference Credible Interval`,
-            yaxis: { title: `Difference Estimate (${unit})` },
+            title: isConversion ? `Conversation rate difference estimates [%]` : `Revenue difference estimates [$]`,
           }}
           data={plotlyDataDifferenceGraph}
           className={classes.plot}
