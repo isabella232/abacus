@@ -384,13 +384,13 @@ export const eventPropsSchema = yup.object({
 export type EventProp = yup.InferType<typeof eventPropsSchema>
 
 export const eventDetailsSchema = yup.object({
-  name: yup.string(),
-  description: yup.string(),
-  owner: yup.string(),
-  is_registered: yup.boolean(),
-  is_validated: yup.boolean(),
-  props: yup.array<EventProp>(eventPropsSchema),
-})
+  name: yup.string().defined(),
+  description: yup.string().defined(),
+  owner: yup.string().defined(),
+  is_registered: yup.boolean().defined(),
+  is_validated: yup.boolean().defined(),
+  props: yup.array<EventProp>(eventPropsSchema).defined(),
+}).defined()
 export type EventDetails = yup.InferType<typeof eventDetailsSchema>
 
 /**

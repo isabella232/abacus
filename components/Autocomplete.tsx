@@ -14,6 +14,7 @@ interface Props<
         FreeSolo extends boolean | undefined
     > extends AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> {
     getCompletionData: () => Promise<T[]>
+    reloadData: boolean
 }
 
 export default function Autocomplete<
@@ -21,10 +22,19 @@ export default function Autocomplete<
         Multiple extends boolean | undefined,
         DisableClearable extends boolean | undefined,
         FreeSolo extends boolean | undefined
-    >({getCompletionData, ...props}: Props<T, Multiple, DisableClearable, FreeSolo>) {
+    >({getCompletionData, reloadData, ...props}: Props<T, Multiple, DisableClearable, FreeSolo>) {
     const [open, setOpen] = useState(false)
     const [options, setOptions] = useState<T[]>([])
     const loading = open && options.length === 0
+
+    console.log('rendered', reloadData, options)
+
+    useEffect(() => {
+        if(reloadData) {
+            setOptions([])
+            console.log('cleared options')
+        }
+    }, [reloadData])
 
     useEffect(() => {
         let active = true
@@ -34,6 +44,7 @@ export default function Autocomplete<
 
         (async () => {
             const response = await getCompletionData()
+            console.table(response)
             if (active) {
                 setOptions(response)
             }
@@ -58,7 +69,7 @@ export default function Autocomplete<
         options={options}
         loading={loading}
         getOptionLabel={(option: AutocompleteItem | string) => typeof option === 'string' ? option : (option.name ?? "")}
-        getOptionSelected={(option, value) => option.value === value.value}
+        getOptionSelected={(option, value) => typeof value === 'string' ? value === option.value : option.value === value.value}
         renderInput={(params: AutocompleteRenderInputParams) => {
             return <TextField
                 {...params}

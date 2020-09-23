@@ -39,11 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-// allow the promise to be resolved exactly once
-const getUsers = async () => {
-  return (await getUserCompletions()).completions
-}
-
 const BasicInfo = () => {
   const classes = useStyles()
 
@@ -149,7 +144,7 @@ const BasicInfo = () => {
           variant='outlined'
           fullWidth
           required
-          getCompletionData={getUsers}
+          getCompletionData={getUserCompletions}
           InputProps={{
             startAdornment: <InputAdornment position='start'>@</InputAdornment>,
           }}

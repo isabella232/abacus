@@ -48,7 +48,7 @@ export const FormWithExistingExperiment = () => (
           ],
           metricAssignments: [],
           name: 'test_experiment',
-          ownerLogin: 'withinboredom',
+          ownerLogin: 'unknown',
           p2Url: 'http://example.com',
           platform: Platform.Wpcom,
           segmentAssignments: [],

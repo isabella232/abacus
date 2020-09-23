@@ -22,13 +22,18 @@ import React, { useState } from 'react'
 
 import MoreMenu from '@/components/MoreMenu'
 import { AttributionWindowSecondsToHuman } from '@/lib/metric-assignments'
-import { EventNew, MetricAssignment, MetricBare, MetricParameterType } from '@/lib/schemas'
-import {getEventNameCompletions} from "@/api/AutocompleteApi";
+import {
+    AutocompleteItem,
+    Autocompletions,
+    EventCompletions,
+    EventNew,
+    MetricAssignment,
+    MetricBare,
+    MetricParameterType
+} from '@/lib/schemas'
+import {getEventNameCompletions, getPropCompletions} from "@/api/AutocompleteApi";
 import Autocomplete from "@/components/Autocomplete";
-
-const getEvents = async () => {
-    return (await getEventNameCompletions()).completions
-}
+import ExposureEventEditor from "@/components/experiment-creation/ExposureEventEditor";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,23 +77,6 @@ const useStyles = makeStyles((theme: Theme) =>
     exposureEventsTitle: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(4),
-    },
-    exposureEventsEventNameCell: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    exposureEventsEventName: {
-      flexGrow: 1,
-    },
-    exposureEventsEventRemoveButton: {
-      marginLeft: theme.spacing(1),
-    },
-    exposureEventsEventPropertiesRow: {
-      marginTop: theme.spacing(3),
-      marginLeft: theme.spacing(3),
-    },
-    exposureEventsEventPropertiesKey: {
-      marginRight: theme.spacing(1),
     },
   }),
 )
@@ -325,124 +313,8 @@ const Metrics = ({ indexedMetrics }: { indexedMetrics: Record<number, MetricBare
                       const onRemoveExposureEvent = () => {
                         arrayHelpers.remove(index)
                       }
-                      console.log(exposureEvent)
-                        console.log(arrayHelpers)
-                        if(exposureEvent.event) {
-                        }
-                      return (
-                        <TableRow key={index}>
-                          <TableCell>
-                            <div className={classes.exposureEventsEventNameCell}>
-                              <Field
-                                component={Autocomplete}
-                                name={`experiment.exposureEvents[${index}].event`}
-                                className={classes.exposureEventsEventName}
-                                id={`experiment.exposureEvents[${index}].event`}
-                                type='text'
-                                variant='outlined'
-                                placeholder='event_name'
-                                label='Event'
-                                freeSolo
-                                InputProps={{
-                                  'aria-label': 'Event Name',
-                                }}
-                                InputLabelProps={{
-                                  shrink: true,
-                                }}
-                                getCompletionData={getEvents}
-                              />
-                              <IconButton
-                                className={classes.exposureEventsEventRemoveButton}
-                                onClick={onRemoveExposureEvent}
-                                aria-label='Remove exposure event'
-                              >
-                                <Clear />
-                              </IconButton>
-                            </div>
-                            <FieldArray
-                              name={`experiment.exposureEvents[${index}].props`}
-                              render={(arrayHelpers) => {
-                                const onAddExposureEventProperty = () => {
-                                  arrayHelpers.push({
-                                    key: '',
-                                    value: '',
-                                  })
-                                }
-
-                                return (
-                                  <div>
-                                    <div>
-                                      {exposureEvent.props &&
-                                        exposureEvent.props.map((_prop: unknown, propIndex: number) => {
-                                          const onRemoveExposureEventProperty = () => {
-                                            arrayHelpers.remove(propIndex)
-                                          }
-
-                                          return (
-                                            <div className={classes.exposureEventsEventPropertiesRow} key={propIndex}>
-                                              <Field
-                                                component={TextField}
-                                                className={classes.exposureEventsEventPropertiesKey}
-                                                name={`experiment.exposureEvents[${index}].props[${propIndex}].key`}
-                                                id={`experiment.exposureEvents[${index}].props[${propIndex}].key`}
-                                                type='text'
-                                                variant='outlined'
-                                                placeholder='key'
-                                                label='Key'
-                                                size='small'
-                                                inputProps={{
-                                                  'aria-label': 'Property Key',
-                                                }}
-                                                InputLabelProps={{
-                                                  shrink: true,
-                                                }}
-                                              />
-                                              <Field
-                                                component={TextField}
-                                                name={`experiment.exposureEvents[${index}].props[${propIndex}].value`}
-                                                id={`experiment.exposureEvents[${index}].props[${propIndex}].value`}
-                                                type='text'
-                                                variant='outlined'
-                                                placeholder='value'
-                                                label='Value'
-                                                size='small'
-                                                inputProps={{
-                                                  'aria-label': 'Property Value',
-                                                }}
-                                                InputLabelProps={{
-                                                  shrink: true,
-                                                }}
-                                              />
-                                              <IconButton
-                                                className={classes.exposureEventsEventRemoveButton}
-                                                onClick={onRemoveExposureEventProperty}
-                                                aria-label='Remove exposure event property'
-                                              >
-                                                <Clear />
-                                              </IconButton>
-                                            </div>
-                                          )
-                                        })}
-                                    </div>
-                                    <div className={classes.addMetric}>
-                                      <Add className={classes.addMetricAddSymbol} />
-                                      <Button
-                                        variant='contained'
-                                        onClick={onAddExposureEventProperty}
-                                        disableElevation
-                                        size='small'
-                                        aria-label='Add Property'
-                                      >
-                                        Add Property
-                                      </Button>
-                                    </div>
-                                  </div>
-                                )
-                              }}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      )
+                      const eventName = exposureEvent.event
+                      return <ExposureEventEditor key={index} exposureEvent={exposureEvent} onRemoveExposureEvent={onRemoveExposureEvent} index={index} />
                     })}
                     {exposureEventsField.value.length === 0 && (
                       <TableRow>
