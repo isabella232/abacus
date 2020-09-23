@@ -434,7 +434,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
         "data": Array [
           Object {
             "line": Object {
-              "width": 0,
+              "color": "rgba(71, 27, 92, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -446,14 +446,12 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
               "2020-05-10T00:00:00.000Z",
             ],
             "y": Array [
-              -1.123,
+              -112.3,
             ],
           },
           Object {
-            "fill": "tonexty",
-            "fillcolor": "rgba(71, 27, 92, .3)",
             "line": Object {
-              "width": 0,
+              "color": "rgba(71, 27, 92, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -465,12 +463,12 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
               "2020-05-10T00:00:00.000Z",
             ],
             "y": Array [
-              1,
+              100,
             ],
           },
           Object {
             "line": Object {
-              "width": 0,
+              "color": "rgba(205, 112, 85, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -486,10 +484,8 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
             ],
           },
           Object {
-            "fill": "tonexty",
-            "fillcolor": "rgba(205, 112, 85, .3)",
             "line": Object {
-              "width": 0,
+              "color": "rgba(205, 112, 85, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -501,7 +497,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
               "2020-05-10T00:00:00.000Z",
             ],
             "y": Array [
-              10,
+              1000,
             ],
           },
         ],
@@ -513,15 +509,12 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           "margin": Object {
             "b": 48,
-            "l": 80,
+            "l": 32,
             "r": 16,
             "t": 64,
           },
           "showlegend": false,
-          "title": "Variation Credible Intervals",
-          "yaxis": Object {
-            "title": "Metric Estimates (x100 %)",
-          },
+          "title": "Conversion rate estimates by variation [%]",
         },
         "style": Object {
           "display": "inline-block",
@@ -549,7 +542,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
               "2020-05-10T00:00:00.000Z",
             ],
             "y": Array [
-              -0.01,
+              -1,
             ],
           },
           Object {
@@ -568,7 +561,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
               "2020-05-10T00:00:00.000Z",
             ],
             "y": Array [
-              0.01,
+              1,
             ],
           },
           Object {
@@ -583,7 +576,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
               "2020-05-10T00:00:00.000Z",
             ],
             "y": Array [
-              -12,
+              -1200,
             ],
           },
           Object {
@@ -598,7 +591,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
               "2020-05-10T00:00:00.000Z",
             ],
             "y": Array [
-              12,
+              1200,
             ],
           },
         ],
@@ -610,15 +603,12 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           "margin": Object {
             "b": 48,
-            "l": 80,
+            "l": 32,
             "r": 16,
             "t": 64,
           },
           "showlegend": false,
-          "title": "Difference Credible Interval",
-          "yaxis": Object {
-            "title": "Difference Estimate (x100 %)",
-          },
+          "title": "Conversation rate difference estimates [%]",
         },
         "style": Object {
           "display": "inline-block",
@@ -810,7 +800,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
                     >
-                      4 weeks
+                      1 hour
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -863,7 +853,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
                     >
-                      1 hour
+                      4 weeks
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -1076,7 +1066,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
         "data": Array [
           Object {
             "line": Object {
-              "width": 0,
+              "color": "rgba(71, 27, 92, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -1092,10 +1082,8 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
             ],
           },
           Object {
-            "fill": "tonexty",
-            "fillcolor": "rgba(71, 27, 92, .3)",
             "line": Object {
-              "width": 0,
+              "color": "rgba(71, 27, 92, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -1112,7 +1100,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           Object {
             "line": Object {
-              "width": 0,
+              "color": "rgba(205, 112, 85, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -1128,10 +1116,8 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
             ],
           },
           Object {
-            "fill": "tonexty",
-            "fillcolor": "rgba(205, 112, 85, .3)",
             "line": Object {
-              "width": 0,
+              "color": "rgba(205, 112, 85, .3)",
             },
             "marker": Object {
               "color": "444",
@@ -1155,15 +1141,12 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           "margin": Object {
             "b": 48,
-            "l": 80,
+            "l": 32,
             "r": 16,
             "t": 64,
           },
           "showlegend": false,
-          "title": "Variation Credible Intervals",
-          "yaxis": Object {
-            "title": "Metric Estimates ($)",
-          },
+          "title": "Revenue estimates by variation [$]",
         },
         "style": Object {
           "display": "inline-block",
@@ -1252,15 +1235,12 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
           },
           "margin": Object {
             "b": 48,
-            "l": 80,
+            "l": 32,
             "r": 16,
             "t": 64,
           },
           "showlegend": false,
-          "title": "Difference Credible Interval",
-          "yaxis": Object {
-            "title": "Difference Estimate ($)",
-          },
+          "title": "Revenue difference estimates [$]",
         },
         "style": Object {
           "display": "inline-block",
