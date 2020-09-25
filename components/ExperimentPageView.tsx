@@ -26,7 +26,7 @@ import ExperimentDisableButton from '@/components/ExperimentDisableButton'
 import Layout from '@/components/Layout'
 import { Analysis, ExperimentFull, Status } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
-import { createUnresolvingPromise, isDebugMode, or } from '@/utils/general'
+import { createUnresolvingPromise, or } from '@/utils/general'
 
 import ExperimentDebug from './experiment-results/ExperimentDebug'
 import ExperimentRunButton from './ExperimentRunButton'
@@ -170,7 +170,7 @@ export default function ExperimentPageView({
               href='/experiments/[id]/results'
               hrefAs={`/experiments/${experimentId}/results`}
             />
-            {isDebugMode() && (
+            {debugMode && (
               <Tab
                 className={classes.topBarTab}
                 label='Debug'
@@ -217,7 +217,7 @@ export default function ExperimentPageView({
             {view === ExperimentView.Results && (
               <NoSsrExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
             )}
-            {view === ExperimentView.Debug && isDebugMode && (
+            {view === ExperimentView.Debug && debugMode && (
               <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />
             )}
             {view === ExperimentView.CodeSetup && <ExperimentCodeSetup />}
