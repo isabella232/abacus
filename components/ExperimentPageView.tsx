@@ -28,6 +28,7 @@ import { Analysis, ExperimentFull, Status } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
 
+import ExperimentDebug from './experiment-results/ExperimentDebug'
 import ExperimentRunButton from './ExperimentRunButton'
 
 const NoSsrExperimentResults = dynamic(() => import('@/components/experiment-results/ExperimentResults'), {
@@ -90,6 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export enum ExperimentView {
   Overview = 'overview',
   Results = 'results',
+  Debug = 'debug',
   CodeSetup = 'code-setup',
 }
 
@@ -168,6 +170,16 @@ export default function ExperimentPageView({
               href='/experiments/[id]/results'
               hrefAs={`/experiments/${experimentId}/results`}
             />
+            {debugMode && (
+              <Tab
+                className={classes.topBarTab}
+                label='Debug'
+                value={ExperimentView.Debug}
+                component={NextMuiLink}
+                href='/experiments/[id]/debug'
+                hrefAs={`/experiments/${experimentId}/debug`}
+              />
+            )}
             <Tab
               className={classes.topBarTab}
               label='Code Setup'
@@ -204,6 +216,9 @@ export default function ExperimentPageView({
             )}
             {view === ExperimentView.Results && (
               <NoSsrExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
+            )}
+            {view === ExperimentView.Debug && debugMode && (
+              <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />
             )}
             {view === ExperimentView.CodeSetup && <ExperimentCodeSetup />}
           </>
