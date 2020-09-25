@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 import _ from 'lodash'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,7 +20,6 @@ import AnalysesApi from '@/api/AnalysesApi'
 import ExperimentsApi from '@/api/ExperimentsApi'
 import MetricsApi from '@/api/MetricsApi'
 import SegmentsApi from '@/api/SegmentsApi'
-import ExperimentResults from '@/components/experiment-results/ExperimentResults'
 import ExperimentCodeSetup from '@/components/ExperimentCodeSetup'
 import ExperimentDetails from '@/components/ExperimentDetails'
 import ExperimentDisableButton from '@/components/ExperimentDisableButton'
@@ -30,6 +30,10 @@ import { createUnresolvingPromise, isDebugMode, or } from '@/utils/general'
 
 import ExperimentDebug from './experiment-results/ExperimentDebug'
 import ExperimentRunButton from './ExperimentRunButton'
+
+const NoSsrExperimentResults = dynamic(() => import('@/components/experiment-results/ExperimentResults'), {
+  ssr: false,
+})
 
 const NextMuiLink = React.forwardRef(
   // istanbul ignore next; Just the trivial className = undefined path that is missing
@@ -210,7 +214,9 @@ export default function ExperimentPageView({
             {view === ExperimentView.Overview && (
               <ExperimentDetails {...{ experiment, metrics, segments, experimentReloadRef }} />
             )}
-            {view === ExperimentView.Results && <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />}
+            {view === ExperimentView.Results && (
+              <NoSsrExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
+            )}
             {view === ExperimentView.Debug && isDebugMode && (
               <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />
             )}
