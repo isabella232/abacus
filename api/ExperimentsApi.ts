@@ -15,6 +15,7 @@ import {
   Status,
   yupPick,
 } from '@/lib/schemas'
+import { isDebugMode } from '@/utils/general'
 
 import { fetchApi } from './utils'
 
@@ -106,7 +107,8 @@ async function assignMetric(experiment: ExperimentFull, metricAssignment: Metric
  * @throws UnauthorizedError
  */
 async function findAll(): Promise<ExperimentBare[]> {
-  const { experiments } = await fetchApi('GET', '/experiments')
+  // istanbul ignore next; debug only
+  const { experiments } = await fetchApi('GET', isDebugMode() ? '/experiments?debug=true' : '/experiments')
   return await yup.array(experimentBareSchema).defined().validate(experiments, { abortEarly: false })
 }
 

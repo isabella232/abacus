@@ -10,6 +10,7 @@ import {
   metricFullNewSchema,
   metricFullSchema,
 } from '@/lib/schemas'
+import { isDebugMode } from '@/utils/general'
 
 import { fetchApi } from './utils'
 
@@ -49,7 +50,8 @@ async function put(metricId: number, newMetric: MetricFullNew) {
  * @throws UnauthorizedError
  */
 async function findAll(): Promise<MetricBare[]> {
-  const { metrics } = await fetchApi('GET', '/metrics')
+  // istanbul ignore next; debug only
+  const { metrics } = await fetchApi('GET', isDebugMode() ? '/metrics?debug=true' : '/metrics')
   return await yup.array(metricBareSchema).defined().validate(metrics, { abortEarly: false })
 }
 
