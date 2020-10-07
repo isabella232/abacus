@@ -26,7 +26,7 @@ import React, { useCallback, useState } from 'react'
 
 import { PlatformToHuman } from '@/lib/experiments'
 import { ExperimentFormData } from '@/lib/form-data'
-import { Platform, Segment, SegmentAssignmentNew, VariationNew } from '@/lib/schemas'
+import { Platform, Segment, SegmentAssignmentNew } from '@/lib/schemas'
 import { SegmentTypeToHuman } from '@/lib/segments'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -71,6 +71,7 @@ const SegmentsAutocomplete = (
 ) => {
   const {
     form: { setFieldValue },
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     field: { name, value: outerValue },
     segmentExclusionState,
   } = props
@@ -116,7 +117,7 @@ const Audience = ({
 }: {
   indexedSegments: Record<number, Segment>
   formikProps: FormikProps<{ experiment: ExperimentFormData }>
-}) => {
+}): JSX.Element => {
   const classes = useStyles()
 
   // The segmentExclusion code is currently split between here and SegmentAutocomplete
@@ -216,11 +217,13 @@ const Audience = ({
             options={Object.values(indexedSegments)}
             // TODO: Error state, see https://stackworx.github.io/formik-material-ui/docs/api/material-ui-lab
             renderInput={(params: AutocompleteRenderInputParams) => (
+              /* eslint-disable @typescript-eslint/no-unsafe-member-access */
               <MuiTextField
                 {...params}
                 variant='outlined'
                 placeholder={segmentAssignmentsField.value.length === 0 ? 'Search and select to customize' : undefined}
               />
+              /* eslint-enable @typescript-eslint/no-unsafe-member-access */
             )}
             segmentExclusionState={segmentExclusionState}
             indexedSegments={indexedSegments}
@@ -245,7 +248,7 @@ const Audience = ({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {(formikProps.values.experiment.variations as VariationNew[]).map((variation, index) => {
+                {formikProps.values.experiment.variations.map((variation, index) => {
                   return (
                     // The key here needs to be changed for variable variations
                     <TableRow key={variation.name}>

@@ -14,8 +14,10 @@ interface ExperimentsAuthInfo {
  */
 const getExperimentsAuthInfo = (): ExperimentsAuthInfo | null => {
   try {
-    const experimentsAuthInfo = JSON.parse(localStorage.getItem('experiments_auth_info') || 'null')
-    if (experimentsAuthInfo && experimentsAuthInfo.expiresAt > Date.now()) {
+    const experimentsAuthInfo = JSON.parse(
+      localStorage.getItem('experiments_auth_info') || 'null',
+    ) as ExperimentsAuthInfo | null
+    if (experimentsAuthInfo?.expiresAt && experimentsAuthInfo.expiresAt > Date.now()) {
       return experimentsAuthInfo
     }
   } catch (err) {
@@ -30,7 +32,9 @@ const getExperimentsAuthInfo = (): ExperimentsAuthInfo | null => {
  *
  * @param {ExperimentsAuthInfo} experimentsAuthInfo
  */
-const saveExperimentsAuthInfo = (experimentsAuthInfo: ExperimentsAuthInfo | null) => {
+const saveExperimentsAuthInfo: (experimentsAuthInfo: ExperimentsAuthInfo | null) => void = (
+  experimentsAuthInfo: ExperimentsAuthInfo | null,
+) => {
   if (experimentsAuthInfo === null) {
     localStorage.removeItem('experiments_auth_info')
   } else {

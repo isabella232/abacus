@@ -19,11 +19,10 @@ import { fetchApi } from './utils'
  *
  * Note: Be sure to handle any errors that may be thrown.
  */
-async function create(newMetric: MetricFullNew) {
+async function create(newMetric: MetricFullNew): Promise<MetricFull> {
   const validatedNewMetric = await metricFullNewSchema.validate(newMetric, { abortEarly: false })
   const outboundNewMetric = metricFullNewOutboundSchema.cast(validatedNewMetric)
-  const returnedMetric = await fetchApi('POST', '/metrics', outboundNewMetric)
-  return await metricFullSchema.validate(returnedMetric)
+  return await metricFullSchema.validate(await fetchApi('POST', '/metrics', outboundNewMetric))
 }
 
 /**
@@ -31,15 +30,14 @@ async function create(newMetric: MetricFullNew) {
  *
  * Note: Be sure to handle any errors that may be thrown.
  */
-async function put(metricId: number, newMetric: MetricFullNew) {
+async function put(metricId: number, newMetric: MetricFullNew): Promise<MetricFull> {
   // istanbul ignore next; Shouldn't happen
   if (!_.isNumber(metricId)) {
     throw new Error('Invalid metricId.')
   }
   const validatedNewMetric = await metricFullNewSchema.validate(newMetric, { abortEarly: false })
   const outboundNewMetric = metricFullNewOutboundSchema.cast(validatedNewMetric)
-  const returnedMetric = await fetchApi('PUT', `/metrics/${metricId}`, outboundNewMetric)
-  return await metricFullSchema.validate(returnedMetric)
+  return await metricFullSchema.validate(await fetchApi('PUT', `/metrics/${metricId}`, outboundNewMetric))
 }
 
 /**
@@ -51,8 +49,13 @@ async function put(metricId: number, newMetric: MetricFullNew) {
  */
 async function findAll(): Promise<MetricBare[]> {
   // istanbul ignore next; debug only
-  const { metrics } = await fetchApi('GET', isDebugMode() ? '/metrics?debug=true' : '/metrics')
-  return await yup.array(metricBareSchema).defined().validate(metrics, { abortEarly: false })
+  const { metrics } = await yup
+    .object({ metrics: yup.array(metricBareSchema).defined() })
+    .defined()
+    .validate(await fetchApi('GET', isDebugMode() ? '/metrics?debug=true' : '/metrics'), {
+      abortEarly: false,
+    })
+  return metrics
 }
 
 /**
@@ -63,8 +66,7 @@ async function findAll(): Promise<MetricBare[]> {
  * @throws UnauthorizedError
  */
 async function findById(metricId: number): Promise<MetricFull> {
-  const metric = await fetchApi('GET', `/metrics/${metricId}`)
-  return await metricFullSchema.validate(metric, { abortEarly: false })
+  return await metricFullSchema.validate(await fetchApi('GET', `/metrics/${metricId}`), { abortEarly: false })
 }
 
 const MetricsApi = {

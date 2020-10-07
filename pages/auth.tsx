@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
  * Note: This relies upon the fact that `pages/_app.tsx` will redirect the user to
  * the OAuth authorize page.
  */
-const AuthPage = function AuthPage() {
+const AuthPage = function AuthPage(): JSX.Element {
   debug('AuthPage#render')
   const classes = useStyles()
 
@@ -44,7 +44,7 @@ const AuthPage = function AuthPage() {
 
     if (!window.location.hash || window.location.hash.length === 0) {
       console.error('Authentication Error:', 'Missing hash in auth callback url.')
-      setError(`An unknown error has occured: Missing hash in auth callback url.`)
+      setError(`An unknown error has occurred: Missing hash in auth callback url.`)
     }
 
     // If we have the hash with the authorization info, then extract the info, save
@@ -56,6 +56,17 @@ const AuthPage = function AuthPage() {
     // #error=access_denied&error_description=You+need+to+log+in+to+WordPress.com&state=
     const authInfo = qs.parse(window.location.hash.substring(1))
 
+    const getStringFromQueryString = (str: string | string[] | undefined, def = 'unknown'): string => {
+      switch (typeof str) {
+        case 'undefined':
+          return def
+        case 'string':
+          return str
+        default:
+          return str.join(', ')
+      }
+    }
+
     if (authInfo.error) {
       console.error('Authentication Error:', authInfo.error, authInfo.error_description)
       saveExperimentsAuthInfo(null)
@@ -63,7 +74,9 @@ const AuthPage = function AuthPage() {
         setError('Please log into WordPress.com and authorize Abacus - Testing to have access.')
       } else {
         setError(
-          `An unknown error has occured. Error Code: '${authInfo.error}'. Error Desc: '${authInfo.error_description}'.`,
+          `An unknown error has occurred. Error Code: '${getStringFromQueryString(
+            authInfo.error,
+          )}'. Error Desc: '${getStringFromQueryString(authInfo.error_description, 'no description')}'.`,
         )
       }
       return
@@ -71,11 +84,11 @@ const AuthPage = function AuthPage() {
 
     if (!(authInfo.access_token && authInfo.scope === 'global' && authInfo.token_type === 'bearer')) {
       console.error('Authentication Error: Invalid AuthInfo Received:', authInfo)
-      setError('An unknown error has occured: Invalid AuthInfo Received.')
+      setError('An unknown error has occurred: Invalid AuthInfo Received.')
       return
     }
 
-    const expiresInSeconds = toInt(authInfo.expires_in)
+    const expiresInSeconds = toInt(authInfo.expires_in, 0) as unknown
     const experimentsAuthInfo = {
       accessToken: authInfo.access_token as string,
       expiresAt: typeof expiresInSeconds === 'number' ? Date.now() + expiresInSeconds * 1000 : null,

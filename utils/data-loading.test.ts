@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await,@typescript-eslint/no-misused-promises */
 import { act, renderHook } from '@testing-library/react-hooks'
 import * as notistack from 'notistack'
 
@@ -36,7 +37,8 @@ describe('utils/data-loading.ts module', () => {
         error: null,
       })
 
-      act(() => {
+      // this actually triggers a promise but needs to run synchronously.
+      void act(() => {
         resolve(123)
       })
 
@@ -62,7 +64,8 @@ describe('utils/data-loading.ts module', () => {
         error: null,
       })
 
-      act(() => {
+      // this actually triggers a promise but needs to run synchronously.
+      void act(() => {
         reject(123)
       })
 
@@ -75,9 +78,9 @@ describe('utils/data-loading.ts module', () => {
       })
     })
 
-    it('should resolve promise after unmount without logging an error', () => {
+    it('should resolve promise after unmount without logging an error', async () => {
       const originalConsoleError = console.error
-      console.error = jest.fn()
+      console.error = jest.fn((d) => originalConsoleError(d))
 
       const { resolve, promise } = createControllablePromise()
 
@@ -87,9 +90,32 @@ describe('utils/data-loading.ts module', () => {
 
       renderResult.unmount()
 
-      act(() => resolve(123))
+      // this actually triggers a promise but needs to run synchronously.
+      void act(() => resolve(123))
 
       expect((console.error as jest.Mock).mock.calls.length).toBe(0)
+      expect(renderResult.result.current.data).toBeNull()
+
+      console.error = originalConsoleError
+    })
+
+    it('should reject promise after unmount without logging an error', async () => {
+      const originalConsoleError = console.error
+      console.error = jest.fn((d) => originalConsoleError(d))
+
+      const { reject, promise } = createControllablePromise()
+
+      const renderResult = renderHook(() => {
+        return useDataSource(() => promise, [])
+      })
+
+      renderResult.unmount()
+
+      // this actually triggers a promise but will run synchronously
+      void act(() => reject(new Error('test')))
+
+      expect((console.error as jest.Mock).mock.calls.length).toBe(0)
+      expect(renderResult.result.current.error).toBeNull()
 
       console.error = originalConsoleError
     })
@@ -115,7 +141,8 @@ describe('utils/data-loading.ts module', () => {
         error: null,
       })
 
-      act(() => {
+      // this triggers a promise but runs synchronously
+      void act(() => {
         resolve0(123)
       })
 
@@ -127,7 +154,8 @@ describe('utils/data-loading.ts module', () => {
         error: null,
       })
 
-      act(() => {
+      // this triggers a promise but runs synchronously
+      void act(() => {
         renderResult.result.current.reloadRef.current()
       })
 
@@ -137,7 +165,8 @@ describe('utils/data-loading.ts module', () => {
         error: null,
       })
 
-      act(() => {
+      // this triggers a promise but runs synchronously
+      void act(() => {
         resolve2(456)
       })
 
@@ -154,7 +183,7 @@ describe('utils/data-loading.ts module', () => {
   describe('useDataLoadingError(error)', () => {
     it('should not display any errors for an error value of null', () => {
       const originalConsoleError = console.error
-      console.error = jest.fn()
+      console.error = jest.fn((er) => originalConsoleError(er))
 
       const mockedEnqueueSnackbar = jest.fn()
       mockedNotistack.useSnackbar.mockImplementation(() => ({

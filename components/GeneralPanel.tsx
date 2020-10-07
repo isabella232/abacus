@@ -64,7 +64,8 @@ const useStyles = makeStyles((theme: Theme) =>
 /**
  * Renders the general information of an experiment in a panel component.
  *
- * @param props.experiment - The experiment with the general information.
+ * @param experiment - The experiment with the general information.
+ * @param experimentReloadRef - Ref to reload the experiment.
  */
 function GeneralPanel({
   experiment,
@@ -72,7 +73,7 @@ function GeneralPanel({
 }: {
   experiment: ExperimentFull
   experimentReloadRef: React.MutableRefObject<() => void>
-}) {
+}): JSX.Element {
   const classes = useStyles()
   const data = [
     {

@@ -31,12 +31,22 @@ export function useDataSource<Data, Deps extends DependencyList | undefined, E e
     // For more information see: https://juliangaramendy.dev/use-promise-subscription/
     let isSubscribed = true
     // For isSubscribed to work with reloading we need to use reload as a Ref
-    reloadRef.current = () => {
+    reloadRef.current = async () => {
       setIsLoading(true)
-      createDataPromise()
-        .then((data) => isSubscribed && setData(data))
-        .catch((error) => isSubscribed && setError(error))
-        .finally(() => isSubscribed && setIsLoading(false))
+      try {
+        const data = await createDataPromise()
+        if (isSubscribed) {
+          setData(data)
+        }
+      } catch (error) {
+        if (isSubscribed) {
+          setError(error)
+        }
+      } finally {
+        if (isSubscribed) {
+          setIsLoading(false)
+        }
+      }
     }
     reloadRef.current()
     return () => {
@@ -61,7 +71,7 @@ export function useDataSource<Data, Deps extends DependencyList | undefined, E e
  * @param error
  * @param dataName (Optional) Name of the data to be included in the message
  */
-export function useDataLoadingError<E extends Error | null>(error: E, dataName?: string) {
+export function useDataLoadingError<E extends Error | null>(error: E, dataName?: string): void {
   const { enqueueSnackbar } = useSnackbar()
 
   useEffect(() => {

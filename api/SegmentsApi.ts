@@ -12,8 +12,11 @@ import { fetchApi } from './utils'
  * @throws UnauthorizedError
  */
 async function findAll(): Promise<Segment[]> {
-  const { segments } = await fetchApi('GET', '/segments')
-  return await yup.array(segmentSchema).defined().validate(segments, { abortEarly: false })
+  const { segments } = await yup
+    .object({ segments: yup.array(segmentSchema).defined() })
+    .defined()
+    .validate(await fetchApi('GET', '/segments'), { abortEarly: false })
+  return segments
 }
 
 const SegmentsApi = {

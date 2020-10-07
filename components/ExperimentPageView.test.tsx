@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/require-await, @typescript-eslint/ban-ts-ignore */
+/* eslint-disable @typescript-eslint/require-await */
 import { act, screen, waitFor } from '@testing-library/react'
-import _ from 'lodash'
 import MockDate from 'mockdate'
 import * as notistack from 'notistack'
 import React from 'react'
@@ -49,9 +48,11 @@ const renderExperimentPageView = async ({ experiment: experimentOverrides = {} }
   const analyses = Fixtures.createAnalyses()
   mockedAnalysesApi.findByExperimentId.mockImplementationOnce(async () => analyses)
 
+  const debug = view === ExperimentView.Debug
+
   // This `act` is needed to fix warnings:
   await act(async () => {
-    render(<ExperimentPageView experimentId={experiment.experimentId} view={view} debugMode={false} />)
+    render(<ExperimentPageView experimentId={experiment.experimentId} view={view} debugMode={debug} />)
   })
 }
 
@@ -87,6 +88,21 @@ test('experiment page view renders code-setup without crashing', async () => {
   await renderExperimentPageView({}, ExperimentView.CodeSetup)
 })
 
+test('experiment pages view renders debug view', async () => {
+  await renderExperimentPageView({}, ExperimentView.Debug)
+})
+
+test('renders with an unknown experiment name', async () => {
+  await renderExperimentPageView(
+    {
+      experiment: {
+        name: null,
+      },
+    },
+    ExperimentView.Overview,
+  )
+})
+
 test('experiment page view renders with null experimentId without crashing', async () => {
   const metrics = Fixtures.createMetricBares(10)
   mockedMetricsApi.findAll.mockImplementationOnce(async () => metrics)
@@ -95,8 +111,13 @@ test('experiment page view renders with null experimentId without crashing', asy
   mockedSegmentsApi.findAll.mockImplementationOnce(async () => segments)
 
   await act(async () => {
-    // @ts-ignore
-    render(<ExperimentPageView experimentId={null} view={ExperimentView.Overview} debugMode={false} />)
+    render(
+      <ExperimentPageView
+        experimentId={(null as unknown) as number}
+        view={ExperimentView.Overview}
+        debugMode={false}
+      />,
+    )
   })
 })
 
