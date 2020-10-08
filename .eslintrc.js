@@ -175,7 +175,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       alias: {
-        map: [['@', './']],
+        map: [['src', './src']],
         extensions: ['.ts', '.json', '.tsx'],
       },
     },
