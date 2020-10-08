@@ -11,7 +11,7 @@ module.exports = {
     '!<rootDir>/pages/**', // We test these with e2e tests.
     '!<rootDir>/pages-real/**', // We test these with e2e tests.
     '!<rootDir>/public/**',
-    '!<rootDir>/Routes.tsx', 
+    '!<rootDir>/Routes.tsx',
     '!<rootDir>/styles/**',
     '!<rootDir>/templates/**',
     '!<rootDir>/test-helpers/**',
