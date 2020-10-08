@@ -15,7 +15,8 @@
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "esnext"
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
