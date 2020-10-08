@@ -352,8 +352,14 @@ export enum RecommendationWarning {
   WideCi = 'wide_ci',
 }
 
+export interface Recommendation {
+  endExperiment: boolean
+  chosenVariationId: number | null
+  reason: RecommendationReason
+  warnings: RecommendationWarning[]
+}
 export const recommendationSchema = yup
-  .object({
+  .object<Recommendation>({
     endExperiment: yup.boolean().defined(),
     chosenVariationId: yup.number().nullable().defined(),
     reason: yup.string().oneOf(Object.values(RecommendationReason)).defined(),
@@ -361,7 +367,7 @@ export const recommendationSchema = yup
   })
   .defined()
   .camelCase()
-export type Recommendation = yup.InferType<typeof recommendationSchema>
+// export type Recommendation = yup.InferType<typeof recommendationSchema>
 
 export const metricEstimateSchema = yup
   .object({
@@ -381,8 +387,16 @@ export enum AnalysisStrategy {
   PpNaive = 'pp_naive',
 }
 
+export interface Analysis {
+    metricAssignmentId: number
+    analysisDatetime: Date
+    analysisStrategy: AnalysisStrategy
+    participantStats: Record<string, number>,
+    metricEstimates: Record<string, MetricEstimate> | null
+    recommendation: Recommendation | null
+}
 export const analysisSchema = yup
-  .object({
+  .object<Analysis>({
     metricAssignmentId: idSchema.defined(),
     analysisDatetime: dateSchema.defined(),
     analysisStrategy: yup.string().oneOf(Object.values(AnalysisStrategy)).defined(),
@@ -393,7 +407,6 @@ export const analysisSchema = yup
   })
   .defined()
   .camelCase()
-export type Analysis = yup.InferType<typeof analysisSchema>
 
 export const analysisResponseSchema = yup
   .object({
