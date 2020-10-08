@@ -1,5 +1,4 @@
 import React from 'react'
-
 import ExperimentDebug from 'src/components/experiment-results/ExperimentDebug'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'

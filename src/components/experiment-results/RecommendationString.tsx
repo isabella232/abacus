@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { ExperimentFull, Recommendation } from 'src/lib/schemas'
 
 /**

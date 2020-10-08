@@ -2,7 +2,6 @@ import { createStyles, makeStyles, Paper, Toolbar, Typography } from '@material-
 import { TableCellProps } from '@material-ui/core/TableCell'
 import _ from 'lodash'
 import React, { useMemo } from 'react'
-
 import LabelValueTable from 'src/components/LabelValueTable'
 import SegmentsTable from 'src/components/SegmentsTable'
 import VariationsTable from 'src/components/VariationsTable'

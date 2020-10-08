@@ -1,7 +1,6 @@
 import { act, fireEvent, getByLabelText, render } from '@testing-library/react'
 import MockDate from 'mockdate'
 import React from 'react'
-
 import { AutocompleteItem } from 'src/lib/schemas'
 import { MockFormik } from 'src/test-helpers/test-utils'
 import { DataSourceResult } from 'src/utils/data-loading'

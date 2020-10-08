@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { getUserCompletions } from 'src/api/AutocompleteApi'
 import { MockFormik } from 'src/test-helpers/test-utils'
 import { useDataSource } from 'src/utils/data-loading'

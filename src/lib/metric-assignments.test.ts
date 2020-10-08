@@ -1,5 +1,4 @@
 import _ from 'lodash'
-
 import Fixtures from 'src/test-helpers/fixtures'
 
 import * as MetricAssignments from './metric-assignments'

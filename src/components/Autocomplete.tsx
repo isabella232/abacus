@@ -2,7 +2,6 @@ import { CircularProgress, InputProps } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
 import React, { useCallback } from 'react'
-
 import { AutocompleteItem } from 'src/lib/schemas'
 
 // We need to handle the cases where the form is initialized with a string, or when we have a specific value selected.

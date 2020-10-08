@@ -1,7 +1,6 @@
 import { getByText } from '@testing-library/react'
 import addToDate from 'date-fns/add'
 import React from 'react'
-
 import { ExperimentBare, Platform, Status } from 'src/lib/schemas'
 import { render } from 'src/test-helpers/test-utils'
 

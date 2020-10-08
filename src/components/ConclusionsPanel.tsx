@@ -20,13 +20,12 @@ import { Field, Formik } from 'formik'
 import { RadioGroup as FormikMuiRadioGroup, TextField } from 'formik-material-ui'
 import { useSnackbar } from 'notistack'
 import React, { useState } from 'react'
-import * as yup from 'yup'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import LabelValueTable from 'src/components/LabelValueTable'
 import LoadingButtonContainer from 'src/components/LoadingButtonContainer'
 import * as Experiments from 'src/lib/experiments'
 import { ExperimentFull, experimentFullSchema, yupPick } from 'src/lib/schemas'
+import * as yup from 'yup'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

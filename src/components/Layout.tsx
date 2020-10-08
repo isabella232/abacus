@@ -4,7 +4,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
-
 import { isTestingProductionConfigInDevelopment } from 'src/config'
 import { isDebugMode, toggleDebugMode } from 'src/utils/general'
 

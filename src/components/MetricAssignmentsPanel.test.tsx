@@ -3,7 +3,6 @@ import { act, fireEvent, screen, waitFor, waitForElementToBeRemoved } from '@tes
 import { noop } from 'lodash'
 import * as notistack from 'notistack'
 import React from 'react'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import { Status } from 'src/lib/schemas'
 import Fixtures from 'src/test-helpers/fixtures'

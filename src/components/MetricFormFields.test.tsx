@@ -3,7 +3,6 @@ import { act, fireEvent, screen } from '@testing-library/react'
 import { Formik, FormikProps } from 'formik'
 import MockDate from 'mockdate'
 import React from 'react'
-
 import { MetricFormData, metricToFormData } from 'src/lib/form-data'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'

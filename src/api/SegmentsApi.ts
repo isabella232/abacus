@@ -1,6 +1,5 @@
-import * as yup from 'yup'
-
 import { Segment, segmentSchema } from 'src/lib/schemas'
+import * as yup from 'yup'
 
 import { fetchApi } from './utils'
 

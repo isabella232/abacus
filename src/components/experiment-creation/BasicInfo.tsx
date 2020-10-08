@@ -5,7 +5,6 @@ import * as dateFns from 'date-fns'
 import { Field, useField } from 'formik'
 import { TextField } from 'formik-material-ui'
 import React from 'react'
-
 import { CompletionBag } from 'src/api/AutocompleteApi'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/Autocomplete'
 import {

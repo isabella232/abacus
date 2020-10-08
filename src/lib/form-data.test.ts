@@ -1,5 +1,4 @@
 import MockDate from 'mockdate'
-
 import Fixtures from 'src/test-helpers/fixtures'
 
 import { experimentToFormData, metricToFormData } from './form-data'

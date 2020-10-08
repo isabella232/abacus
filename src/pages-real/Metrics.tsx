@@ -13,8 +13,6 @@ import debugFactory from 'debug'
 import { Formik, FormikProps } from 'formik'
 import { useSnackbar } from 'notistack'
 import React, { useState } from 'react'
-import * as yup from 'yup'
-
 import MetricsApi from 'src/api/MetricsApi'
 import Layout from 'src/components/Layout'
 import LoadingButtonContainer from 'src/components/LoadingButtonContainer'
@@ -24,6 +22,7 @@ import { MetricFormData, metricToFormData } from 'src/lib/form-data'
 import { MetricFullNew, metricFullNewSchema } from 'src/lib/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { isDebugMode } from 'src/utils/general'
+import * as yup from 'yup'
 
 const debug = debugFactory('abacus:pages/metrics/index.tsx')
 

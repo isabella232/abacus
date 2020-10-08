@@ -3,7 +3,6 @@ import { fireEvent, screen, waitFor, waitForElementToBeRemoved } from '@testing-
 import MockDate from 'mockdate'
 import * as notistack from 'notistack'
 import React from 'react'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'

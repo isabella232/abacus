@@ -19,7 +19,6 @@ import { Add, Clear } from '@material-ui/icons'
 import { Field, FieldArray, useField } from 'formik'
 import { Select, Switch, TextField } from 'formik-material-ui'
 import React, { useState } from 'react'
-
 import MoreMenu from 'src/components/MoreMenu'
 import { AttributionWindowSecondsToHuman } from 'src/lib/metric-assignments'
 import { EventNew, MetricAssignment, MetricBare, MetricParameterType } from 'src/lib/schemas'

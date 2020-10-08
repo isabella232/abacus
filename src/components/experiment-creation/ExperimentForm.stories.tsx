@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 
 import React from 'react'
-
 import { getUserCompletions } from 'src/api/AutocompleteApi'
 import { experimentToFormData } from 'src/lib/form-data'
 import * as Normalizers from 'src/lib/normalizers'

@@ -6,7 +6,6 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import React from 'react'
-
 import { ExperimentFull, nameSchema } from 'src/lib/schemas'
 import * as Variations from 'src/lib/variations'
 

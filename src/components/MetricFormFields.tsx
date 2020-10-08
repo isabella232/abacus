@@ -3,7 +3,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field, FormikProps } from 'formik'
 import { fieldToTextField, RadioGroup, Switch, TextField, TextFieldProps } from 'formik-material-ui'
 import React, { useEffect } from 'react'
-
 import { MetricFormData } from 'src/lib/form-data'
 import { MetricParameterType } from 'src/lib/schemas'
 

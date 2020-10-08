@@ -6,7 +6,6 @@ import noop from 'lodash/noop'
 import MockDate from 'mockdate'
 import * as notistack from 'notistack'
 import React from 'react'
-
 import { experimentToFormData } from 'src/lib/form-data'
 import * as Normalizers from 'src/lib/normalizers'
 import { experimentFullNewSchema, Status } from 'src/lib/schemas'

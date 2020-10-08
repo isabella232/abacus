@@ -6,7 +6,6 @@ import { useSnackbar } from 'notistack'
 import { toIntOrNull } from 'qc-to_int'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-
 import { getUserCompletions } from 'src/api/AutocompleteApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'

@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { MockFormik } from 'src/test-helpers/test-utils'
 
 import Beginning from './Beginning'

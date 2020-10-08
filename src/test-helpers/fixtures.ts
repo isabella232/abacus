@@ -5,7 +5,6 @@
  * functions that accept Partial<T> as an argument.
  */
 import _ from 'lodash'
-
 import {
   Analysis,
   AnalysisStrategy,

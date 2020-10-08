@@ -1,6 +1,4 @@
 import _ from 'lodash'
-import * as yup from 'yup'
-
 import {
   ExperimentBare,
   ExperimentFull,
@@ -16,6 +14,7 @@ import {
   yupPick,
 } from 'src/lib/schemas'
 import { isDebugMode } from 'src/utils/general'
+import * as yup from 'yup'
 
 import { fetchApi } from './utils'
 

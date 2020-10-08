@@ -3,7 +3,6 @@ import debugFactory from 'debug'
 import MaterialTable from 'material-table'
 import { useRouter } from 'next/router'
 import React from 'react'
-
 import DatetimeText from 'src/components/DatetimeText'
 import { ExperimentBare } from 'src/lib/schemas'
 import { defaultTableOptions } from 'src/utils/material-table'

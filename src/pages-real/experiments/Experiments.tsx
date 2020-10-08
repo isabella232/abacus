@@ -1,7 +1,6 @@
 import { LinearProgress } from '@material-ui/core'
 import debugFactory from 'debug'
 import React from 'react'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import ExperimentsTable from 'src/components/ExperimentsTable'
 import Layout from 'src/components/Layout'

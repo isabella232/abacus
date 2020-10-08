@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Segment, SegmentType } from 'src/lib/schemas'
 import { render } from 'src/test-helpers/test-utils'
 

@@ -1,6 +1,4 @@
 import _ from 'lodash'
-import * as yup from 'yup'
-
 import {
   MetricBare,
   metricBareSchema,
@@ -11,6 +9,7 @@ import {
   metricFullSchema,
 } from 'src/lib/schemas'
 import { isDebugMode } from 'src/utils/general'
+import * as yup from 'yup'
 
 import { fetchApi } from './utils'
 

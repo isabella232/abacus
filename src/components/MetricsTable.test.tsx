@@ -1,7 +1,6 @@
 import { fireEvent, getByText, getDefaultNormalizer, screen, waitFor } from '@testing-library/react'
 import * as notistack from 'notistack'
 import React from 'react'
-
 import MetricsApi from 'src/api/MetricsApi'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'

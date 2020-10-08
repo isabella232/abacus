@@ -4,7 +4,6 @@ import { act, fireEvent, render, screen } from '@testing-library/react'
 import { Field } from 'formik'
 import { Autocomplete, AutocompleteRenderInputParams } from 'formik-material-ui-lab'
 import React from 'react'
-
 import AbacusAutocomplete, {
   autocompleteAttributes,
   autocompleteInputProps,

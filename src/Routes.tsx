@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
-
 import Experiment from 'src/pages-real/experiments/Experiment'
 import ExperimentNew from 'src/pages-real/experiments/ExperimentNew'
 import Experiments from 'src/pages-real/experiments/Experiments'

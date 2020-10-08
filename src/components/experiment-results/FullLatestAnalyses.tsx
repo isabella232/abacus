@@ -2,7 +2,6 @@ import { Typography } from '@material-ui/core'
 import _, { last } from 'lodash'
 import MaterialTable from 'material-table'
 import React from 'react'
-
 import DatetimeText from 'src/components/DatetimeText'
 import RecommendationString from 'src/components/experiment-results/RecommendationString'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from 'src/lib/analyses'

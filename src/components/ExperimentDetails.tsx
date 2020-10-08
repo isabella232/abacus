@@ -3,7 +3,6 @@ import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import debugFactory from 'debug'
 import React from 'react'
-
 import AudiencePanel from 'src/components/AudiencePanel'
 import ConclusionsPanel from 'src/components/ConclusionsPanel'
 import GeneralPanel from 'src/components/GeneralPanel'

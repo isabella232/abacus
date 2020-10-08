@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { render } from 'src/test-helpers/test-utils'
 
 import DatetimeText from './DatetimeText'

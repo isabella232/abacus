@@ -1,5 +1,4 @@
 import React from 'react'
-
 import type { RenderError } from 'src/components/RenderErrorBoundary'
 
 export default function (props: { renderError: RenderError }): JSX.Element {

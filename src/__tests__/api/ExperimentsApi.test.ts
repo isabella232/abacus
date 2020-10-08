@@ -1,5 +1,4 @@
 import MockDate from 'mockdate'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import { ExperimentFull, ExperimentFullNew, experimentFullNewOutboundSchema, Status } from 'src/lib/schemas'
 import Fixtures from 'src/test-helpers/fixtures'

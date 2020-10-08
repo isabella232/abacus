@@ -3,11 +3,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Formik } from 'formik'
 import _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
-import * as yup from 'yup'
-
 import { CompletionBag } from 'src/api/AutocompleteApi'
 import { ExperimentFormData } from 'src/lib/form-data'
 import { experimentFullNewSchema, MetricBare, Segment } from 'src/lib/schemas'
+import * as yup from 'yup'
 
 import LoadingButtonContainer from '../LoadingButtonContainer'
 import Audience from './Audience'

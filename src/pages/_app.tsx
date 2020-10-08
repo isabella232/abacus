@@ -4,13 +4,12 @@ import { AppProps } from 'next/app'
 import { SnackbarProvider } from 'notistack'
 import qs from 'querystring'
 import React from 'react'
-import * as yup from 'yup'
-
 import RenderErrorBoundary from 'src/components/RenderErrorBoundary'
 import RenderErrorView from 'src/components/RenderErrorView'
 import { config } from 'src/config'
 import ThemeProvider from 'src/styles/ThemeProvider'
 import { getExperimentsAuthInfo } from 'src/utils/auth'
+import * as yup from 'yup'
 
 const debug = debugFactory('abacus:pages/_app.tsx')
 

@@ -7,7 +7,6 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import _ from 'lodash'
 import React, { useMemo } from 'react'
-
 import { Segment, SegmentType } from 'src/lib/schemas'
 
 const useStyles = makeStyles((theme: Theme) =>

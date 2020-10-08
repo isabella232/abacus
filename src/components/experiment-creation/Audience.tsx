@@ -23,7 +23,6 @@ import { RadioGroup as FormikMuiRadioGroup, Select, TextField as FormikMuiTextFi
 import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
 import _ from 'lodash'
 import React, { useCallback, useState } from 'react'
-
 import { PlatformToHuman } from 'src/lib/experiments'
 import { ExperimentFormData } from 'src/lib/form-data'
 import { Platform, Segment, SegmentAssignmentNew } from 'src/lib/schemas'

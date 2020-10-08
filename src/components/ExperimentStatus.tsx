@@ -2,7 +2,6 @@ import { Theme } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import React from 'react'
-
 import { Status } from 'src/lib/schemas'
 
 const useStyles = makeStyles((theme: Theme) =>

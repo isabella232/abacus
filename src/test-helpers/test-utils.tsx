@@ -3,9 +3,8 @@ import { act, fireEvent, Queries, render as actualRender, RenderOptions, screen 
 import mediaQuery from 'css-mediaquery'
 import { Formik, FormikValues } from 'formik'
 import React from 'react'
-import { ValidationError } from 'yup'
-
 import ThemeProvider from 'src/styles/ThemeProvider'
+import { ValidationError } from 'yup'
 
 /**
  * A wrapped unit-test react-renderer, useful for adding React Contexts globally.

@@ -3,7 +3,6 @@ import debugFactory from 'debug'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import React from 'react'
-
 import { getUserCompletions } from 'src/api/AutocompleteApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'

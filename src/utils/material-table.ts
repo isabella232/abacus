@@ -1,5 +1,4 @@
 import { Options } from 'material-table'
-
 import theme from 'src/styles/theme'
 
 /**

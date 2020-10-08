@@ -13,7 +13,6 @@ import {
 import debugFactory from 'debug'
 import MaterialTable from 'material-table'
 import React from 'react'
-
 import MetricsApi from 'src/api/MetricsApi'
 import { MetricBare } from 'src/lib/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'

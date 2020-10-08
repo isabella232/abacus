@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
 import MockDate from 'mockdate'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import * as Utils from 'src/api/utils'
 import Fixtures from 'src/test-helpers/fixtures'

@@ -17,7 +17,6 @@ import MaterialTable from 'material-table'
 import { PlotData } from 'plotly.js'
 import React from 'react'
 import Plot from 'react-plotly.js'
-
 import DatetimeText from 'src/components/DatetimeText'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from 'src/lib/analyses'
 import * as Experiments from 'src/lib/experiments'

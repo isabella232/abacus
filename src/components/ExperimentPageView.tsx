@@ -14,7 +14,6 @@ import { Skeleton } from '@material-ui/lab'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
-
 import AnalysesApi from 'src/api/AnalysesApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'

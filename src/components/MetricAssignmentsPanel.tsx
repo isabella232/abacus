@@ -26,8 +26,6 @@ import { ErrorMessage, Field, Formik } from 'formik'
 import { Select, Switch, TextField } from 'formik-material-ui'
 import { useSnackbar } from 'notistack'
 import React, { useMemo, useState } from 'react'
-import * as yup from 'yup'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import { AttributionWindowSecondsToHuman } from 'src/lib/metric-assignments'
 import * as MetricAssignments from 'src/lib/metric-assignments'
@@ -42,6 +40,7 @@ import {
   Status,
 } from 'src/lib/schemas'
 import { formatBoolean, formatUsCurrencyDollar } from 'src/utils/formatters'
+import * as yup from 'yup'
 
 import LoadingButtonContainer from './LoadingButtonContainer'
 

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
-
 import BadComponent from 'src/test-helpers/BadComponent'
 import { render } from 'src/test-helpers/test-utils'
 

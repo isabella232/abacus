@@ -1,5 +1,4 @@
 import React from 'react'
-
 import RenderErrorBoundary from 'src/components/RenderErrorBoundary'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'

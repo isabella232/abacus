@@ -2,7 +2,6 @@ import debugFactory from 'debug'
 import { toIntOrNull } from 'qc-to_int'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-
 import ExperimentPageView, { ExperimentView } from 'src/components/ExperimentPageView'
 import { isDebugMode } from 'src/utils/general'
 

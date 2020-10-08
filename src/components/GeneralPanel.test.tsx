@@ -4,7 +4,6 @@ import { noop } from 'lodash'
 import MockDate from 'mockdate'
 import * as notistack from 'notistack'
 import React from 'react'
-
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import { Status } from 'src/lib/schemas'
 import Fixtures from 'src/test-helpers/fixtures'
