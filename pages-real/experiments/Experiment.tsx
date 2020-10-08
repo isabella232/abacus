@@ -3,8 +3,8 @@ import { toIntOrNull } from 'qc-to_int'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import ExperimentPageView, { ExperimentView } from '@/components/ExperimentPageView'
-import { isDebugMode } from '@/utils/general'
+import ExperimentPageView, { ExperimentView } from 'src/components/ExperimentPageView'
+import { isDebugMode } from 'src/utils/general'
 
 const debug = debugFactory('abacus:pages/experiments/[id]/debug.tsx')
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 
-import Experiment from '@/pages-real/experiments/Experiment'
-import ExperimentNew from '@/pages-real/experiments/ExperimentNew'
-import Experiments from '@/pages-real/experiments/Experiments'
-import ExperimentWizardEdit from '@/pages-real/experiments/ExperimentWizardEdit'
-import Metrics from '@/pages-real/Metrics'
+import Experiment from 'src/pages-real/experiments/Experiment'
+import ExperimentNew from 'src/pages-real/experiments/ExperimentNew'
+import Experiments from 'src/pages-real/experiments/Experiments'
+import ExperimentWizardEdit from 'src/pages-real/experiments/ExperimentWizardEdit'
+import Metrics from 'src/pages-real/Metrics'
 
 /**
  * Let's keep routing simple and minimal.

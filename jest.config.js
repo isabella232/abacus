@@ -36,7 +36,7 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    '@/(.*)': '<rootDir>/$1',
+    'src/(.*)': '<rootDir>/$1',
   },
   preset: 'ts-jest',
   // Adds special extended assertions to Jest, thus simplifying the tests.

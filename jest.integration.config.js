@@ -30,7 +30,7 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    '@/(.*)': '<rootDir>/$1',
+    'src/(.*)': '<rootDir>/$1',
   },
   preset: 'ts-jest',
   setupFilesAfterEnv: ['isomorphic-fetch'],
