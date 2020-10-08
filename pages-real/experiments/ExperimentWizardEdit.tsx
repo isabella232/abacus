@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import { toIntOrNull } from 'qc-to_int'
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 import { getUserCompletions } from '@/api/AutocompleteApi'
 import ExperimentsApi from '@/api/ExperimentsApi'
@@ -17,12 +18,11 @@ import * as Normalizers from '@/lib/normalizers'
 import { ExperimentFull, ExperimentFullNew } from '@/lib/schemas'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 import { createUnresolvingPromise, or } from '@/utils/general'
-import { useParams } from 'react-router-dom'
 
 const debug = debugFactory('abacus:pages/experiments/[id]/results.tsx')
 
 export default function WizardEditPage(): JSX.Element {
-  const { experimentId: experimentIdRaw } = useParams<{ experimentId: string, view: string}>()
+  const { experimentId: experimentIdRaw } = useParams<{ experimentId: string; view: string }>()
   const router = useRouter()
   const experimentId = toIntOrNull(experimentIdRaw) as number | null
   debug(`ExperimentWizardEdit#render ${experimentId ?? 'null'}`)

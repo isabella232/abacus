@@ -7,7 +7,6 @@ import ExperimentsTable from '@/components/ExperimentsTable'
 import Layout from '@/components/Layout'
 import { useDataLoadingError, useDataSource } from '@/utils/data-loading'
 
-
 const debug = debugFactory('abacus:pages/experiments/index.tsx')
 
 const Experiments = function (): JSX.Element {
