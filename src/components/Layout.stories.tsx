@@ -1,11 +1,11 @@
-import { withRouter } from 'next/router'
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
 import Layout from './Layout'
 
 export default { title: 'Layout' }
 
-export const withChildren = withRouter(() => (
+export const withChildren = () => (
   <Layout title='Storybook'>
     <div>
       <p>I represent the children.</p>
@@ -16,4 +16,4 @@ export const withChildren = withRouter(() => (
       </p>
     </div>
   </Layout>
-))
+)

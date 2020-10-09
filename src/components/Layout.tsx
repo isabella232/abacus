@@ -1,7 +1,6 @@
 import { AppBar, Container, Theme, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
-import { useRouter } from 'next/router'
 import React, { ReactNode, useEffect } from 'react'
 import { isTestingProductionConfigInDevelopment } from 'src/config'
 import { isDebugMode, toggleDebugMode } from 'src/utils/general'
@@ -94,13 +93,12 @@ const Layout = ({
   children?: ReactNode
 }): JSX.Element => {
   const classes = useStyles()
-  const router = useRouter()
 
   // istanbul ignore next; debug mode only
   const onToggleDebugMode = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     if (e.shiftKey) {
       toggleDebugMode()
-      router.reload()
+      window.location.reload()
     }
   }
 
