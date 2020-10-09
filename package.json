@@ -40,6 +40,7 @@
     "react-plotly.js": "^2.5.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "serve": "^11.3.2",
     "yup": "^0.29.1"
   },
   "@comment devDependencies": {
@@ -116,7 +117,7 @@
     "lint": "npm run lint:ts",
     "lint:ts": "eslint . --ext .ts,.tsx",
     "lint:ts:fix": "eslint . --ext .ts,.tsx --fix",
-    "start": "echo TODO Server start",
+    "start": "serve -s build -l 3000",
     "storybook": "start-storybook -s ./public",
     "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
     "@comment test:e2e": "Runs the e2e tests. It will spawn Chromium to run the tests.",
