@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import React from 'react'
 import AnalysesApi from 'src/api/AnalysesApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
@@ -28,25 +28,6 @@ import { createUnresolvingPromise, or } from 'src/utils/general'
 
 import ExperimentDebug from './experiment-results/ExperimentDebug'
 import ExperimentRunButton from './ExperimentRunButton'
-
-const NextMuiLink = React.forwardRef(
-  // istanbul ignore next; Just the trivial className = undefined path that is missing
-  // Should be refactored soon anyway
-  (
-    {
-      className = undefined,
-      href,
-      hrefAs,
-      children,
-      prefetch = false,
-    }: { className?: string; href: string; hrefAs: string; children?: React.ReactNode; prefetch?: boolean },
-    ref,
-  ) => (
-    <Link {...{ href, as: hrefAs, prefetch, ref }}>
-      <a className={className}>{children}</a>
-    </Link>
-  ),
-)
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -152,35 +133,31 @@ export default function ExperimentPageView({
               className={classes.topBarTab}
               label='Overview'
               value={ExperimentView.Overview}
-              component={NextMuiLink}
-              href='/experiments/[id]'
-              hrefAs={`/experiments/${experimentId}`}
+              component={Link}
+              to={`/experiments/${experimentId}`}
             />
             <Tab
               className={classes.topBarTab}
               label='Results'
               value={ExperimentView.Results}
-              component={NextMuiLink}
-              href='/experiments/[id]/results'
-              hrefAs={`/experiments/${experimentId}/results`}
+              component={Link}
+              to={`/experiments/${experimentId}/results`}
             />
             {debugMode && (
               <Tab
                 className={classes.topBarTab}
                 label='Debug'
                 value={ExperimentView.Debug}
-                component={NextMuiLink}
-                href='/experiments/[id]/debug'
-                hrefAs={`/experiments/${experimentId}/debug`}
+                component={Link}
+                to={`/experiments/${experimentId}/debug`}
               />
             )}
             <Tab
               className={classes.topBarTab}
               label='Code Setup'
               value={ExperimentView.CodeSetup}
-              component={NextMuiLink}
-              href='/experiments/[id]/code-setup'
-              hrefAs={`/experiments/${experimentId}/code-setup`}
+              component={Link}
+              to={`/experiments/${experimentId}/code-setup`}
             />
           </Tabs>
           <div className={classes.topBarActions}>
@@ -189,9 +166,8 @@ export default function ExperimentPageView({
                 <Button
                   variant='outlined'
                   color='primary'
-                  component={NextMuiLink}
-                  href={`/experiments/[id]/wizard-edit`}
-                  hrefAs={`/experiments/${experimentId}/wizard-edit`}
+                  component={Link}
+                  to={`/experiments/${experimentId}/wizard-edit`}
                   disabled={!canEditInWizard}
                 >
                   Edit In Wizard

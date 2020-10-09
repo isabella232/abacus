@@ -1,7 +1,7 @@
 import { AppBar, Container, Theme, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 import { isTestingProductionConfigInDevelopment } from 'src/config'
@@ -138,14 +138,14 @@ const Layout = ({
         <div className={classes.appBarBottom}>
           <Container>
             <nav className={classes.appNav}>
-              <Link href='/experiments'>
-                <a>Experiments</a>
+              <Link to='/experiments'>
+                Experiments
               </Link>
-              <Link href='/experiments/new'>
-                <a>Create Experiment</a>
+              <Link to='/experiments/new'>
+                Create Experiment
               </Link>
-              <Link href='/metrics'>
-                <a>Metrics</a>
+              <Link to='/metrics'>
+                Metrics
               </Link>
             </nav>
           </Container>
