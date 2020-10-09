@@ -12,6 +12,8 @@ module.exports = {
     project: ['./tsconfig.json'],
   },
   extends: [
+    'react-app',
+
     'eslint:recommended',
 
     'plugin:@typescript-eslint/eslint-recommended',
