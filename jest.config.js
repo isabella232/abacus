@@ -2,19 +2,19 @@
 // This isn't public api but it is stable and we will know straight away if it stops working.
 // See /node_modules/react-scripts/scripts/test.js for more info.
 
-process.env.BABEL_ENV = 'test';
-process.env.NODE_ENV = 'test';
-process.env.PUBLIC_URL = '';
-require('react-scripts/config/env');
+process.env.BABEL_ENV = 'test'
+process.env.NODE_ENV = 'test'
+process.env.PUBLIC_URL = ''
+require('react-scripts/config/env')
 
-const path = require('path');
-const createJestConfig = require('react-scripts/scripts/utils/createJestConfig');
+const path = require('path')
+const createJestConfig = require('react-scripts/scripts/utils/createJestConfig')
 
 const defaultCRAJestConfig = createJestConfig(
-  relativePath => require.resolve(path.join('react-scripts', relativePath)),
+  (relativePath) => require.resolve(path.join('react-scripts', relativePath)),
   __dirname, // given that Jest config is in project root
-  false
-);
+  false,
+)
 
 module.exports = {
   ...defaultCRAJestConfig,

@@ -311,7 +311,8 @@ export const experimentFullNewSchema = experimentFullSchema.shape({
       'bounded-start-date',
       `Start date must be within ${MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS} months from now.`,
       // We need to refer to new Date() instead of using dateFns.isFuture so MockDate works with this in the tests.
-      (date) => dateFns.isBefore(date as Date, dateFns.addMonths(now, MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS)),
+      (date) =>
+        dateFns.isBefore(date as Date, dateFns.addMonths(now, MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS)),
     ),
   exposureEvents: yup.array(eventNewSchema).notRequired(),
   metricAssignments: yup.array(metricAssignmentNewSchema).defined().min(1),
@@ -408,12 +409,12 @@ export enum AnalysisStrategy {
 }
 
 export interface Analysis {
-    metricAssignmentId: number
-    analysisDatetime: Date
-    analysisStrategy: AnalysisStrategy
-    participantStats: Record<string, number>,
-    metricEstimates: Record<string, MetricEstimate> | null
-    recommendation: Recommendation | null
+  metricAssignmentId: number
+  analysisDatetime: Date
+  analysisStrategy: AnalysisStrategy
+  participantStats: Record<string, number>
+  metricEstimates: Record<string, MetricEstimate> | null
+  recommendation: Recommendation | null
 }
 export const analysisSchema = yup
   .object<Analysis>({

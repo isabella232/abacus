@@ -134,15 +134,9 @@ const Layout = ({
         <div className={classes.appBarBottom}>
           <Container>
             <nav className={classes.appNav}>
-              <Link to='/experiments'>
-                Experiments
-              </Link>
-              <Link to='/experiments/new'>
-                Create Experiment
-              </Link>
-              <Link to='/metrics'>
-                Metrics
-              </Link>
+              <Link to='/experiments'>Experiments</Link>
+              <Link to='/experiments/new'>Create Experiment</Link>
+              <Link to='/metrics'>Metrics</Link>
             </nav>
           </Container>
         </div>

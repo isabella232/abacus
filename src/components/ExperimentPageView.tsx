@@ -184,9 +184,7 @@ export default function ExperimentPageView({
             {view === ExperimentView.Overview && (
               <ExperimentDetails {...{ experiment, metrics, segments, experimentReloadRef }} />
             )}
-            {view === ExperimentView.Results && (
-              <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />
-            )}
+            {view === ExperimentView.Results && <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />}
             {view === ExperimentView.Debug && debugMode && (
               <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />
             )}
