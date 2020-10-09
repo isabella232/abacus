@@ -99,7 +99,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_1
                        
@@ -116,13 +116,13 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       1 week
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Manual analysis required
                     </td>
@@ -162,20 +162,20 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_2
                        
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       1 hour
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Not analyzed yet
                     </td>
@@ -215,20 +215,20 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_2
                        
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       4 weeks
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Not analyzed yet
                     </td>
@@ -270,20 +270,20 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_3
                        
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       6 hours
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Deploy 
                       test
@@ -786,7 +786,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_1
                        
@@ -803,13 +803,13 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       1 week
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Manual analysis required
                     </td>
@@ -849,20 +849,20 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_2
                        
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       1 hour
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Not analyzed yet
                     </td>
@@ -902,20 +902,20 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_2
                        
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       4 weeks
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Not analyzed yet
                     </td>
@@ -957,20 +957,20 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; font-weight: 600;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: 600;"
                     >
                       metric_3
                        
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       6 hours
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box; font-family: 'Roboto Mono', monospace;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: 'Roboto Mono', monospace; font-weight: inherit;"
                     >
                       Deploy 
                       test

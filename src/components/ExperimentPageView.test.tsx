@@ -62,7 +62,7 @@ const renderExperimentPageView = async ({ experiment: experimentOverrides = {} }
  * - null: not on screen
  */
 const getButtonStates = () => {
-  const editInWizard = screen.getByRole('link', { name: /Edit In Wizard/ })
+  const editInWizard = screen.getByRole('button', { name: /Edit In Wizard/ })
   const run = screen.getByRole('button', { name: /Run/ })
   const disable = screen.getByRole('button', { name: /Disable/ })
   const generalPanelEdit = screen.getByRole('button', { name: /Edit Experiment General Data/ })
@@ -89,17 +89,6 @@ test('experiment page view renders code-setup without crashing', async () => {
 
 test('experiment pages view renders debug view', async () => {
   await renderExperimentPageView({}, ExperimentView.Debug)
-})
-
-test('renders with an unknown experiment name', async () => {
-  await renderExperimentPageView(
-    {
-      experiment: {
-        name: null,
-      },
-    },
-    ExperimentView.Overview,
-  )
 })
 
 test('experiment page view renders with null experimentId without crashing', async () => {

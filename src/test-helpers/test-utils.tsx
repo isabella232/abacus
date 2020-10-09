@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types */
 import { act, fireEvent, Queries, render as actualRender, RenderOptions, screen } from '@testing-library/react'
+import { StaticRouter } from 'react-router'
 import mediaQuery from 'css-mediaquery'
 import { Formik, FormikValues } from 'formik'
 import React from 'react'
@@ -10,7 +11,7 @@ import { ValidationError } from 'yup'
  * A wrapped unit-test react-renderer, useful for adding React Contexts globally.
  */
 export const render: typeof actualRender = <Q extends Queries>(ui: React.ReactElement, options?: RenderOptions<Q>) =>
-  actualRender((<ThemeProvider>{ui}</ThemeProvider>) as React.ReactElement, options) as ReturnType<typeof actualRender>
+  actualRender((<StaticRouter><ThemeProvider>{ui}</ThemeProvider></StaticRouter>) as React.ReactElement, options) as ReturnType<typeof actualRender>
 
 /**
  * Create a `matchMedia` function that will match a query based on the specified

@@ -36,8 +36,7 @@ export /* istanbul ignore next; Development only */ const NODE_ENV =
  *
  * You may need to clear your localstorage to get the app to reauth.
  */
-export const isTestingProductionConfigInDevelopment =
-  process.env.REACT_APP_PRODUCTION_CONFIG_IN_DEVELOPMENT === 'true'
+export const isTestingProductionConfigInDevelopment = process.env.REACT_APP_PRODUCTION_CONFIG_IN_DEVELOPMENT === 'true'
 
 export /* istanbul ignore next; Development only */ const config =
   NODE_ENV === 'production' || isTestingProductionConfigInDevelopment ? productionConfig : mockConfig

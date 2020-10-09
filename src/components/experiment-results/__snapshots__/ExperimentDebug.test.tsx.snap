@@ -72,25 +72,25 @@ exports[`renders the full tables with some analyses and a different primary metr
                 >
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     All participants
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     10
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     10
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     0
                   </td>
@@ -783,25 +783,25 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                 >
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     All participants
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     1000
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     600
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     400
                   </td>
@@ -815,25 +815,25 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                 >
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     Without crossovers
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     900
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     540
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     360
                   </td>
@@ -847,25 +847,25 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                 >
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     Without spammers
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     850
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     510
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     340
                   </td>
@@ -879,25 +879,25 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                 >
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     Without crossovers and spammers
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     800
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     480
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     320
                   </td>
@@ -911,25 +911,25 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                 >
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     Exposed without crossovers and spammers
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     700
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     420
                   </td>
                   <td
                     class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                    style="box-sizing: border-box;"
+                    style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                   >
                     280
                   </td>
@@ -1045,32 +1045,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       All participants
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       1000 (100)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.
@@ -1089,31 +1089,31 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Without crossovers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       900 (90)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Inconclusive
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     />
                   </tr>
                   <tr
@@ -1125,31 +1125,31 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Without spammers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       850 (85)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy either variation
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     />
                   </tr>
                   <tr
@@ -1161,32 +1161,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Without crossovers and spammers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       800 (80)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.
@@ -1205,32 +1205,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Exposed without crossovers and spammers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       700 (70)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.
@@ -1432,29 +1432,29 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       All participants
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       10 (10)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       N/A
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     />
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       
                     </td>
@@ -1562,32 +1562,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       All participants
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       2000 (200)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.
@@ -1606,32 +1606,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Without crossovers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       1800 (180)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.
@@ -1650,32 +1650,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Without spammers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       1700 (170)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.
@@ -1694,32 +1694,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Without crossovers and spammers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       1600 (160)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.
@@ -1738,32 +1738,32 @@ exports[`renders the full tables with some analyses in debug mode 3`] = `
                   >
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Exposed without crossovers and spammers
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       1400 (140)
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       [-0.01, 0.01]
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       Deploy 
                       test
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
-                      style="box-sizing: border-box;"
+                      style="box-sizing: border-box; font-size: inherit; font-family: inherit; font-weight: inherit;"
                     >
                       <div>
                         Experiment period is too short. Wait a few days to be safer.

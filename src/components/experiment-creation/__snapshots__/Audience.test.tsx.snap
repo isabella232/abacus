@@ -42,8 +42,10 @@ exports[`renders as expected 1`] = `
             WordPress.com
           </div>
           <input
+            aria-hidden="true"
+            class="MuiSelect-nativeInput"
             name="experiment.platform"
-            type="hidden"
+            tabindex="-1"
             value="wpcom"
           />
           <svg
@@ -625,8 +627,10 @@ exports[`renders as expected 2`] = `
             WordPress.com
           </div>
           <input
+            aria-hidden="true"
+            class="MuiSelect-nativeInput"
             name="experiment.platform"
-            type="hidden"
+            tabindex="-1"
             value="wpcom"
           />
           <svg
