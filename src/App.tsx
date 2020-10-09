@@ -81,7 +81,6 @@ const useStyles = makeStyles({
 
 function App() {
   debug('App#render')
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const classes = useStyles()
 
   React.useEffect(() => {

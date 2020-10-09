@@ -119,7 +119,6 @@
     "lint:ts:fix": "eslint . --ext .ts,.tsx --fix",
     "start": "react-scripts start",
     "storybook": "start-storybook -s ./public",
-    "cra-test-is-this-useful-TODO": "react-scripts test",
     "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
     "@comment test:e2e": "Runs the e2e tests. It will spawn Chromium to run the tests.",
     "test:e2e": "npm run jest -- --config=jest.e2e.config.js --runInBand",
@@ -128,9 +127,6 @@
     "test:unit": "npm run jest",
     "type-check": "tsc",
     "verify": "npm run format:check && npm run lint && npm run test:all"
-  },
-  "@comment eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
