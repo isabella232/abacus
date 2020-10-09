@@ -1,10 +1,10 @@
+import { Options } from 'material-table'
 import theme from 'src/styles/theme'
 
 /**
  * Default table options for dynamic MaterialTable instances.
  */
-// @ts-ignore -- Options now requires a type argument which we don't have
-export const defaultTableOptions: any = {
+export const defaultTableOptions: Options = {
   emptyRowsWhenPaging: false,
   pageSize: 25,
   showEmptyDataSourceMessage: false,
@@ -28,8 +28,7 @@ export const defaultTableOptions: any = {
  *
  * @param numRows the exact number of rows that the table should have.
  */
-// @ts-ignore -- Options now requires a type argument which we don't have
-export function createStaticTableOptions(numRows: number): any {
+export function createStaticTableOptions(numRows: number): Options {
   return {
     ...defaultTableOptions,
     pageSize: numRows,

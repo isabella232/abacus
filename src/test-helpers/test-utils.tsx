@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/explicit-module-boundary-types */
 import { act, fireEvent, Queries, render as actualRender, RenderOptions, screen } from '@testing-library/react'
-import { StaticRouter } from 'react-router'
 import mediaQuery from 'css-mediaquery'
 import { Formik, FormikValues } from 'formik'
 import React from 'react'
+import { StaticRouter } from 'react-router'
 import ThemeProvider from 'src/styles/ThemeProvider'
 import { ValidationError } from 'yup'
 

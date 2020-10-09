@@ -1,7 +1,7 @@
 import { AppBar, Container, Theme, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Link } from 'react-router-dom'
 import React, { ReactNode, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { isTestingProductionConfigInDevelopment } from 'src/config'
 import { isDebugMode, toggleDebugMode } from 'src/utils/general'
 
@@ -103,7 +103,9 @@ const Layout = ({
   }
 
   useEffect(() => {
-    document.title = `${title ?? /* istanbul ignore next; trivial */ headTitle} | Abacus`
+    // istanbul ignore next; trivial, least concern
+    const possibleTitle = title ?? headTitle ?? ''
+    document.title = `${possibleTitle} | Abacus`
   }, [title, headTitle])
 
   return (
