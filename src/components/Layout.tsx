@@ -1,9 +1,8 @@
 import { AppBar, Container, Theme, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import Head from 'next/head'
 import { Link } from 'react-router-dom'
 import { useRouter } from 'next/router'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import { isTestingProductionConfigInDevelopment } from 'src/config'
 import { isDebugMode, toggleDebugMode } from 'src/utils/general'
 
@@ -105,13 +104,12 @@ const Layout = ({
     }
   }
 
+  useEffect(() => {
+    document.title = `${title ?? /* istanbul ignore next; trivial */ headTitle} | Abacus`
+  }, [title, headTitle])
+
   return (
     <div className={classes.root}>
-      <Head>
-        <title>{title ?? /* istanbul ignore next; trivial */ headTitle} | Abacus</title>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      </Head>
       <AppBar position='relative' className={classes.appBar}>
         {
           /* istanbul ignore next; Development mode only */
