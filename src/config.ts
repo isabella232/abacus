@@ -27,17 +27,17 @@ const mockConfig = {
  * Particularly for `next build` where we need to pass in `NODE_ENV=test` for E2E testing
  */
 export /* istanbul ignore next; Development only */ const NODE_ENV =
-  process.env.NEXT_PUBLIC_NODE_ENV_OVERRIDE ?? process.env.NODE_ENV ?? 'development'
+  process.env.REACT_APP_NODE_ENV_OVERRIDE ?? process.env.NODE_ENV ?? 'development'
 
 /**
  * Allows us to test out the production API locally while developing.
  *
- * Simply set `NEXT_PUBLIC_PRODUCTION_CONFIG_IN_DEVELOPMENT=true` before spinning up the app.
+ * Simply set `REACT_APP_PRODUCTION_CONFIG_IN_DEVELOPMENT=true` before spinning up the app.
  *
  * You may need to clear your localstorage to get the app to reauth.
  */
 export const isTestingProductionConfigInDevelopment =
-  process.env.NEXT_PUBLIC_PRODUCTION_CONFIG_IN_DEVELOPMENT === 'true'
+  process.env.REACT_APP_PRODUCTION_CONFIG_IN_DEVELOPMENT === 'true'
 
 export /* istanbul ignore next; Development only */ const config =
   NODE_ENV === 'production' || isTestingProductionConfigInDevelopment ? productionConfig : mockConfig

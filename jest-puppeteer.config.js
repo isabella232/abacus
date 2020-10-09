@@ -7,7 +7,7 @@ module.exports = {
   },
   server: {
     command:
-      'echo "Building app..." && NEXT_PUBLIC_NODE_ENV_OVERRIDE=test npm run build && echo "Starting app..." && npm run start -- -p 3001',
+      'echo "Building app..." && REACT_APP_NODE_ENV_OVERRIDE=test npm run build && echo "Starting app..." && npm run start -- -p 3001',
     debug: true, // Allows us to see the output of the above commands.
     launchTimeout: 180 * 1000,
     port: 3001,
