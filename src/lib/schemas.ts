@@ -93,14 +93,23 @@ export const metricFullSchema = metricBareSchema
   .defined()
   .camelCase()
   .test('event-params-required', 'Event Params is required and must be valid JSON.', (metricFull) => {
+    if (!metricFull) {
+      return false
+    }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return !(metricFull.parameterType === MetricParameterType.Conversion && !metricFull.eventParams)
   })
   .test('revenue-params-required', 'Revenue Params is required and must be valid JSON.', (metricFull) => {
+    if (!metricFull) {
+      return false
+    }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return !(metricFull.parameterType === MetricParameterType.Revenue && !metricFull.revenueParams)
   })
   .test('exactly-one-params', 'Exactly one of eventParams or revenueParams must be defined.', (metricFull) => {
+    if (!metricFull) {
+      return false
+    }
     // (Logical XOR)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return !!metricFull.eventParams !== !!metricFull.revenueParams
@@ -252,7 +261,10 @@ export const experimentBareSchema = yup
   })
   .defined()
   .camelCase()
-export type ExperimentBare = yup.InferType<typeof experimentBareSchema>
+export interface ExperimentBare extends yup.InferType<typeof experimentBareSchema> {
+  startDatetime: Date
+  endDatetime: Date
+}
 export const experimentSummaryResponse = yup
   .object({
     experiments: yup.array(experimentBareSchema).defined(),
@@ -274,7 +286,10 @@ export const experimentFullSchema = experimentBareSchema
   })
   .defined()
   .camelCase()
-export type ExperimentFull = yup.InferType<typeof experimentFullSchema>
+export interface ExperimentFull extends yup.InferType<typeof experimentFullSchema> {
+  startDatetime: Date
+  endDatetime: Date
+}
 
 const now = new Date()
 export const experimentFullNewSchema = experimentFullSchema.shape({
@@ -287,20 +302,23 @@ export const experimentFullNewSchema = experimentFullSchema.shape({
       'future-start-date',
       'Start date (UTC) must be in the future.',
       // We need to refer to new Date() instead of using dateFns.isFuture so MockDate works with this in the tests.
-      (date) => dateFns.isBefore(new Date(), date),
+      (date) => dateFns.isBefore(new Date(), date as Date),
     )
     .test(
       'bounded-start-date',
       `Start date must be within ${MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS} months from now.`,
       // We need to refer to new Date() instead of using dateFns.isFuture so MockDate works with this in the tests.
-      (date) => dateFns.isBefore(date, dateFns.addMonths(now, MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS)),
+      (date) => dateFns.isBefore(date as Date, dateFns.addMonths(now, MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS)),
     ),
   exposureEvents: yup.array(eventNewSchema).notRequired(),
   metricAssignments: yup.array(metricAssignmentNewSchema).defined().min(1),
   segmentAssignments: yup.array(segmentAssignmentNewSchema).defined(),
   variations: yup.array<VariationNew>(variationNewSchema).defined().min(2),
 })
-export type ExperimentFullNew = yup.InferType<typeof experimentFullNewSchema>
+export interface ExperimentFullNew extends yup.InferType<typeof experimentFullNewSchema> {
+  startDatetime: Date
+  endDatetime: Date
+}
 /**
  * For casting use only.
  */
@@ -367,7 +385,6 @@ export const recommendationSchema = yup
   })
   .defined()
   .camelCase()
-// export type Recommendation = yup.InferType<typeof recommendationSchema>
 
 export const metricEstimateSchema = yup
   .object({
