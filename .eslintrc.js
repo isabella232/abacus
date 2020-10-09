@@ -52,7 +52,8 @@ module.exports = {
 
     'plugin:react/recommended',
 
-    'plugin:react-hooks/recommended',
+    // 'react-app' includes plugin:react-hooks/recommended and for some reason we get warnings when we try to add it again
+    // 'plugin:react-hooks/recommended',
   ],
   plugins: ['@typescript-eslint', 'jsx-a11y', 'promise', 'react-hooks', 'simple-import-sort'],
   rules: {
