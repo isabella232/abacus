@@ -239,7 +239,7 @@ export default function CondensedLatestAnalyses({
     <div className={classes.root}>
       <div className={classes.summary}>
         <Paper className={classes.participantsPlotPaper}>
-          <Typography variant='h3' color='primary' gutterBottom>
+          <Typography variant='h3' gutterBottom>
             Participants by Variation
           </Typography>
           <Plot

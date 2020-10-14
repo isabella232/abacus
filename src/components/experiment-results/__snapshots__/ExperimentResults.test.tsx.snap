@@ -14,7 +14,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
         class="MuiPaper-root makeStyles-participantsPlotPaper-10 MuiPaper-elevation1 MuiPaper-rounded"
       >
         <h3
-          class="MuiTypography-root MuiTypography-h3 MuiTypography-colorPrimary MuiTypography-gutterBottom"
+          class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom"
         >
           Participants by Variation
         </h3>
@@ -767,7 +767,7 @@ exports[`renders the condensed table with some analyses in non-debug mode for a 
         class="MuiPaper-root makeStyles-participantsPlotPaper-34 MuiPaper-elevation1 MuiPaper-rounded"
       >
         <h3
-          class="MuiTypography-root MuiTypography-h3 MuiTypography-colorPrimary MuiTypography-gutterBottom"
+          class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom"
         >
           Participants by Variation
         </h3>
