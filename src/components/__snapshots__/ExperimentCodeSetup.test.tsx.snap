@@ -192,7 +192,7 @@ $experiment-&gt;set_user(
             >
               'treatment'
             </span>
-            
+            :
         
             <span
               style="color: rgb(136, 136, 136);"
@@ -272,10 +272,10 @@ exports[`renders as expected 1`] = `
           role="tablist"
         >
           <button
-            aria-selected="true"
-            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit Mui-selected"
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
             role="tab"
-            tabindex="0"
+            tabindex="-1"
             type="button"
           >
             <span
@@ -288,10 +288,10 @@ exports[`renders as expected 1`] = `
             />
           </button>
           <button
-            aria-selected="false"
-            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            aria-selected="true"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit Mui-selected"
             role="tab"
-            tabindex="-1"
+            tabindex="0"
             type="button"
           >
             <span
@@ -344,7 +344,13 @@ exports[`renders as expected 1`] = `
     </div>
     <div
       aria-labelledby="vertical-tab-0"
+      hidden=""
       id="vertical-tabpanel-0"
+      role="tabpanel"
+    />
+    <div
+      aria-labelledby="vertical-tab-1"
+      id="vertical-tabpanel-1"
       role="tabpanel"
     >
       <div
@@ -360,184 +366,94 @@ exports[`renders as expected 1`] = `
         >
           <code>
             <span
-              style="font-weight: bold;"
+              style="color: rgb(31, 113, 153);"
             >
-              import
+              &lt;?php
             </span>
-             React 
-            <span
-              style="font-weight: bold;"
-            >
-              from
-            </span>
-             
+            
+
+require_lib( 
             <span
               style="color: rgb(136, 0, 0);"
             >
-              'react'
+              'wpcom-abtest/wpcom-experiment'
             </span>
-            ;
+             );
+$experiment = WPCOM_Experiment::instance( 
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'test'
+            </span>
+             );
+$experiment-&gt;set_user( get_current_user_id(), $_COOKIE[
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'tk_ai'
+            </span>
+            ] );
 
             <span
               style="font-weight: bold;"
             >
-              import
+              switch
             </span>
-             Experiment, {
-    DefaultVariation,
-    Variation,
-    LoadingVariations,
-} 
-            <span
-              style="font-weight: bold;"
-            >
-              from
-            </span>
-             
-            <span
-              style="color: rgb(136, 0, 0);"
-            >
-              'client/components/experiment'
-            </span>
-            ;
-
-            <span
-              class="hljs-function"
-            >
-              <span
-                style="font-weight: bold;"
-              >
-                function
-              </span>
-               
-              <span
-                style="color: rgb(136, 0, 0); font-weight: bold;"
-              >
-                SomeExperiment
-              </span>
-              (
-              <span
-                class="hljs-params"
-              >
-                 props 
-              </span>
-              ) 
-            </span>
-            {
+            ( $experiment-&gt;get_variation() ) {
     
             <span
               style="font-weight: bold;"
             >
-              return
+              case
             </span>
-             (
+             
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'treatment'
+            </span>
+            :
         
             <span
-              class="xml"
+              style="color: rgb(136, 136, 136);"
             >
-              <span
-                class="hljs-tag"
-              >
-                &lt;
-                <span
-                  style="font-weight: bold;"
-                >
-                  Experiment
-                </span>
-                 
-                <span
-                  class="hljs-attr"
-                >
-                  name
-                </span>
-                =
-                <span
-                  style="color: rgb(136, 0, 0);"
-                >
-                  {
-                </span>
-                 
-                <span
-                  class="hljs-attr"
-                >
-                  test
-                </span>
-                 }&gt;
-              </span>
-              
-            
+              // do something with this variation
             </span>
-            &lt;DefaultVariation name="control"&gt;
-                Shows this variation when:
-                &lt;ol&gt;
-                    &lt;li&gt;The user doesn't have a variation assigned to them.&lt;/li&gt;
-                    &lt;li&gt;The experiment doesn't exist.&lt;/li&gt;
-                    &lt;li&gt;Before the experiment goes live&lt;/li&gt;
-                &lt;/ol&gt;
-            &lt;/DefaultVariation&gt;
-            <span
-              class="xml"
-            >
-              
             
-            </span>
-            &lt;Variation name="treatment"&gt;Show variation B if the user is assigned this variation.&lt;/Variation&gt;
-            <span
-              class="xml"
-            >
-              
-            
-            </span>
-            &lt;LoadingVariations&gt;
-                Show this when we don't know the variation because we haven't called the API yet to get
-                variations.
-                &lt;br /&gt;
-                Protip: If this experiment is in the middle or end of a flow, try putting
-                &lt;code&gt;&lt;QueryExperiments&gt;&lt;/code&gt; at the beginning of your flow to ensure the variation
-                assignments are preloaded.
-            &lt;/LoadingVariations&gt;
-            <span
-              class="xml"
-            >
-              
         
-              <span
-                class="hljs-tag"
-              >
-                &lt;/
-                <span
-                  style="font-weight: bold;"
-                >
-                  Experiment
-                </span>
-                &gt;
-              </span>
+            <span
+              style="font-weight: bold;"
+            >
+              break
+            </span>
+            ;
+    
+            <span
+              style="font-weight: bold;"
+            >
+              default
+            </span>
+            :
+        
+            <span
+              style="color: rgb(136, 136, 136);"
+            >
+              // handle the default/control case
             </span>
             
-    );
+        
+            <span
+              style="font-weight: bold;"
+            >
+              break
+            </span>
+            ;
 }
 
           </code>
         </pre>
-        <h5
-          class="MuiTypography-root MuiTypography-h5"
-        >
-          Documentation
-        </h5>
-        <a
-          class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-          href="https://github.com/Automattic/wp-calypso/tree/master/client/components/experiment"
-        >
-          See this Readme
-        </a>
       </div>
     </div>
-    <div
-      aria-labelledby="vertical-tab-1"
-      hidden=""
-      id="vertical-tabpanel-1"
-      role="tabpanel"
-    />
     <div
       aria-labelledby="vertical-tab-2"
       hidden=""
