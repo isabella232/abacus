@@ -116,7 +116,7 @@ switch( $experiment->get_variation() ) {
       </Tabs>
       <TabPanel value={tabValue} index={0}>
         <Typography variant={'h5'}>Example Code</Typography>
-        <Highlight language='js'>{react}</Highlight>
+        <Highlight language='tsx'>{react}</Highlight>
         <Typography variant={'h5'}>Documentation</Typography>
         <Link href='https://github.com/Automattic/wp-calypso/tree/master/client/components/experiment'>
           See this Readme
