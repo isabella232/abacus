@@ -9,6 +9,7 @@ import {
   TableContainer,
   TableRow,
   Theme,
+  Typography,
   useTheme,
 } from '@material-ui/core'
 import clsx from 'clsx'
@@ -33,6 +34,7 @@ import {
 import * as Variations from 'src/lib/variations'
 import * as Visualizations from 'src/lib/visualizations'
 import { createStaticTableOptions } from 'src/utils/material-table'
+import { formatIsoDate } from 'src/utils/time'
 
 import { MetricAssignmentAnalysesData } from './ExperimentResults'
 import RecommendationString from './RecommendationString'
@@ -49,10 +51,35 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
     },
     summary: {
-      padding: theme.spacing(2),
       display: 'flex',
       justifyContent: 'space-between',
       marginBottom: theme.spacing(2),
+    },
+    summaryStatsPaper: {
+      padding: theme.spacing(4),
+      marginLeft: theme.spacing(2),
+    },
+    summaryStatsPart: {
+      marginBottom: theme.spacing(3),
+    },
+    summaryStatsPartStrategy: {
+      marginTop: theme.spacing(6),
+    },
+    summaryStatsTotalNumber: {
+      fontSize: '3rem',
+      fontWeight: 500,
+    },
+    summaryStatsFinalizedNumber: {
+      fontSize: '2rem',
+      fontWeight: 500,
+    },
+    summaryStatsStrategyTitle: {
+      fontSize: '1.25rem',
+      fontWeight: 600,
+    },
+    participantsPlotPaper: {
+      padding: theme.spacing(4, 4, 2),
+      flex: 1,
     },
     participantsPlot: {
       width: '100%',
@@ -109,6 +136,8 @@ export default function CondensedLatestAnalyses({
   const analyses = primaryMetricAssignmentAnalysesData.analysesByStrategyDateAsc[strategy]
   const dates = analyses.map(({ analysisDatetime }) => analysisDatetime.toISOString())
 
+  const latestAnalysis = _.last(analyses)
+
   const plotlyDataParticipantGraph: Array<Partial<PlotData>> = [
     ..._.flatMap(experiment.variations, (variation, index) => {
       const variationKey = `variation_${variation.variationId}`
@@ -120,12 +149,15 @@ export default function CondensedLatestAnalyses({
           line: {
             color: Visualizations.variantColors[index],
           },
-          mode: 'lines' as const,
+          mode: 'lines+markers' as const,
           type: 'scatter' as const,
         },
       ]
     }),
   ]
+
+  const finalizedPercentage =
+    100 - (latestAnalysis?.participantStats.not_final ?? 0) / (latestAnalysis?.participantStats.total ?? 1)
 
   // ### Metric Assignments Table
 
@@ -204,16 +236,56 @@ export default function CondensedLatestAnalyses({
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.summary}>
-        <Plot
-          layout={{
-            ...Visualizations.plotlyLayoutDefault,
-            title: `Participants (${AnalysisStrategyToHuman[strategy]})`,
-          }}
-          data={plotlyDataParticipantGraph}
-          className={classes.participantsPlot}
-        />
-      </Paper>
+      <div className={classes.summary}>
+        <Paper className={classes.participantsPlotPaper}>
+          <Typography variant='h3' color='primary' gutterBottom>
+            Participants by Variation
+          </Typography>
+          <Plot
+            layout={{
+              ...Visualizations.plotlyLayoutDefault,
+              margin: {
+                l: theme.spacing(3),
+                r: theme.spacing(2),
+                t: 0,
+                b: theme.spacing(6),
+              },
+            }}
+            data={plotlyDataParticipantGraph}
+            className={classes.participantsPlot}
+          />
+        </Paper>
+        <Paper className={classes.summaryStatsPaper}>
+          {latestAnalysis && (
+            <>
+              <div className={classes.summaryStatsPart}>
+                <Typography variant='h1' className={classes.summaryStatsTotalNumber} color='primary'>
+                  {latestAnalysis.participantStats.total.toLocaleString()}
+                </Typography>
+                <Typography variant='subtitle1'>
+                  <strong>total participants</strong> as at {formatIsoDate(latestAnalysis.analysisDatetime)}
+                </Typography>
+              </div>
+              <div className={classes.summaryStatsPart}>
+                <Typography variant='h1' className={classes.summaryStatsFinalizedNumber} color='primary'>
+                  {finalizedPercentage}%
+                </Typography>
+                <Typography variant='subtitle1'>
+                  of participants are <strong>finalized</strong>
+                </Typography>
+              </div>
+              <div className={classes.summaryStatsPartStrategy}>
+                <Typography variant='h5' className={classes.summaryStatsStrategyTitle} color='primary'>
+                  {AnalysisStrategyToHuman[strategy]}
+                </Typography>
+                <Typography variant='subtitle1'>
+                  <strong>strategy</strong> in use
+                </Typography>
+              </div>
+            </>
+          )}
+        </Paper>
+      </div>
       <MaterialTable
         columns={tableColumns}
         data={metricAssignmentSummaryData}
