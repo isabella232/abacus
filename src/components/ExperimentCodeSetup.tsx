@@ -2,7 +2,7 @@ import { Box, createStyles, Link, makeStyles, Paper, Tab, Tabs, Theme, Typograph
 import React, { useState } from 'react'
 import Highlight from 'react-syntax-highlighter'
 
-import { ExperimentFull } from '../lib/schemas'
+import { ExperimentFull, Platform } from '../lib/schemas'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -36,7 +36,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ExperimentCodeSetup({ experiment }: { experiment: ExperimentFull }): JSX.Element {
   const classes = useStyles()
-  const [tabValue, setTabValue] = useState(0)
+  const [tabValue, setTabValue] = useState(() => {
+    switch (experiment.platform) {
+      case Platform.Calypso:
+        return 0
+      default:
+        // most likely a landing page experiment
+        if (experiment.name.startsWith('lohp')) {
+          return 2
+        }
+        return 1
+    }
+  })
 
   const defaultVariation = experiment.variations.flatMap((x) => (x.isDefault ? x.name : null))[0] ?? 'control'
   const treatmentVariation = experiment.variations.flatMap((x) => (x.isDefault ? null : x.name))[0] ?? 'treatment'
