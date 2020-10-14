@@ -156,6 +156,7 @@ export default function CondensedLatestAnalyses({
     }),
   ]
 
+  // istanbul ignore next; We shouldn't be showing any analysis in the case of no analysis
   const finalizedPercentage =
     100 - (latestAnalysis?.participantStats.not_final ?? 0) / (latestAnalysis?.participantStats.total ?? 1)
 
