@@ -219,7 +219,7 @@ export default function ExperimentPageView({
             {view === ExperimentView.Debug && debugMode && (
               <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />
             )}
-            {view === ExperimentView.CodeSetup && <ExperimentCodeSetup />}
+            {view === ExperimentView.CodeSetup && <ExperimentCodeSetup experiment={experiment} />}
           </>
         )}
       </>
