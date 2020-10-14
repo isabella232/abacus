@@ -104,7 +104,7 @@ require_once __DIR__ . '/../wp-content/lib/wpcom-abtest/wpcom-experiment-client.
 $experiment = WPCOM_Experiment_Client::instance( '${experiment.name}' );
 $experiment->set_user( null, $_COOKIE['tk_ai'] );
 switch( $experiment->get_variation() ) {
-    case '${treatmentVariation}'
+    case '${treatmentVariation}':
         // do something with this variation
         break;
     default:
