@@ -1,5 +1,249 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`clicking a tab does something 1`] = `
+<div>
+  <div
+    class="MuiPaper-root makeStyles-root-7 MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <h4
+      class="MuiTypography-root MuiTypography-h4"
+    >
+      Experiment Code Setup
+    </h4>
+    <h6
+      class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom"
+    >
+      Connect this experiment to your code.
+    </h6>
+    <br />
+    <div
+      class="MuiTabs-root"
+    >
+      <div
+        class="MuiTabs-scroller MuiTabs-fixed"
+        style="overflow: hidden;"
+      >
+        <div
+          class="MuiTabs-flexContainer MuiTabs-centered"
+          role="tablist"
+        >
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              React
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              WordPress.com
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="true"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit Mui-selected"
+            role="tab"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Logged Out Homepages
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Raw HTTP
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <span
+          class="PrivateTabIndicator-root-8 PrivateTabIndicator-colorSecondary-10 MuiTabs-indicator"
+          style="left: 0px; width: 0px;"
+        />
+      </div>
+    </div>
+    <div
+      aria-labelledby="vertical-tab-0"
+      hidden=""
+      id="vertical-tabpanel-0"
+      role="tabpanel"
+    />
+    <div
+      aria-labelledby="vertical-tab-1"
+      hidden=""
+      id="vertical-tabpanel-1"
+      role="tabpanel"
+    />
+    <div
+      aria-labelledby="vertical-tab-2"
+      id="vertical-tabpanel-2"
+      role="tabpanel"
+    >
+      <div
+        class="MuiBox-root MuiBox-root-13"
+      >
+        <h5
+          class="MuiTypography-root MuiTypography-h5"
+        >
+          Example Code
+        </h5>
+        <pre
+          style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"
+        >
+          <code>
+            <span
+              style="color: rgb(31, 113, 153);"
+            >
+              &lt;?php
+            </span>
+            
+
+
+            <span
+              style="font-weight: bold;"
+            >
+              require_once
+            </span>
+             
+            <span
+              style="font-weight: bold;"
+            >
+              __DIR__
+            </span>
+             . 
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              '/../wp-content/lib/wpcom-abtest/wpcom-experiment-client.php'
+            </span>
+            ;
+$experiment = WPCOM_Experiment_Client::instance( 
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'test'
+            </span>
+             );
+$experiment-&gt;set_user( 
+            <span
+              style="font-weight: bold;"
+            >
+              null
+            </span>
+            , $_COOKIE[
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'tk_ai'
+            </span>
+            ] );
+
+            <span
+              style="font-weight: bold;"
+            >
+              switch
+            </span>
+            ( $experiment-&gt;get_variation() ) {
+    
+            <span
+              style="font-weight: bold;"
+            >
+              case
+            </span>
+             
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'treatment'
+            </span>
+            
+        
+            <span
+              style="color: rgb(136, 136, 136);"
+            >
+              // do something with this variation
+            </span>
+            
+        
+            <span
+              style="font-weight: bold;"
+            >
+              break
+            </span>
+            ;
+    
+            <span
+              style="font-weight: bold;"
+            >
+              default
+            </span>
+            :
+        
+            <span
+              style="color: rgb(136, 136, 136);"
+            >
+              // handle the default/control case
+            </span>
+            
+        
+            <span
+              style="font-weight: bold;"
+            >
+              break
+            </span>
+            ;
+}
+
+          </code>
+        </pre>
+      </div>
+    </div>
+    <div
+      aria-labelledby="vertical-tab-3"
+      hidden=""
+      id="vertical-tabpanel-3"
+      role="tabpanel"
+    />
+  </div>
+</div>
+`;
+
 exports[`renders as expected 1`] = `
 <div>
   <div
@@ -16,37 +260,296 @@ exports[`renders as expected 1`] = `
       Connect this experiment to your code.
     </h6>
     <br />
-    <h5
-      class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+    <div
+      class="MuiTabs-root"
     >
-      Using React
-    </h5>
-    <p
-      class="MuiTypography-root MuiTypography-body1"
-    >
-      <a
-        class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-        href="https://github.com/Automattic/wp-calypso/tree/master/client/components/experiment"
+      <div
+        class="MuiTabs-scroller MuiTabs-fixed"
+        style="overflow: hidden;"
       >
-        See this Readme
-      </a>
-    </p>
-    <br />
-    <h5
-      class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+        <div
+          class="MuiTabs-flexContainer MuiTabs-centered"
+          role="tablist"
+        >
+          <button
+            aria-selected="true"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit Mui-selected"
+            role="tab"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              React
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              WordPress.com
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Logged Out Homepages
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Raw HTTP
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <span
+          class="PrivateTabIndicator-root-2 PrivateTabIndicator-colorSecondary-4 MuiTabs-indicator"
+          style="left: 0px; width: 0px;"
+        />
+      </div>
+    </div>
+    <div
+      aria-labelledby="vertical-tab-0"
+      id="vertical-tabpanel-0"
+      role="tabpanel"
     >
-      Using PHP
-    </h5>
-    <p
-      class="MuiTypography-root MuiTypography-body1"
-    >
-      See 
-      <code
-        class="MuiTypography-root makeStyles-root-2 MuiTypography-body1"
+      <div
+        class="MuiBox-root MuiBox-root-6"
       >
-        wp-content/lib/wpcom-abtest/wpcom-experiment.php
-      </code>
-    </p>
+        <h5
+          class="MuiTypography-root MuiTypography-h5"
+        >
+          Example Code
+        </h5>
+        <pre
+          style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"
+        >
+          <code>
+            <span
+              style="font-weight: bold;"
+            >
+              import
+            </span>
+             React 
+            <span
+              style="font-weight: bold;"
+            >
+              from
+            </span>
+             
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'react'
+            </span>
+            ;
+
+            <span
+              style="font-weight: bold;"
+            >
+              import
+            </span>
+             Experiment, {
+    DefaultVariation,
+    Variation,
+    LoadingVariations,
+} 
+            <span
+              style="font-weight: bold;"
+            >
+              from
+            </span>
+             
+            <span
+              style="color: rgb(136, 0, 0);"
+            >
+              'client/components/experiment'
+            </span>
+            ;
+
+            <span
+              class="hljs-function"
+            >
+              <span
+                style="font-weight: bold;"
+              >
+                function
+              </span>
+               
+              <span
+                style="color: rgb(136, 0, 0); font-weight: bold;"
+              >
+                SomeExperiment
+              </span>
+              (
+              <span
+                class="hljs-params"
+              >
+                 props 
+              </span>
+              ) 
+            </span>
+            {
+    
+            <span
+              style="font-weight: bold;"
+            >
+              return
+            </span>
+             (
+        
+            <span
+              class="xml"
+            >
+              <span
+                class="hljs-tag"
+              >
+                &lt;
+                <span
+                  style="font-weight: bold;"
+                >
+                  Experiment
+                </span>
+                 
+                <span
+                  class="hljs-attr"
+                >
+                  name
+                </span>
+                =
+                <span
+                  style="color: rgb(136, 0, 0);"
+                >
+                  {
+                </span>
+                 
+                <span
+                  class="hljs-attr"
+                >
+                  test
+                </span>
+                 }&gt;
+              </span>
+              
+            
+            </span>
+            &lt;DefaultVariation name="control"&gt;
+                Shows this variation when:
+                &lt;ol&gt;
+                    &lt;li&gt;The user doesn't have a variation assigned to them.&lt;/li&gt;
+                    &lt;li&gt;The experiment doesn't exist.&lt;/li&gt;
+                    &lt;li&gt;Before the experiment goes live&lt;/li&gt;
+                &lt;/ol&gt;
+            &lt;/DefaultVariation&gt;
+            <span
+              class="xml"
+            >
+              
+            
+            </span>
+            &lt;Variation name="treatment"&gt;Show variation B if the user is assigned this variation.&lt;/Variation&gt;
+            <span
+              class="xml"
+            >
+              
+            
+            </span>
+            &lt;LoadingVariations&gt;
+                Show this when we don't know the variation because we haven't called the API yet to get
+                variations.
+                &lt;br /&gt;
+                Protip: If this experiment is in the middle or end of a flow, try putting
+                &lt;code&gt;&lt;QueryExperiments&gt;&lt;/code&gt; at the beginning of your flow to ensure the variation
+                assignments are preloaded.
+            &lt;/LoadingVariations&gt;
+            <span
+              class="xml"
+            >
+              
+        
+              <span
+                class="hljs-tag"
+              >
+                &lt;/
+                <span
+                  style="font-weight: bold;"
+                >
+                  Experiment
+                </span>
+                &gt;
+              </span>
+            </span>
+            
+    );
+}
+
+          </code>
+        </pre>
+        <h5
+          class="MuiTypography-root MuiTypography-h5"
+        >
+          Documentation
+        </h5>
+        <a
+          class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+          href="https://github.com/Automattic/wp-calypso/tree/master/client/components/experiment"
+        >
+          See this Readme
+        </a>
+      </div>
+    </div>
+    <div
+      aria-labelledby="vertical-tab-1"
+      hidden=""
+      id="vertical-tabpanel-1"
+      role="tabpanel"
+    />
+    <div
+      aria-labelledby="vertical-tab-2"
+      hidden=""
+      id="vertical-tabpanel-2"
+      role="tabpanel"
+    />
+    <div
+      aria-labelledby="vertical-tab-3"
+      hidden=""
+      id="vertical-tabpanel-3"
+      role="tabpanel"
+    />
   </div>
 </div>
 `;
