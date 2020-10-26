@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Paper, Toolbar, Typography } from '@material-ui/core'
+import { Chip, createStyles, makeStyles, Paper, Toolbar, Typography } from '@material-ui/core'
 import { TableCellProps } from '@material-ui/core/TableCell'
 import _ from 'lodash'
 import React, { useMemo } from 'react'
@@ -121,6 +121,16 @@ function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentF
     [experiment.segmentAssignments, segments],
   )
 
+  const exclusionGroupTags = experiment.exclusiveGroupTagIds.map((tagId) => {
+    const tag = tags.find(tag => tag.tagId === tagId)
+
+    if (tag === undefined) {
+      throw new Error(`Can't find tag for exclusion group id: ${tagId}`)
+    }
+
+    return tag
+  })
+
   const data = [
     { label: 'Platform', value: <span className={classes.monospace}>{experiment.platform}</span> },
     {
@@ -156,7 +166,27 @@ function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentF
       label: 'Exposure Events',
       value: <ExposureEventsTable experiment={experiment} />,
     },
+    {
+      label: 'Exclusion Groups',
+      value: (
+        <>
+        {exclusionGroupTags.map(tag => <><Chip label={tag.name} disabled />&nbsp;</>)}
+        </>
+      ),
+    },
   ]
+
+  if (exclusionGroupTags.length > 0) {
+    data.push({
+        label: 'Exclusion Groups',
+        value: (
+          <>
+          {exclusionGroupTags.map(tag => <><Chip label={tag.name} disabled />&nbsp;</>)}
+          </>
+        ),
+    })
+  }
+
   return (
     <Paper>
       <Toolbar>
