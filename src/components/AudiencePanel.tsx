@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 import LabelValueTable from 'src/components/LabelValueTable'
 import SegmentsTable from 'src/components/SegmentsTable'
 import VariationsTable from 'src/components/VariationsTable'
-import { ExperimentFull, Segment, SegmentAssignment, SegmentType } from 'src/lib/schemas'
+import { ExperimentFull, Segment, SegmentAssignment, SegmentType, TagBare } from 'src/lib/schemas'
 import theme from 'src/styles/theme'
 
 /**
@@ -113,7 +113,7 @@ function ExposureEventsTable({ experiment: { exposureEvents } }: { experiment: E
  * @param segments - The segments to look up (aka resolve) the segment IDs
  *   of the experiment's segment assignments.
  */
-function AudiencePanel({ experiment, segments }: { experiment: ExperimentFull; segments: Segment[] }): JSX.Element {
+function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentFull; segments: Segment[]; tags: TagBare[] }): JSX.Element {
   const classes = useStyles()
 
   const segmentsByType = useMemo(

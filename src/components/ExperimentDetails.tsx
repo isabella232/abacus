@@ -8,7 +8,7 @@ import AudiencePanel from 'src/components/AudiencePanel'
 import ConclusionsPanel from 'src/components/ConclusionsPanel'
 import GeneralPanel from 'src/components/GeneralPanel'
 import MetricAssignmentsPanel from 'src/components/MetricAssignmentsPanel'
-import { ExperimentFull, MetricBare, Segment, Status } from 'src/lib/schemas'
+import { ExperimentFull, MetricBare, Segment, Status, TagBare } from 'src/lib/schemas'
 
 const debug = debugFactory('abacus:components/ExperimentDetails.tsx')
 
@@ -19,11 +19,13 @@ function ExperimentDetails({
   experiment,
   metrics,
   segments,
+  tags,
   experimentReloadRef,
 }: {
   experiment: ExperimentFull
   metrics: MetricBare[]
   segments: Segment[]
+  tags: TagBare[]
   experimentReloadRef: React.MutableRefObject<() => void>
 }): JSX.Element {
   debug('ExperimentDetails#render')
@@ -39,7 +41,7 @@ function ExperimentDetails({
           </Grid>
           {isMdDown && (
             <Grid item>
-              <AudiencePanel experiment={experiment} segments={segments} />
+              <AudiencePanel {...{ experiment, segments, tags }} />
             </Grid>
           )}
           <Grid item>
@@ -54,7 +56,7 @@ function ExperimentDetails({
       </Grid>
       {!isMdDown && (
         <Grid item lg={5}>
-          <AudiencePanel experiment={experiment} segments={segments} />
+          <AudiencePanel {...{ experiment, segments, tags }} />
         </Grid>
       )}
     </Grid>
