@@ -8,7 +8,19 @@ import AudiencePanel from './AudiencePanel'
 
 test('renders as expected with no segment assignments', () => {
   const experiment = Fixtures.createExperimentFull({ segmentAssignments: [] })
-  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} />)
+  const tags = Fixtures.createTagBares(5)
+  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} tags={tags} />)
+
+  expect(container).toMatchSnapshot()
+})
+
+test('renders as expected with no exclusion groups', () => {
+  const experiment = Fixtures.createExperimentFull({
+    segmentAssignments: [],
+  })
+  experiment.exclusionGroupTagIds = undefined
+  const tags = Fixtures.createTagBares(5)
+  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} tags={tags} />)
 
   expect(container).toMatchSnapshot()
 })
@@ -18,7 +30,8 @@ test('renders as expected with existing users allowed', () => {
     segmentAssignments: [],
     existingUsersAllowed: true,
   })
-  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} />)
+  const tags = Fixtures.createTagBares(5)
+  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} tags={tags} />)
 
   expect(container).toMatchSnapshot()
 })
@@ -34,7 +47,8 @@ test('renders as expected with all segments resolvable', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 5, segmentId: 5 }),
     ],
   })
-  const { container } = render(<AudiencePanel experiment={experiment} segments={segments} />)
+  const tags = Fixtures.createTagBares(5)
+  const { container } = render(<AudiencePanel experiment={experiment} segments={segments} tags={tags} />)
 
   expect(container).toMatchSnapshot()
 })
@@ -50,6 +64,7 @@ test('throws an error when some segments not resolvable', () => {
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 5, segmentId: 10 }),
     ],
   })
+  const tags = Fixtures.createTagBares(5)
 
   // Note: This console.error spy is mainly used to suppress the output that the
   // `render` function outputs.
@@ -57,7 +72,9 @@ test('throws an error when some segments not resolvable', () => {
   const consoleErrorSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {})
   try {
     render(
-      <RenderErrorBoundary>{() => <AudiencePanel experiment={experiment} segments={segments} />}</RenderErrorBoundary>,
+      <RenderErrorBoundary>
+        {() => <AudiencePanel experiment={experiment} segments={segments} tags={tags} />}
+      </RenderErrorBoundary>,
     )
     expect(false).toBe(true) // Should never be reached
   } catch (err) {
@@ -79,7 +96,8 @@ test('Shows exposure events', () => {
       },
     ],
   })
-  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} />)
+  const tags = Fixtures.createTagBares(5)
+  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} tags={tags} />)
   expect(container).toMatchSnapshot()
 })
 
@@ -88,7 +106,8 @@ test('Empty array shows no exposure events', () => {
     segmentAssignments: [],
     exposureEvents: [],
   })
-  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} />)
+  const tags = Fixtures.createTagBares(5)
+  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} tags={tags} />)
   expect(container).toMatchSnapshot()
 })
 
@@ -97,6 +116,7 @@ test('null shows no exposure events', () => {
     segmentAssignments: [],
     exposureEvents: null,
   })
-  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} />)
+  const tags = Fixtures.createTagBares(5)
+  const { container } = render(<AudiencePanel experiment={experiment} segments={[]} tags={tags} />)
   expect(container).toMatchSnapshot()
 })

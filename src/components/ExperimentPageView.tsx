@@ -212,7 +212,7 @@ export default function ExperimentPageView({
           </div>
         </div>
         {isLoading && <LinearProgress />}
-        {experiment && metrics && segments && analyses && (
+        {experiment && metrics && segments && analyses && tags && (
           <>
             {view === ExperimentView.Overview && (
               <ExperimentDetails {...{ experiment, metrics, segments, tags, experimentReloadRef }} />

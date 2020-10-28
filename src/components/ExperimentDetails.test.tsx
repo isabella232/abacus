@@ -30,6 +30,7 @@ test('renders as expected at large width', () => {
 
   const metrics = Fixtures.createMetricBares()
   const segments = Fixtures.createSegments(5)
+  const tags = Fixtures.createTagBares(5)
   const experiment = Fixtures.createExperimentFull({
     segmentAssignments: [
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 101, segmentId: 1 }),
@@ -42,6 +43,7 @@ test('renders as expected at large width', () => {
       metrics={metrics}
       segments={segments}
       experimentReloadRef={experimentReloadRef}
+      tags={tags}
     />,
   )
 
@@ -52,6 +54,7 @@ test('renders as expected at small width', () => {
   window.matchMedia = createMatchMedia(600)
   const metrics = Fixtures.createMetricBares()
   const segments = Fixtures.createSegments(5)
+  const tags = Fixtures.createTagBares(5)
   const experiment = Fixtures.createExperimentFull({
     segmentAssignments: [
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 101, segmentId: 1 }),
@@ -63,6 +66,7 @@ test('renders as expected at small width', () => {
       experiment={experiment}
       metrics={metrics}
       segments={segments}
+      tags={tags}
       experimentReloadRef={experimentReloadRef}
     />,
   )
@@ -73,6 +77,7 @@ test('renders as expected at small width', () => {
 test('renders as expected with conclusion data', () => {
   const metrics = Fixtures.createMetricBares()
   const segments = Fixtures.createSegments(5)
+  const tags = Fixtures.createTagBares(5)
   const experiment = Fixtures.createExperimentFull({
     conclusionUrl: 'https://betterexperiments.wordpress.com/experiment_1/conclusion',
     deployedVariationId: 2,
@@ -88,6 +93,7 @@ test('renders as expected with conclusion data', () => {
       experiment={experiment}
       metrics={metrics}
       segments={segments}
+      tags={tags}
       experimentReloadRef={experimentReloadRef}
     />,
   )
@@ -98,6 +104,7 @@ test('renders as expected with conclusion data', () => {
 test('renders as expected without conclusion data', () => {
   const metrics = Fixtures.createMetricBares()
   const segments = Fixtures.createSegments(5)
+  const tags = Fixtures.createTagBares(5)
   const experiment = Fixtures.createExperimentFull({
     segmentAssignments: [
       Fixtures.createSegmentAssignment({ segmentAssignmentId: 101, segmentId: 1 }),
@@ -109,6 +116,7 @@ test('renders as expected without conclusion data', () => {
       experiment={experiment}
       metrics={metrics}
       segments={segments}
+      tags={tags}
       experimentReloadRef={experimentReloadRef}
     />,
   )

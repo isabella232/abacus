@@ -132,6 +132,7 @@ function AudiencePanel({
   const exclusionGroupTags = (experiment.exclusionGroupTagIds ?? []).map((tagId) => {
     const tag = tags.find((tag) => tag.tagId === tagId)
 
+    // istanbul ignore next
     if (tag === undefined) {
       throw new Error(`Can't find tag for exclusion group id: ${tagId}`)
     }
@@ -182,10 +183,10 @@ function AudiencePanel({
       value: (
         <>
           {exclusionGroupTags.map((tag) => (
-            <>
+            <React.Fragment key={tag.tagId}>
               <Chip label={tag.name} disabled />
               &nbsp;
-            </>
+            </React.Fragment>
           ))}
         </>
       ),
