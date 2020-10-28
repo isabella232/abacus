@@ -129,7 +129,7 @@ function AudiencePanel({
     [experiment.segmentAssignments, segments],
   )
 
-  const exclusionGroupTags = experiment.exclusionGroupTagIds.map((tagId) => {
+  const exclusionGroupTags = (experiment.exclusionGroupTagIds ?? []).map((tagId) => {
     const tag = tags.find((tag) => tag.tagId === tagId)
 
     if (tag === undefined) {
@@ -173,19 +173,6 @@ function AudiencePanel({
     {
       label: 'Exposure Events',
       value: <ExposureEventsTable experiment={experiment} />,
-    },
-    {
-      label: 'Exclusion Groups',
-      value: (
-        <>
-          {exclusionGroupTags.map((tag) => (
-            <>
-              <Chip label={tag.name} disabled />
-              &nbsp;
-            </>
-          ))}
-        </>
-      ),
     },
   ]
 
