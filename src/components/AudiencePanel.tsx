@@ -121,7 +121,7 @@ function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentF
     [experiment.segmentAssignments, segments],
   )
 
-  const exclusionGroupTags = experiment.exclusiveGroupTagIds.map((tagId) => {
+  const exclusionGroupTags = experiment.exclusionGroupTagIds.map((tagId) => {
     const tag = tags.find(tag => tag.tagId === tagId)
 
     if (tag === undefined) {

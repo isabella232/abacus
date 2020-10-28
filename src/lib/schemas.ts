@@ -292,7 +292,7 @@ export const experimentFullSchema = experimentBareSchema
     metricAssignments: yup.array(metricAssignmentSchema).defined().min(1),
     segmentAssignments: yup.array(segmentAssignmentSchema).defined(),
     variations: yup.array<Variation>(variationSchema).defined().min(2),
-    exclusiveGroupTagIds: yup.array(idSchema.defined()).defined(),
+    exclusionGroupTagIds: yup.array(idSchema.defined()).defined(),
   })
   .defined()
   .camelCase()
