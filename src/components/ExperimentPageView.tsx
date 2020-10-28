@@ -129,10 +129,7 @@ export default function ExperimentPageView({
   )
   useDataLoadingError(segmentsError, 'Segments')
 
-  const { isLoading: tagsIsLoading, data: tags, error: tagsError } = useDataSource(
-    () => TagsApi.findAll(),
-    [],
-  )
+  const { isLoading: tagsIsLoading, data: tags, error: tagsError } = useDataSource(() => TagsApi.findAll(), [])
   useDataLoadingError(tagsError, 'Tags')
 
   const { isLoading: analysesIsLoading, data: analyses, error: analysesError } = useDataSource(

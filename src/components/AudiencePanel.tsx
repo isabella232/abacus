@@ -113,7 +113,15 @@ function ExposureEventsTable({ experiment: { exposureEvents } }: { experiment: E
  * @param segments - The segments to look up (aka resolve) the segment IDs
  *   of the experiment's segment assignments.
  */
-function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentFull; segments: Segment[]; tags: TagBare[] }): JSX.Element {
+function AudiencePanel({
+  experiment,
+  segments,
+  tags,
+}: {
+  experiment: ExperimentFull
+  segments: Segment[]
+  tags: TagBare[]
+}): JSX.Element {
   const classes = useStyles()
 
   const segmentsByType = useMemo(
@@ -122,7 +130,7 @@ function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentF
   )
 
   const exclusionGroupTags = experiment.exclusionGroupTagIds.map((tagId) => {
-    const tag = tags.find(tag => tag.tagId === tagId)
+    const tag = tags.find((tag) => tag.tagId === tagId)
 
     if (tag === undefined) {
       throw new Error(`Can't find tag for exclusion group id: ${tagId}`)
@@ -170,7 +178,12 @@ function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentF
       label: 'Exclusion Groups',
       value: (
         <>
-        {exclusionGroupTags.map(tag => <><Chip label={tag.name} disabled />&nbsp;</>)}
+          {exclusionGroupTags.map((tag) => (
+            <>
+              <Chip label={tag.name} disabled />
+              &nbsp;
+            </>
+          ))}
         </>
       ),
     },
@@ -178,12 +191,17 @@ function AudiencePanel({ experiment, segments, tags }: { experiment: ExperimentF
 
   if (exclusionGroupTags.length > 0) {
     data.push({
-        label: 'Exclusion Groups',
-        value: (
-          <>
-          {exclusionGroupTags.map(tag => <><Chip label={tag.name} disabled />&nbsp;</>)}
-          </>
-        ),
+      label: 'Exclusion Groups',
+      value: (
+        <>
+          {exclusionGroupTags.map((tag) => (
+            <>
+              <Chip label={tag.name} disabled />
+              &nbsp;
+            </>
+          ))}
+        </>
+      ),
     })
   }
 
