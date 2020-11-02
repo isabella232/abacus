@@ -19,6 +19,7 @@ import AnalysesApi from 'src/api/AnalysesApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'
 import SegmentsApi from 'src/api/SegmentsApi'
+import TagsApi from 'src/api/TagsApi'
 import ExperimentCodeSetup from 'src/components/ExperimentCodeSetup'
 import ExperimentDetails from 'src/components/ExperimentDetails'
 import ExperimentDisableButton from 'src/components/ExperimentDisableButton'
@@ -128,13 +129,16 @@ export default function ExperimentPageView({
   )
   useDataLoadingError(segmentsError, 'Segments')
 
+  const { isLoading: tagsIsLoading, data: tags, error: tagsError } = useDataSource(() => TagsApi.findAll(), [])
+  useDataLoadingError(tagsError, 'Tags')
+
   const { isLoading: analysesIsLoading, data: analyses, error: analysesError } = useDataSource(
     () => (experimentId ? AnalysesApi.findByExperimentId(experimentId) : createUnresolvingPromise<Analysis[]>()),
     [experimentId],
   )
   useDataLoadingError(analysesError, 'Analyses')
 
-  const isLoading = or(experimentIsLoading, metricsIsLoading, segmentsIsLoading, analysesIsLoading)
+  const isLoading = or(experimentIsLoading, metricsIsLoading, segmentsIsLoading, tagsIsLoading, analysesIsLoading)
 
   const canEditInWizard = experiment && experiment.status === Status.Staging
 
@@ -208,10 +212,10 @@ export default function ExperimentPageView({
           </div>
         </div>
         {isLoading && <LinearProgress />}
-        {experiment && metrics && segments && analyses && (
+        {experiment && metrics && segments && analyses && tags && (
           <>
             {view === ExperimentView.Overview && (
-              <ExperimentDetails {...{ experiment, metrics, segments, experimentReloadRef }} />
+              <ExperimentDetails {...{ experiment, metrics, segments, tags, experimentReloadRef }} />
             )}
             {view === ExperimentView.Results && (
               <NoSsrExperimentResults {...{ experiment, metrics, analyses, debugMode }} />

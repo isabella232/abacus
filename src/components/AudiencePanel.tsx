@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Paper, Toolbar, Typography } from '@material-ui/core'
+import { Chip, createStyles, makeStyles, Paper, Toolbar, Typography } from '@material-ui/core'
 import { TableCellProps } from '@material-ui/core/TableCell'
 import _ from 'lodash'
 import React, { useMemo } from 'react'
@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 import LabelValueTable from 'src/components/LabelValueTable'
 import SegmentsTable from 'src/components/SegmentsTable'
 import VariationsTable from 'src/components/VariationsTable'
-import { ExperimentFull, Segment, SegmentAssignment, SegmentType } from 'src/lib/schemas'
+import { ExperimentFull, Segment, SegmentAssignment, SegmentType, TagBare } from 'src/lib/schemas'
 import theme from 'src/styles/theme'
 
 /**
@@ -113,13 +113,32 @@ function ExposureEventsTable({ experiment: { exposureEvents } }: { experiment: E
  * @param segments - The segments to look up (aka resolve) the segment IDs
  *   of the experiment's segment assignments.
  */
-function AudiencePanel({ experiment, segments }: { experiment: ExperimentFull; segments: Segment[] }): JSX.Element {
+function AudiencePanel({
+  experiment,
+  segments,
+  tags,
+}: {
+  experiment: ExperimentFull
+  segments: Segment[]
+  tags: TagBare[]
+}): JSX.Element {
   const classes = useStyles()
 
   const segmentsByType = useMemo(
     () => _.groupBy(resolveSegmentAssignments(experiment.segmentAssignments, segments), _.property('segment.type')),
     [experiment.segmentAssignments, segments],
   )
+
+  const exclusionGroupTags = (experiment.exclusionGroupTagIds ?? []).map((tagId) => {
+    const tag = tags.find((tag) => tag.tagId === tagId)
+
+    // istanbul ignore next
+    if (tag === undefined) {
+      throw new Error(`Can't find tag for exclusion group id: ${tagId}`)
+    }
+
+    return tag
+  })
 
   const data = [
     { label: 'Platform', value: <span className={classes.monospace}>{experiment.platform}</span> },
@@ -157,6 +176,23 @@ function AudiencePanel({ experiment, segments }: { experiment: ExperimentFull; s
       value: <ExposureEventsTable experiment={experiment} />,
     },
   ]
+
+  if (exclusionGroupTags.length > 0) {
+    data.push({
+      label: 'Exclusion Groups',
+      value: (
+        <>
+          {exclusionGroupTags.map((tag) => (
+            <React.Fragment key={tag.tagId}>
+              <Chip label={tag.name} disabled />
+              &nbsp;
+            </React.Fragment>
+          ))}
+        </>
+      ),
+    })
+  }
+
   return (
     <Paper>
       <Toolbar>

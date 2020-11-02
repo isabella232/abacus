@@ -415,6 +415,7 @@ function createExperimentFull(fieldOverrides: Partial<ExperimentFull> = {}): Exp
         },
       },
     ],
+    exclusionGroupTagIds: [1],
     ...existingExperimentFieldOverrides,
   }
 }

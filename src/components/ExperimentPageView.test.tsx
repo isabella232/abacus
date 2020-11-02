@@ -8,6 +8,7 @@ import AnalysesApi from 'src/api/AnalysesApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'
 import SegmentsApi from 'src/api/SegmentsApi'
+import TagsApi from 'src/api/TagsApi'
 import { Status } from 'src/lib/schemas'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'
@@ -28,6 +29,9 @@ const mockedSegmentsApi = SegmentsApi as jest.Mocked<typeof SegmentsApi>
 jest.mock('src/api/AnalysesApi')
 const mockedAnalysesApi = AnalysesApi as jest.Mocked<typeof AnalysesApi>
 
+jest.mock('src/api/TagsApi')
+const mockedTagsApi = TagsApi as jest.Mocked<typeof TagsApi>
+
 jest.mock('notistack')
 const mockedNotistack = notistack as jest.Mocked<typeof notistack>
 mockedNotistack.useSnackbar.mockImplementation(() => ({
@@ -47,6 +51,9 @@ const renderExperimentPageView = async ({ experiment: experimentOverrides = {} }
 
   const analyses = Fixtures.createAnalyses()
   mockedAnalysesApi.findByExperimentId.mockImplementationOnce(async () => analyses)
+
+  const tags = Fixtures.createTagBares(5)
+  mockedTagsApi.findAll.mockImplementationOnce(async () => tags)
 
   const debug = view === ExperimentView.Debug
 

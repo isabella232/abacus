@@ -687,6 +687,32 @@ exports[`renders as expected at large width 1`] = `
                 </div>
               </td>
             </tr>
+            <tr
+              class="MuiTableRow-root"
+            >
+              <th
+                class="MuiTableCell-root MuiTableCell-head"
+                role="cell"
+                scope="row"
+              >
+                Exclusion Groups
+              </th>
+              <td
+                class="MuiTableCell-root MuiTableCell-body"
+              >
+                <div
+                  aria-disabled="true"
+                  class="MuiChip-root Mui-disabled"
+                >
+                  <span
+                    class="MuiChip-label"
+                  >
+                    tag_1
+                  </span>
+                </div>
+                 
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1172,6 +1198,32 @@ exports[`renders as expected at small width 1`] = `
                         </span>
                       </p>
                     </div>
+                  </td>
+                </tr>
+                <tr
+                  class="MuiTableRow-root"
+                >
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head"
+                    role="cell"
+                    scope="row"
+                  >
+                    Exclusion Groups
+                  </th>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body"
+                  >
+                    <div
+                      aria-disabled="true"
+                      class="MuiChip-root Mui-disabled"
+                    >
+                      <span
+                        class="MuiChip-label"
+                      >
+                        tag_1
+                      </span>
+                    </div>
+                     
                   </td>
                 </tr>
               </tbody>
@@ -1869,6 +1921,32 @@ exports[`renders as expected with conclusion data 1`] = `
                         </span>
                       </p>
                     </div>
+                  </td>
+                </tr>
+                <tr
+                  class="MuiTableRow-root"
+                >
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head"
+                    role="cell"
+                    scope="row"
+                  >
+                    Exclusion Groups
+                  </th>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body"
+                  >
+                    <div
+                      aria-disabled="true"
+                      class="MuiChip-root Mui-disabled"
+                    >
+                      <span
+                        class="MuiChip-label"
+                      >
+                        tag_1
+                      </span>
+                    </div>
+                     
                   </td>
                 </tr>
               </tbody>
@@ -2670,6 +2748,32 @@ exports[`renders as expected without conclusion data 1`] = `
                         </span>
                       </p>
                     </div>
+                  </td>
+                </tr>
+                <tr
+                  class="MuiTableRow-root"
+                >
+                  <th
+                    class="MuiTableCell-root MuiTableCell-head"
+                    role="cell"
+                    scope="row"
+                  >
+                    Exclusion Groups
+                  </th>
+                  <td
+                    class="MuiTableCell-root MuiTableCell-body"
+                  >
+                    <div
+                      aria-disabled="true"
+                      class="MuiChip-root Mui-disabled"
+                    >
+                      <span
+                        class="MuiChip-label"
+                      >
+                        tag_1
+                      </span>
+                    </div>
+                     
                   </td>
                 </tr>
               </tbody>

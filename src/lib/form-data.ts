@@ -86,6 +86,7 @@ export function experimentToFormData(
   platform: string
   p2Url: string
   ownerLogin: string
+  exclusionGroupTagIds?: number[]
 } {
   return {
     p2Url: experiment.p2Url ?? '',
@@ -110,6 +111,7 @@ export function experimentToFormData(
           { name: 'treatment', isDefault: false, allocatedPercentage: '50' },
         ],
     exposureEvents: experiment.exposureEvents ? experiment.exposureEvents.map(exposureEventToFormData) : [],
+    exclusionGroupTagIds: experiment.exclusionGroupTagIds,
   }
 }
 export type ExperimentFormData = ReturnType<typeof experimentToFormData>
