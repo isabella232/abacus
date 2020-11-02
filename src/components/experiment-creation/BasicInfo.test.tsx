@@ -2,14 +2,14 @@ import { act, fireEvent, getByLabelText, render } from '@testing-library/react'
 import MockDate from 'mockdate'
 import React from 'react'
 
-import { CompletionBag } from 'src/api/AutocompleteApi'
 import { MockFormik } from 'src/test-helpers/test-utils'
 
 import BasicInfo from './BasicInfo'
+import { ExperimentFormCompletionBag } from './ExperimentForm'
 
 MockDate.set('2020-07-21')
 
-const completionBag: CompletionBag = {
+const completionBag: ExperimentFormCompletionBag = {
   userCompletionDataSource: {
     data: null,
     error: null,
@@ -17,6 +17,12 @@ const completionBag: CompletionBag = {
     reloadRef: { current: () => undefined },
   },
   eventCompletionDataSource: {
+    data: null,
+    error: null,
+    isLoading: false,
+    reloadRef: { current: () => undefined },
+  },
+  exclusionGroupCompletionDataSource: {
     data: null,
     error: null,
     isLoading: false,

@@ -5,15 +5,21 @@ import _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import * as yup from 'yup'
 
-import { CompletionBag } from 'src/api/AutocompleteApi'
 import { ExperimentFormData } from 'src/lib/form-data'
-import { experimentFullNewSchema, MetricBare, Segment } from 'src/lib/schemas'
+import { AutocompleteItem, experimentFullNewSchema, MetricBare, Segment } from 'src/lib/schemas'
+import { DataSourceResult } from 'src/utils/data-loading'
 
 import LoadingButtonContainer from '../LoadingButtonContainer'
 import Audience from './Audience'
 import BasicInfo from './BasicInfo'
 import Beginning from './Beginning'
 import Metrics from './Metrics'
+
+export interface ExperimentFormCompletionBag {
+  userCompletionDataSource: DataSourceResult<AutocompleteItem[]>
+  eventCompletionDataSource: DataSourceResult<AutocompleteItem[]>
+  exclusionGroupCompletionDataSource: DataSourceResult<AutocompleteItem[]>
+}
 
 enum StageId {
   Beginning,
@@ -112,7 +118,7 @@ const ExperimentForm = ({
   indexedMetrics: Record<number, MetricBare>
   indexedSegments: Record<number, Segment>
   initialExperiment: ExperimentFormData
-  completionBag: CompletionBag
+  completionBag: ExperimentFormCompletionBag
   onSubmit: (formData: unknown) => Promise<void>
 }): JSX.Element => {
   const classes = useStyles()
@@ -235,7 +241,7 @@ const ExperimentForm = ({
                 {currentStageId === StageId.Audience && (
                   <div className={classes.formPart}>
                     <Paper className={classes.paper}>
-                      <Audience formikProps={formikProps} indexedSegments={indexedSegments} />
+                      <Audience {...{ formikProps, indexedSegments, completionBag }} />
                     </Paper>
                     <div className={classes.formPartActions}>
                       <Button onClick={prevStage}>Previous</Button>

@@ -164,6 +164,10 @@ export const metricAssignmentSchema = metricAssignmentNewSchema
   .camelCase()
 export interface MetricAssignment extends yup.InferType<typeof metricAssignmentSchema> {}
 
+export enum TagNamespace {
+  ExclusionGroup = 'exclusion_group',
+}
+
 export const tagBareSchema = yup
   .object({
     tagId: idSchema.defined(),
@@ -427,7 +431,7 @@ export interface AnalysisResponse extends yup.InferType<typeof analysisResponseS
 export const autocompleteItemSchema = yup
   .object({
     name: yup.string().defined(),
-    value: yup.string().defined(),
+    value: yup.mixed<number | string>().defined(),
   })
   .required()
 export interface AutocompleteItem extends yup.InferType<typeof autocompleteItemSchema> {}

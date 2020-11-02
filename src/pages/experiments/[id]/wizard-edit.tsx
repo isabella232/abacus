@@ -10,11 +10,12 @@ import { getEventNameCompletions, getUserCompletions } from 'src/api/Autocomplet
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'
 import SegmentsApi from 'src/api/SegmentsApi'
+import TagsApi from 'src/api/TagsApi'
 import ExperimentForm from 'src/components/experiment-creation/ExperimentForm'
 import Layout from 'src/components/Layout'
 import { experimentToFormData } from 'src/lib/form-data'
 import * as Normalizers from 'src/lib/normalizers'
-import { ExperimentFull, ExperimentFullNew } from 'src/lib/schemas'
+import { ExperimentFull, ExperimentFullNew, TagNamespace } from 'src/lib/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { createUnresolvingPromise, or } from 'src/utils/general'
 
@@ -43,7 +44,29 @@ export default function WizardEditPage(): JSX.Element {
   )
   useDataLoadingError(segmentsError, 'Segments')
 
-  const isLoading = or(experimentIsLoading, metricsIsLoading, segmentsIsLoading)
+  const exclusionGroupCompletionDataSource = useDataSource(async () => {
+    const tags = await TagsApi.findAll()
+    const exclusionGroupTags = tags.filter((tag) => tag.namespace === TagNamespace.ExclusionGroup)
+    return exclusionGroupTags.map((tag) => ({
+      name: tag.name,
+      value: tag.tagId,
+    }))
+  }, [])
+  const userCompletionDataSource = useDataSource(getUserCompletions, [])
+  const eventCompletionDataSource = useDataSource(getEventNameCompletions, [])
+
+  const completionBag = {
+    userCompletionDataSource,
+    eventCompletionDataSource,
+    exclusionGroupCompletionDataSource,
+  }
+
+  const isLoading = or(
+    experimentIsLoading,
+    metricsIsLoading,
+    segmentsIsLoading,
+    ...Object.values(completionBag).map((dataSource) => dataSource.isLoading),
+  )
 
   const { enqueueSnackbar } = useSnackbar()
   const onSubmit = async (formData: unknown) => {
@@ -63,10 +86,6 @@ export default function WizardEditPage(): JSX.Element {
   }
 
   const initialExperiment = experiment && experimentToFormData(experiment)
-  const completionBag = {
-    userCompletionDataSource: useDataSource(getUserCompletions, []),
-    eventCompletionDataSource: useDataSource(getEventNameCompletions, []),
-  }
 
   return (
     <Layout title={`Editing Experiment: ${experiment?.name || ''}`}>

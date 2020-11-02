@@ -1,4 +1,5 @@
 import {
+  Chip,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -26,8 +27,12 @@ import React, { useCallback, useState } from 'react'
 
 import { PlatformToHuman } from 'src/lib/experiments'
 import { ExperimentFormData } from 'src/lib/form-data'
-import { Platform, Segment, SegmentAssignmentNew } from 'src/lib/schemas'
+import { AutocompleteItem, Platform, Segment, SegmentAssignmentNew } from 'src/lib/schemas'
 import { SegmentTypeToHuman } from 'src/lib/segments'
+import { isDebugMode } from 'src/utils/general'
+
+import AbacusAutocomplete, { autocompleteInputProps } from '../Autocomplete'
+import { ExperimentFormCompletionBag } from './ExperimentForm'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -114,9 +119,11 @@ const SegmentsAutocomplete = (
 const Audience = ({
   indexedSegments,
   formikProps,
+  completionBag,
 }: {
   indexedSegments: Record<number, Segment>
   formikProps: FormikProps<{ experiment: ExperimentFormData }>
+  completionBag: ExperimentFormCompletionBag
 }): JSX.Element => {
   const classes = useStyles()
 
@@ -276,6 +283,43 @@ const Audience = ({
           </TableContainer>
         </FormControl>
       </div>
+      {isDebugMode() && (
+        <div className={classes.row}>
+          <FormControl component='fieldset'>
+            <FormLabel htmlFor='experiment.exclusionGroupTagIds' required>
+              Exclusion Groups
+            </FormLabel>
+            <FormHelperText>Add this experiment to a mutually exclusive experiment group.</FormHelperText>
+            <br />
+            <Field
+              component={AbacusAutocomplete}
+              name='experiment.exclusionGroupTagIds'
+              id='experiment.exclusionGroupTagIds'
+              fullWidth
+              options={
+                // istanbul ignore next; trivial
+                completionBag.exclusionGroupCompletionDataSource.data ?? []
+              }
+              loading={completionBag.exclusionGroupCompletionDataSource.isLoading}
+              multiple
+              renderOption={(option: AutocompleteItem) => <Chip label={option.name} />}
+              renderInput={(params: AutocompleteRenderInputParams) => (
+                <MuiTextField
+                  {...params}
+                  variant='outlined'
+                  required
+                  InputProps={{
+                    ...autocompleteInputProps(params, completionBag.exclusionGroupCompletionDataSource.isLoading),
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              )}
+            />
+          </FormControl>
+        </div>
+      )}
     </div>
   )
 }

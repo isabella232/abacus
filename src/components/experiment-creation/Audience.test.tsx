@@ -1,12 +1,45 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/require-await */
+
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { Formik, FormikProps } from 'formik'
 import React from 'react'
 
 import { ExperimentFormData, experimentToFormData } from 'src/lib/form-data'
 import { Segment, SegmentType } from 'src/lib/schemas'
+import Fixtures from 'src/test-helpers/fixtures'
+import { changeFieldByRole } from 'src/test-helpers/test-utils'
+import * as UtilsGeneral from 'src/utils/general'
 
 import Audience from './Audience'
+import { ExperimentFormCompletionBag } from './ExperimentForm'
+
+jest.mock('src/utils/General')
+const mockedUtilsGeneral = UtilsGeneral as jest.Mocked<typeof UtilsGeneral>
+
+const exclusionGroupCompletions = Fixtures.createTagBares(5).map((tag) => ({
+  name: tag.name,
+  value: tag.tagId,
+}))
+const completionBag: ExperimentFormCompletionBag = {
+  userCompletionDataSource: {
+    data: null,
+    error: null,
+    isLoading: false,
+    reloadRef: { current: () => undefined },
+  },
+  eventCompletionDataSource: {
+    data: null,
+    error: null,
+    isLoading: false,
+    reloadRef: { current: () => undefined },
+  },
+  exclusionGroupCompletionDataSource: {
+    data: exclusionGroupCompletions,
+    error: null,
+    isLoading: false,
+    reloadRef: { current: () => undefined },
+  },
+}
 
 // Needed for testing the MuiCombobox
 document.createRange = () => ({
@@ -27,6 +60,9 @@ test('renders as expected', async () => {
     4: { segmentId: 4, name: 'en-AU', type: SegmentType.Locale },
   }
 
+  // Turning on debug mode for the exclusion group tags
+  mockedUtilsGeneral.isDebugMode.mockImplementation(() => true)
+
   const { container } = render(
     <Formik
       initialValues={{ experiment: experimentToFormData({}) }}
@@ -36,7 +72,7 @@ test('renders as expected', async () => {
       }
     >
       {(formikProps: FormikProps<{ experiment: ExperimentFormData }>) => (
-        <Audience indexedSegments={indexedSegments} formikProps={formikProps} />
+        <Audience {...{ formikProps, indexedSegments, completionBag }} />
       )}
     </Formik>,
   )
@@ -52,6 +88,11 @@ test('renders as expected', async () => {
   // eslint-disable-next-line @typescript-eslint/require-await
   await act(async () => {
     fireEvent.click(screen.getByLabelText(/Exclude/))
+  })
+
+  await changeFieldByRole('textbox', /Exclusion Groups/, 'tag_1')
+  await act(async () => {
+    fireEvent.click(screen.getByRole('option', { name: /tag_1/ }))
   })
 
   expect(container).toMatchSnapshot()
