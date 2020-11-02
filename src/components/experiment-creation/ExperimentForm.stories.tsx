@@ -17,7 +17,10 @@ export const Form = (): JSX.Element => {
   const completionBag = {
     userCompletionDataSource: useDataSource(getUserCompletions, []),
     eventCompletionDataSource: useDataSource(getEventNameCompletions, []),
-    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(() => new Promise((resolve) => resolve([])), [])
+    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(
+      () => new Promise((resolve) => resolve([])),
+      [],
+    ),
   }
   return (
     <ExperimentForm
@@ -34,7 +37,10 @@ export const FormWithExistingExperiment = (): JSX.Element => {
   const completionBag = {
     userCompletionDataSource: useDataSource(getUserCompletions, []),
     eventCompletionDataSource: useDataSource(getEventNameCompletions, []),
-    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(() => new Promise((resolve) => resolve([])), [])
+    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(
+      () => new Promise((resolve) => resolve([])),
+      [],
+    ),
   }
   return (
     <ExperimentForm

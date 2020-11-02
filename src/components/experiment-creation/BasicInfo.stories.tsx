@@ -13,7 +13,10 @@ export const FormPart = (): JSX.Element => {
   const completionBag = {
     userCompletionDataSource: useDataSource(getUserCompletions, []),
     eventCompletionDataSource: useDataSource(getEventNameCompletions, []),
-    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(() => new Promise((resolve) => resolve([])), [])
+    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(
+      () => new Promise((resolve) => resolve([])),
+      [],
+    ),
   }
   return (
     <MockFormik>
