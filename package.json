@@ -46,9 +46,9 @@
     "@package @storebook/react": "Requires `babel-loader`."
   },
   "devDependencies": {
-    "@storybook/preset-scss": "^1.0.2",
-    "@storybook/preset-typescript": "^3.0.0",
-    "@storybook/react": "^5.3.21",
+    "@storybook/node-logger": "^6.0.28",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.0.28",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^11.0.4",
     "@testing-library/react-hooks": "^3.3.0",
