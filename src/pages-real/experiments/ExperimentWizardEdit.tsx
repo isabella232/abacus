@@ -3,8 +3,9 @@ import debugFactory from 'debug'
 import _ from 'lodash'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
-import { toIntOrNull } from 'qc-to_int'
 import React from 'react'
+import { useParams } from 'react-router-dom'
+import * as yup from 'yup'
 
 import { getEventNameCompletions, getUserCompletions } from 'src/api/AutocompleteApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
@@ -21,9 +22,10 @@ import { createUnresolvingPromise, or } from 'src/utils/general'
 const debug = debugFactory('abacus:pages/experiments/[id]/results.tsx')
 
 export default function WizardEditPage(): JSX.Element {
+  const { experimentId: experimentIdRaw } = useParams<{ experimentId: string }>()
   const router = useRouter()
-  const experimentId = toIntOrNull(router.query.id) as number | null
-  debug(`ExperimentWizardEdit#render ${experimentId ?? 'null'}`)
+  const experimentId = yup.number().integer().defined().validateSync(experimentIdRaw)
+  debug(`ExperimentWizardEdit#render ${experimentId}`)
 
   const { isLoading: experimentIsLoading, data: experiment, error: experimentError } = useDataSource(
     () => (experimentId ? ExperimentsApi.findById(experimentId) : createUnresolvingPromise<ExperimentFull>()),
