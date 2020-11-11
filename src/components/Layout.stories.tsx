@@ -1,4 +1,3 @@
-import { withRouter } from 'next/router'
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 
@@ -6,7 +5,7 @@ import Layout from './Layout'
 
 export default { title: 'Layout' }
 
-export const withChildren = withRouter(() => (
+export const withChildren = () => (
   <StaticRouter>
     <Layout title='Storybook'>
       <div>
@@ -19,4 +18,4 @@ export const withChildren = withRouter(() => (
       </div>
     </Layout>
   </StaticRouter>
-))
+)

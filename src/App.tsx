@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
 import debugFactory from 'debug'
-import { AppProps } from 'next/app'
 import { SnackbarProvider } from 'notistack'
 import qs from 'querystring'
 import React from 'react'
@@ -11,6 +10,8 @@ import RenderErrorView from 'src/components/RenderErrorView'
 import { config } from 'src/config'
 import ThemeProvider from 'src/styles/ThemeProvider'
 import { getExperimentsAuthInfo } from 'src/utils/auth'
+
+import Routes from './Routes'
 
 const debug = debugFactory('abacus:pages/_app.tsx')
 
@@ -80,10 +81,8 @@ const useStyles = makeStyles({
   },
 })
 
-const App = React.memo(function App(props: AppProps) {
+function App() {
   debug('App#render')
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { Component: Route, pageProps: routeProps } = props
   const classes = useStyles()
 
   React.useEffect(() => {
@@ -119,7 +118,7 @@ const App = React.memo(function App(props: AppProps) {
           ) : (
             <SnackbarProvider preventDuplicate>
               <div className={classes.app}>
-                <Route {...routeProps} />
+                <Routes />
               </div>
             </SnackbarProvider>
           )}
@@ -127,6 +126,6 @@ const App = React.memo(function App(props: AppProps) {
       )}
     </RenderErrorBoundary>
   )
-})
+}
 
 export default App
