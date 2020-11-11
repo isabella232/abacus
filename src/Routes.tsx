@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 
+import AuthCallback from 'src/pages-real/AuthCallback'
 import Experiment from 'src/pages-real/experiments/Experiment'
 import ExperimentNew from 'src/pages-real/experiments/ExperimentNew'
 import Experiments from 'src/pages-real/experiments/Experiments'
@@ -20,6 +21,10 @@ function Routes(): JSX.Element {
       <Switch>
         <Route path='/' exact>
           <Redirect to='/experiments' />
+        </Route>
+
+        <Route path='/auth' exact>
+          <AuthCallback />
         </Route>
 
         <Route path='/experiments' exact>
