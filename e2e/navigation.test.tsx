@@ -33,10 +33,10 @@ describe('Experiments', () => {
       // Click an experiment row.
       const $tableRows = await page.$$('.MuiTableBody-root .MuiTableRow-root')
       expect($tableRows.length).toBeGreaterThan(0)
-      await $tableRows[0].click()
+      await Promise.all([page.waitForNavigation(), $tableRows[0].click()])
 
       // Assert clicking a row navigated to the details page of that experiment.
-      expect(await page.evaluate(() => location.href)).toMatch(/^http:\/\/a8c-abacus-local:3001\/experiments\/\d+/)
+      expect(page.url()).toMatch(/^http:\/\/a8c-abacus-local:3001\/experiments\/\d+/)
     })
   })
 })
