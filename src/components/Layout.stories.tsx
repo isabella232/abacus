@@ -5,7 +5,7 @@ import Layout from './Layout'
 
 export default { title: 'Layout' }
 
-export const withChildren = () => (
+export const withChildren = (): JSX.Element => (
   <StaticRouter>
     <Layout title='Storybook'>
       <div>

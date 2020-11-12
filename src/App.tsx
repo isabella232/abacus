@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import { makeStyles } from '@material-ui/core/styles'
 import debugFactory from 'debug'
 import { SnackbarProvider } from 'notistack'
@@ -81,7 +82,7 @@ const useStyles = makeStyles({
   },
 })
 
-function App() {
+function App(): JSX.Element {
   debug('App#render')
   const classes = useStyles()
 

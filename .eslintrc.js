@@ -71,6 +71,8 @@ module.exports = {
     ],
     'no-multiple-empty-lines': ['error', { max: 2, maxBOF: 1, maxEOF: 1 }],
 
+    'import/no-anonymous-default-export': 'off',
+
     // Disabling the base rule as it can report incorrect errors and is recommended by
     // @typescript-eslint/no-unused-vars.
     'no-unused-vars': 'off',
