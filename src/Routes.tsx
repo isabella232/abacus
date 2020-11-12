@@ -15,7 +15,7 @@ import Tags from 'src/pages/Tags'
  * - Get all your route information at the top level.
  * - Try not to delete or change an existing route: comment a route as deprecated and redirect.
  */
-function Routes(): JSX.Element {
+export default function Routes(): JSX.Element {
   return (
     <Router>
       <Switch>
@@ -34,11 +34,14 @@ function Routes(): JSX.Element {
         <Route path='/experiments/new' exact>
           <ExperimentNew />
         </Route>
-        <Route path='/experiments/:experimentId' exact>
-          {/* Relative redirecting is buggy because of NextJS: */}
-          {/* <Redirect to="./overview" /> */}
-          <Experiment />
-        </Route>
+        <Route
+          path='/experiments/:experimentId'
+          render={({ location, history }) => {
+            history.replace(`${location.pathname}/overview`)
+            return undefined
+          }}
+          exact
+        />
         <Route path='/experiments/:experimentId/wizard-edit' exact>
           <ExperimentWizardEdit />
         </Route>
@@ -57,6 +60,3 @@ function Routes(): JSX.Element {
     </Router>
   )
 }
-
-// NextJS: Allows this to not unmount between routes
-export default React.memo(Routes)
