@@ -10,7 +10,6 @@ module.exports = {
     '!<rootDir>/src/api/**', // We test these with integration tests.
     '!<rootDir>/src/coverage/**',
     '!<rootDir>/src/pages/**', // We test these with e2e tests.
-    '!<rootDir>/src/pages-real/**', // We test these with e2e tests.
     '!<rootDir>/src/public/**',
     '!<rootDir>/src/Routes.tsx', // We test these with e2e tests.
     '!<rootDir>/src/styles/**',
