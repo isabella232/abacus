@@ -33,11 +33,13 @@ jest.mock('src/api/TagsApi')
 const mockedTagsApi = TagsApi as jest.Mocked<typeof TagsApi>
 
 jest.mock('notistack')
-const mockedNotistack = notistack as jest.Mocked<typeof notistack>
-mockedNotistack.useSnackbar.mockImplementation(() => ({
-  enqueueSnackbar: jest.fn(),
-  closeSnackbar: jest.fn(),
-}))
+beforeEach(() => {
+  const mockedNotistack = notistack as jest.Mocked<typeof notistack>
+  mockedNotistack.useSnackbar.mockImplementation(() => ({
+    enqueueSnackbar: jest.fn(),
+    closeSnackbar: jest.fn(),
+  }))
+})
 
 const renderExperimentPageView = async ({ experiment: experimentOverrides = {} }, view: ExperimentView) => {
   const experiment = Fixtures.createExperimentFull(experimentOverrides)

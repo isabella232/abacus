@@ -17,10 +17,12 @@ const mockedExperimentsApi = ExperimentsApi as jest.Mocked<typeof ExperimentsApi
 
 jest.mock('notistack')
 const mockedNotistack = notistack as jest.Mocked<typeof notistack>
-mockedNotistack.useSnackbar.mockImplementation(() => ({
-  enqueueSnackbar: jest.fn(),
-  closeSnackbar: jest.fn(),
-}))
+beforeEach(() => {
+  mockedNotistack.useSnackbar.mockImplementation(() => ({
+    enqueueSnackbar: jest.fn(),
+    closeSnackbar: jest.fn(),
+  }))
+})
 
 test('renders as expected', () => {
   const experimentReloadRef: React.MutableRefObject<() => void> = { current: jest.fn() }

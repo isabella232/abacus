@@ -13,10 +13,12 @@ MockDate.set('2020-07-21')
 
 jest.mock('notistack')
 const mockedNotistack = notistack as jest.Mocked<typeof notistack>
-mockedNotistack.useSnackbar.mockImplementation(() => ({
-  enqueueSnackbar: jest.fn(),
-  closeSnackbar: jest.fn(),
-}))
+beforeEach(() => {
+  mockedNotistack.useSnackbar.mockImplementation(() => ({
+    enqueueSnackbar: jest.fn(),
+    closeSnackbar: jest.fn(),
+  }))
+})
 
 const initialJsDomWindowInnerWidth = window.innerWidth
 afterEach(() => {

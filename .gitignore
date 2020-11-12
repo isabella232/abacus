@@ -53,6 +53,7 @@ typings/
 
 # Next.js build output
 .next
+/build
 
 # IDEs
 .idea/

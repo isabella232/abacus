@@ -13,10 +13,12 @@ const mockedMetricsApi = (MetricsApi as unknown) as jest.Mocked<typeof MetricsAp
 
 jest.mock('notistack')
 const mockedNotistack = notistack as jest.Mocked<typeof notistack>
-mockedNotistack.useSnackbar.mockImplementation(() => ({
-  enqueueSnackbar: jest.fn(),
-  closeSnackbar: jest.fn(),
-}))
+beforeEach(() => {
+  mockedNotistack.useSnackbar.mockImplementation(() => ({
+    enqueueSnackbar: jest.fn(),
+    closeSnackbar: jest.fn(),
+  }))
+})
 
 test('with no metrics, renders an empty table', () => {
   const { container, getByText } = render(<MetricsTable metrics={[]} />)
