@@ -30,6 +30,7 @@ export const isE2eTestBuild = process.env.REACT_APP_E2E_TEST_BUILD === 'true'
  */
 export const isTestingProductionConfigInDevelopment = process.env.REACT_APP_PRODUCTION_CONFIG_IN_DEVELOPMENT === 'true'
 
+// istanbul ignore next; Development only
 if (isE2eTestBuild && isTestingProductionConfigInDevelopment) {
   throw new Error('Invalid config switch combination: isE2ETestBuild && isTestingProductionConfigInDevelopment')
 }
