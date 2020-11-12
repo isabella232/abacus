@@ -93,7 +93,7 @@ function App() {
     }
   }, [])
 
-  if (typeof window !== 'undefined' && config.experimentApi.needsAuth && window.location.pathname !== '/auth') {
+  if (config.experimentApi.needsAuth && window.location.pathname !== '/auth') {
     // Prompt user for authorization if we don't have auth info.
     const experimentsAuthInfo = getExperimentsAuthInfo()
     if (!experimentsAuthInfo) {
