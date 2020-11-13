@@ -37,11 +37,6 @@ const AuthPage = function AuthPage(): JSX.Element {
 
   const [error, setError] = useState<null | string>(null)
   useEffect(() => {
-    // This is needed because of server-side rendering
-    if (typeof window === 'undefined') {
-      return
-    }
-
     if (!window.location.hash || window.location.hash.length === 0) {
       console.error('Authentication Error:', 'Missing hash in auth callback url.')
       setError(`An unknown error has occurred: Missing hash in auth callback url.`)
