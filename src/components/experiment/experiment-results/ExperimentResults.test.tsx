@@ -2,7 +2,7 @@ import { fireEvent, getAllByText, getByText, waitFor } from '@testing-library/re
 import React from 'react'
 import Plot from 'react-plotly.js'
 
-import ExperimentResults from 'src/components/experiment-results/ExperimentResults'
+import ExperimentResults from 'src/components/experiment/experiment-results/ExperimentResults'
 import { MetricParameterType } from 'src/lib/schemas'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'

@@ -7,7 +7,7 @@ import { TextField } from 'formik-material-ui'
 import React from 'react'
 
 import { CompletionBag } from 'src/api/AutocompleteApi'
-import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/Autocomplete'
+import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/platform-general/Autocomplete'
 import {
   MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS,
   MAX_DISTANCE_BETWEEN_START_AND_END_DATE_IN_MONTHS,

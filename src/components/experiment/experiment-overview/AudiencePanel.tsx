@@ -3,9 +3,9 @@ import { TableCellProps } from '@material-ui/core/TableCell'
 import _ from 'lodash'
 import React, { useMemo } from 'react'
 
-import LabelValueTable from 'src/components/LabelValueTable'
-import SegmentsTable from 'src/components/SegmentsTable'
-import VariationsTable from 'src/components/VariationsTable'
+import SegmentsTable from 'src/components/experiment/experiment-overview/SegmentsTable'
+import VariationsTable from 'src/components/experiment/experiment-overview/VariationsTable'
+import LabelValueTable from 'src/components/platform-general/LabelValueTable'
 import { ExperimentFull, Segment, SegmentAssignment, SegmentType, TagBare } from 'src/lib/schemas'
 import theme from 'src/styles/theme'
 

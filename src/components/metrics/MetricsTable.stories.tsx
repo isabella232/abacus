@@ -1,8 +1,8 @@
 import React from 'react'
 
-import MetricsTable from 'src/components/MetricsTable'
+import MetricsTable from 'src/components/metrics/MetricsTable'
 
-import Fixtures from '../test-helpers/fixtures'
+import Fixtures from '../../test-helpers/fixtures'
 
 export default { title: 'MetricsTable' }
 export const withNoMetrics = (): JSX.Element => <MetricsTable metrics={[]} />

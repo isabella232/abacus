@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 
-import DebugOutput from 'src/components/DebugOutput'
+import DebugOutput from 'src/components/platform-general/DebugOutput'
 import * as Experiments from 'src/lib/experiments'
 import * as MetricAssignments from 'src/lib/metric-assignments'
 import { indexMetrics } from 'src/lib/normalizers'

@@ -10,7 +10,7 @@ import { getEventNameCompletions, getUserCompletions } from 'src/api/Autocomplet
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'
 import SegmentsApi from 'src/api/SegmentsApi'
-import ExperimentForm from 'src/components/experiment-creation/ExperimentForm'
+import ExperimentForm from 'src/components/experiment/experiment-creation/ExperimentForm'
 import Layout from 'src/components/Layout'
 import { experimentToFormData } from 'src/lib/form-data'
 import * as Normalizers from 'src/lib/normalizers'

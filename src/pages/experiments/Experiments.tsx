@@ -3,7 +3,7 @@ import debugFactory from 'debug'
 import React from 'react'
 
 import ExperimentsApi from 'src/api/ExperimentsApi'
-import ExperimentsTable from 'src/components/ExperimentsTable'
+import ExperimentsTable from 'src/components/experiment/experiment-table/ExperimentsTable'
 import Layout from 'src/components/Layout'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 

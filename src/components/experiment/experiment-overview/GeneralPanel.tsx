@@ -22,13 +22,13 @@ import React, { useState } from 'react'
 import * as yup from 'yup'
 
 import ExperimentsApi from 'src/api/ExperimentsApi'
-import DatetimeText from 'src/components/DatetimeText'
-import ExperimentStatus from 'src/components/ExperimentStatus'
-import LabelValueTable from 'src/components/LabelValueTable'
+import ExperimentStatus from 'src/components/experiment/ExperimentStatus'
+import DatetimeText from 'src/components/platform-general/DatetimeText'
+import LabelValueTable from 'src/components/platform-general/LabelValueTable'
 import { ExperimentFull, experimentFullSchema, Status, yupPick } from 'src/lib/schemas'
 import { formatIsoDate } from 'src/utils/time'
 
-import LoadingButtonContainer from './LoadingButtonContainer'
+import LoadingButtonContainer from '../../platform-general/LoadingButtonContainer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

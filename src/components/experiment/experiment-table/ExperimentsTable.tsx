@@ -4,11 +4,11 @@ import MaterialTable from 'material-table'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import DatetimeText from 'src/components/DatetimeText'
+import DatetimeText from 'src/components/platform-general/DatetimeText'
 import { ExperimentBare } from 'src/lib/schemas'
 import { defaultTableOptions } from 'src/utils/material-table'
 
-import ExperimentStatus from './ExperimentStatus'
+import ExperimentStatus from '../ExperimentStatus'
 
 const debug = debugFactory('abacus:components/ExperimentsTable.tsx')
 

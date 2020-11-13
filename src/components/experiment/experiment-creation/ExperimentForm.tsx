@@ -9,7 +9,7 @@ import { CompletionBag } from 'src/api/AutocompleteApi'
 import { ExperimentFormData } from 'src/lib/form-data'
 import { experimentFullNewSchema, MetricBare, Segment } from 'src/lib/schemas'
 
-import LoadingButtonContainer from '../LoadingButtonContainer'
+import LoadingButtonContainer from '../../platform-general/LoadingButtonContainer'
 import Audience from './Audience'
 import BasicInfo from './BasicInfo'
 import Beginning from './Beginning'
