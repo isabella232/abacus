@@ -96,7 +96,7 @@ jobs:
           command: npm run test:integration -- --ci
       - run:
           name: End-to-End Testing
-          command: npm run test:e2e -- --ci
+          command: GENERATE_SOURCEMAP=false npm run test:e2e -- --ci
 
 workflows:
   build-and-test:
