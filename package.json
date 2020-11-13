@@ -106,7 +106,7 @@
   },
   "scripts": {
     "build": "react-scripts --max_old_space_size=4096 build",
-    "dev": "react-scripts start",
+    "dev": "react-scripts --max_old_space_size=4096 start",
     "docker-build": "docker build -t abacus .",
     "docker-start": "docker run -p 8888:3000 abacus:latest",
     "eject": "react-scripts eject",
