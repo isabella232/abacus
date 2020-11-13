@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { act, screen, waitFor } from '@testing-library/react'
 import MockDate from 'mockdate'
-import * as notistack from 'notistack'
 import React from 'react'
 
 import AnalysesApi from 'src/api/AnalysesApi'
@@ -31,15 +30,6 @@ const mockedAnalysesApi = AnalysesApi as jest.Mocked<typeof AnalysesApi>
 
 jest.mock('src/api/TagsApi')
 const mockedTagsApi = TagsApi as jest.Mocked<typeof TagsApi>
-
-jest.mock('notistack')
-beforeEach(() => {
-  const mockedNotistack = notistack as jest.Mocked<typeof notistack>
-  mockedNotistack.useSnackbar.mockImplementation(() => ({
-    enqueueSnackbar: jest.fn(),
-    closeSnackbar: jest.fn(),
-  }))
-})
 
 const renderExperimentPageView = async ({ experiment: experimentOverrides = {} }, view: ExperimentView) => {
   const experiment = Fixtures.createExperimentFull(experimentOverrides)
