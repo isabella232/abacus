@@ -1,8 +1,9 @@
-import { createStyles, LinearProgress, makeStyles, Theme, Typography } from '@material-ui/core'
+import { LinearProgress } from '@material-ui/core'
 import debugFactory from 'debug'
-import { useRouter } from 'next/router'
+import _ from 'lodash'
 import { useSnackbar } from 'notistack'
 import React from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
 import { getEventNameCompletions, getUserCompletions } from 'src/api/AutocompleteApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
@@ -13,28 +14,23 @@ import ExperimentForm from 'src/components/experiment-creation/ExperimentForm'
 import Layout from 'src/components/Layout'
 import { experimentToFormData } from 'src/lib/form-data'
 import * as Normalizers from 'src/lib/normalizers'
-import { ExperimentFullNew, TagNamespace } from 'src/lib/schemas'
+import { ExperimentFull, ExperimentFullNew, TagNamespace } from 'src/lib/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
-import { or } from 'src/utils/general'
+import { createUnresolvingPromise, or, parseIdSlug } from 'src/utils/general'
 
-const debug = debugFactory('abacus:pages/experiments/new.tsx')
+const debug = debugFactory('abacus:pages/experiments/[id]/results.tsx')
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    title: {
-      margin: theme.spacing(3, 0, 0, 0),
-      color: theme.palette.grey.A700,
-    },
-    progress: {
-      marginTop: theme.spacing(2),
-    },
-  }),
-)
+export default function WizardEditPage(): JSX.Element {
+  const history = useHistory()
+  const { experimentIdSlug } = useParams<{ experimentIdSlug: string }>()
+  const experimentId = parseIdSlug(experimentIdSlug)
+  debug(`ExperimentWizardEdit#render ${experimentId}`)
 
-const ExperimentsNewPage = function (): JSX.Element {
-  debug('ExperimentsNewPage#render')
-  const classes = useStyles()
-  const initialExperiment = experimentToFormData({})
+  const { isLoading: experimentIsLoading, data: experiment, error: experimentError } = useDataSource(
+    () => (experimentId ? ExperimentsApi.findById(experimentId) : createUnresolvingPromise<ExperimentFull>()),
+    [experimentId],
+  )
+  useDataLoadingError(experimentError, 'Experiment')
 
   const { isLoading: metricsIsLoading, data: indexedMetrics, error: metricsError } = useDataSource(
     async () => Normalizers.indexMetrics(await MetricsApi.findAll()),
@@ -66,40 +62,37 @@ const ExperimentsNewPage = function (): JSX.Element {
   }
 
   const isLoading = or(
+    experimentIsLoading,
     metricsIsLoading,
     segmentsIsLoading,
     ...Object.values(completionBag).map((dataSource) => dataSource.isLoading),
   )
 
-  const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
   const onSubmit = async (formData: unknown) => {
     try {
+      if (!_.isNumber(experimentId)) {
+        throw Error('This should never occur: Missing experimentId')
+      }
       const { experiment } = formData as { experiment: ExperimentFullNew }
-      const receivedExperiment = await ExperimentsApi.create(experiment)
-      enqueueSnackbar('Experiment Created!', { variant: 'success' })
-      await router.push(
-        '/experiments/[id]/code-setup?freshly_created',
-        `/experiments/${receivedExperiment.experimentId}/code-setup?freshly_created`,
-      )
+      await ExperimentsApi.put(experimentId, experiment)
+      enqueueSnackbar('Experiment Updated!', { variant: 'success' })
+      history.push(`/experiments/${experimentId}?freshly_wizard_edited`)
     } catch (error) {
-      enqueueSnackbar('Failed to create experiment 😨 (Form data logged to console.)', { variant: 'error' })
+      enqueueSnackbar('Failed to update experiment 😨 (Form data logged to console.)', { variant: 'error' })
       console.error(error)
       console.info('Form data:', formData)
     }
   }
 
+  const initialExperiment = experiment && experimentToFormData(experiment)
+
   return (
-    <Layout headTitle='Create an Experiment'>
-      <div className={classes.title}>
-        <Typography variant='h2'>Create an Experiment</Typography>
-      </div>
-      {isLoading && <LinearProgress className={classes.progress} />}
-      {!isLoading && indexedMetrics && indexedSegments && (
+    <Layout title={`Editing Experiment: ${experiment?.name || ''}`}>
+      {isLoading && <LinearProgress />}
+      {!isLoading && initialExperiment && indexedMetrics && indexedSegments && (
         <ExperimentForm {...{ indexedMetrics, indexedSegments, initialExperiment, onSubmit, completionBag }} />
       )}
     </Layout>
   )
 }
-
-export default ExperimentsNewPage

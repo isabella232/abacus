@@ -1,11 +1,12 @@
 import { useTheme } from '@material-ui/core'
 import debugFactory from 'debug'
 import MaterialTable from 'material-table'
-import { useRouter } from 'next/router'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import DatetimeText from 'src/components/DatetimeText'
 import { ExperimentBare } from 'src/lib/schemas'
+import { createIdSlug } from 'src/utils/general'
 import { defaultTableOptions } from 'src/utils/material-table'
 
 import ExperimentStatus from './ExperimentStatus'
@@ -17,12 +18,15 @@ const debug = debugFactory('abacus:components/ExperimentsTable.tsx')
  */
 const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): JSX.Element => {
   debug('ExperimentsTable#render')
-  const router = useRouter()
+  const history = useHistory()
   const theme = useTheme()
 
   /* istanbul ignore next; to be handled by an e2e test */
   const handleRowClick = (event?: React.MouseEvent, rowData?: ExperimentBare) => {
-    void router.push('/experiments/[id]', `/experiments/${rowData?.experimentId ?? ''}`)
+    if (!rowData) {
+      throw new Error('Missing experimentId')
+    }
+    history.push(`/experiments/${createIdSlug(rowData.experimentId, rowData.name)}`)
   }
 
   return (
