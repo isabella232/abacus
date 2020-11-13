@@ -13,7 +13,7 @@ import * as UtilsGeneral from 'src/utils/general'
 import Audience from './Audience'
 import { ExperimentFormCompletionBag } from './ExperimentForm'
 
-jest.mock('src/utils/General')
+jest.mock('src/utils/general')
 const mockedUtilsGeneral = UtilsGeneral as jest.Mocked<typeof UtilsGeneral>
 
 const exclusionGroupCompletions = Fixtures.createTagBares(5).map((tag) => ({
