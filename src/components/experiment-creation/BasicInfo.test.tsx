@@ -45,8 +45,6 @@ test('renders sensible dates as expected', () => {
 
   act(() => {
     fireEvent.change(startDateInput, { target: { value: '2020-07-28' } })
-  })
-  act(() => {
     fireEvent.change(endDateInput, { target: { value: '2020-10-28' } })
   })
   expect(container).toMatchSnapshot()
@@ -63,29 +61,21 @@ test('renders date validation errors as expected', () => {
   const endDateInput = getByLabelText(container, /End date/)
 
   // Start date before today
-  act(() => {
-    fireEvent.change(startDateInput, { target: { value: '2020-07-20' } })
-  })
+  fireEvent.change(startDateInput, { target: { value: '2020-07-20' } })
   expect(container).toMatchSnapshot()
 
   // Start date too far into the future
-  act(() => {
-    fireEvent.change(startDateInput, { target: { value: '2025-07-20' } })
-  })
+  fireEvent.change(startDateInput, { target: { value: '2025-07-20' } })
   expect(container).toMatchSnapshot()
 
   // End date before start date
   act(() => {
     fireEvent.change(startDateInput, { target: { value: '2020-07-28' } })
-  })
-  act(() => {
     fireEvent.change(endDateInput, { target: { value: '2020-07-20' } })
   })
   expect(container).toMatchSnapshot()
 
   // End date too far into the future
-  act(() => {
-    fireEvent.change(endDateInput, { target: { value: '2025-07-21' } })
-  })
+  src/components/experiment-creation/BasicInfo.test.tsxfireEvent.change(endDateInput, { target: { value: '2025-07-21' } })
   expect(container).toMatchSnapshot()
 })
