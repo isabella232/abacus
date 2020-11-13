@@ -14,7 +14,6 @@ MockDate.set('2020-07-21')
 jest.mock('src/api/ExperimentsApi')
 const mockedExperimentsApi = ExperimentsApi as jest.Mocked<typeof ExperimentsApi>
 
-
 test('renders as expected', () => {
   const experimentReloadRef: React.MutableRefObject<() => void> = { current: jest.fn() }
   const experiment = Fixtures.createExperimentFull()

@@ -76,6 +76,6 @@ test('renders date validation errors as expected', () => {
   expect(container).toMatchSnapshot()
 
   // End date too far into the future
-  src/components/experiment-creation/BasicInfo.test.tsxfireEvent.change(endDateInput, { target: { value: '2025-07-21' } })
+  fireEvent.change(endDateInput, { target: { value: '2025-07-21' } })
   expect(container).toMatchSnapshot()
 })
