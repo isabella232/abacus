@@ -586,17 +586,10 @@ exports[`renders as expected 1`] = `
         class="MuiFormControl-root"
       >
         <label
-          class="MuiFormLabel-root Mui-required"
+          class="MuiFormLabel-root"
           for="experiment.exclusionGroupTagIds"
         >
           Exclusion Groups
-          <span
-            aria-hidden="true"
-            class="MuiFormLabel-asterisk"
-          >
-             
-            *
-          </span>
         </label>
         <p
           class="MuiFormHelperText-root"
@@ -623,7 +616,6 @@ exports[`renders as expected 1`] = `
                 autocomplete="off"
                 class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                 id="experiment.exclusionGroupTagIds"
-                required=""
                 spellcheck="false"
                 type="text"
                 value=""
@@ -1312,17 +1304,10 @@ exports[`renders as expected 2`] = `
         class="MuiFormControl-root"
       >
         <label
-          class="MuiFormLabel-root Mui-required"
+          class="MuiFormLabel-root"
           for="experiment.exclusionGroupTagIds"
         >
           Exclusion Groups
-          <span
-            aria-hidden="true"
-            class="MuiFormLabel-asterisk"
-          >
-             
-            *
-          </span>
         </label>
         <p
           class="MuiFormHelperText-root"
@@ -1371,7 +1356,6 @@ exports[`renders as expected 2`] = `
                 autocomplete="off"
                 class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                 id="experiment.exclusionGroupTagIds"
-                required=""
                 spellcheck="false"
                 type="text"
                 value=""

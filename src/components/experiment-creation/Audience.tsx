@@ -286,9 +286,7 @@ const Audience = ({
       {isDebugMode() && (
         <div className={classes.row}>
           <FormControl component='fieldset'>
-            <FormLabel htmlFor='experiment.exclusionGroupTagIds' required>
-              Exclusion Groups
-            </FormLabel>
+            <FormLabel htmlFor='experiment.exclusionGroupTagIds'>Exclusion Groups</FormLabel>
             <FormHelperText>Add this experiment to a mutually exclusive experiment group.</FormHelperText>
             <br />
             <Field
@@ -307,7 +305,6 @@ const Audience = ({
                 <MuiTextField
                   {...params}
                   variant='outlined'
-                  required
                   InputProps={{
                     ...autocompleteInputProps(params, completionBag.exclusionGroupCompletionDataSource.isLoading),
                   }}
