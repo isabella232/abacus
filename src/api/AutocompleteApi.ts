@@ -1,13 +1,7 @@
 import { fetchApi } from 'src/api/utils'
 import { AutocompleteItem, autocompleteSchema, eventDetailsSchema } from 'src/lib/schemas'
-import { DataSourceResult } from 'src/utils/data-loading'
 
 import NotFoundError from './NotFoundError'
-
-export interface CompletionBag {
-  userCompletionDataSource: DataSourceResult<AutocompleteItem[]>
-  eventCompletionDataSource: DataSourceResult<AutocompleteItem[]>
-}
 
 async function getCompletion(name: string) {
   return await autocompleteSchema.validate(await fetchApi('GET', `/autocomplete/${name}`), { abortEarly: false })

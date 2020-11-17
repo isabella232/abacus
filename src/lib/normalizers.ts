@@ -1,6 +1,6 @@
 import { normalize, schema } from 'normalizr'
 
-import { MetricBare, MetricFull, Segment } from './schemas'
+import { MetricBare, MetricFull, Segment, TagBare } from './schemas'
 
 const metricNormalizrSchema = new schema.Entity<MetricBare | MetricFull>('metrics', {}, { idAttribute: 'metricId' })
 
@@ -18,4 +18,13 @@ const segmentNormalizrSchema = new schema.Entity<Segment>('segments', {}, { idAt
  */
 export function indexSegments(segments: Segment[]): Record<number, Segment> {
   return normalize<Segment>(segments, [segmentNormalizrSchema]).entities.segments || {}
+}
+
+const tagNormalizrSchema = new schema.Entity<TagBare>('tags', {}, { idAttribute: 'tagId' })
+
+/**
+ * Return a mapping from tag ID to the tag object.
+ */
+export function indexTags(tags: TagBare[]): Record<number, TagBare> {
+  return normalize<TagBare>(tags, [tagNormalizrSchema]).entities.tags || {}
 }
