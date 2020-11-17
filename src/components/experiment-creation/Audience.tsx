@@ -287,7 +287,7 @@ const Audience = ({
         <div className={classes.row}>
           <FormControl component='fieldset'>
             <FormLabel htmlFor='experiment.exclusionGroupTagIds'>Exclusion Groups</FormLabel>
-            <FormHelperText>Add this experiment to a mutually exclusive experiment group.</FormHelperText>
+            <FormHelperText>Optionally add this experiment to a mutually exclusive experiment group.</FormHelperText>
             <br />
             <Field
               component={AbacusAutocomplete}

@@ -594,7 +594,7 @@ exports[`renders as expected 1`] = `
         <p
           class="MuiFormHelperText-root"
         >
-          Add this experiment to a mutually exclusive experiment group.
+          Optionally add this experiment to a mutually exclusive experiment group.
         </p>
         <br />
         <div
@@ -1312,7 +1312,7 @@ exports[`renders as expected 2`] = `
         <p
           class="MuiFormHelperText-root"
         >
-          Add this experiment to a mutually exclusive experiment group.
+          Optionally add this experiment to a mutually exclusive experiment group.
         </p>
         <br />
         <div
