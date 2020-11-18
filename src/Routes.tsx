@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 
 import AuthCallback from 'src/pages/AuthCallback'
 import Experiment from 'src/pages/experiments/Experiment'
-import ExperimentNew from 'src/pages/experiments/ExperimentNew'
 import Experiments from 'src/pages/experiments/Experiments'
-import ExperimentWizardEdit from 'src/pages/experiments/ExperimentWizardEdit'
+import ExperimentWizard, { ExperimentWizardMode } from 'src/pages/experiments/ExperimentWizard'
 import Metrics from 'src/pages/Metrics'
 import Tags from 'src/pages/Tags'
 
@@ -32,20 +31,20 @@ export default function Routes(): JSX.Element {
         </Route>
 
         <Route path='/experiments/new' exact>
-          <ExperimentNew />
+          <ExperimentWizard experimentWizardMode={ExperimentWizardMode.Create} />
         </Route>
         <Route
-          path='/experiments/:experimentId'
+          path='/experiments/:experimentIdSlug'
           render={({ location, history }) => {
             history.replace(`${location.pathname}/overview`)
             return undefined
           }}
           exact
         />
-        <Route path='/experiments/:experimentId/wizard-edit' exact>
-          <ExperimentWizardEdit />
+        <Route path='/experiments/:experimentIdSlug/wizard-edit' exact>
+          <ExperimentWizard experimentWizardMode={ExperimentWizardMode.Edit} />
         </Route>
-        <Route path='/experiments/:experimentId/:view' exact>
+        <Route path='/experiments/:experimentIdSlug/:view' exact>
           <Experiment />
         </Route>
 

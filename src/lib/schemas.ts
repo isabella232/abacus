@@ -8,7 +8,7 @@ import _ from 'lodash'
 import * as yup from 'yup'
 import { ObjectSchema } from 'yup'
 
-const idSchema = yup.number().integer().positive()
+export const idSchema = yup.number().integer().positive()
 export const nameSchema = yup
   .string()
   .max(128)
@@ -163,6 +163,10 @@ export const metricAssignmentSchema = metricAssignmentNewSchema
   .defined()
   .camelCase()
 export interface MetricAssignment extends yup.InferType<typeof metricAssignmentSchema> {}
+
+export enum TagNamespace {
+  ExclusionGroup = 'exclusion_group',
+}
 
 export const tagBareSchema = yup
   .object({
@@ -357,6 +361,8 @@ export const experimentFullNewOutboundSchema = experimentFullNewSchema
           props: event.props ? _.fromPairs(event.props.map(({ key, value }) => [key, value])) : undefined,
         }),
       ),
+      // The backend doesn't support exclusion groups (it will crash if this is an empty array) so we disable it here:
+      exclusion_group_tag_ids: undefined,
     }),
   )
 
@@ -427,7 +433,7 @@ export interface AnalysisResponse extends yup.InferType<typeof analysisResponseS
 export const autocompleteItemSchema = yup
   .object({
     name: yup.string().defined(),
-    value: yup.string().defined(),
+    value: yup.mixed<number | string>().defined(),
   })
   .required()
 export interface AutocompleteItem extends yup.InferType<typeof autocompleteItemSchema> {}

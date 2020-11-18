@@ -2,11 +2,11 @@ import { act, fireEvent, screen } from '@testing-library/react'
 import { Formik } from 'formik'
 import React from 'react'
 
-import { CompletionBag } from 'src/api/AutocompleteApi'
 import { experimentToFormData } from 'src/lib/form-data'
 import { MetricBare, MetricParameterType } from 'src/lib/schemas'
 import { render } from 'src/test-helpers/test-utils'
 
+import { ExperimentFormCompletionBag } from './ExperimentForm'
 import Metrics from './Metrics'
 
 const indexedMetrics: Record<number, MetricBare> = {
@@ -23,7 +23,7 @@ const indexedMetrics: Record<number, MetricBare> = {
     parameterType: MetricParameterType.Conversion,
   },
 }
-const completionBag: CompletionBag = {
+const completionBag: ExperimentFormCompletionBag = {
   eventCompletionDataSource: {
     isLoading: false,
     data: [
@@ -39,6 +39,12 @@ const completionBag: CompletionBag = {
     isLoading: false,
     data: [],
     error: null,
+    reloadRef: { current: () => undefined },
+  },
+  exclusionGroupCompletionDataSource: {
+    data: [],
+    error: null,
+    isLoading: false,
     reloadRef: { current: () => undefined },
   },
 }

@@ -24,4 +24,15 @@ describe('lib/normalizers.ts module', () => {
       expect(Normalizers.indexSegments(segments)).toEqual({ 1: segments[0], 2: segments[1] })
     })
   })
+
+  describe('indexTags', () => {
+    it('indexes an empty array', () => {
+      expect(Normalizers.indexTags([])).toEqual({})
+    })
+
+    it('indexes an non-empty array', () => {
+      const tags = Fixtures.createTagBares(2)
+      expect(Normalizers.indexTags(tags)).toEqual({ 1: tags[0], 2: tags[1] })
+    })
+  })
 })

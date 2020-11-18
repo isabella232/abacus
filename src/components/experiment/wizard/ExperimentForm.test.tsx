@@ -7,7 +7,6 @@ import MockDate from 'mockdate'
 import React from 'react'
 
 import * as AutocompleteApi from 'src/api/AutocompleteApi'
-import { CompletionBag } from 'src/api/AutocompleteApi'
 import { experimentToFormData } from 'src/lib/form-data'
 import * as Normalizers from 'src/lib/normalizers'
 import { experimentFullNewSchema, Status } from 'src/lib/schemas'
@@ -15,7 +14,7 @@ import Fixtures from 'src/test-helpers/fixtures'
 import { changeFieldByRole, render, validationErrorDisplayer } from 'src/test-helpers/test-utils'
 import { formatIsoDate } from 'src/utils/time'
 
-import ExperimentForm from './ExperimentForm'
+import ExperimentForm, { ExperimentFormCompletionBag } from './ExperimentForm'
 
 jest.mock('src/api/AutocompleteApi')
 const mockedAutocompleteApi = AutocompleteApi as jest.Mocked<typeof AutocompleteApi>
@@ -47,7 +46,11 @@ function isSectionComplete(sectionButton: HTMLElement) {
   return !!sectionButton.querySelector('.MuiStepIcon-completed')
 }
 
-const completionBag: CompletionBag = {
+const exclusionGroupCompletions = Fixtures.createTagBares(5).map((tag) => ({
+  name: tag.name,
+  value: tag.tagId,
+}))
+const completionBag: ExperimentFormCompletionBag = {
   userCompletionDataSource: {
     isLoading: false,
     error: null,
@@ -68,6 +71,12 @@ const completionBag: CompletionBag = {
         value: 'event_name',
       },
     ],
+    reloadRef: { current: () => undefined },
+  },
+  exclusionGroupCompletionDataSource: {
+    data: exclusionGroupCompletions,
+    error: null,
+    isLoading: false,
     reloadRef: { current: () => undefined },
   },
 }
@@ -497,6 +506,7 @@ test('form submits with valid fields', async () => {
       description: 'experiment description',
       startDatetime: formatIsoDate(now),
       endDatetime: formatIsoDate(nextWeek),
+      exclusionGroupTagIds: [],
       ownerLogin: 'owner-nickname',
       platform: 'wpcom',
       existingUsersAllowed: 'true',

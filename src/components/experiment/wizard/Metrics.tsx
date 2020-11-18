@@ -22,12 +22,14 @@ import { Field, FieldArray, useField } from 'formik'
 import { Select, Switch, TextField } from 'formik-material-ui'
 import React, { useState } from 'react'
 
-import { CompletionBag, getPropNameCompletions } from 'src/api/AutocompleteApi'
+import { getPropNameCompletions } from 'src/api/AutocompleteApi'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
 import MoreMenu from 'src/components/general/MoreMenu'
 import { AttributionWindowSecondsToHuman } from 'src/lib/metric-assignments'
 import { EventNew, MetricAssignment, MetricBare, MetricParameterType } from 'src/lib/schemas'
 import { useDataSource } from 'src/utils/data-loading'
+
+import { ExperimentFormCompletionBag } from './ExperimentForm'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -130,7 +132,7 @@ const EventEditor = ({
   onRemoveExposureEvent,
 }: {
   index: number
-  completionBag: CompletionBag
+  completionBag: ExperimentFormCompletionBag
   exposureEvent: EventNew
   onRemoveExposureEvent: () => void
 }) => {
@@ -273,7 +275,7 @@ const Metrics = ({
   completionBag,
 }: {
   indexedMetrics: Record<number, MetricBare>
-  completionBag: CompletionBag
+  completionBag: ExperimentFormCompletionBag
 }): JSX.Element => {
   const classes = useStyles()
   const metricEditorClasses = useMetricEditorStyles()

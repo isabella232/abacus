@@ -5,7 +5,7 @@ import React from 'react'
 import { getEventNameCompletions, getUserCompletions } from 'src/api/AutocompleteApi'
 import { experimentToFormData } from 'src/lib/form-data'
 import * as Normalizers from 'src/lib/normalizers'
-import { Platform, Status } from 'src/lib/schemas'
+import { AutocompleteItem, Platform, Status } from 'src/lib/schemas'
 import Fixtures from 'src/test-helpers/fixtures'
 import { useDataSource } from 'src/utils/data-loading'
 
@@ -17,6 +17,10 @@ export const Form = (): JSX.Element => {
   const completionBag = {
     userCompletionDataSource: useDataSource(getUserCompletions, []),
     eventCompletionDataSource: useDataSource(getEventNameCompletions, []),
+    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(
+      () => new Promise((resolve) => resolve([])),
+      [],
+    ),
   }
   return (
     <ExperimentForm
@@ -33,6 +37,10 @@ export const FormWithExistingExperiment = (): JSX.Element => {
   const completionBag = {
     userCompletionDataSource: useDataSource(getUserCompletions, []),
     eventCompletionDataSource: useDataSource(getEventNameCompletions, []),
+    exclusionGroupCompletionDataSource: useDataSource<AutocompleteItem[], [], Error>(
+      () => new Promise((resolve) => resolve([])),
+      [],
+    ),
   }
   return (
     <ExperimentForm
