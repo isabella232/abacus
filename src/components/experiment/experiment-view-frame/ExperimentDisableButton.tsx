@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import { ExperimentFull, Status } from 'src/lib/schemas'
 
-import LoadingButtonContainer from '../../platform-general/LoadingButtonContainer'
+import LoadingButtonContainer from '../../general/LoadingButtonContainer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

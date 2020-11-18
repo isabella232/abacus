@@ -23,12 +23,12 @@ import * as yup from 'yup'
 
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import ExperimentStatus from 'src/components/experiment/ExperimentStatus'
-import DatetimeText from 'src/components/platform-general/DatetimeText'
-import LabelValueTable from 'src/components/platform-general/LabelValueTable'
+import DatetimeText from 'src/components/general/DatetimeText'
+import LabelValueTable from 'src/components/general/LabelValueTable'
 import { ExperimentFull, experimentFullSchema, Status, yupPick } from 'src/lib/schemas'
 import { formatIsoDate } from 'src/utils/time'
 
-import LoadingButtonContainer from '../../platform-general/LoadingButtonContainer'
+import LoadingButtonContainer from '../../general/LoadingButtonContainer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

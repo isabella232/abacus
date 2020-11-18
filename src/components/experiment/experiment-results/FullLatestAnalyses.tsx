@@ -4,7 +4,7 @@ import MaterialTable from 'material-table'
 import React from 'react'
 
 import RecommendationString from 'src/components/experiment/experiment-results/RecommendationString'
-import DatetimeText from 'src/components/platform-general/DatetimeText'
+import DatetimeText from 'src/components/general/DatetimeText'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from 'src/lib/analyses'
 import { AttributionWindowSecondsToHuman } from 'src/lib/metric-assignments'
 import { Analysis, ExperimentFull } from 'src/lib/schemas'

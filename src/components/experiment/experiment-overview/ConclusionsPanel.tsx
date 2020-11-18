@@ -23,8 +23,8 @@ import React, { useState } from 'react'
 import * as yup from 'yup'
 
 import ExperimentsApi from 'src/api/ExperimentsApi'
-import LabelValueTable from 'src/components/platform-general/LabelValueTable'
-import LoadingButtonContainer from 'src/components/platform-general/LoadingButtonContainer'
+import LabelValueTable from 'src/components/general/LabelValueTable'
+import LoadingButtonContainer from 'src/components/general/LoadingButtonContainer'
 import * as Experiments from 'src/lib/experiments'
 import { ExperimentFull, experimentFullSchema, yupPick } from 'src/lib/schemas'
 

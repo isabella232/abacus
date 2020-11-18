@@ -5,7 +5,7 @@ import React, { useMemo } from 'react'
 
 import SegmentsTable from 'src/components/experiment/experiment-overview/SegmentsTable'
 import VariationsTable from 'src/components/experiment/experiment-overview/VariationsTable'
-import LabelValueTable from 'src/components/platform-general/LabelValueTable'
+import LabelValueTable from 'src/components/general/LabelValueTable'
 import { ExperimentFull, Segment, SegmentAssignment, SegmentType, TagBare } from 'src/lib/schemas'
 import theme from 'src/styles/theme'
 

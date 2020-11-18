@@ -7,7 +7,7 @@ import React, { useEffect } from 'react'
 import { MetricFormData } from 'src/lib/form-data'
 import { MetricParameterType } from 'src/lib/schemas'
 
-import DebugOutput from '../platform-general/DebugOutput'
+import DebugOutput from '../general/DebugOutput'
 
 const useJsonTextFieldStyles = makeStyles((_theme: Theme) =>
   createStyles({

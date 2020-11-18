@@ -9,7 +9,7 @@ import AbacusAutocomplete, {
   autocompleteAttributes,
   autocompleteInputProps,
   getOptionValue,
-} from 'src/components/platform-general/Autocomplete'
+} from 'src/components/general/Autocomplete'
 import { AutocompleteItem } from 'src/lib/schemas'
 import { changeFieldByRole, MockFormik } from 'src/test-helpers/test-utils'
 
