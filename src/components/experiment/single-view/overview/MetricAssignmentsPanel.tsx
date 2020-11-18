@@ -43,7 +43,7 @@ import {
 } from 'src/lib/schemas'
 import { formatBoolean, formatUsCurrencyDollar } from 'src/utils/formatters'
 
-import LoadingButtonContainer from '../../general/LoadingButtonContainer'
+import LoadingButtonContainer from '../../../general/LoadingButtonContainer'
 
 /**
  * Resolves the metric ID of the metric assignment with the actual metric. If the

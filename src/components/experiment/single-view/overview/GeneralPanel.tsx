@@ -28,7 +28,7 @@ import LabelValueTable from 'src/components/general/LabelValueTable'
 import { ExperimentFull, experimentFullSchema, Status, yupPick } from 'src/lib/schemas'
 import { formatIsoDate } from 'src/utils/time'
 
-import LoadingButtonContainer from '../../general/LoadingButtonContainer'
+import LoadingButtonContainer from '../../../general/LoadingButtonContainer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

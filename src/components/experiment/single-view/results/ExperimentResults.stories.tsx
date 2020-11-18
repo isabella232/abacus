@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ExperimentResults from 'src/components/experiment/experiment-results/ExperimentResults'
+import ExperimentResults from 'src/components/experiment/single-view/results/ExperimentResults'
 import Fixtures from 'src/test-helpers/fixtures'
 
 export default { title: 'Experiment results' }
