@@ -19,17 +19,17 @@ import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'
 import SegmentsApi from 'src/api/SegmentsApi'
 import TagsApi from 'src/api/TagsApi'
-import ExperimentDetails from 'src/components/experiment/single-view/overview/ExperimentDetails'
-import ExperimentDisableButton from 'src/components/experiment/single-view/ExperimentDisableButton'
 import ExperimentCodeSetup from 'src/components/experiment/ExperimentCodeSetup'
+import ExperimentDisableButton from 'src/components/experiment/single-view/ExperimentDisableButton'
+import ExperimentDetails from 'src/components/experiment/single-view/overview/ExperimentDetails'
 import Layout from 'src/components/Layout'
 import { Analysis, ExperimentFull, Status } from 'src/lib/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { createUnresolvingPromise, or } from 'src/utils/general'
 
+import ExperimentRunButton from '../single-view/ExperimentRunButton'
 import ExperimentDebug from './results/ExperimentDebug'
 import ExperimentResults from './results/ExperimentResults'
-import ExperimentRunButton from '../single-view/ExperimentRunButton'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

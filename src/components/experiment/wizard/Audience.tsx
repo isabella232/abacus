@@ -25,14 +25,13 @@ import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete }
 import _ from 'lodash'
 import React, { useCallback, useState } from 'react'
 
+import { ExperimentFormCompletionBag } from 'src/components/experiment/wizard/ExperimentForm'
+import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
 import { PlatformToHuman } from 'src/lib/experiments'
 import { ExperimentFormData } from 'src/lib/form-data'
 import { AutocompleteItem, Platform, Segment, SegmentAssignmentNew } from 'src/lib/schemas'
 import { SegmentTypeToHuman } from 'src/lib/segments'
 import { isDebugMode } from 'src/utils/general'
-
-import AbacusAutocomplete, { autocompleteInputProps } from '../Autocomplete'
-import { ExperimentFormCompletionBag } from './ExperimentForm'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
