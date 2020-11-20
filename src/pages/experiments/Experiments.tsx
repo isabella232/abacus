@@ -3,8 +3,8 @@ import debugFactory from 'debug'
 import React from 'react'
 
 import ExperimentsApi from 'src/api/ExperimentsApi'
-import ExperimentsTable from 'src/components/ExperimentsTable'
-import Layout from 'src/components/Layout'
+import ExperimentsTable from 'src/components/experiments/multi-view/ExperimentsTable'
+import Layout from 'src/components/page-parts/Layout'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 
 const debug = debugFactory('abacus:pages/experiments/Experiments.tsx')
