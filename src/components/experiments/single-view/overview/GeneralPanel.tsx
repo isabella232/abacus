@@ -22,7 +22,7 @@ import React, { useState } from 'react'
 import * as yup from 'yup'
 
 import ExperimentsApi from 'src/api/ExperimentsApi'
-import ExperimentStatus from 'src/components/experiment/ExperimentStatus'
+import ExperimentStatus from 'src/components/experiments/ExperimentStatus'
 import DatetimeText from 'src/components/general/DatetimeText'
 import LabelValueTable from 'src/components/general/LabelValueTable'
 import { ExperimentFull, experimentFullSchema, Status, yupPick } from 'src/lib/schemas'

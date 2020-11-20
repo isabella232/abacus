@@ -3,7 +3,7 @@ import _, { last } from 'lodash'
 import MaterialTable from 'material-table'
 import React from 'react'
 
-import RecommendationString from 'src/components/experiment/single-view/results/RecommendationString'
+import RecommendationString from 'src/components/experiments/single-view/results/RecommendationString'
 import DatetimeText from 'src/components/general/DatetimeText'
 import { AnalysisStrategyToHuman, RecommendationWarningToHuman } from 'src/lib/analyses'
 import { AttributionWindowSecondsToHuman } from 'src/lib/metric-assignments'

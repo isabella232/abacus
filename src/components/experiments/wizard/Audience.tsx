@@ -25,7 +25,7 @@ import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete }
 import _ from 'lodash'
 import React, { useCallback, useState } from 'react'
 
-import { ExperimentFormCompletionBag } from 'src/components/experiment/wizard/ExperimentForm'
+import { ExperimentFormCompletionBag } from 'src/components/experiments/wizard/ExperimentForm'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
 import { PlatformToHuman } from 'src/lib/experiments'
 import { ExperimentFormData } from 'src/lib/form-data'

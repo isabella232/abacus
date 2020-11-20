@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ExperimentDebug from 'src/components/experiment/single-view/results/ExperimentDebug'
+import ExperimentDebug from 'src/components/experiments/single-view/results/ExperimentDebug'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'
 

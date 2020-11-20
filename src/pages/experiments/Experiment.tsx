@@ -3,7 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import * as yup from 'yup'
 
-import ExperimentPageView, { ExperimentView } from 'src/components/experiment/single-view/ExperimentPageView'
+import ExperimentPageView, { ExperimentView } from 'src/components/experiments/single-view/ExperimentPageView'
 import { isDebugMode, parseIdSlug } from 'src/utils/general'
 
 const debug = debugFactory('abacus:pages/experiments/Experiment.tsx')
