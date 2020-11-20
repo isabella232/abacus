@@ -17,7 +17,7 @@ import * as yup from 'yup'
 
 import TagsApi from 'src/api/TagsApi'
 import LoadingButtonContainer from 'src/components/general/LoadingButtonContainer'
-import Layout from 'src/components/Layout'
+import Layout from 'src/components/page-parts/Layout'
 import TagFormFields from 'src/components/tags/TagFormFields'
 import TagsTable from 'src/components/tags/TagsTable'
 import { TagFormData, tagToFormData } from 'src/lib/form-data'

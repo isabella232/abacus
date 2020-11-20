@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { RenderError } from 'src/components/RenderErrorBoundary'
+import type { RenderError } from 'src/components/page-parts/RenderErrorBoundary'
 
 export default function (props: { renderError: RenderError }): JSX.Element {
   return (

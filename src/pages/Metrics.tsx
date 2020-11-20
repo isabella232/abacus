@@ -17,7 +17,7 @@ import * as yup from 'yup'
 
 import MetricsApi from 'src/api/MetricsApi'
 import LoadingButtonContainer from 'src/components/general/LoadingButtonContainer'
-import Layout from 'src/components/Layout'
+import Layout from 'src/components/page-parts/Layout'
 import MetricFormFields from 'src/components/metrics/MetricFormFields'
 import MetricsTable from 'src/components/metrics/MetricsTable'
 import { MetricFormData, metricToFormData } from 'src/lib/form-data'
