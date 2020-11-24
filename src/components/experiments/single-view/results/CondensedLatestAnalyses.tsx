@@ -85,10 +85,10 @@ export default function CondensedLatestAnalyses({
         .map(
           (analyses) =>
             //  istanbul ignore next; We don't need to test empty analyses as we filter out all undefined values
-            _.last(analyses)?.recommendation.chosenVariationId,
+            _.last(analyses)?.recommendation,
         )
         .filter((recommendation) => !!recommendation)
-      const uniqueRecommendations = _.uniq(recommendations.map((recommendation) => JSON.stringify(recommendation)))
+      const recommendationConflict = _.uniq(recommendations.map((recommendation) => recommendation.chosenVariationId)) > 1
 
       return {
         metricAssignment,
